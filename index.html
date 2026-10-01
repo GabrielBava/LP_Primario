@@ -1,0 +1,1821 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ============================================================
+     SEO — troque "Sua Marca" pelo nome da empresa
+     ============================================================ -->
+<title>Sua Marca | Consórcio de Imóveis, Veículos e Investimentos — Simule Agora</title>
+<meta name="description" content="Simule seu consórcio em 1 minuto. Conquiste imóveis, veículos e investimentos sem juros e sem entrada, com estratégia de contemplação e acompanhamento do início ao fim.">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0A1F3D">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Consórcio com estratégia: conquiste sem pagar juros | Sua Marca">
+<meta property="og:description" content="Simule seu consórcio de imóvel, veículo ou investimento e receba um plano personalizado.">
+<!-- <meta property="og:image" content="https://seudominio.com.br/assets/img/og.jpg"> -->
+
+<!-- ============================================================
+     RASTREAMENTO — cole aqui o Google Tag Manager / Meta Pixel.
+     O simulador já dispara eventos no window.dataLayer:
+       simulacao_iniciada, simulacao_etapa1, lead_simulacao
+     ============================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   TOKENS — para aplicar a identidade visual da marca,
+   basta trocar as cores abaixo.
+   ============================================================ */
+:root{
+  --navy-950:#06152B; --navy-900:#0A1F3D; --navy-800:#0F2A50; --navy-700:#173A68; --navy-600:#22508C;
+  --gold-200:#F7E7C4; --gold-300:#F1D49A; --gold-400:#E6BD6A; --gold-500:#D4A145; --gold-600:#B5852E; --gold-700:#8C6420;
+  --ink:#0E1A2B; --ink-2:#3E4C63; --muted:#66758C; --line:#E2E7EF; --line-2:#EEF1F6;
+  --bg:#FFFFFF; --bg-soft:#F4F6FA; --cream:#FBF7EE;
+  --ok:#15803D; --err:#C62828; --wa:#25D366; --wa-dark:#128C7E;
+  --r-sm:10px; --r:16px; --r-lg:24px;
+  --sh-sm:0 2px 10px rgba(10,31,61,.06);
+  --sh:0 18px 40px -18px rgba(10,31,61,.22);
+  --sh-lg:0 40px 80px -30px rgba(3,10,22,.65);
+  --maxw:1200px; --hdr:74px;
+  --font:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--font);color:var(--ink);background:var(--bg);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block;height:auto}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--gold-400);outline-offset:2px;border-radius:6px}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.ic{width:24px;height:24px;flex:0 0 auto;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.ic-sm{width:18px;height:18px}
+.gold{color:var(--gold-500)}
+section[id]{scroll-margin-top:calc(var(--hdr) + 8px)}
+
+/* ---------- Tipografia de seção ---------- */
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.74rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-600);margin-bottom:14px}
+.eyebrow::before{content:"";width:26px;height:2px;background:currentColor;border-radius:2px}
+.center .eyebrow::after{content:"";width:26px;height:2px;background:currentColor;border-radius:2px}
+.h2{font-size:clamp(1.75rem,3.2vw,2.6rem);font-weight:800;line-height:1.14;letter-spacing:-.02em;color:var(--ink)}
+.lead{font-size:1.06rem;color:var(--muted);max-width:680px;margin-top:16px}
+.center{text-align:center}
+.center .lead{margin-left:auto;margin-right:auto}
+.block{padding:96px 0;position:relative}
+.soft{background:var(--bg-soft)}
+.dark{background:var(--navy-900);color:#fff}
+.dark .h2{color:#fff}
+.dark .lead{color:#B7C3D6}
+.dark .eyebrow{color:var(--gold-400)}
+
+/* ---------- Botões ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-weight:700;font-size:.95rem;padding:15px 26px;border-radius:999px;border:1.5px solid transparent;cursor:pointer;transition:transform .2s,box-shadow .2s,background .2s,border-color .2s,color .2s;white-space:nowrap;line-height:1.2}
+.btn .ic{width:18px;height:18px;transition:transform .2s}
+.btn:hover .ic-arrow{transform:translateX(4px)}
+.btn-gold{background:linear-gradient(135deg,var(--gold-300),var(--gold-500) 55%,var(--gold-600));color:var(--navy-950);box-shadow:0 12px 26px -12px rgba(212,161,69,.9)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 18px 34px -12px rgba(212,161,69,.95)}
+.btn-navy{background:var(--navy-900);color:#fff}
+.btn-navy:hover{background:var(--navy-700);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.35)}
+.btn-ghost:hover{border-color:var(--gold-400);color:var(--gold-300)}
+.btn-outline{background:#fff;color:var(--navy-900);border-color:var(--line)}
+.btn-outline:hover{border-color:var(--gold-500);color:var(--gold-700)}
+.btn-wa{background:var(--wa);color:#06331A}
+.btn-wa:hover{background:#1fbe5a;transform:translateY(-2px)}
+.btn-block{width:100%}
+.btn-sm{padding:11px 20px;font-size:.86rem}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.hdr{position:fixed;inset:0 0 auto 0;z-index:80;height:var(--hdr);background:rgba(10,31,61,.72);backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid rgba(255,255,255,.08);transition:background .3s,box-shadow .3s}
+.hdr.scrolled{background:rgba(6,21,43,.94);box-shadow:0 10px 30px -15px rgba(0,0,0,.5)}
+.nav{height:100%;display:flex;align-items:center;gap:28px}
+.logo{display:inline-flex;align-items:center;gap:11px;color:#fff;flex:0 0 auto}
+.logo-mark{width:40px;height:40px}
+.logo-txt{display:flex;flex-direction:column;line-height:1.05}
+.logo-txt b{font-size:1.06rem;font-weight:800;letter-spacing:.06em}
+.logo-txt small{font-size:.62rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-400);margin-top:3px}
+.menu{display:flex;align-items:center;gap:24px;margin-left:auto}
+.menu a:not(.btn){font-size:.88rem;font-weight:500;color:#C9D3E3;transition:color .2s;position:relative;white-space:nowrap}
+.menu a:not(.btn):hover{color:#fff}
+.menu a:not(.btn)::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:var(--gold-400);transform:scaleX(0);transition:transform .25s;transform-origin:left}
+.menu a:not(.btn):hover::after{transform:scaleX(1)}
+.hamb{display:none;margin-left:auto;width:44px;height:44px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:transparent;color:#fff;cursor:pointer;align-items:center;justify-content:center}
+
+/* ============================================================
+   1 · HERO + SIMULADOR
+   ============================================================ */
+.hero{
+  /* Para usar uma foto de fundo no banner, defina:
+     --hero-img:url('assets/img/banner.jpg');  */
+  --hero-img:none;
+  position:relative;color:#fff;overflow:hidden;
+  padding:calc(var(--hdr) + 56px) 0 88px;
+  background:
+    radial-gradient(900px 520px at 88% 18%,rgba(212,161,69,.20),transparent 60%),
+    radial-gradient(800px 520px at -5% 105%,rgba(34,80,140,.55),transparent 60%),
+    linear-gradient(160deg,var(--navy-900) 0%,var(--navy-950) 100%);
+}
+.hero::before{content:"";position:absolute;inset:0;background:var(--hero-img) center/cover no-repeat;opacity:.22;mix-blend-mode:luminosity;pointer-events:none}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+  background-size:56px 56px;
+  -webkit-mask-image:radial-gradient(ellipse 70% 70% at 70% 30%,#000 20%,transparent 75%);mask-image:radial-gradient(ellipse 70% 70% at 70% 30%,#000 20%,transparent 75%)}
+.hero .wrap{position:relative;z-index:2}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);grid-template-areas:"copy sim" "extra sim";grid-template-rows:auto 1fr;column-gap:64px;align-items:start}
+.hero-copy{grid-area:copy;padding-top:28px}
+.hero-sim{grid-area:sim;display:flex;justify-content:flex-end}
+.hero-extra{grid-area:extra}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:7px 14px 7px 8px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);font-size:.8rem;font-weight:600;color:#E3E9F3;margin-bottom:22px}
+.pill .dot{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,var(--gold-300),var(--gold-600));display:grid;place-items:center;color:var(--navy-950)}
+.pill .dot .ic{width:13px;height:13px;stroke-width:3}
+.hero h1{font-size:clamp(2.1rem,4.4vw,3.55rem);font-weight:800;line-height:1.06;letter-spacing:-.025em}
+.hero h1 em{font-style:normal;background:linear-gradient(120deg,var(--gold-300),var(--gold-500));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .sub{font-size:1.1rem;color:#BFCBDD;margin-top:20px;max-width:540px}
+.checks{list-style:none;display:grid;gap:12px;margin:30px 0 32px}
+.checks li{display:flex;gap:12px;align-items:center;font-weight:600;color:#E9EEF6}
+.checks .ck{width:26px;height:26px;border-radius:8px;background:rgba(212,161,69,.16);border:1px solid rgba(212,161,69,.4);display:grid;place-items:center;color:var(--gold-300);flex:0 0 auto}
+.checks .ck .ic{width:15px;height:15px;stroke-width:3}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+.trust{display:flex;gap:28px;flex-wrap:wrap;margin-top:38px;padding-top:28px;border-top:1px solid rgba(255,255,255,.12)}
+.trust div b{display:block;font-size:1.45rem;font-weight:800;color:#fff;letter-spacing:-.01em}
+.trust div span{font-size:.74rem;color:#97A6BD;text-transform:uppercase;letter-spacing:.1em;font-weight:600}
+.trust .seal-inline{display:flex;align-items:center;gap:10px}
+.trust .seal-inline .ic{color:var(--gold-400);width:30px;height:30px}
+
+/* ---------- Simulador (cartão com 2 etapas, vira como na Capitalizza) ---------- */
+.sim{width:100%;max-width:468px;perspective:2200px;position:relative}
+.sim::before{content:"";position:absolute;inset:-18px -18px auto auto;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(212,161,69,.45),transparent 70%);filter:blur(10px);pointer-events:none}
+.sim-inner{display:grid;transition:transform .85s cubic-bezier(.4,.15,.2,1);transform-style:preserve-3d}
+.sim.flipped .sim-inner{transform:rotateY(180deg)}
+.sim-face{grid-area:1/1;position:relative;background:#fff;color:var(--ink);border-radius:24px;box-shadow:var(--sh-lg);padding:26px 26px 22px;-webkit-backface-visibility:hidden;backface-visibility:hidden;display:flex;flex-direction:column;overflow:hidden}
+.sim-face::before{content:"";position:absolute;inset:0 0 auto 0;height:5px;background:linear-gradient(90deg,var(--gold-300),var(--gold-600))}
+.sim-back{transform:rotateY(180deg)}
+.sim-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:6px}
+.sim-steps{display:flex;align-items:center;gap:8px;list-style:none;font-size:.72rem;font-weight:700;color:var(--muted)}
+.sim-steps li{display:flex;align-items:center;gap:6px;white-space:nowrap}
+.sim-steps li span{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--line-2);color:var(--muted);font-size:.72rem}
+.sim-steps li.on span{background:var(--navy-900);color:#fff}
+.sim-steps li.done span{background:var(--ok);color:#fff}
+.sim-steps .bar{width:26px;height:2px;background:var(--line);border-radius:2px}
+.sim-badge{white-space:nowrap;font-size:.68rem;font-weight:700;color:var(--ok);background:#E9F7EE;padding:5px 10px;border-radius:999px;display:inline-flex;gap:5px;align-items:center}
+.sim-badge .ic{width:12px;height:12px;stroke-width:3}
+.sim-title{font-size:1.32rem;font-weight:800;letter-spacing:-.01em;margin-top:10px;line-height:1.25}
+.sim-desc{font-size:.84rem;color:var(--muted);margin-top:2px;margin-bottom:16px}
+.sim-label{display:block;font-size:.76rem;font-weight:700;color:var(--ink-2);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em}
+fieldset{border:0;min-width:0}
+.cat{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.cat button{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 6px;border-radius:14px;border:1.5px solid var(--line);background:#fff;cursor:pointer;font-weight:700;font-size:.82rem;color:var(--ink-2);transition:.2s}
+.cat button .ic{color:var(--muted);width:24px;height:24px;transition:.2s}
+.cat button:hover{border-color:var(--gold-400)}
+.cat button[aria-checked="true"]{background:var(--navy-900);border-color:var(--navy-900);color:#fff;box-shadow:0 10px 20px -12px rgba(10,31,61,.8)}
+.cat button[aria-checked="true"] .ic{color:var(--gold-400)}
+.mode{display:grid;grid-template-columns:1fr 1fr;background:var(--bg-soft);border:1px solid var(--line);padding:4px;border-radius:12px;margin-bottom:16px}
+.mode button{border:0;background:none;padding:10px 6px;border-radius:9px;font-size:.82rem;font-weight:700;color:var(--muted);cursor:pointer;transition:.2s}
+.mode button[aria-checked="true"]{background:#fff;color:var(--navy-900);box-shadow:0 2px 8px rgba(10,31,61,.12)}
+.val-row{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-bottom:6px}
+.money{display:flex;align-items:baseline;gap:6px;border-bottom:2px solid var(--line);padding-bottom:2px;transition:border-color .2s;flex:1}
+.money:focus-within{border-color:var(--gold-500)}
+.money span{font-weight:700;color:var(--muted);font-size:1.05rem}
+.money input{border:0;outline:0;background:transparent;font:inherit;font-size:1.75rem;font-weight:800;color:var(--navy-900);width:100%;letter-spacing:-.02em;padding:0}
+.money small{font-weight:600;color:var(--muted);font-size:.8rem;white-space:nowrap}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:6px;margin:14px 0 6px;cursor:pointer;outline:none;
+  background:linear-gradient(90deg,var(--gold-400),var(--gold-600)) no-repeat,var(--line);background-size:30% 100%}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:#fff;border:4px solid var(--gold-500);box-shadow:0 4px 12px rgba(10,31,61,.28);transition:transform .15s}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.1)}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#fff;border:4px solid var(--gold-500);box-shadow:0 4px 12px rgba(10,31,61,.28)}
+input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 6px rgba(212,161,69,.3)}
+.scale{display:flex;justify-content:space-between;font-size:.7rem;color:var(--muted);font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 16px}
+.chips button{border:1px solid var(--line);background:#fff;color:var(--ink-2);font-size:.76rem;font-weight:600;padding:6px 11px;border-radius:999px;cursor:pointer;transition:.18s}
+.chips button:hover{border-color:var(--gold-500);color:var(--gold-700)}
+.chips button.on{background:var(--gold-200);border-color:var(--gold-500);color:var(--gold-700)}
+.estimate{display:flex;align-items:center;justify-content:space-between;gap:12px;background:linear-gradient(135deg,var(--cream),#fff);border:1px solid #EBD9B2;border-radius:16px;padding:14px 16px;margin-bottom:16px}
+.estimate .el{font-size:.68rem;font-weight:700;color:var(--gold-700);text-transform:uppercase;letter-spacing:.1em}
+.estimate .ev{font-size:1.7rem;font-weight:800;color:var(--navy-900);line-height:1.1;letter-spacing:-.02em;white-space:nowrap}
+.estimate .ev small{font-size:.8rem;font-weight:600;color:var(--muted);letter-spacing:0}
+.estimate .es{font-size:.72rem;color:var(--ink-2);text-align:right;line-height:1.45;font-weight:500}
+.sim-note{font-size:.72rem;color:var(--muted);text-align:center;margin-top:10px;display:flex;align-items:center;justify-content:center;gap:6px}
+.sim-note .ic{width:13px;height:13px}
+.err-msg{font-size:.74rem;color:var(--err);font-weight:600;margin-top:6px;min-height:0}
+.err-msg:empty{display:none}
+
+/* Etapa 2 · formulário */
+.summary{display:flex;align-items:center;gap:10px;background:var(--bg-soft);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:14px;font-size:.8rem;color:var(--ink-2)}
+.summary .ic{color:var(--gold-600);width:20px;height:20px}
+.summary b{color:var(--navy-900)}
+.summary button{margin-left:auto;border:0;background:none;color:var(--gold-700);font-weight:700;font-size:.78rem;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.f{margin-bottom:11px}
+.f label{display:block;font-size:.74rem;font-weight:700;color:var(--ink-2);margin-bottom:5px}
+.f input{width:100%;height:46px;border:1.5px solid var(--line);border-radius:11px;padding:0 14px;font:inherit;font-size:.92rem;color:var(--ink);background:#fff;transition:border-color .2s,box-shadow .2s}
+.f input::placeholder{color:#A3AEBF}
+.f input:focus{outline:none;border-color:var(--gold-500);box-shadow:0 0 0 4px rgba(212,161,69,.16)}
+.f.invalid input{border-color:var(--err);box-shadow:0 0 0 4px rgba(198,40,40,.1)}
+.f .hint{font-size:.72rem;color:var(--ok);font-weight:600;margin-top:4px;display:flex;align-items:center;gap:4px}
+.f .hint:empty{display:none}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}
+.cbx{display:flex;gap:10px;align-items:flex-start;font-size:.76rem;color:var(--ink-2);line-height:1.45;margin:8px 0;cursor:pointer}
+.cbx input{appearance:none;-webkit-appearance:none;width:20px;height:20px;flex:0 0 auto;border:1.5px solid #B8C2D1;border-radius:6px;margin-top:1px;cursor:pointer;display:grid;place-items:center;transition:.15s;background:#fff}
+.cbx input:checked{background:var(--navy-900);border-color:var(--navy-900)}
+.cbx input:checked::after{content:"";width:5px;height:10px;border:solid var(--gold-300);border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.cbx a,.cbx button.lnk{color:var(--navy-700);font-weight:700;text-decoration:underline;text-underline-offset:2px;border:0;background:none;cursor:pointer;font-size:inherit;padding:0}
+.cbx.invalid input{border-color:var(--err)}
+.backlink{display:block;margin:10px auto 0;border:0;background:none;font-size:.82rem;font-weight:600;color:var(--muted);cursor:pointer;padding:6px}
+.backlink:hover{color:var(--navy-900)}
+.btn[disabled]{opacity:.7;cursor:progress}
+
+/* Etapa 3 · resultado */
+.okc{width:54px;height:54px;border-radius:50%;background:#E9F7EE;color:var(--ok);display:grid;place-items:center;margin-bottom:10px}
+.okc .ic{width:28px;height:28px;stroke-width:2.6}
+.res{list-style:none;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:14px 0 16px}
+.res li{display:flex;justify-content:space-between;gap:12px;padding:11px 14px;font-size:.86rem;border-bottom:1px solid var(--line-2)}
+.res li:last-child{border-bottom:0}
+.res li span{color:var(--muted)}
+.res li b{color:var(--navy-900);text-align:right}
+.res li.hl{background:var(--cream)}
+.res li.hl b{font-size:1.3rem;color:var(--navy-900)}
+.res li.hl span{color:var(--gold-700);font-weight:700;align-self:center}
+#resultPanel{margin-block:auto}
+#simNext{margin-top:auto}
+.legal-mini{font-size:.66rem;color:var(--muted);line-height:1.5;margin-top:10px;text-align:center}
+
+/* ============================================================
+   2 · QUEM SOMOS
+   ============================================================ */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.photo-slot{position:relative;aspect-ratio:4/3.4;border-radius:28px;overflow:hidden;background:
+  radial-gradient(600px 300px at 80% 0%,rgba(212,161,69,.25),transparent 60%),linear-gradient(150deg,var(--navy-700),var(--navy-950));box-shadow:var(--sh)}
+.photo-slot img{width:100%;height:100%;object-fit:cover}
+.photo-slot .ph{position:absolute;inset:18px;border:2px dashed rgba(255,255,255,.28);border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#C9D3E3;gap:10px;padding:20px}
+.photo-slot .ph .ic{width:52px;height:52px;color:var(--gold-400);stroke-width:1.4}
+.photo-slot .ph b{color:#fff;font-size:1.05rem}
+.photo-slot .ph small{font-size:.78rem;color:#97A6BD}
+.about-media{position:relative}
+.float-card{position:absolute;right:-22px;bottom:-26px;background:#fff;border-radius:18px;padding:16px 20px;box-shadow:var(--sh);display:flex;align-items:center;gap:14px;border:1px solid var(--line-2)}
+.float-card .big{font-size:2rem;font-weight:800;color:var(--navy-900);line-height:1}
+.float-card span{font-size:.78rem;color:var(--muted);font-weight:600;line-height:1.35}
+.float-card .fi{width:46px;height:46px;border-radius:12px;background:var(--gold-200);color:var(--gold-700);display:grid;place-items:center}
+.values{list-style:none;display:grid;gap:14px;margin-top:26px}
+.values li{display:flex;gap:14px;align-items:flex-start}
+.values .vi{width:42px;height:42px;border-radius:12px;background:var(--navy-900);color:var(--gold-400);display:grid;place-items:center;flex:0 0 auto}
+.values .vi .ic{width:20px;height:20px}
+.values b{display:block;font-size:.98rem}
+.values span{font-size:.9rem;color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:72px}
+.stat{background:var(--navy-900);color:#fff;border-radius:20px;padding:28px 22px;position:relative;overflow:hidden}
+.stat::after{content:"";position:absolute;right:-40px;top:-40px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(212,161,69,.25),transparent 70%)}
+.stat .si{color:var(--gold-400);margin-bottom:14px}
+.stat b{display:block;font-size:clamp(1.7rem,2.6vw,2.2rem);font-weight:800;letter-spacing:-.02em;line-height:1.1;margin-bottom:4px}
+.stat b.sm{font-size:clamp(1.3rem,2vw,1.6rem);white-space:nowrap}
+.stat>span{font-size:.84rem;color:#B7C3D6;font-weight:500}
+
+/* ============================================================
+   3 · COMO FUNCIONA
+   ============================================================ */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:56px;position:relative;counter-reset:s}
+.steps::before{content:"";position:absolute;top:34px;left:12%;right:12%;height:2px;background:repeating-linear-gradient(90deg,var(--gold-400) 0 8px,transparent 8px 16px);opacity:.7}
+.step{position:relative;background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px 22px 24px;box-shadow:var(--sh-sm);transition:transform .25s,box-shadow .25s,border-color .25s}
+.step:hover{transform:translateY(-6px);box-shadow:var(--sh);border-color:var(--gold-300)}
+.step .num{width:68px;height:68px;border-radius:20px;background:var(--navy-900);color:var(--gold-300);display:grid;place-items:center;margin:-60px 0 18px;box-shadow:0 14px 26px -14px rgba(10,31,61,.8);position:relative}
+.step .num .ic{width:30px;height:30px}
+.step .num i{position:absolute;top:-8px;right:-8px;font-style:normal;width:26px;height:26px;border-radius:50%;background:var(--gold-500);color:var(--navy-950);font-size:.74rem;font-weight:800;display:grid;place-items:center;border:3px solid var(--bg-soft)}
+.step small{font-size:.72rem;font-weight:700;color:var(--gold-600);letter-spacing:.14em;text-transform:uppercase}
+.step h3{font-size:1.16rem;font-weight:800;margin:4px 0 8px;letter-spacing:-.01em}
+.step p{font-size:.9rem;color:var(--muted)}
+.step ul{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.step ul li{font-size:.7rem;font-weight:600;color:var(--navy-700);background:#EDF2FA;padding:4px 9px;border-radius:999px}
+.sec-cta{display:flex;justify-content:center;align-items:center;gap:16px;flex-wrap:wrap;margin-top:48px}
+.sec-cta p{font-size:.88rem;color:var(--muted)}
+
+/* ============================================================
+   4 · SOLUÇÕES
+   ============================================================ */
+.sols{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:52px}
+.sol{position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:22px;padding:28px 24px 24px;transition:transform .25s,box-shadow .25s,border-color .25s;overflow:hidden}
+.sol::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:linear-gradient(90deg,var(--gold-300),var(--gold-600));transform:scaleX(0);transform-origin:left;transition:transform .35s}
+.sol:hover{transform:translateY(-6px);box-shadow:var(--sh);border-color:transparent}
+.sol:hover::before{transform:scaleX(1)}
+.sol .si{width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,var(--gold-200),#fff);border:1px solid #EBD9B2;color:var(--gold-700);display:grid;place-items:center;margin-bottom:18px}
+.sol .si .ic{width:28px;height:28px}
+.sol h3{font-size:1.18rem;font-weight:800;letter-spacing:-.01em;margin-bottom:8px}
+.sol p{font-size:.9rem;color:var(--muted);margin-bottom:16px}
+.sol ul{list-style:none;display:grid;gap:8px;margin-bottom:22px}
+.sol li{display:flex;gap:8px;font-size:.86rem;color:var(--ink-2);align-items:flex-start}
+.sol li .ic{width:16px;height:16px;color:var(--ok);margin-top:3px;stroke-width:2.6}
+.sol .go{margin-top:auto;display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:.88rem;color:var(--navy-900);border:0;background:none;cursor:pointer;padding:0}
+.sol .go .ic{width:18px;height:18px;transition:transform .2s;color:var(--gold-600)}
+.sol:hover .go .ic{transform:translateX(5px)}
+.sol .tag{position:absolute;top:18px;right:18px;font-size:.64rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:var(--navy-900);color:var(--gold-300);padding:5px 10px;border-radius:999px}
+.sol.featured{background:linear-gradient(170deg,var(--navy-900),var(--navy-800));border-color:var(--navy-900);color:#fff}
+.sol.featured p,.sol.featured li{color:#C9D3E3}
+.sol.featured .si{background:rgba(212,161,69,.14);border-color:rgba(212,161,69,.35);color:var(--gold-300)}
+.sol.featured .go{color:#fff}
+.sol.featured .tag{background:var(--gold-500);color:var(--navy-950)}
+
+/* ============================================================
+   5 · BENEFÍCIOS / COMPARATIVO
+   ============================================================ */
+.perks{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:28px}
+.perks span{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);font-size:.86rem;font-weight:600;color:#E3E9F3}
+.perks .ic{width:16px;height:16px;color:var(--gold-400);stroke-width:2.6}
+.cmp{display:grid;grid-template-columns:1.05fr repeat(4,1fr);grid-template-rows:auto repeat(6,auto);gap:0 14px;margin-top:52px;align-items:stretch}
+.cmp-col{grid-row:1/-1;display:grid;grid-template-rows:subgrid;border-radius:22px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);overflow:hidden}
+.cmp-labels{background:none;border-color:transparent}
+.cmp-h{padding:22px 16px 18px;text-align:center;border-bottom:1px solid rgba(255,255,255,.08);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:6px}
+.cmp-h b{font-size:1.08rem;font-weight:800;color:#fff}
+.cmp-h .ic{color:#97A6BD;width:26px;height:26px}
+.cmp-labels .cmp-h{border-color:transparent}
+.cmp-r{padding:15px 16px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:10px;font-size:.86rem;color:#C9D3E3;line-height:1.4}
+.cmp-r:last-child{border-bottom:0}
+.cmp-labels .cmp-r{font-weight:700;color:#fff;font-size:.88rem;border-color:rgba(255,255,255,.06);padding-left:4px}
+.cmp-k{display:none}
+.mk{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;flex:0 0 auto}
+.mk .ic{width:14px;height:14px;stroke-width:3}
+.mk.bad{background:rgba(239,83,80,.14);color:#F28B82}
+.mk.mid{background:rgba(255,255,255,.1);color:#B7C3D6}
+.mk.good{background:rgba(52,199,89,.16);color:#6EE7A0}
+.cmp-col.win{background:linear-gradient(180deg,rgba(212,161,69,.2),rgba(212,161,69,.06));border:2px solid var(--gold-500);box-shadow:0 30px 60px -30px rgba(212,161,69,.6);transform:scale(1.035);position:relative;z-index:2;overflow:visible}
+.cmp-col.win .cmp-h{border-color:rgba(212,161,69,.3);padding-top:30px}
+.cmp-col.win .cmp-h b{color:var(--gold-300);font-size:1.25rem}
+.cmp-col.win .cmp-h .ic{color:var(--gold-400)}
+.cmp-col.win .cmp-r{color:#fff;font-weight:600;border-color:rgba(212,161,69,.16)}
+.ribbon{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--gold-300),var(--gold-500));color:var(--navy-950);font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border-radius:999px;white-space:nowrap;box-shadow:0 8px 18px -8px rgba(212,161,69,.9)}
+
+.swipe-hint{display:none;align-items:center;justify-content:center;gap:8px;font-size:.78rem;color:#8796AE;margin-top:4px}
+.swipe-hint .ic{width:16px;height:16px}
+.cost{margin-top:64px;display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:26px;padding:38px}
+.cost h3{font-size:1.5rem;font-weight:800;line-height:1.2;letter-spacing:-.01em}
+.cost p{color:#B7C3D6;font-size:.94rem;margin-top:12px}
+.cost .save{display:inline-flex;align-items:center;gap:10px;margin-top:20px;background:rgba(52,199,89,.12);border:1px solid rgba(52,199,89,.3);color:#A7F3C4;border-radius:14px;padding:12px 16px;font-size:.9rem;font-weight:600}
+.cost .save b{color:#fff;font-size:1.1rem}
+.bars{list-style:none;display:grid;gap:18px}
+.bar-row{display:grid;grid-template-columns:120px 1fr;gap:14px;align-items:center;position:relative}
+.bar-row .bl{font-size:.88rem;font-weight:700;color:#E3E9F3}
+.bar-track{position:relative;height:40px;display:flex;align-items:center}
+.bar-fill{height:100%;border-radius:0 6px 6px 0;background:#5B6E8C;width:0;transition:width 1.2s cubic-bezier(.2,.7,.3,1);min-width:4px}
+.bar-row.win .bar-fill{background:linear-gradient(90deg,var(--gold-600),var(--gold-400))}
+.bar-row.win .bl{color:var(--gold-300)}
+.bar-val{margin-left:12px;font-size:.92rem;font-weight:800;color:#fff;white-space:nowrap}
+.bar-tip{position:absolute;left:134px;bottom:calc(100% + 6px);background:#fff;color:var(--ink);font-size:.76rem;line-height:1.45;padding:10px 12px;border-radius:10px;box-shadow:var(--sh);opacity:0;transform:translateY(4px);transition:.18s;pointer-events:none;z-index:5;min-width:220px}
+.bar-tip b{display:block;color:var(--navy-900)}
+.bar-row:hover .bar-tip,.bar-row:focus-within .bar-tip,.bar-row:focus .bar-tip{opacity:1;transform:none}
+.bar-row:focus{outline:none}
+.bar-row:focus-visible .bar-track{outline:2px solid var(--gold-400);outline-offset:4px;border-radius:6px}
+.cost .cost-note{font-size:.74rem;color:#8796AE;margin-top:18px;line-height:1.55}
+
+/* ============================================================
+   6 · UTILIZAÇÕES
+   ============================================================ */
+.uses{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:52px}
+.use{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px;transition:.22s}
+.use:hover{border-color:var(--gold-400);box-shadow:var(--sh);transform:translateY(-3px)}
+.use .ui{width:46px;height:46px;border-radius:13px;background:var(--navy-900);color:var(--gold-400);display:grid;place-items:center;flex:0 0 auto;transition:.22s}
+.use:hover .ui{background:var(--gold-500);color:var(--navy-950)}
+.use .ui .ic{width:22px;height:22px}
+.use b{display:block;font-size:.96rem;font-weight:700;line-height:1.3}
+.use span{display:block;font-size:.82rem;color:var(--muted);margin-top:3px;line-height:1.45}
+.use-group{grid-column:1/-1;display:flex;align-items:center;gap:12px;font-size:.78rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--navy-700);margin-top:10px}
+.use-group:first-child{margin-top:0}
+.use-group::after{content:"";flex:1;height:1px;background:var(--line)}
+.fine{font-size:.76rem;color:var(--muted);margin-top:22px;text-align:center}
+
+/* ============================================================
+   7 · PROVA REAL
+   ============================================================ */
+.tests{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:52px}
+.tcard{position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:22px;padding:30px 26px 24px;box-shadow:var(--sh-sm);transition:.25s}
+.tcard:hover{box-shadow:var(--sh);transform:translateY(-4px)}
+.tcard .q{position:absolute;top:22px;right:24px;width:44px;height:44px;color:var(--gold-200)}
+.stars{display:flex;gap:3px;color:var(--gold-500);margin-bottom:14px}
+.stars svg{width:18px;height:18px;fill:currentColor}
+.tcard blockquote{font-size:.98rem;color:var(--ink-2);line-height:1.65;flex:1}
+.tcard .who{display:flex;align-items:center;gap:12px;margin-top:22px;padding-top:18px;border-top:1px solid var(--line-2)}
+.av{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--navy-700),var(--navy-900));color:var(--gold-300);display:grid;place-items:center;flex:0 0 auto;overflow:hidden;border:3px solid var(--gold-200)}
+.av img{width:100%;height:100%;object-fit:cover}
+.av .ic{width:22px;height:22px}
+.who b{display:block;font-size:.96rem}
+.who span{font-size:.8rem;color:var(--muted)}
+.ttag{display:inline-flex;align-self:flex-start;align-items:center;gap:6px;margin-top:14px;font-size:.74rem;font-weight:700;color:var(--gold-700);background:var(--gold-200);padding:5px 11px;border-radius:999px}
+.ttag .ic{width:14px;height:14px}
+
+/* ============================================================
+   8 · FAQ (abas + acordeão, no formato da Ademicon)
+   ============================================================ */
+.faq-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px;align-items:start}
+.faq-aside{position:sticky;top:calc(var(--hdr) + 32px)}
+.help{margin-top:30px;background:var(--navy-900);color:#fff;border-radius:22px;padding:26px;position:relative;overflow:hidden}
+.help::after{content:"";position:absolute;right:-50px;bottom:-50px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(37,211,102,.25),transparent 70%)}
+.help b{font-size:1.1rem;display:block;margin-bottom:6px}
+.help p{color:#B7C3D6;font-size:.9rem;margin-bottom:18px}
+.tabs{display:flex;gap:4px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:6px;margin-bottom:20px}
+.tabs button{flex:1;border:0;background:none;padding:12px 10px;border-radius:11px;font-weight:700;font-size:.88rem;color:var(--muted);cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;gap:8px}
+.tabs button .ic{width:18px;height:18px}
+.tabs button[aria-selected="true"]{background:var(--navy-900);color:#fff}
+.tabs button[aria-selected="true"] .ic{color:var(--gold-400)}
+.qa{background:#fff;border:1px solid var(--line);border-radius:16px;margin-bottom:10px;transition:border-color .2s,box-shadow .2s}
+.qa[open]{border-color:var(--gold-400);box-shadow:var(--sh-sm)}
+.qa summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;font-weight:700;font-size:.98rem;color:var(--ink)}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary .pm{width:30px;height:30px;border-radius:50%;background:var(--bg-soft);display:grid;place-items:center;flex:0 0 auto;transition:transform .3s,background .2s;color:var(--navy-900)}
+.qa summary .pm .ic{width:16px;height:16px;stroke-width:2.6}
+.qa[open] summary .pm{transform:rotate(45deg);background:var(--gold-500);color:var(--navy-950)}
+.qa .a{padding:0 20px 20px;color:var(--ink-2);font-size:.94rem;line-height:1.7}
+.qa .a p+p,.qa .a p+ul,.qa .a ul+p{margin-top:10px}
+.qa .a ul{padding-left:18px}
+.qa[open] .a{animation:fadeDown .3s ease}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.tabpanel[hidden]{display:none}
+
+/* ============================================================
+   CTA FINAL
+   ============================================================ */
+.final{position:relative;overflow:hidden;border-radius:30px;padding:64px 56px;background:
+  radial-gradient(600px 300px at 100% 0%,rgba(212,161,69,.3),transparent 60%),linear-gradient(140deg,var(--navy-800),var(--navy-950));color:#fff;display:grid;grid-template-columns:1.3fr .7fr;gap:32px;align-items:center}
+.final h2{font-size:clamp(1.7rem,3vw,2.4rem);font-weight:800;line-height:1.15;letter-spacing:-.02em}
+.final p{color:#B7C3D6;margin-top:12px;font-size:1.02rem}
+.final .acts{display:flex;flex-direction:column;gap:12px}
+
+/* ============================================================
+   9 · RODAPÉ
+   ============================================================ */
+.ftr{background:var(--navy-950);color:#B7C3D6;padding:72px 0 28px;margin-top:96px}
+.fgrid{display:grid;grid-template-columns:1.4fr 1fr 1.1fr 1fr;gap:40px;padding-bottom:44px;border-bottom:1px solid rgba(255,255,255,.08)}
+.ftr p{font-size:.9rem;margin-top:16px;max-width:320px}
+.ftr h3{font-size:.76rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-400);margin-bottom:18px}
+.ftr ul{list-style:none;display:grid;gap:11px}
+.ftr li a,.ftr li button,.ftr li span{font-size:.9rem;color:#B7C3D6;transition:color .2s;display:inline-flex;align-items:center;gap:10px;border:0;background:none;cursor:pointer;text-align:left;padding:0}
+.ftr li a:hover,.ftr li button:hover{color:#fff}
+.ftr li .ic{width:18px;height:18px;color:var(--gold-400)}
+.seals{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}
+.seal{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(212,161,69,.35);background:rgba(212,161,69,.08);color:var(--gold-300);font-size:.72rem;font-weight:700;padding:6px 11px;border-radius:9px;letter-spacing:.04em}
+.seal .ic{width:14px;height:14px}
+.socials{display:flex;gap:10px;margin-top:4px;flex-wrap:wrap}
+.socials a{width:44px;height:44px;border-radius:12px;border:1px solid rgba(255,255,255,.14);display:grid;place-items:center;color:#E3E9F3;transition:.2s}
+.socials a:hover{background:var(--gold-500);border-color:var(--gold-500);color:var(--navy-950);transform:translateY(-3px)}
+.socials a .ic{width:20px;height:20px}
+.handle{font-size:.84rem;margin-top:14px;display:block;color:#97A6BD}
+.legal{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;padding-top:24px;font-size:.76rem;color:#7D8CA4;line-height:1.6}
+.legal p{max-width:760px;margin:0;font-size:.76rem}
+.legal nav{display:flex;gap:18px}
+.legal button{border:0;background:none;color:#97A6BD;cursor:pointer;font-size:.76rem;text-decoration:underline;text-underline-offset:3px}
+
+/* ---------- WhatsApp flutuante + barra fixa mobile ---------- */
+.wa-float{position:fixed;right:22px;bottom:22px;z-index:70;width:60px;height:60px;border-radius:50%;background:var(--wa);display:grid;place-items:center;box-shadow:0 12px 30px -8px rgba(18,140,126,.6);transition:transform .2s,bottom .3s,opacity .2s}
+.wa-float:hover{transform:scale(1.08)}
+.wa-float svg{width:32px;height:32px;fill:#fff}
+.wa-float::before{content:"";position:absolute;inset:0;border-radius:50%;background:var(--wa);animation:pulse 2.4s infinite;z-index:-1}
+@keyframes pulse{0%{transform:scale(1);opacity:.6}80%,100%{transform:scale(1.6);opacity:0}}
+.wa-float .tt{position:absolute;right:72px;background:#fff;color:var(--ink);font-size:.8rem;font-weight:700;padding:8px 12px;border-radius:10px;white-space:nowrap;box-shadow:var(--sh);opacity:0;transform:translateX(6px);transition:.2s;pointer-events:none}
+.wa-float:hover .tt{opacity:1;transform:none}
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:75;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom));display:none;align-items:center;gap:12px;transform:translateY(110%);transition:transform .3s;box-shadow:0 -10px 30px -15px rgba(10,31,61,.3)}
+.mbar.show{transform:none}
+.mbar p{font-size:.78rem;line-height:1.3;color:var(--ink-2);flex:1}
+.mbar p b{display:block;color:var(--navy-900);font-size:.88rem}
+
+/* ---------- Modal de privacidade ---------- */
+dialog{border:0;border-radius:22px;padding:0;max-width:640px;width:calc(100% - 32px);box-shadow:var(--sh-lg);color:var(--ink)}
+dialog::backdrop{background:rgba(6,21,43,.6);backdrop-filter:blur(3px)}
+.dlg-h{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid var(--line)}
+.dlg-h b{font-size:1.1rem}
+.dlg-h button{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:#fff;cursor:pointer;display:grid;place-items:center}
+.dlg-b{padding:20px 24px 26px;max-height:60vh;overflow:auto;font-size:.9rem;color:var(--ink-2)}
+.dlg-b h4{color:var(--ink);margin:16px 0 6px;font-size:.95rem}
+.dlg-b h4:first-child{margin-top:0}
+.dlg-b ul{padding-left:18px}
+
+/* ---------- Animações de entrada ---------- */
+.js .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
+.js .reveal.in{opacity:1;transform:none}
+.hero .reveal-now{animation:rise .8s cubic-bezier(.2,.7,.3,1) both}
+.hero .reveal-now:nth-child(2){animation-delay:.08s}
+.hero .reveal-now:nth-child(3){animation-delay:.16s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.pulse-once{animation:ring 1.2s ease}
+@keyframes ring{0%{box-shadow:0 0 0 0 rgba(212,161,69,.8)}100%{box-shadow:0 0 0 22px rgba(212,161,69,0)}}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .js .reveal{opacity:1;transform:none}
+}
+
+/* ============================================================
+   RESPONSIVO
+   ============================================================ */
+@media (max-width:1180px){
+  .menu{gap:18px}
+  .menu a:not(.btn){font-size:.82rem}
+}
+@media (max-width:1080px){
+  .sols,.uses{grid-template-columns:repeat(2,1fr)}
+  .steps{grid-template-columns:repeat(2,1fr);row-gap:64px}
+  .steps::before{display:none}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .fgrid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:980px){
+  :root{--hdr:66px}
+  .hamb{display:inline-flex}
+  .menu{display:none;position:absolute;top:var(--hdr);left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:var(--navy-950);padding:10px 20px 20px;border-bottom:1px solid rgba(255,255,255,.08);box-shadow:0 20px 40px -20px rgba(0,0,0,.6)}
+  .menu.open{display:flex}
+  .menu a:not(.btn){padding:14px 4px;border-bottom:1px solid rgba(255,255,255,.06);font-size:.96rem}
+  .menu a:not(.btn)::after{display:none}
+  .menu .btn{margin-top:14px}
+  .hero{padding:calc(var(--hdr) + 32px) 0 64px}
+  .hero-grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"copy" "sim" "extra";row-gap:30px}
+  .hero-copy{padding-top:0}
+  .hero-sim{justify-content:center}
+  .sim{max-width:520px}
+  .hero-extra{max-width:560px}
+  .checks{margin-top:4px}
+  .about{grid-template-columns:minmax(0,1fr);gap:56px}
+  .float-card{right:12px}
+  .cmp{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:none;gap:16px}
+  .cmp-col.cmp-labels{display:none}
+  .cmp-col{grid-row:auto;display:block}
+  .cmp-col.win{transform:none;grid-column:1/-1;order:-1;margin-top:10px}
+  .cmp-k{display:block;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8796AE;margin-bottom:2px}
+  .cmp-col.win .cmp-k{color:var(--gold-300)}
+  .cmp-r{align-items:flex-start}
+  .cmp-r>div{min-width:0}
+  .cost{grid-template-columns:minmax(0,1fr);padding:28px;gap:28px}
+  .faq-grid{grid-template-columns:minmax(0,1fr);gap:32px}
+  .faq-aside{position:static}
+  .final{grid-template-columns:minmax(0,1fr);padding:44px 32px}
+  .mbar{display:flex}
+  .wa-float.lift{bottom:92px}
+  .wa-float.away{opacity:0;transform:scale(.6);pointer-events:none}
+}
+@media (max-width:640px){
+  .wrap{padding:0 16px}
+  .block{padding:72px 0}
+  .hero h1{font-size:2.05rem}
+  .hero .sub{font-size:1rem}
+  .hero-cta .btn{flex:1}
+  .trust{gap:20px}
+  .sim-face{padding:22px 18px 18px;border-radius:20px}
+  .sim-steps{gap:6px}
+  .sim-steps .bar{width:14px}
+  .sim-back .sim-badge{display:none}
+  .f input{padding:0 12px;font-size:.9rem}
+  .money input{font-size:1.5rem}
+  .estimate .ev{font-size:1.45rem}
+  .sols,.uses,.tests,.stats{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr 1fr;gap:12px}
+  .stat{padding:22px 14px}
+  .stat b{font-size:1.45rem;white-space:nowrap}
+  .stat b.sm{font-size:1.02rem;white-space:normal}
+  /* comparativo vira carrossel: Consórcio primeiro, demais deslizando para o lado */
+  .cmp{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:44px -16px 0;padding:18px 16px 14px;scrollbar-width:none}
+  .cmp::-webkit-scrollbar{display:none}
+  .cmp-col{flex:0 0 84%;scroll-snap-align:center}
+  .cmp-col.win{margin-top:0}
+  .swipe-hint{display:flex}
+  .btn{white-space:normal;text-align:center}
+  .sec-cta .btn{width:100%}
+  .bar-row{grid-template-columns:minmax(0,1fr);gap:6px}
+  .bar-track{height:32px}
+  .bar-tip{left:0;min-width:0;right:0}
+  .tabs button{font-size:.78rem;padding:10px 6px;line-height:1.25}
+  .tabs button .ic{display:none}
+  .fgrid{grid-template-columns:1fr;gap:34px}
+  .float-card{position:relative;right:auto;bottom:auto;margin:-36px 16px 0}
+  .wa-float{width:54px;height:54px;right:16px;bottom:16px}
+  .wa-float .tt{display:none}
+  .mbar .btn{padding:12px 18px}
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     SPRITE DE ÍCONES (traço) — usados via <use href="#i-...">
+     ============================================================ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="g-gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F1D49A"/><stop offset=".55" stop-color="#D4A145"/><stop offset="1" stop-color="#B5852E"/></linearGradient>
+  </defs>
+  <!-- Logo genérico (substituir pelo logo oficial) -->
+  <symbol id="logo-mark" viewBox="0 0 40 40"><rect width="40" height="40" rx="11" fill="url(#g-gold)"/><path d="M9.5 28.5V18.2L20 10.5l10.5 7.7v10.3" fill="none" stroke="#0A1F3D" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/><path d="M15 28.5v-4.2M20 28.5v-7.5M25 28.5v-5.6" fill="none" stroke="#0A1F3D" stroke-width="2.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9v12h14V9"/><path d="M9.5 21v-6h5v6"/></symbol>
+  <symbol id="i-car" viewBox="0 0 24 24"><path d="M3 16.5v-4l2.2-5.3A2 2 0 0 1 7 6h10a2 2 0 0 1 1.8 1.2l2.2 5.3v4"/><path d="M3 12.5h18"/><path d="M3 16.5h18"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 6-6"/><path d="M15 8h5v5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M6 12h12"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 4.5-9 4.5-9-4.5z"/><path d="m3 12 9 4.5 9-4.5"/><path d="m3 16.5 9 4.5 9-4.5"/></symbol>
+  <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2.2 4.8-4.8 2.2 2.2-4.8z"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 20v-1.5A3.5 3.5 0 0 0 12.5 15h-5A3.5 3.5 0 0 0 4 18.5V20"/><circle cx="10" cy="8" r="3.5"/><path d="M20 20v-1.5a3.5 3.5 0 0 0-2.5-3.35"/><path d="M15.5 4.7a3.5 3.5 0 0 1 0 6.6"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="7.5" cy="15.5" r="4.5"/><path d="m10.7 12.3 9.3-9.3"/><path d="m16 7 3 3"/><path d="m18.5 4.5 2 2"/></symbol>
+  <symbol id="i-building" viewBox="0 0 24 24"><rect x="4" y="3" width="11" height="18" rx="1.5"/><path d="M15 9h4a1 1 0 0 1 1 1v11"/><path d="M8 7h3M8 11h3M8 15h3"/><path d="M3 21h18"/></symbol>
+  <symbol id="i-coins" viewBox="0 0 24 24"><ellipse cx="9" cy="6.5" rx="6" ry="3"/><path d="M3 6.5v4c0 1.66 2.69 3 6 3s6-1.34 6-3v-4"/><path d="M3 10.5v4c0 1.66 2.69 3 6 3 1.1 0 2.13-.15 3-.4"/><ellipse cx="16.5" cy="14.5" rx="4.5" ry="2.3"/><path d="M12 14.5v3.2c0 1.27 2 2.3 4.5 2.3s4.5-1.03 4.5-2.3v-3.2"/></symbol>
+  <symbol id="i-pie" viewBox="0 0 24 24"><path d="M21 15.5A9.5 9.5 0 1 1 8.5 3"/><path d="M21.5 12A9.5 9.5 0 0 0 12 2.5V12z"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 21.5s8-3.8 8-9.8V5.2L12 2.5 4 5.2v6.5c0 6 8 9.8 8 9.8z"/><path d="m8.8 12 2.2 2.2 4.4-4.4"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7.5a4 4 0 0 1 8 0V11"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M21 16.5v3a2 2 0 0 1-2.2 2A19.8 19.8 0 0 1 2.5 5.2 2 2 0 0 1 4.5 3h3a2 2 0 0 1 2 1.7c.13.96.37 1.9.7 2.8a2 2 0 0 1-.45 2.1L8.5 10.9a16 16 0 0 0 4.6 4.6l1.3-1.3a2 2 0 0 1 2.1-.45c.9.33 1.84.57 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6 8.5-6"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-11.5a7 7 0 0 0-14 0C5 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2.5"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+  <symbol id="i-map" viewBox="0 0 24 24"><path d="m3 6.5 6-3 6 3 6-3v14l-6 3-6-3-6 3z"/><path d="M9 3.5v14M15 6.5v14"/></symbol>
+  <symbol id="i-hammer" viewBox="0 0 24 24"><path d="m14 7-9.5 9.5a2.1 2.1 0 0 0 3 3L17 10"/><path d="m13 4 7 7"/><path d="M16.5 3.5 21 8l-2 2-4.5-4.5z"/></symbol>
+  <symbol id="i-store" viewBox="0 0 24 24"><path d="M3.5 9 5 4h14l1.5 5"/><path d="M3.5 9a2.8 2.8 0 0 0 5.6 0 2.8 2.8 0 0 0 5.8 0 2.8 2.8 0 0 0 5.6 0"/><path d="M5 11.5V20h14v-8.5"/><path d="M10 20v-5h4v5"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20.5 12a8.5 8.5 0 1 1-2.5-6"/><path d="M20.5 3.5V8H16"/></symbol>
+  <symbol id="i-cash" viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 12h.01M18 12h.01"/></symbol>
+  <symbol id="i-moto" viewBox="0 0 24 24"><circle cx="5.5" cy="16.5" r="3.5"/><circle cx="18.5" cy="16.5" r="3.5"/><path d="M14.5 6h2.5l3 10.5"/><path d="M5.5 16.5 9 10h7l-3 6.5H5.5"/><path d="M9 10 7.5 7.5H5"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24"><path d="M2 5h12v11H2z"/><path d="M14 9h4.5l3.5 4v3h-8"/><circle cx="6" cy="17.5" r="2"/><circle cx="17.5" cy="17.5" r="2"/></symbol>
+  <symbol id="i-tractor" viewBox="0 0 24 24"><circle cx="7" cy="16" r="4"/><circle cx="18.5" cy="17.5" r="2.5"/><path d="M7 12V5h6l2 7"/><path d="M15 12h4.5a1.5 1.5 0 0 1 1.5 1.5V15"/><path d="M11 16h5"/><path d="M3 12h12"/></symbol>
+  <symbol id="i-brief" viewBox="0 0 24 24"><rect x="2.5" y="7" width="19" height="13" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><path d="M2.5 13h19"/></symbol>
+  <symbol id="i-trend" viewBox="0 0 24 24"><path d="m3 17 6-6 4 4 8-8"/><path d="M15 7h6v6"/></symbol>
+  <symbol id="i-percent" viewBox="0 0 24 24"><path d="M19 5 5 19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 2.5H6.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V8z"/><path d="M14 2.5V8h5.5"/><path d="M8.5 13h7M8.5 17h5"/></symbol>
+  <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M8 21h8M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></symbol>
+  <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M19 7V5.5A1.5 1.5 0 0 0 17.5 4H5a2 2 0 0 0 0 4h14a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H5a2 2 0 0 1-2-2V6"/><path d="M16 14h.01"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="16.5" rx="2"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-quote" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M10 7.5C6.7 8.4 4.5 11 4.5 14.6V19h6v-6H7.6c.2-1.8 1.3-3 3-3.6zM19.5 7.5c-3.3.9-5.5 3.5-5.5 7.1V19h6v-6h-2.9c.2-1.8 1.3-3 3-3.6z"/></symbol>
+  <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></symbol>
+  <symbol id="i-facebook" viewBox="0 0 24 24"><path d="M15 3h-2.5A4.5 4.5 0 0 0 8 7.5V10H5.5v4H8v7h4v-7h3l.5-4H12V7.8a.8.8 0 0 1 .8-.8H15z"/></symbol>
+  <symbol id="i-linkedin" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10.5V17M8 7.5v.01M12 17v-6.5M12 13.5a2.8 2.8 0 0 1 5.5 0V17"/></symbol>
+  <symbol id="i-youtube" viewBox="0 0 24 24"><path d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8z"/><path d="m10 15 5-3-5-3z"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 32 32"><path d="M16.04 3C9.0 3 3.3 8.7 3.3 15.7c0 2.25.6 4.45 1.72 6.38L3.2 28.8l6.9-1.8a12.7 12.7 0 0 0 5.94 1.5h.01c7.03 0 12.74-5.7 12.74-12.73 0-3.4-1.32-6.6-3.73-9A12.66 12.66 0 0 0 16.04 3zm0 23.3h-.01a10.6 10.6 0 0 1-5.39-1.48l-.39-.23-4.1 1.07 1.1-4-.25-.41a10.55 10.55 0 0 1-1.62-5.6c0-5.84 4.75-10.6 10.6-10.6 2.83 0 5.49 1.1 7.49 3.11a10.52 10.52 0 0 1 3.1 7.5c0 5.85-4.75 10.6-10.53 10.6zm5.8-7.94c-.32-.16-1.88-.93-2.17-1.03-.29-.11-.5-.16-.71.16-.21.32-.82 1.03-1 1.24-.19.21-.37.24-.69.08-.32-.16-1.34-.5-2.56-1.58a9.58 9.58 0 0 1-1.77-2.2c-.19-.32-.02-.49.14-.65.14-.14.32-.37.48-.56.16-.19.21-.32.32-.53.1-.21.05-.4-.03-.56-.08-.16-.71-1.71-.98-2.34-.26-.62-.52-.53-.71-.54h-.61c-.21 0-.56.08-.85.4-.29.32-1.11 1.08-1.11 2.64 0 1.56 1.14 3.07 1.3 3.28.16.21 2.24 3.42 5.43 4.8.76.33 1.35.52 1.81.67.76.24 1.45.2 2 .12.61-.09 1.88-.77 2.14-1.51.27-.74.27-1.38.19-1.51-.08-.13-.29-.21-.61-.37z"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2.5 2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"/></symbol>
+</svg>
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header class="hdr" id="hdr">
+  <div class="wrap nav">
+    <!-- LOGO GENÉRICO: substitua o conteúdo deste <a> pelo logo oficial, ex.:
+         <img src="assets/img/logo.svg" alt="Nome da Empresa" height="40"> -->
+    <a class="logo" href="#topo" aria-label="Sua Marca Consórcios — voltar ao início">
+      <svg class="logo-mark" aria-hidden="true"><use href="#logo-mark"/></svg>
+      <span class="logo-txt"><b>SUA MARCA</b><small>Consórcios &amp; Investimentos</small></span>
+    </a>
+    <button class="hamb" id="hamb" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><svg class="ic"><use href="#i-menu"/></svg></button>
+    <nav class="menu" id="menu" aria-label="Navegação principal">
+      <a href="#quem-somos">Quem somos</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#solucoes">Soluções</a>
+      <a href="#beneficios">Benefícios</a>
+      <a href="#utilizacoes">Utilizações</a>
+      <a href="#depoimentos">Depoimentos</a>
+      <a href="#duvidas">Dúvidas</a>
+      <a class="btn btn-gold btn-sm" href="#simulador" data-goto-sim>Simular agora</a>
+    </nav>
+  </div>
+</header>
+
+<main id="topo">
+
+<!-- ============================================================
+     1 · BLOCO INICIAL — BANNER + SIMULADOR (lado direito)
+     ============================================================ -->
+<section class="hero" aria-label="Simule seu consórcio">
+  <div class="wrap hero-grid">
+
+    <div class="hero-copy">
+      <span class="pill reveal-now"><span class="dot"><svg class="ic"><use href="#i-check"/></svg></span>Consultoria especializada em consórcio</span>
+      <h1 class="reveal-now">Conquiste seu imóvel, veículo ou investimento <em>sem pagar juros.</em></h1>
+      <p class="sub reveal-now">Simule em menos de 1 minuto e receba um plano personalizado para usar o consórcio como ferramenta de aquisição e alavancagem patrimonial.</p>
+    </div>
+
+    <div class="hero-sim">
+      <div class="sim" id="simulador">
+        <div class="sim-inner">
+
+          <!-- ===================== ETAPA 1 · SIMULAR ===================== -->
+          <div class="sim-face sim-front" id="simFront">
+            <div class="sim-top">
+              <ol class="sim-steps" aria-label="Etapas da simulação">
+                <li class="on"><span>1</span>Seu plano</li>
+                <li class="bar" aria-hidden="true"></li>
+                <li><span>2</span>Seus dados</li>
+              </ol>
+              <span class="sim-badge"><svg class="ic"><use href="#i-check"/></svg>Sem juros</span>
+            </div>
+            <h2 class="sim-title">Simule seu consórcio</h2>
+            <p class="sim-desc">Escolha seu objetivo e ajuste o valor ideal para você.</p>
+
+            <fieldset>
+              <legend class="sim-label">Para que você quer o crédito?</legend>
+              <div class="cat" role="radiogroup" aria-label="Categoria">
+                <button type="button" role="radio" aria-checked="true" data-cat="imovel"><svg class="ic"><use href="#i-home"/></svg>Imóvel</button>
+                <button type="button" role="radio" aria-checked="false" data-cat="veiculo"><svg class="ic"><use href="#i-car"/></svg>Veículo</button>
+                <button type="button" role="radio" aria-checked="false" data-cat="investimento"><svg class="ic"><use href="#i-chart"/></svg>Investimento</button>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend class="sim-label">Simular pelo</legend>
+              <div class="mode" role="radiogroup" aria-label="Simular pelo valor do crédito ou da parcela">
+                <button type="button" role="radio" aria-checked="true" data-mode="credito">Valor do crédito</button>
+                <button type="button" role="radio" aria-checked="false" data-mode="parcela">Valor da parcela</button>
+              </div>
+            </fieldset>
+
+            <label class="sim-label" for="simTxt" id="simLbl">Valor do crédito</label>
+            <div class="val-row">
+              <div class="money"><span>R$</span><input id="simTxt" type="text" inputmode="numeric" autocomplete="off" aria-describedby="simErr"><small id="simUnit"></small></div>
+            </div>
+            <input type="range" id="simRange" min="0" max="1000" step="1" value="300" aria-labelledby="simLbl">
+            <div class="scale"><span id="scMin">R$ 0</span><span id="scMax">R$ 4 milhões</span></div>
+            <div class="chips" id="simChips" aria-label="Valores sugeridos"></div>
+
+            <div class="estimate" aria-live="polite">
+              <div>
+                <div class="el" id="estLbl">Parcela estimada</div>
+                <div class="ev" id="estVal">R$ 0</div>
+              </div>
+              <div class="es" id="estSub">em 200 meses<br>sem juros · sem entrada</div>
+            </div>
+            <p class="err-msg" id="simErr" role="alert"></p>
+
+            <button type="button" class="btn btn-gold btn-block" id="simNext">Simular agora <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></button>
+            <p class="sim-note"><svg class="ic"><use href="#i-clock"/></svg>Leva menos de 1 minuto · Sem compromisso</p>
+          </div>
+
+          <!-- ===================== ETAPA 2 · DADOS / 3 · RESULTADO ===================== -->
+          <div class="sim-face sim-back" id="simBack" inert>
+
+            <div id="leadPanel">
+              <div class="sim-top">
+                <ol class="sim-steps" aria-label="Etapas da simulação">
+                  <li class="done"><span><svg class="ic" style="width:12px;height:12px;stroke-width:3"><use href="#i-check"/></svg></span>Seu plano</li>
+                  <li class="bar" aria-hidden="true"></li>
+                  <li class="on"><span>2</span>Seus dados</li>
+                </ol>
+                <span class="sim-badge"><svg class="ic"><use href="#i-lock"/></svg>Dados protegidos</span>
+              </div>
+              <h2 class="sim-title">Falta pouco! Receba sua simulação</h2>
+              <p class="sim-desc">Um especialista monta a estratégia ideal para o seu objetivo.</p>
+
+              <div class="summary">
+                <svg class="ic"><use href="#i-target"/></svg>
+                <span id="sumTxt">—</span>
+                <button type="button" id="sumEdit">Editar</button>
+              </div>
+
+              <form id="leadForm" novalidate>
+                <div class="f" data-f="nome">
+                  <label for="fNome">Nome completo</label>
+                  <input id="fNome" name="nome" type="text" autocomplete="name" placeholder="Como podemos te chamar?" required>
+                  <p class="err-msg"></p>
+                </div>
+                <div class="f" data-f="email">
+                  <label for="fEmail">E-mail</label>
+                  <input id="fEmail" name="email" type="email" autocomplete="email" inputmode="email" placeholder="seu@email.com" required>
+                  <p class="err-msg"></p>
+                </div>
+                <div class="f2">
+                  <div class="f" data-f="celular">
+                    <label for="fCel">Celular / WhatsApp</label>
+                    <input id="fCel" name="celular" type="tel" autocomplete="tel-national" inputmode="numeric" placeholder="(00) 00000-0000" maxlength="15" required>
+                    <p class="err-msg"></p>
+                  </div>
+                  <div class="f" data-f="cpf">
+                    <label for="fCpf">CPF</label>
+                    <input id="fCpf" name="cpf" type="text" inputmode="numeric" placeholder="000.000.000-00" maxlength="14" required>
+                    <p class="err-msg"></p>
+                  </div>
+                </div>
+                <div class="f" data-f="cep">
+                  <label for="fCep">CEP</label>
+                  <input id="fCep" name="cep" type="text" autocomplete="postal-code" inputmode="numeric" placeholder="00000-000" maxlength="9" required>
+                  <p class="hint" id="cepHint"></p>
+                  <p class="err-msg"></p>
+                </div>
+
+                <label class="cbx" data-f="privacidade">
+                  <input type="checkbox" id="fPriv" name="aceite_privacidade" required>
+                  <span>Li e aceito a <button type="button" class="lnk" data-open-privacy>Política de Privacidade</button> e os Termos de Uso.</span>
+                </label>
+                <label class="cbx" data-f="notificacoes">
+                  <input type="checkbox" id="fNotif" name="aceite_notificacoes" required>
+                  <span>Concordo em receber o resultado e notificações sobre a simulação por WhatsApp, e-mail e SMS.</span>
+                </label>
+                <p class="err-msg" id="cbxErr" role="alert"></p>
+
+                <button type="submit" class="btn btn-gold btn-block" id="leadSubmit" style="margin-top:6px">Ver resultado da simulação <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></button>
+              </form>
+              <button type="button" class="backlink" id="simBackBtn">← Voltar e ajustar o plano</button>
+            </div>
+
+            <div id="resultPanel" hidden>
+              <div class="okc"><svg class="ic"><use href="#i-check"/></svg></div>
+              <p class="el" style="font-size:.7rem;font-weight:700;color:var(--ok);text-transform:uppercase;letter-spacing:.12em">Simulação concluída</p>
+              <h2 class="sim-title" style="margin-top:4px" tabindex="-1" id="resTitle">Pronto! Este é o seu plano</h2>
+              <ul class="res">
+                <li><span>Objetivo</span><b id="rCat">—</b></li>
+                <li><span>Crédito</span><b id="rCred">—</b></li>
+                <li class="hl"><span>Parcela estimada</span><b id="rParc">—</b></li>
+                <li><span>Prazo</span><b id="rPrazo">—</b></li>
+                <li><span>Parcela reduzida até a contemplação*</span><b id="rRed">—</b></li>
+              </ul>
+              <a class="btn btn-wa btn-block" id="rWa" href="#" target="_blank" rel="noopener"><svg class="ic" style="fill:currentColor;stroke:none;width:22px;height:22px"><use href="#i-wa"/></svg>Falar com um especialista</a>
+              <button type="button" class="backlink" id="rRestart">Fazer nova simulação</button>
+              <p class="legal-mini">Um especialista entrará em contato pelo WhatsApp informado. *Parcela reduzida disponível em grupos selecionados. Valores estimados, sujeitos às condições do grupo e à análise da administradora; não constituem proposta.</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-extra">
+      <ul class="checks">
+        <li><span class="ck"><svg class="ic"><use href="#i-check"/></svg></span>Zero juros e sem entrada</li>
+        <li><span class="ck"><svg class="ic"><use href="#i-check"/></svg></span>Estratégia de contemplação com lances</li>
+        <li><span class="ck"><svg class="ic"><use href="#i-check"/></svg></span>Acompanhamento do início à conquista</li>
+      </ul>
+      <div class="hero-cta">
+        <a class="btn btn-gold" href="#simulador" data-goto-sim>Simular meu plano <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-ghost" href="#como-funciona">Como funciona</a>
+      </div>
+      <div class="trust">
+        <div><b>R$ 20 mi+</b><span>em créditos</span></div>
+        <div><b>80+</b><span>clientes atendidos</span></div>
+        <div class="seal-inline"><svg class="ic"><use href="#i-shield"/></svg><div><b style="font-size:1rem">BACEN · ABAC</b><span>Regulamentado</span></div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     2 · QUEM SOMOS
+     ============================================================ -->
+<section class="block" id="quem-somos">
+  <div class="wrap">
+    <div class="about">
+      <div class="about-media reveal">
+        <figure class="photo-slot">
+          <!-- IMAGEM: substitua o bloco .ph abaixo por:
+               <img src="assets/img/escritorio.jpg" alt="Escritório da Sua Marca" width="1200" height="1020" loading="lazy"> -->
+          <div class="ph">
+            <svg class="ic"><use href="#i-image"/></svg>
+            <b>Espaço para imagem do escritório com o logo</b>
+            <small>Recomendado: 1200 × 1020 px · JPG ou WebP</small>
+          </div>
+        </figure>
+        <div class="float-card">
+          <div class="fi"><svg class="ic"><use href="#i-trophy"/></svg></div>
+          <div><div class="big">5 anos</div><span>realizando conquistas<br>com estratégia</span></div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <span class="eyebrow">Quem somos</span>
+        <h2 class="h2">Especialistas em transformar crédito em <span class="gold">patrimônio</span>.</h2>
+        <p class="lead">Somos uma consultoria especializada em consórcio que une planejamento, estratégia e acompanhamento próximo. Em 5 anos de mercado, ajudamos mais de 80 clientes a conquistar imóveis, veículos e investimentos — sem juros e sem descapitalizar.</p>
+        <p class="lead" style="margin-top:12px">Trabalhamos com administradoras sólidas, autorizadas e fiscalizadas pelo Banco Central, para que cada carta de crédito cumpra uma função clara no seu plano.</p>
+        <ul class="values">
+          <li><span class="vi"><svg class="ic"><use href="#i-target"/></svg></span><div><b>Estratégia antes da venda</b><span>Primeiro entendemos o seu objetivo; depois indicamos a carta certa.</span></div></li>
+          <li><span class="vi"><svg class="ic"><use href="#i-shield"/></svg></span><div><b>Transparência total</b><span>Taxas, prazos e regras explicados sem letras miúdas.</span></div></li>
+          <li><span class="vi"><svg class="ic"><use href="#i-users"/></svg></span><div><b>Acompanhamento de verdade</b><span>Ao seu lado nas assembleias, nos lances e na liberação do crédito.</span></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat reveal"><svg class="ic si"><use href="#i-wallet"/></svg><b data-count="20" data-prefix="R$ " data-suffix=" mi+">R$ 20 mi+</b><span>em créditos comercializados</span></div>
+      <div class="stat reveal"><svg class="ic si"><use href="#i-users"/></svg><b data-count="80" data-suffix="+">80+</b><span>clientes atendidos</span></div>
+      <div class="stat reveal"><svg class="ic si"><use href="#i-calendar"/></svg><b data-count="5" data-suffix=" anos">5 anos</b><span>de mercado</span></div>
+      <div class="stat reveal"><svg class="ic si"><use href="#i-shield"/></svg><b class="sm">BACEN · ABAC</b><span>consórcio regulamentado</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     3 · COMO FUNCIONA — METODOLOGIA
+     ============================================================ -->
+<section class="block soft" id="como-funciona">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow reveal">Como funciona · Nossa metodologia</span>
+      <h2 class="h2 reveal">4 passos para conquistar com <span class="gold">estratégia</span>, não com sorte.</h2>
+      <p class="lead reveal">Um método claro que dá direção a cada decisão — do primeiro contato até o bem nas suas mãos.</p>
+    </div>
+    <div class="steps" style="margin-top:96px">
+      <article class="step reveal">
+        <div class="num"><svg class="ic"><use href="#i-target"/></svg><i>1</i></div>
+        <small>Passo 01</small>
+        <h3>Mapeamos o objetivo</h3>
+        <p>Entendemos o que você quer conquistar, seu momento financeiro, prazo e perfil. É aqui que o plano nasce.</p>
+        <ul><li>Objetivo</li><li>Perfil</li><li>Prazo</li></ul>
+      </article>
+      <article class="step reveal">
+        <div class="num"><svg class="ic"><use href="#i-layers"/></svg><i>2</i></div>
+        <small>Passo 02</small>
+        <h3>Estruturamos o crédito</h3>
+        <p>Definimos o valor da carta, o prazo, a parcela que cabe no seu orçamento e o grupo mais aderente ao seu objetivo.</p>
+        <ul><li>Carta</li><li>Parcela</li><li>Grupo</li></ul>
+      </article>
+      <article class="step reveal">
+        <div class="num"><svg class="ic"><use href="#i-compass"/></svg><i>3</i></div>
+        <small>Passo 03</small>
+        <h3>Estratégia</h3>
+        <p>Montamos a estratégia de contemplação: análise de grupos, histórico de lances, lance embutido, FGTS e composição de cartas.</p>
+        <ul><li>Lances</li><li>Contemplação</li><li>Alavancagem</li></ul>
+      </article>
+      <article class="step reveal">
+        <div class="num"><svg class="ic"><use href="#i-users"/></svg><i>4</i></div>
+        <small>Passo 04</small>
+        <h3>Acompanhamento</h3>
+        <p>Acompanhamos assembleias, lances e toda a liberação do crédito até a conquista do bem — e seguimos com você depois dela.</p>
+        <ul><li>Assembleias</li><li>Liberação</li><li>Pós-venda</li></ul>
+      </article>
+    </div>
+    <div class="sec-cta reveal">
+      <a class="btn btn-navy" href="#simulador" data-goto-sim>Quero meu plano personalizado <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></a>
+      <p>Simulação gratuita e sem compromisso.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     4 · NOSSAS SOLUÇÕES
+     ============================================================ -->
+<section class="block" id="solucoes">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow reveal">Nossas soluções</span>
+      <h2 class="h2 reveal">Uma solução para cada <span class="gold">objetivo</span>.</h2>
+      <p class="lead reveal">Do primeiro imóvel à multiplicação do patrimônio: o consórcio certo, usado do jeito certo.</p>
+    </div>
+    <div class="sols">
+      <article class="sol reveal">
+        <div class="si"><svg class="ic"><use href="#i-key"/></svg></div>
+        <h3>Aquisição</h3>
+        <p>Conquiste seu imóvel, veículo ou bem com planejamento, sem juros e sem entrada.</p>
+        <ul>
+          <li><svg class="ic"><use href="#i-check"/></svg>Casa, apartamento ou terreno</li>
+          <li><svg class="ic"><use href="#i-check"/></svg>Carro, moto, caminhão ou máquina</li>
+          <li><svg class="ic"><use href="#i-check"/></svg>Parcelas que cabem no orçamento</li>
+        </ul>
+        <button type="button" class="go" data-sim-cat="imovel">Simular aquisição <svg class="ic"><use href="#i-arrow"/></svg></button>
+      </article>
+      <article class="sol featured reveal">
+        <span class="tag">Mais procurada</span>
+        <div class="si"><svg class="ic"><use href="#i-building"/></svg></div>
+        <h3>Alavancagem patrimonial</h3>
+        <p>Multiplique seu patrimônio adquirindo ativos que se pagam: imóveis para renda, terrenos e construção.</p>
+        <ul>
+          <li><svg class="ic"><use href="#i-check"/></svg>Aluguel ajudando a pagar a parcela</li>
+          <li><svg class="ic"><use href="#i-check"/></svg>Patrimônio cresce sem descapitalizar</li>
+          <li><svg class="ic"><use href="#i-check"/></svg>Estratégia com múltiplas cartas</li>
+        </ul>
+        <button type="button" class="go" data-sim-cat="imovel">Simular alavancagem <svg class="ic"><use href="#i-arrow"/></svg></button>
+      </article>
+      <article class="sol reveal">
+        <div class="si"><svg class="ic"><use href="#i-coins"/></svg></div>
+        <h3>Alavancagem financeira</h3>
+        <p>Mantenha seu capital aplicado rendendo enquanto o consórcio viabiliza a compra com custo muito menor que os juros bancários.</p>
+        <ul>
+          <li><svg class="ic"><use href="#i-check"/></svg>Seu dinheiro continua rendendo</li>
+          <li><svg class="ic"><use href="#i-check"/></svg>Troca de dívida cara por crédito planejado</li>
+          <li><svg class="ic"><use href="#i-check"/></svg>Mais fôlego de caixa para a empresa</li>
+        </ul>
+        <button type="button" class="go" data-sim-cat="investimento">Simular alavancagem <svg class="ic"><use href="#i-arrow"/></svg></button>
+      </article>
+      <article class="sol reveal">
+        <div class="si"><svg class="ic"><use href="#i-pie"/></svg></div>
+        <h3>Investimento</h3>
+        <p>Use a carta de crédito como ativo: estratégia de compra, contemplação e venda da carta, ou formação de patrimônio de longo prazo.</p>
+        <ul>
+          <li><svg class="ic"><use href="#i-check"/></svg>Diversificação da carteira</li>
+          <li><svg class="ic"><use href="#i-check"/></svg>Crédito corrigido pela inflação</li>
+          <li><svg class="ic"><use href="#i-check"/></svg>Possibilidade de venda com ágio*</li>
+        </ul>
+        <button type="button" class="go" data-sim-cat="investimento">Simular investimento <svg class="ic"><use href="#i-arrow"/></svg></button>
+      </article>
+    </div>
+    <p class="fine reveal">*Rentabilidade não garantida. Resultados passados não asseguram resultados futuros.</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     5 · BENEFÍCIOS DO CONSÓRCIO — COMPARATIVO
+     ============================================================ -->
+<section class="block dark" id="beneficios">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow reveal">Benefícios do consórcio</span>
+      <h2 class="h2 reveal">Compare e veja por que o consórcio é a forma mais <span class="gold">inteligente</span> de conquistar.</h2>
+      <div class="perks reveal">
+        <span><svg class="ic"><use href="#i-check"/></svg>Sem juros</span>
+        <span><svg class="ic"><use href="#i-check"/></svg>Sem entrada</span>
+        <span><svg class="ic"><use href="#i-check"/></svg>Poder de compra à vista</span>
+        <span><svg class="ic"><use href="#i-check"/></svg>Crédito corrigido</span>
+        <span><svg class="ic"><use href="#i-check"/></svg>Regulamentado pelo Banco Central</span>
+      </div>
+    </div>
+
+    <div class="cmp reveal">
+      <div class="cmp-col cmp-labels" aria-hidden="true">
+        <div class="cmp-h"></div>
+        <div class="cmp-r">Juros</div>
+        <div class="cmp-r">Entrada</div>
+        <div class="cmp-r">Custo total</div>
+        <div class="cmp-r">Seu patrimônio</div>
+        <div class="cmp-r">Acesso ao bem</div>
+        <div class="cmp-r">Ideal para</div>
+      </div>
+
+      <article class="cmp-col">
+        <div class="cmp-h"><svg class="ic"><use href="#i-cash"/></svg><b>À vista</b></div>
+        <div class="cmp-r"><span class="mk good"><svg class="ic"><use href="#i-check"/></svg></span><div><span class="cmp-k">Juros</span>Sem juros</div></div>
+        <div class="cmp-r"><span class="mk bad"><svg class="ic"><use href="#i-x"/></svg></span><div><span class="cmp-k">Entrada</span>100% do valor na hora</div></div>
+        <div class="cmp-r"><span class="mk mid"><svg class="ic"><use href="#i-minus"/></svg></span><div><span class="cmp-k">Custo total</span>Valor do bem + custo de oportunidade</div></div>
+        <div class="cmp-r"><span class="mk bad"><svg class="ic"><use href="#i-x"/></svg></span><div><span class="cmp-k">Seu patrimônio</span>Capital todo imobilizado</div></div>
+        <div class="cmp-r"><span class="mk mid"><svg class="ic"><use href="#i-minus"/></svg></span><div><span class="cmp-k">Acesso ao bem</span>Só depois de juntar o valor</div></div>
+        <div class="cmp-r"><span class="mk mid"><svg class="ic"><use href="#i-minus"/></svg></span><div><span class="cmp-k">Ideal para</span>Quem já tem reserva sobrando</div></div>
+      </article>
+
+      <article class="cmp-col">
+        <div class="cmp-h"><svg class="ic"><use href="#i-percent"/></svg><b>Financiamento</b></div>
+        <div class="cmp-r"><span class="mk bad"><svg class="ic"><use href="#i-x"/></svg></span><div><span class="cmp-k">Juros</span>De 10% a 30% ao ano</div></div>
+        <div class="cmp-r"><span class="mk bad"><svg class="ic"><use href="#i-x"/></svg></span><div><span class="cmp-k">Entrada</span>20% a 30% do valor</div></div>
+        <div class="cmp-r"><span class="mk bad"><svg class="ic"><use href="#i-x"/></svg></span><div><span class="cmp-k">Custo total</span>Pode passar de 2x o valor do bem</div></div>
+        <div class="cmp-r"><span class="mk mid"><svg class="ic"><use href="#i-minus"/></svg></span><div><span class="cmp-k">Seu patrimônio</span>Comprometido com entrada e juros</div></div>
+        <div class="cmp-r"><span class="mk good"><svg class="ic"><use href="#i-check"/></svg></span><div><span class="cmp-k">Acesso ao bem</span>Imediato, após aprovação</div></div>
+        <div class="cmp-r"><span class="mk mid"><svg class="ic"><use href="#i-minus"/></svg></span><div><span class="cmp-k">Ideal para</span>Quem precisa do bem com urgência</div></div>
+      </article>
+
+      <article class="cmp-col">
+        <div class="cmp-h"><svg class="ic"><use href="#i-home"/></svg><b>Home Equity</b></div>
+        <div class="cmp-r"><span class="mk bad"><svg class="ic"><use href="#i-x"/></svg></span><div><span class="cmp-k">Juros</span>Cerca de 1% a 1,6% ao mês</div></div>
+        <div class="cmp-r"><span class="mk mid"><svg class="ic"><use href="#i-minus"/></svg></span><div><span class="cmp-k">Entrada</span>Exige imóvel quitado em garantia</div></div>
+        <div class="cmp-r"><span class="mk bad"><svg class="ic"><use href="#i-x"/></svg></span><div><span class="cmp-k">Custo total</span>Alto: juros por até 20 anos</div></div>
+        <div class="cmp-r"><span class="mk bad"><svg class="ic"><use href="#i-x"/></svg></span><div><span class="cmp-k">Seu patrimônio</span>Imóvel alienado como garantia</div></div>
+        <div class="cmp-r"><span class="mk good"><svg class="ic"><use href="#i-check"/></svg></span><div><span class="cmp-k">Acesso ao bem</span>Liquidez rápida</div></div>
+        <div class="cmp-r"><span class="mk mid"><svg class="ic"><use href="#i-minus"/></svg></span><div><span class="cmp-k">Ideal para</span>Quem precisa de dinheiro imediato</div></div>
+      </article>
+
+      <article class="cmp-col win">
+        <span class="ribbon">★ Melhor escolha</span>
+        <div class="cmp-h"><svg class="ic"><use href="#i-trophy"/></svg><b>Consórcio</b></div>
+        <div class="cmp-r"><span class="mk good"><svg class="ic"><use href="#i-check"/></svg></span><div><span class="cmp-k">Juros</span>Zero juros</div></div>
+        <div class="cmp-r"><span class="mk good"><svg class="ic"><use href="#i-check"/></svg></span><div><span class="cmp-k">Entrada</span>Sem entrada</div></div>
+        <div class="cmp-r"><span class="mk good"><svg class="ic"><use href="#i-check"/></svg></span><div><span class="cmp-k">Custo total</span>Só a taxa de administração, diluída</div></div>
+        <div class="cmp-r"><span class="mk good"><svg class="ic"><use href="#i-check"/></svg></span><div><span class="cmp-k">Seu patrimônio</span>Preservado e rendendo</div></div>
+        <div class="cmp-r"><span class="mk good"><svg class="ic"><use href="#i-check"/></svg></span><div><span class="cmp-k">Acesso ao bem</span>Lances estratégicos antecipam a contemplação</div></div>
+        <div class="cmp-r"><span class="mk good"><svg class="ic"><use href="#i-check"/></svg></span><div><span class="cmp-k">Ideal para</span>Quem planeja e quer multiplicar patrimônio</div></div>
+      </article>
+    </div>
+
+    <p class="swipe-hint" aria-hidden="true">Deslize para comparar <svg class="ic"><use href="#i-arrow"/></svg></p>
+
+    <div class="cost reveal">
+      <div>
+        <span class="eyebrow">Na ponta do lápis</span>
+        <h3>Quanto você paga no total por um crédito de <span class="gold" id="costBase">R$ 300 mil</span>?</h3>
+        <p>Sem juros, o consórcio custa uma fração das alternativas de crédito. É essa diferença que fica no seu bolso — e vira patrimônio.</p>
+        <div class="save"><svg class="ic" style="width:22px;height:22px"><use href="#i-trend"/></svg><span>Economia estimada de <b id="costSave">—</b> em relação ao financiamento</span></div>
+      </div>
+      <div>
+        <ul class="bars" id="costBars" aria-label="Custo total estimado por modalidade"></ul>
+        <p class="cost-note" id="costNote"></p>
+      </div>
+    </div>
+
+    <div class="sec-cta reveal">
+      <a class="btn btn-gold" href="#simulador" data-goto-sim>Simular meu consórcio <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     6 · UTILIZAÇÕES DO CONSÓRCIO
+     ============================================================ -->
+<section class="block soft" id="utilizacoes">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow reveal">Utilizações do consórcio</span>
+      <h2 class="h2 reveal">O que você pode conquistar com uma <span class="gold">carta de crédito</span>.</h2>
+      <p class="lead reveal">Com o crédito contemplado, você compra como se fosse à vista — e ainda negocia melhores condições.</p>
+    </div>
+    <div class="uses">
+      <div class="use-group reveal">Imóveis</div>
+      <div class="use reveal"><span class="ui"><svg class="ic"><use href="#i-home"/></svg></span><div><b>Casa ou apartamento</b><span>Novos, usados ou na planta</span></div></div>
+      <div class="use reveal"><span class="ui"><svg class="ic"><use href="#i-map"/></svg></span><div><b>Terrenos e lotes</b><span>Urbanos, rurais ou em condomínio</span></div></div>
+      <div class="use reveal"><span class="ui"><svg class="ic"><use href="#i-hammer"/></svg></span><div><b>Construção e reforma</b><span>Do projeto ao acabamento</span></div></div>
+      <div class="use reveal"><span class="ui"><svg class="ic"><use href="#i-store"/></svg></span><div><b>Imóvel comercial</b><span>Salas, lojas e galpões</span></div></div>
+      <div class="use-group reveal">Veículos e equipamentos</div>
+      <div class="use reveal"><span class="ui"><svg class="ic"><use href="#i-car"/></svg></span><div><b>Carros</b><span>Zero km ou seminovos</span></div></div>
+      <div class="use reveal"><span class="ui"><svg class="ic"><use href="#i-moto"/></svg></span><div><b>Motos</b><span>Para o dia a dia ou para lazer</span></div></div>
+      <div class="use reveal"><span class="ui"><svg class="ic"><use href="#i-truck"/></svg></span><div><b>Caminhões e utilitários</b><span>Renove ou amplie a frota</span></div></div>
+      <div class="use reveal"><span class="ui"><svg class="ic"><use href="#i-tractor"/></svg></span><div><b>Máquinas agrícolas</b><span>E equipamentos pesados</span></div></div>
+      <div class="use-group reveal">Estratégias, negócios e investimentos</div>
+      <div class="use reveal"><span class="ui"><svg class="ic"><use href="#i-refresh"/></svg></span><div><b>Quitar financiamento</b><span>Troque juros por planejamento</span></div></div>
+      <div class="use reveal"><span class="ui"><svg class="ic"><use href="#i-cash"/></svg></span><div><b>Imóveis para renda</b><span>O aluguel ajuda a pagar a parcela</span></div></div>
+      <div class="use reveal"><span class="ui"><svg class="ic"><use href="#i-brief"/></svg></span><div><b>Expansão do negócio</b><span>Estrutura, frota e equipamentos sem usar o caixa</span></div></div>
+      <div class="use reveal"><span class="ui"><svg class="ic"><use href="#i-trend"/></svg></span><div><b>Investimento</b><span>Diversificação e venda de carta contemplada</span></div></div>
+    </div>
+    <p class="fine reveal">As condições de utilização variam conforme a administradora e as regras de cada grupo.</p>
+    <div class="sec-cta reveal">
+      <a class="btn btn-navy" href="#simulador" data-goto-sim>Descobrir quanto consigo conquistar <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     7 · PROVA REAL — DEPOIMENTOS
+     Substitua os textos, nomes e fotos pelos relatos reais
+     ============================================================ -->
+<section class="block" id="depoimentos">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow reveal">Prova real</span>
+      <h2 class="h2 reveal">Quem já conquistou com a <span class="gold">gente</span>.</h2>
+      <p class="lead reveal">Histórias reais de clientes que transformaram planejamento em patrimônio.</p>
+    </div>
+    <div class="tests">
+      <article class="tcard reveal">
+        <svg class="q"><use href="#i-quote"/></svg>
+        <div class="stars" aria-label="Avaliação 5 de 5"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
+        <blockquote>“Espaço para o relato do cliente 1. Conte qual era o objetivo, como foi a experiência com a consultoria e qual foi o resultado conquistado com o consórcio.”</blockquote>
+        <span class="ttag"><svg class="ic"><use href="#i-home"/></svg>Imóvel · Carta de R$ 000 mil</span>
+        <div class="who">
+          <div class="av"><svg class="ic"><use href="#i-user"/></svg><!-- <img src="assets/img/cliente-1.jpg" alt="Nome do cliente"> --></div>
+          <div><b>Nome do cliente</b><span>Cidade/UF · Cliente desde 20XX</span></div>
+        </div>
+      </article>
+      <article class="tcard reveal">
+        <svg class="q"><use href="#i-quote"/></svg>
+        <div class="stars" aria-label="Avaliação 5 de 5"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
+        <blockquote>“Espaço para o relato do cliente 2. Destaque o diferencial do atendimento, a estratégia de lance utilizada e o tempo até a contemplação.”</blockquote>
+        <span class="ttag"><svg class="ic"><use href="#i-car"/></svg>Veículo · Carta de R$ 000 mil</span>
+        <div class="who">
+          <div class="av"><svg class="ic"><use href="#i-user"/></svg><!-- <img src="assets/img/cliente-2.jpg" alt="Nome do cliente"> --></div>
+          <div><b>Nome do cliente</b><span>Cidade/UF · Cliente desde 20XX</span></div>
+        </div>
+      </article>
+      <article class="tcard reveal">
+        <svg class="q"><use href="#i-quote"/></svg>
+        <div class="stars" aria-label="Avaliação 5 de 5"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
+        <blockquote>“Espaço para o relato do cliente 3. Ideal para um caso de investimento ou alavancagem patrimonial, mostrando o resultado em números.”</blockquote>
+        <span class="ttag"><svg class="ic"><use href="#i-chart"/></svg>Investimento · Carta de R$ 000 mil</span>
+        <div class="who">
+          <div class="av"><svg class="ic"><use href="#i-user"/></svg><!-- <img src="assets/img/cliente-3.jpg" alt="Nome do cliente"> --></div>
+          <div><b>Nome do cliente</b><span>Cidade/UF · Cliente desde 20XX</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     8 · FAQ — Contemplação · Documentação · Formas de Utilização
+     ============================================================ -->
+<section class="block soft" id="duvidas">
+  <div class="wrap faq-grid">
+    <div class="faq-aside reveal">
+      <span class="eyebrow">Tire suas dúvidas</span>
+      <h2 class="h2">Perguntas frequentes</h2>
+      <p class="lead">Separamos as dúvidas mais comuns sobre contemplação, documentação e formas de utilização do crédito.</p>
+      <div class="help">
+        <b>Não encontrou o que procurava?</b>
+        <p>Fale direto com um especialista. Respondemos rápido pelo WhatsApp.</p>
+        <a class="btn btn-wa" href="#" data-wa="Olá! Tenho uma dúvida sobre consórcio."><svg class="ic" style="fill:currentColor;stroke:none;width:22px;height:22px"><use href="#i-wa"/></svg>Chamar no WhatsApp</a>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="tabs" role="tablist" aria-label="Categorias de perguntas">
+        <button type="button" role="tab" id="t-cont" aria-controls="p-cont" aria-selected="true"><svg class="ic"><use href="#i-trophy"/></svg>Contemplação</button>
+        <button type="button" role="tab" id="t-doc" aria-controls="p-doc" aria-selected="false" tabindex="-1"><svg class="ic"><use href="#i-doc"/></svg>Documentação</button>
+        <button type="button" role="tab" id="t-uso" aria-controls="p-uso" aria-selected="false" tabindex="-1"><svg class="ic"><use href="#i-key"/></svg>Formas de utilização</button>
+      </div>
+
+      <div class="tabpanel" role="tabpanel" id="p-cont" aria-labelledby="t-cont">
+        <details class="qa" open><summary>O que é a contemplação?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+          <div class="a"><p>É o momento em que o consorciado recebe o direito de usar a carta de crédito para comprar o bem ou serviço. Ela acontece nas assembleias mensais do grupo, por sorteio ou por lance.</p></div></details>
+        <details class="qa"><summary>Como funcionam os sorteios?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+          <div class="a"><p>Todo mês o grupo realiza uma assembleia. Na maioria das administradoras, o sorteio utiliza os números da Loteria Federal para definir as cotas contempladas. Concorrem apenas os participantes com as parcelas em dia.</p></div></details>
+        <details class="qa"><summary>O que é lance e quais são os tipos?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+          <div class="a"><p>Lance é a oferta de antecipar parcelas para ser contemplado mais rápido. Os principais tipos são:</p>
+            <ul><li><b>Lance livre:</b> você define o percentual que quer ofertar;</li><li><b>Lance fixo:</b> percentual pré-definido pelo grupo;</li><li><b>Lance embutido:</b> usa parte da própria carta de crédito, sem precisar de dinheiro do bolso.</li></ul>
+            <p>No consórcio de imóveis também é possível usar o FGTS no lance, conforme as regras vigentes.</p></div></details>
+        <details class="qa"><summary>Em quanto tempo posso ser contemplado?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+          <div class="a"><p>Não existe data garantida — você concorre desde a primeira assembleia. Com estratégia de lances, análise do histórico do grupo e composição de cartas, é possível aumentar bastante as chances de uma contemplação mais rápida. É exatamente isso que trabalhamos na nossa metodologia.</p></div></details>
+        <details class="qa"><summary>Fui contemplado. Existe prazo para usar o crédito?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+          <div class="a"><p>Não. Após a contemplação, o crédito fica aplicado e é corrigido até você encontrar o bem ideal, respeitando as regras do contrato do grupo.</p></div></details>
+        <details class="qa"><summary>Continuo pagando as parcelas depois de contemplado?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+          <div class="a"><p>Sim. A contemplação antecipa o acesso ao crédito, mas as parcelas seguem até o fim do plano — sempre sem juros, apenas com a taxa de administração prevista em contrato.</p></div></details>
+      </div>
+
+      <div class="tabpanel" role="tabpanel" id="p-doc" aria-labelledby="t-doc" hidden>
+        <details class="qa" open><summary>Quais documentos preciso para contratar?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+          <div class="a"><p>Para aderir a um grupo, normalmente bastam documento de identificação com foto (RG ou CNH), CPF e comprovante de residência. Para pessoa jurídica, também são solicitados o contrato social e os documentos dos sócios.</p></div></details>
+        <details class="qa"><summary>O que é exigido para liberar a carta após a contemplação?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+          <div class="a"><p>A administradora realiza uma análise de crédito e solicita:</p>
+            <ul><li>Documentos pessoais atualizados e comprovação de renda;</li><li>Documentação do bem (matrícula do imóvel, nota fiscal ou documento do veículo);</li><li>Garantia — em geral, o próprio bem adquirido fica alienado à administradora até a quitação.</li></ul></div></details>
+        <details class="qa"><summary>Como funciona a análise de crédito?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+          <div class="a"><p>Ela avalia a sua capacidade de continuar pagando as parcelas depois de receber o crédito. Pelas regras do Banco Central, a parcela deve ser compatível com a renda comprovada — muitas administradoras adotam o limite de cerca de 30% de comprometimento da renda.</p></div></details>
+        <details class="qa"><summary>Posso contratar com o nome negativado?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+          <div class="a"><p>Sim. A restrição não impede a adesão ao grupo. Você só precisa estar com o nome regularizado no momento da liberação do crédito, após a contemplação — e pode usar esse tempo para organizar as finanças.</p></div></details>
+        <details class="qa"><summary>Empresas (CNPJ) podem contratar consórcio?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+          <div class="a"><p>Sim. Empresas usam o consórcio para adquirir imóveis, veículos, frotas e equipamentos, preservando o capital de giro.</p></div></details>
+      </div>
+
+      <div class="tabpanel" role="tabpanel" id="p-uso" aria-labelledby="t-uso" hidden>
+        <details class="qa" open><summary>O que posso comprar com a carta de crédito?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+          <div class="a"><p>Depende do segmento contratado. No consórcio de imóveis: casas, apartamentos, terrenos, salas comerciais, imóveis rurais, construção e reforma. No de veículos: carros, motos, caminhões e utilitários, novos ou seminovos. A escolha do bem é sua, respeitando as regras do grupo.</p></div></details>
+        <details class="qa"><summary>Posso usar o consórcio para quitar um financiamento?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+          <div class="a"><p>Sim. No consórcio de imóveis é possível usar a carta contemplada para quitar o financiamento do seu imóvel, trocando juros altos por um custo muito menor.</p></div></details>
+        <details class="qa"><summary>Dá para usar em construção ou reforma?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+          <div class="a"><p>Sim. O crédito pode ser liberado para construção, reforma e ampliação — normalmente em etapas, conforme o andamento da obra e as regras da administradora.</p></div></details>
+        <details class="qa"><summary>Posso usar o crédito em outra cidade ou estado?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+          <div class="a"><p>Sim. A carta de crédito pode ser usada em todo o território nacional, desde que o bem atenda às exigências de avaliação e documentação.</p></div></details>
+        <details class="qa"><summary>Posso juntar cartas ou usar o FGTS para complementar?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+          <div class="a"><p>Sim. É possível somar cartas contempladas para adquirir um bem de maior valor e, no caso de imóveis, usar o FGTS para complementar a compra ou ofertar lance, conforme as regras vigentes.</p></div></details>
+        <details class="qa"><summary>Posso vender a minha carta contemplada?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+          <div class="a"><p>Sim. A cota pode ser transferida para outra pessoa com anuência da administradora. Essa é, inclusive, uma das estratégias usadas por quem utiliza o consórcio como investimento.</p></div></details>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA final -->
+  <div class="wrap" style="margin-top:96px">
+    <div class="final reveal">
+      <div>
+        <h2>Seu próximo patrimônio começa com uma simulação.</h2>
+        <p>Em menos de 1 minuto você descobre quanto pode conquistar — e um especialista monta a estratégia com você.</p>
+      </div>
+      <div class="acts">
+        <a class="btn btn-gold" href="#simulador" data-goto-sim>Simular agora <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-ghost" href="#" data-wa="Olá! Quero falar com um especialista em consórcio."><svg class="ic" style="fill:currentColor;stroke:none;width:20px;height:20px"><use href="#i-wa"/></svg>Falar no WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================================================
+     9 · RODAPÉ — Soluções · Atendimento · Redes sociais
+     ============================================================ -->
+<footer class="ftr" style="margin-top:0">
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <a class="logo" href="#topo" aria-label="Sua Marca Consórcios — voltar ao início">
+          <svg class="logo-mark" aria-hidden="true"><use href="#logo-mark"/></svg>
+          <span class="logo-txt"><b>SUA MARCA</b><small>Consórcios &amp; Investimentos</small></span>
+        </a>
+        <p>Consultoria especializada em consórcio como ferramenta de aquisição e alavancagem patrimonial.</p>
+        <div class="seals">
+          <span class="seal"><svg class="ic"><use href="#i-shield"/></svg>BACEN</span>
+          <span class="seal"><svg class="ic"><use href="#i-shield"/></svg>ABAC</span>
+          <span class="seal"><svg class="ic"><use href="#i-lock"/></svg>LGPD</span>
+        </div>
+      </div>
+      <div>
+        <h3>Soluções</h3>
+        <ul>
+          <li><button type="button" data-sim-cat="imovel">Aquisição</button></li>
+          <li><button type="button" data-sim-cat="imovel">Alavancagem patrimonial</button></li>
+          <li><button type="button" data-sim-cat="investimento">Alavancagem financeira</button></li>
+          <li><button type="button" data-sim-cat="investimento">Investimento</button></li>
+          <li><a href="#simulador" data-goto-sim>Simulador</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Atendimento</h3>
+        <ul>
+          <li><a href="#" data-wa="Olá! Vim pelo site e quero falar com um especialista."><svg class="ic"><use href="#i-phone"/></svg>(00) 00000-0000</a></li>
+          <li><a href="mailto:contato@suamarca.com.br"><svg class="ic"><use href="#i-mail"/></svg>contato@suamarca.com.br</a></li>
+          <li><span><svg class="ic"><use href="#i-clock"/></svg>Seg. a sex., 9h às 18h</span></li>
+          <li><span><svg class="ic"><use href="#i-pin"/></svg>Endereço · Cidade/UF</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Redes sociais</h3>
+        <div class="socials">
+          <a href="#" aria-label="Instagram" target="_blank" rel="noopener"><svg class="ic"><use href="#i-instagram"/></svg></a>
+          <a href="#" aria-label="Facebook" target="_blank" rel="noopener"><svg class="ic"><use href="#i-facebook"/></svg></a>
+          <a href="#" aria-label="LinkedIn" target="_blank" rel="noopener"><svg class="ic"><use href="#i-linkedin"/></svg></a>
+          <a href="#" aria-label="YouTube" target="_blank" rel="noopener"><svg class="ic"><use href="#i-youtube"/></svg></a>
+        </div>
+        <span class="handle">@suamarca</span>
+      </div>
+    </div>
+    <div class="legal">
+      <p>© <span id="year">2026</span> Sua Marca Consultoria em Consórcios LTDA · CNPJ 00.000.000/0001-00. Consórcio regulamentado pelo Banco Central do Brasil (Lei 11.795/2008). As simulações apresentadas são estimativas e não constituem proposta, promessa de contemplação ou de rentabilidade; valores e condições estão sujeitos às regras de cada grupo e à análise da administradora.</p>
+      <nav aria-label="Links legais"><button type="button" data-open-privacy>Política de Privacidade</button><button type="button" data-open-privacy>Termos de Uso</button></nav>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp flutuante -->
+<a class="wa-float" id="waFloat" href="#" data-wa="Olá! Vim pelo site e quero saber mais sobre consórcio." aria-label="Falar no WhatsApp" target="_blank" rel="noopener">
+  <span class="tt">Fale com um especialista</span>
+  <svg viewBox="0 0 32 32" aria-hidden="true"><use href="#i-wa"/></svg>
+</a>
+
+<!-- Barra fixa (mobile) -->
+<div class="mbar" id="mbar" aria-hidden="true">
+  <p><b>Simule seu consórcio</b>Grátis, em menos de 1 minuto</p>
+  <a class="btn btn-gold btn-sm" href="#simulador" data-goto-sim tabindex="-1">Simular agora</a>
+</div>
+
+<!-- Política de privacidade (texto-base — revisar com o jurídico) -->
+<dialog id="privacy" aria-labelledby="privTitle">
+  <div class="dlg-h"><b id="privTitle">Política de Privacidade e Termos de Uso</b><button type="button" data-close aria-label="Fechar"><svg class="ic ic-sm"><use href="#i-x"/></svg></button></div>
+  <div class="dlg-b">
+    <h4>1. Quais dados coletamos</h4>
+    <p>Nome, e-mail, celular, CPF e CEP informados no simulador, além das preferências da simulação (categoria, valor de crédito ou parcela).</p>
+    <h4>2. Para que usamos</h4>
+    <ul><li>Enviar o resultado da simulação e entrar em contato com uma proposta;</li><li>Verificar a elegibilidade junto às administradoras parceiras;</li><li>Enviar notificações sobre a sua simulação, mediante o seu consentimento.</li></ul>
+    <h4>3. Compartilhamento</h4>
+    <p>Os dados podem ser compartilhados apenas com administradoras de consórcio parceiras, para fins de cotação e contratação. Não vendemos dados pessoais.</p>
+    <h4>4. Seus direitos (LGPD)</h4>
+    <p>Você pode solicitar acesso, correção, portabilidade ou exclusão dos seus dados e revogar o consentimento a qualquer momento pelo e-mail contato@suamarca.com.br.</p>
+    <h4>5. Termos de uso</h4>
+    <p>As simulações são estimativas e não constituem proposta comercial, garantia de contemplação ou de rentabilidade. As condições finais dependem do grupo escolhido e da análise da administradora.</p>
+  </div>
+</dialog>
+
+<script>
+/* ==================================================================
+   CONFIGURAÇÕES — edite aqui
+   ================================================================== */
+var CONFIG = {
+  // WhatsApp com DDI + DDD + número, só dígitos. Ex.: 5554999998888
+  whatsapp: '5500000000000',
+
+  // URL do CRM / webhook (Zapier, Make, RD Station, n8n, Supabase...). Recebe POST JSON.
+  // Deixe vazio para apenas disparar os eventos do dataLayer.
+  leadEndpoint: '',
+
+  // Faixas dos sliders
+  credito: { min: 0,   max: 4000000 },
+  parcela: { min: 300, max: 20000 },
+
+  // Premissas por categoria (ajuste conforme a tabela da administradora)
+  //  prazo: meses · taxaAdm: taxa de administração total · fundoReserva: fundo de reserva total
+  //  reducao: desconto da parcela reduzida até a contemplação (0.3 = 30% menor)
+  categorias: {
+    imovel: {
+      label: 'Imóvel', prazo: 200, taxaAdm: 0.20, fundoReserva: 0.02, reducao: 0.30,
+      padraoCredito: 400000, padraoParcela: 2500,
+      chipsCredito: [200000, 400000, 800000, 1500000], chipsParcela: [1000, 2500, 5000, 10000]
+    },
+    veiculo: {
+      label: 'Veículo', prazo: 80, taxaAdm: 0.15, fundoReserva: 0.02, reducao: 0.30,
+      padraoCredito: 100000, padraoParcela: 1500,
+      chipsCredito: [50000, 100000, 200000, 400000], chipsParcela: [600, 1500, 3000, 6000]
+    },
+    investimento: {
+      label: 'Investimento', prazo: 220, taxaAdm: 0.22, fundoReserva: 0.02, reducao: 0.50,
+      padraoCredito: 1000000, padraoParcela: 5000,
+      chipsCredito: [500000, 1000000, 2000000, 4000000], chipsParcela: [2000, 5000, 10000, 20000]
+    }
+  },
+
+  // Premissas do gráfico comparativo (seção Benefícios)
+  comparativo: {
+    credito: 300000,
+    financiamento: { taxaAno: 0.115, meses: 240 },   // SAC
+    homeEquity:    { taxaMes: 0.012, meses: 180 }    // Price
+  }
+};
+
+(function () {
+  'use strict';
+  document.documentElement.classList.add('js');
+
+  var $ = function (s, c) { return (c || document).querySelector(s); };
+  var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+  var BRL0 = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
+  var BRL2 = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  var NUM = new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 0 });
+  var COMPACT = new Intl.NumberFormat('pt-BR', { notation: 'compact', maximumFractionDigits: 1 });
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.dataLayer = window.dataLayer || [];
+  function track(ev, data) { var o = { event: ev }; for (var k in data) o[k] = data[k]; window.dataLayer.push(o); }
+  function brlCompact(v) { return 'R$ ' + COMPACT.format(v); }
+  function waLink(msg) { return 'https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent(msg.replace(/\u00a0/g, ' ')); }
+
+  /* ---------------- Links de WhatsApp ---------------- */
+  $$('[data-wa]').forEach(function (a) {
+    a.href = waLink(a.getAttribute('data-wa'));
+    a.target = '_blank'; a.rel = 'noopener';
+  });
+
+  /* ---------------- Header / menu ---------------- */
+  var hdr = $('#hdr'), menu = $('#menu'), hamb = $('#hamb');
+  function onScrollHdr() { hdr.classList.toggle('scrolled', window.scrollY > 20); }
+  window.addEventListener('scroll', onScrollHdr, { passive: true }); onScrollHdr();
+  hamb.addEventListener('click', function () {
+    var o = menu.classList.toggle('open');
+    hamb.setAttribute('aria-expanded', o ? 'true' : 'false');
+  });
+  $$('a', menu).forEach(function (a) { a.addEventListener('click', function () { menu.classList.remove('open'); hamb.setAttribute('aria-expanded', 'false'); }); });
+
+  /* ==================================================================
+     SIMULADOR — Etapa 1
+     ================================================================== */
+  var sim = $('#simulador'), front = $('#simFront'), back = $('#simBack');
+  var rangeEl = $('#simRange'), txt = $('#simTxt');
+  var S = { cat: 'imovel', mode: 'credito', credito: CONFIG.categorias.imovel.padraoCredito, parcela: 0 };
+  var started = false;
+
+  function cat() { return CONFIG.categorias[S.cat]; }
+  function coef(c) { c = c || cat(); return (1 + c.taxaAdm + c.fundoReserva) / c.prazo; }
+  function parcelaDe(credito) { return credito * coef(); }
+  function creditoDe(parcela) { return Math.floor(parcela / coef() / 1000) * 1000; }
+  function lim() { return S.mode === 'credito' ? CONFIG.credito : CONFIG.parcela; }
+  function valor() { return S.mode === 'credito' ? S.credito : S.parcela; }
+  function clamp(v) { var r = lim(); return Math.min(r.max, Math.max(r.min, v)); }
+  function nice(v) {
+    var st = S.mode === 'credito' ? (v < 100000 ? 1000 : v < 1000000 ? 5000 : 10000) : (v < 2000 ? 10 : 50);
+    return Math.round(v / st) * st;
+  }
+  function setValor(v) {
+    v = clamp(v);
+    if (S.mode === 'credito') { S.credito = v; S.parcela = parcelaDe(v); }
+    else { S.parcela = v; S.credito = creditoDe(v); }
+  }
+  // Slider não linear: dá mais precisão aos valores menores (0 → 4 mi)
+  var POW = 2;
+  function toPos(v) { var r = lim(); if (v <= r.min) return 0; return Math.round(Math.pow((v - r.min) / (r.max - r.min), 1 / POW) * 1000); }
+  function fromPos(p) { var r = lim(); return clamp(nice(r.min + (r.max - r.min) * Math.pow(p / 1000, POW))); }
+
+  function render() {
+    var c = cat(), v = valor();
+    $$('[data-cat]', front).forEach(function (b) { b.setAttribute('aria-checked', b.getAttribute('data-cat') === S.cat ? 'true' : 'false'); });
+    $$('[data-mode]', front).forEach(function (b) { b.setAttribute('aria-checked', b.getAttribute('data-mode') === S.mode ? 'true' : 'false'); });
+    $('#simLbl').textContent = S.mode === 'credito' ? 'Valor do crédito' : 'Parcela mensal desejada';
+    $('#simUnit').textContent = S.mode === 'parcela' ? '/mês' : '';
+    if (document.activeElement !== txt) txt.value = NUM.format(v);
+    var pos = toPos(v);
+    rangeEl.value = pos;
+    rangeEl.style.backgroundSize = (pos / 10) + '% 100%';
+    rangeEl.setAttribute('aria-valuetext', BRL0.format(v));
+    var r = lim();
+    $('#scMin').textContent = BRL0.format(r.min);
+    $('#scMax').textContent = S.mode === 'credito' ? 'R$ 4 milhões' : BRL0.format(r.max);
+    var chips = S.mode === 'credito' ? c.chipsCredito : c.chipsParcela;
+    $('#simChips').innerHTML = chips.map(function (p) {
+      return '<button type="button" class="' + (p === v ? 'on' : '') + '" data-chip="' + p + '">' + (p >= 1000000 ? brlCompact(p) : BRL0.format(p)) + '</button>';
+    }).join('');
+    if (S.mode === 'credito') {
+      $('#estLbl').textContent = 'Parcela estimada';
+      $('#estVal').innerHTML = BRL0.format(S.parcela) + ' <small>/mês</small>';
+    } else {
+      $('#estLbl').textContent = 'Crédito estimado';
+      $('#estVal').textContent = BRL0.format(S.credito);
+    }
+    $('#estSub').innerHTML = 'em ' + c.prazo + ' meses<br>sem juros · sem entrada';
+    if (v > 0) $('#simErr').textContent = '';
+  }
+  function markStarted() { if (!started) { started = true; track('simulacao_iniciada', { categoria: S.cat }); } }
+
+  $$('[data-cat]', front).forEach(function (b) {
+    b.addEventListener('click', function () { setCat(b.getAttribute('data-cat')); markStarted(); });
+  });
+  function setCat(k) {
+    if (!CONFIG.categorias[k]) return;
+    S.cat = k;
+    var c = cat();
+    setValor(S.mode === 'credito' ? c.padraoCredito : c.padraoParcela);
+    render();
+  }
+  $$('[data-mode]', front).forEach(function (b) {
+    b.addEventListener('click', function () {
+      var m = b.getAttribute('data-mode');
+      if (m === S.mode) return;
+      var credAtual = S.credito, parcAtual = S.parcela;
+      S.mode = m;
+      // mantém a coerência ao alternar: converte o valor atual
+      if (m === 'parcela') setValor(nice(parcAtual || cat().padraoParcela));
+      else setValor(nice(credAtual || cat().padraoCredito));
+      render(); markStarted();
+    });
+  });
+  rangeEl.addEventListener('input', function () { setValor(fromPos(+rangeEl.value)); render(); markStarted(); });
+  $('#simChips').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-chip]'); if (!b) return;
+    setValor(+b.getAttribute('data-chip')); render(); markStarted();
+  });
+  txt.addEventListener('input', function () {
+    var d = txt.value.replace(/\D/g, '').slice(0, 8);
+    var n = d ? parseInt(d, 10) : 0;
+    txt.value = d ? NUM.format(n) : '';
+    var r = lim();
+    var v = Math.min(r.max, n);
+    if (S.mode === 'credito') { S.credito = v; S.parcela = parcelaDe(v); } else { S.parcela = v; S.credito = creditoDe(v); }
+    render(); markStarted();
+  });
+  txt.addEventListener('blur', function () { setValor(valor()); render(); });
+  txt.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); txt.blur(); } });
+
+  /* ---------------- Virar o cartão ---------------- */
+  function flip(toBack) {
+    sim.classList.toggle('flipped', toBack);
+    if (toBack) { front.setAttribute('inert', ''); back.removeAttribute('inert'); }
+    else { back.setAttribute('inert', ''); front.removeAttribute('inert'); }
+    if (window.innerWidth < 980) {
+      var top = sim.getBoundingClientRect().top + window.scrollY - (hdr.offsetHeight + 12);
+      window.scrollTo({ top: top, behavior: reduceMotion ? 'auto' : 'smooth' });
+    }
+  }
+  function summaryText() {
+    var c = cat();
+    return '<b>' + c.label + '</b> · Crédito ' + BRL0.format(S.credito) + ' · Parcela ~' + BRL0.format(S.parcela) + '/mês';
+  }
+
+  $('#simNext').addEventListener('click', function () {
+    setValor(valor());
+    if (S.mode === 'credito' && S.credito <= 0) {
+      $('#simErr').textContent = 'Escolha um valor de crédito maior que zero para simular.';
+      rangeEl.focus(); return;
+    }
+    if (S.credito <= 0) { $('#simErr').textContent = 'Ajuste o valor para simular.'; return; }
+    $('#sumTxt').innerHTML = summaryText();
+    track('simulacao_etapa1', { categoria: S.cat, modo: S.mode, credito: Math.round(S.credito), parcela: Math.round(S.parcela) });
+    flip(true);
+    setTimeout(function () { $('#fNome').focus({ preventScroll: true }); }, reduceMotion ? 0 : 650);
+  });
+  $('#simBackBtn').addEventListener('click', function () { flip(false); });
+  $('#sumEdit').addEventListener('click', function () { flip(false); });
+
+  /* ==================================================================
+     SIMULADOR — Etapa 2 (captação)
+     ================================================================== */
+  var form = $('#leadForm');
+  function maskPhone(v) {
+    var d = v.replace(/\D/g, '').slice(0, 11);
+    if (d.length <= 2) return d.length ? '(' + d : '';
+    if (d.length <= 6) return '(' + d.slice(0, 2) + ') ' + d.slice(2);
+    if (d.length <= 10) return '(' + d.slice(0, 2) + ') ' + d.slice(2, 6) + '-' + d.slice(6);
+    return '(' + d.slice(0, 2) + ') ' + d.slice(2, 7) + '-' + d.slice(7);
+  }
+  function maskCpf(v) {
+    var d = v.replace(/\D/g, '').slice(0, 11);
+    return d.replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+  }
+  function maskCep(v) { var d = v.replace(/\D/g, '').slice(0, 8); return d.length > 5 ? d.slice(0, 5) + '-' + d.slice(5) : d; }
+  function validCpf(c) {
+    c = c.replace(/\D/g, '');
+    if (c.length !== 11 || /^(\d)\1{10}$/.test(c)) return false;
+    var s = 0, i, r;
+    for (i = 0; i < 9; i++) s += +c[i] * (10 - i);
+    r = (s * 10) % 11; if (r === 10) r = 0; if (r !== +c[9]) return false;
+    s = 0; for (i = 0; i < 10; i++) s += +c[i] * (11 - i);
+    r = (s * 10) % 11; if (r === 10) r = 0; return r === +c[10];
+  }
+  function validPhone(p) { var d = p.replace(/\D/g, ''); return d.length === 11 ? d[2] === '9' : d.length === 10; }
+
+  var fCel = $('#fCel'), fCpf = $('#fCpf'), fCep = $('#fCep');
+  fCel.addEventListener('input', function () { fCel.value = maskPhone(fCel.value); });
+  fCpf.addEventListener('input', function () { fCpf.value = maskCpf(fCpf.value); });
+  var cepData = {};
+  fCep.addEventListener('input', function () {
+    fCep.value = maskCep(fCep.value);
+    var d = fCep.value.replace(/\D/g, '');
+    $('#cepHint').textContent = ''; cepData = {};
+    if (d.length === 8 && window.fetch) {
+      fetch('https://viacep.com.br/ws/' + d + '/json/').then(function (r) { return r.json(); }).then(function (j) {
+        if (j && !j.erro && fCep.value.replace(/\D/g, '') === d) {
+          cepData = { cidade: j.localidade, uf: j.uf, bairro: j.bairro };
+          $('#cepHint').textContent = '✓ ' + j.localidade + ' – ' + j.uf;
+        }
+      }).catch(function () { /* sem conexão: segue sem a cidade */ });
+    }
+  });
+
+  function setErr(name, msg) {
+    var box = form.querySelector('[data-f="' + name + '"]'); if (!box) return;
+    box.classList.toggle('invalid', !!msg);
+    var p = box.querySelector('.err-msg'); if (p) p.textContent = msg || '';
+  }
+  $$('input', form).forEach(function (i) {
+    i.addEventListener('input', function () { var b = i.closest('[data-f]'); if (b) { b.classList.remove('invalid'); var p = b.querySelector('.err-msg'); if (p) p.textContent = ''; } });
+    i.addEventListener('change', function () { if (i.type === 'checkbox') { var b = i.closest('[data-f]'); if (b) b.classList.remove('invalid'); $('#cbxErr').textContent = ''; } });
+  });
+
+  function validate() {
+    var ok = true, first = null;
+    var nome = $('#fNome').value.trim(), email = $('#fEmail').value.trim();
+    function bad(n, m, el) { setErr(n, m); ok = false; if (!first) first = el; }
+    if (nome.split(/\s+/).filter(Boolean).length < 2 || nome.length < 5) bad('nome', 'Informe seu nome e sobrenome.', $('#fNome')); else setErr('nome');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) bad('email', 'Informe um e-mail válido.', $('#fEmail')); else setErr('email');
+    if (!validPhone(fCel.value)) bad('celular', 'Informe um celular válido com DDD.', fCel); else setErr('celular');
+    if (!validCpf(fCpf.value)) bad('cpf', 'CPF inválido.', fCpf); else setErr('cpf');
+    if (fCep.value.replace(/\D/g, '').length !== 8) bad('cep', 'Informe um CEP válido.', fCep); else setErr('cep');
+    var msgs = [];
+    if (!$('#fPriv').checked) { $('[data-f="privacidade"]').classList.add('invalid'); msgs.push('aceite a Política de Privacidade'); ok = false; if (!first) first = $('#fPriv'); }
+    if (!$('#fNotif').checked) { $('[data-f="notificacoes"]').classList.add('invalid'); msgs.push('concorde em receber as notificações'); ok = false; if (!first) first = $('#fNotif'); }
+    $('#cbxErr').textContent = msgs.length ? 'Para continuar, ' + msgs.join(' e ') + '.' : '';
+    if (first) first.focus();
+    return ok;
+  }
+  function utms() {
+    var out = {}, q = new URLSearchParams(location.search);
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'fbclid'].forEach(function (k) { if (q.get(k)) out[k] = q.get(k); });
+    return out;
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!validate()) return;
+    var c = cat();
+    var lead = {
+      nome: $('#fNome').value.trim(),
+      email: $('#fEmail').value.trim(),
+      celular: fCel.value.replace(/\D/g, ''),
+      cpf: fCpf.value.replace(/\D/g, ''),
+      cep: fCep.value.replace(/\D/g, ''),
+      cidade: cepData.cidade || '', uf: cepData.uf || '',
+      categoria: c.label, modo: S.mode,
+      credito: Math.round(S.credito), parcela: Math.round(S.parcela), prazo: c.prazo,
+      aceite_privacidade: true, aceite_notificacoes: true,
+      origem: 'LP Simulador', pagina: location.href, data: new Date().toISOString(),
+      utm: utms()
+    };
+    var btn = $('#leadSubmit'); btn.disabled = true;
+    // Evento de conversão (sem dados pessoais) para GTM / Google Ads / Meta
+    track('lead_simulacao', { categoria: S.cat, modo: S.mode, credito: lead.credito, parcela: lead.parcela });
+    if (window.gtag) window.gtag('event', 'generate_lead', { currency: 'BRL', value: lead.credito });
+    if (window.fbq) window.fbq('track', 'Lead');
+    var done = function () { btn.disabled = false; showResult(lead); };
+    if (CONFIG.leadEndpoint && window.fetch) {
+      var t = setTimeout(done, 4000); // não deixa o usuário esperando se o CRM demorar
+      fetch(CONFIG.leadEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(lead), keepalive: true })
+        .catch(function () { /* falha silenciosa: o resultado é exibido mesmo assim */ })
+        .then(function () { clearTimeout(t); done(); });
+    } else { done(); }
+  });
+
+  var resultShown = false;
+  function showResult(lead) {
+    if (resultShown) return; resultShown = true;
+    var c = cat(), first = lead.nome.split(' ')[0];
+    $('#resTitle').textContent = 'Pronto, ' + first + '! Este é o seu plano';
+    $('#rCat').textContent = c.label;
+    $('#rCred').textContent = BRL0.format(S.credito);
+    $('#rParc').textContent = BRL2.format(S.parcela);
+    $('#rPrazo').textContent = c.prazo + ' meses';
+    $('#rRed').textContent = BRL2.format(S.parcela * (1 - c.reducao));
+    $('#rWa').href = waLink('Olá! Sou ' + lead.nome + ' e fiz uma simulação no site: ' + c.label + ', crédito de ' + BRL0.format(S.credito) +
+      ', parcela estimada de ' + BRL2.format(S.parcela) + ' em ' + c.prazo + ' meses. Quero entender a melhor estratégia.');
+    $('#leadPanel').hidden = true; $('#resultPanel').hidden = false;
+    $('#resTitle').focus({ preventScroll: true });
+  }
+  $('#rRestart').addEventListener('click', function () {
+    resultShown = false; form.reset(); $('#cepHint').textContent = ''; cepData = {};
+    $('#leadPanel').hidden = false; $('#resultPanel').hidden = true;
+    flip(false);
+  });
+
+  /* ---------------- CTAs que levam ao simulador ---------------- */
+  function gotoSim(catKey) {
+    if (catKey) setCat(catKey);
+    if (sim.classList.contains('flipped') && !resultShown) flip(false);
+    var top = sim.getBoundingClientRect().top + window.scrollY - (hdr.offsetHeight + 16);
+    window.scrollTo({ top: Math.max(0, top), behavior: reduceMotion ? 'auto' : 'smooth' });
+    var face = sim.classList.contains('flipped') ? back : front;
+    face.classList.remove('pulse-once'); void face.offsetWidth; face.classList.add('pulse-once');
+  }
+  $$('[data-goto-sim]').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); gotoSim(); }); });
+  $$('[data-sim-cat]').forEach(function (b) { b.addEventListener('click', function () { gotoSim(b.getAttribute('data-sim-cat')); }); });
+
+  /* ==================================================================
+     Gráfico de custo total (Benefícios)
+     ================================================================== */
+  (function costChart() {
+    var cc = CONFIG.comparativo, P = cc.credito, im = CONFIG.categorias.imovel;
+    var fin = cc.financiamento, rM = Math.pow(1 + fin.taxaAno, 1 / 12) - 1;
+    var finTotal = P + rM * P * (fin.meses + 1) / 2;                    // SAC: juros totais = r·P·(n+1)/2
+    var he = cc.homeEquity, pmt = P * he.taxaMes / (1 - Math.pow(1 + he.taxaMes, -he.meses));
+    var heTotal = pmt * he.meses;                                        // Price
+    var conTotal = P * (1 + im.taxaAdm + im.fundoReserva);
+    var rows = [
+      { k: 'Home Equity', v: heTotal, tip: 'Juros de ' + NUM.format(he.taxaMes * 1000) / 10 + '% a.m. em ' + he.meses + ' meses (Price). Juros pagos: ' + BRL0.format(heTotal - P) + '.' },
+      { k: 'Financiamento', v: finTotal, tip: 'Juros de ' + (fin.taxaAno * 100).toLocaleString('pt-BR') + '% a.a. em ' + fin.meses + ' meses (SAC). Juros pagos: ' + BRL0.format(finTotal - P) + '.' },
+      { k: 'Consórcio', v: conTotal, win: true, tip: 'Zero juros. Taxa de administração + fundo de reserva: ' + BRL0.format(conTotal - P) + ', diluídos em ' + im.prazo + ' meses.' }
+    ];
+    var max = Math.max(heTotal, finTotal, conTotal);
+    $('#costBase').textContent = brlCompact(P).replace(/\s?mil$/, ' mil');
+    $('#costSave').textContent = brlCompact(finTotal - conTotal);
+    $('#costBars').innerHTML = rows.map(function (r) {
+      return '<li class="bar-row' + (r.win ? ' win' : '') + '" tabindex="0" aria-label="' + r.k + ': total pago aproximado de ' + BRL0.format(r.v) + '">' +
+        '<span class="bl">' + r.k + '</span>' +
+        '<div class="bar-track"><div class="bar-fill" data-w="' + (r.v / max * 100 * .78).toFixed(1) + '"></div><span class="bar-val">' + brlCompact(r.v) + '</span></div>' +
+        '<div class="bar-tip" role="tooltip"><b>' + r.k + ' · ' + BRL0.format(r.v) + '</b>' + r.tip + '</div></li>';
+    }).join('');
+    $('#costNote').textContent = 'Estimativas ilustrativas para crédito de ' + BRL0.format(P) + '. Financiamento: SAC, ' + fin.meses + ' meses, ' +
+      (fin.taxaAno * 100).toLocaleString('pt-BR') + '% a.a., sem seguros e TR. Home equity: Price, ' + he.meses + ' meses, ' +
+      (he.taxaMes * 100).toLocaleString('pt-BR') + '% a.m. Consórcio: taxa de administração de ' + Math.round(im.taxaAdm * 100) + '% + fundo de reserva de ' +
+      Math.round(im.fundoReserva * 100) + '%. Valores sem correção monetária.';
+    var bars = $$('.bar-fill');
+    function grow() { bars.forEach(function (b) { b.style.width = b.getAttribute('data-w') + '%'; }); }
+    if (!('IntersectionObserver' in window) || reduceMotion) { grow(); return; }
+    var io = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { grow(); io.disconnect(); } }, { threshold: .3 });
+    io.observe($('#costBars'));
+  })();
+
+  /* ---------------- FAQ: abas ---------------- */
+  var tabs = $$('[role="tab"]');
+  function selectTab(t) {
+    tabs.forEach(function (x) {
+      var on = x === t;
+      x.setAttribute('aria-selected', on ? 'true' : 'false');
+      x.tabIndex = on ? 0 : -1;
+      $('#' + x.getAttribute('aria-controls')).hidden = !on;
+    });
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { selectTab(t); });
+    t.addEventListener('keydown', function (e) {
+      var n = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!n) return; e.preventDefault();
+      var nt = tabs[(i + n + tabs.length) % tabs.length]; selectTab(nt); nt.focus();
+    });
+  });
+  // FAQ: abre uma pergunta por vez dentro de cada aba
+  $$('.tabpanel').forEach(function (p) {
+    $$('details', p).forEach(function (d) {
+      d.addEventListener('toggle', function () { if (d.open) $$('details', p).forEach(function (o) { if (o !== d) o.open = false; }); });
+    });
+  });
+  // FAQ em dados estruturados (schema.org/FAQPage) para o Google
+  (function () {
+    var items = $$('.qa').map(function (d) {
+      var q = d.querySelector('summary').textContent.trim();
+      return { '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: d.querySelector('.a').textContent.replace(/\s+/g, ' ').trim() } };
+    });
+    var s = document.createElement('script'); s.type = 'application/ld+json';
+    s.textContent = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: items });
+    document.head.appendChild(s);
+  })();
+
+  /* ---------------- Política de privacidade ---------------- */
+  var dlg = $('#privacy');
+  $$('[data-open-privacy]').forEach(function (b) { b.addEventListener('click', function (e) { e.preventDefault(); if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', ''); }); });
+  $('[data-close]', dlg).addEventListener('click', function () { dlg.close ? dlg.close() : dlg.removeAttribute('open'); });
+  dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+
+  /* ---------------- Animações de entrada e contadores ---------------- */
+  function countUp(el) {
+    var end = +el.getAttribute('data-count'), pre = el.getAttribute('data-prefix') || '', suf = el.getAttribute('data-suffix') || '';
+    if (reduceMotion) { el.textContent = pre + end + suf; return; }
+    var t0 = null, dur = 1400;
+    function step(t) { if (!t0) t0 = t; var p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3); el.textContent = pre + Math.round(end * e) + suf; if (p < 1) requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+  }
+  var reveals = $$('.reveal'), counters = $$('[data-count]');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (ents) {
+      ents.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        var el = en.target;
+        if (el.hasAttribute('data-count')) countUp(el); else el.classList.add('in');
+        io.unobserve(el);
+      });
+    }, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(function (el) { io.observe(el); });
+    counters.forEach(function (el) { io.observe(el); });
+  } else { reveals.forEach(function (el) { el.classList.add('in'); }); }
+
+  /* ---------------- Barra fixa mobile + WhatsApp ---------------- */
+  var mbar = $('#mbar'), waF = $('#waFloat'), ftr = $('.ftr');
+  function onScrollBar() {
+    var simBottom = sim.getBoundingClientRect().bottom;
+    var ftrTop = ftr.getBoundingClientRect().top;
+    var show = simBottom < 0 && ftrTop > window.innerHeight;
+    mbar.classList.toggle('show', show);
+    mbar.setAttribute('aria-hidden', show ? 'false' : 'true');
+    $('a', mbar).tabIndex = show ? 0 : -1;
+    waF.classList.toggle('lift', show);
+    // no celular, o botão flutuante sai da frente enquanto o simulador está na tela
+    var r = sim.getBoundingClientRect();
+    waF.classList.toggle('away', r.top < window.innerHeight - 80 && r.bottom > 80);
+  }
+  window.addEventListener('scroll', onScrollBar, { passive: true }); onScrollBar();
+
+  $('#year').textContent = new Date().getFullYear();
+
+  setValor(S.credito);
+  render();
+})();
+</script>
+</body>
+</html>
