@@ -225,9 +225,10 @@ section[id]{scroll-margin-top:calc(var(--hdr) - 12px)}
 .ticker-track{display:flex;width:max-content;animation:marquee 48s linear infinite}
 .ticker:hover .ticker-track{animation-play-state:paused}
 .ticker-group{display:flex;align-items:center;gap:64px;padding:22px 32px;flex:0 0 auto}
-.adm{font-family:var(--font-display);font-weight:600;font-size:1.12rem;letter-spacing:-.01em;color:var(--mist);opacity:.62;white-space:nowrap;transition:opacity .2s}
+.adm{font-family:var(--font-display);font-weight:600;font-size:1.05rem;letter-spacing:-.01em;color:var(--mist);opacity:.72;white-space:nowrap;transition:opacity .2s}
 .adm:hover{opacity:1}
-.adm-logo{height:26px;width:auto;filter:brightness(0) invert(.88);opacity:.62}
+.adm-logo{height:var(--h);width:auto;opacity:.72;transition:opacity .2s;flex:0 0 auto}
+.adm-logo:hover{opacity:1}
 @keyframes marquee{to{transform:translateX(-50%)}}
 
 /* ---------- Simulador: cartão que vira em 2 etapas ---------- */
@@ -571,6 +572,7 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
   .trust div b{font-size:1.4rem}
   .ticker-group{gap:40px;padding:18px 20px}
   .adm{font-size:1rem}
+  .adm-logo{height:calc(var(--h) * .8)}
   .sim-face{padding:22px 18px 18px}
   .steps-ind{gap:6px}
   .steps-ind .bar{width:12px}
@@ -849,13 +851,13 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
 
   </div>
   <p class="partners-cap">Administradoras parceiras</p>
-  <!-- Administradoras: nomes em tom único, no padrão do site. Para usar os logotipos oficiais,
-       troque cada <span class="adm"> por <img class="adm-logo" src="assets/img/adm/nome.svg" alt="Nome">
-       (versão monocromática branca; o CSS aplica a mesma opacidade em todos). -->
+  <!-- Administradoras parceiras: logos convertidos para uma única cor (Névoa #E0E1DD) com fundo
+       transparente, no padrão da página (assets/img/adm/). As que ainda não têm logo aparecem
+       pelo nome, no mesmo tom. A altura de cada logo (--h) equilibra o peso visual entre eles. -->
   <div class="ticker" aria-label="Administradoras parceiras">
     <div class="ticker-track">
-      <div class="ticker-group"><span class="adm">HS Consórcios</span><span class="adm">Consórcio Embracon</span><span class="adm">Itaú Consórcios</span><span class="adm">Santander Consórcios</span><span class="adm">CNP Consórcios</span><span class="adm">Mapfre Consórcios</span><span class="adm">Consórcio Servopa</span><span class="adm">Porto Consórcio</span></div>
-      <div class="ticker-group" aria-hidden="true"><span class="adm">HS Consórcios</span><span class="adm">Consórcio Embracon</span><span class="adm">Itaú Consórcios</span><span class="adm">Santander Consórcios</span><span class="adm">CNP Consórcios</span><span class="adm">Mapfre Consórcios</span><span class="adm">Consórcio Servopa</span><span class="adm">Porto Consórcio</span></div>
+      <div class="ticker-group"><img class="adm-logo" src="assets/img/adm/hs.png" alt="HS Consórcios" width="75" height="48" style="--h:48px" decoding="async"><img class="adm-logo" src="assets/img/adm/racon.png" alt="Racon Consórcios" width="91" height="44" style="--h:44px" decoding="async"><span class="adm">Itaú Consórcios</span><img class="adm-logo" src="assets/img/adm/bradesco.png" alt="Bradesco Consórcios" width="112" height="40" style="--h:40px" decoding="async"><img class="adm-logo" src="assets/img/adm/embracon.png" alt="Consórcio Embracon" width="94" height="50" style="--h:50px" decoding="async"><span class="adm">Santander Consórcios</span><img class="adm-logo" src="assets/img/adm/klubi.png" alt="Klubi" width="75" height="28" style="--h:28px" decoding="async"><span class="adm">CNP Consórcios</span><img class="adm-logo" src="assets/img/adm/servopa.png" alt="Consórcio Servopa" width="149" height="38" style="--h:38px" decoding="async"><span class="adm">Mapfre Consórcios</span><span class="adm">Porto Consórcio</span></div>
+      <div class="ticker-group" aria-hidden="true"><img class="adm-logo" src="assets/img/adm/hs.png" alt="HS Consórcios" width="75" height="48" style="--h:48px" decoding="async"><img class="adm-logo" src="assets/img/adm/racon.png" alt="Racon Consórcios" width="91" height="44" style="--h:44px" decoding="async"><span class="adm">Itaú Consórcios</span><img class="adm-logo" src="assets/img/adm/bradesco.png" alt="Bradesco Consórcios" width="112" height="40" style="--h:40px" decoding="async"><img class="adm-logo" src="assets/img/adm/embracon.png" alt="Consórcio Embracon" width="94" height="50" style="--h:50px" decoding="async"><span class="adm">Santander Consórcios</span><img class="adm-logo" src="assets/img/adm/klubi.png" alt="Klubi" width="75" height="28" style="--h:28px" decoding="async"><span class="adm">CNP Consórcios</span><img class="adm-logo" src="assets/img/adm/servopa.png" alt="Consórcio Servopa" width="149" height="38" style="--h:38px" decoding="async"><span class="adm">Mapfre Consórcios</span><span class="adm">Porto Consórcio</span></div>
     </div>
   </div>
 </section>
