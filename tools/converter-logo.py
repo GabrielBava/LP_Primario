@@ -1,6 +1,7 @@
 """
 Converte o logo de uma administradora para o padrão da faixa "Administradoras parceiras":
-uma única cor clara (Névoa #E0E1DD) com fundo transparente, recortado e com 160 px de altura.
+uma única cor clara (Névoa #E0E1DD) com fundo transparente, recortado e com 100 px de altura
+(o dobro da maior altura exibida, para telas retina), salvo como PNG com paleta (arquivo leve).
 
 Uso:
     pip install pillow
@@ -21,7 +22,7 @@ from PIL import Image
 MIST = (224, 225, 221)  # Névoa (identidade visual)
 
 
-def converter(entrada, saida, limiar=0.05, altura=160):
+def converter(entrada, saida, limiar=0.05, altura=100):
     im = Image.open(entrada).convert('RGBA')
     fundo = Image.new('RGBA', im.size, (255, 255, 255, 255))
     fundo.alpha_composite(im)
@@ -41,7 +42,11 @@ def converter(entrada, saida, limiar=0.05, altura=160):
                 op[x, y] = MIST + (round(a * 255),)
     out = out.crop(out.getbbox())
     largura = round(out.width * altura / out.height)
-    out.resize((largura, altura), Image.LANCZOS).save(saida, optimize=True)
+    alpha = out.resize((largura, altura), Image.LANCZOS).getchannel('A')
+    # paleta com a mesma cor em todas as entradas; o índice de cada pixel é o seu nível de transparência
+    png = Image.frombytes('P', alpha.size, alpha.tobytes())
+    png.putpalette(list(MIST) * 256)
+    png.save(saida, optimize=True, transparency=bytes(range(256)))
     print(f'{saida}: {largura}x{altura} (proporção {largura / altura:.2f})')
 
 

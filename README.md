@@ -3,12 +3,14 @@
 Landing page de captação de leads para consultoria de consórcio, seguindo o **Manual de identidade visual v1.0** (paleta, tipografia, elementos de interface e tom de voz). A página inteira está em um único arquivo (`index.html`, com CSS e JS embutidos), sem dependências, e pode ser hospedada em qualquer lugar.
 
 ```
-index.html                    página completa
+index.html                    página (usa os arquivos de assets/)
+dist/lp-completa.html         HTML completo em arquivo único, com os logos embutidos
 assets/css/design-tokens.css  tokens oficiais da marca (referência)
 assets/fonts/                 arquivos licenciados da Famels
 assets/img/                   logo, foto do escritório e fotos de clientes
 assets/img/adm/               logos das administradoras (Névoa, fundo transparente)
 tools/converter-logo.py       converte novos logos para o padrão da faixa
+tools/gerar-html-completo.py  gera o dist/lp-completa.html a partir do index.html
 ```
 
 ## Identidade visual aplicada
@@ -56,6 +58,13 @@ Até o logotipo oficial ficar pronto, a página usa o **monograma provisório "C
 
 ### Fonte Famels
 Coloque os arquivos licenciados em `assets/fonts/Famels-Regular.woff2` e `assets/fonts/Famels-Italic.woff2`. A página passa a usá-los automaticamente.
+
+## HTML completo (arquivo único)
+
+O `dist/lp-completa.html` tem tudo dentro dele: CSS, JavaScript, ícones e os logos das administradoras. Funciona sozinho, sem a pasta `assets/`, e serve para enviar, publicar em qualquer hospedagem ou colar em construtores de página que aceitam HTML.
+
+- **Precisa de internet:** só as fontes Poppins e Manrope, que vêm do Google Fonts.
+- **Atualização:** sempre que o `index.html` mudar, rode `python3 tools/gerar-html-completo.py` para gerar o arquivo de novo.
 
 ## Estrutura da página
 
