@@ -1,6 +1,6 @@
 """
 Gera um HTML completo em arquivo único (dist/lp-completa.html), com os logos das
-administradoras embutidos no próprio arquivo. Útil para enviar, publicar ou abrir a
+administradoras e os selos BACEN e ABAC embutidos no próprio arquivo. Útil para enviar, publicar ou abrir a
 página sem a pasta assets/.
 
 Uso:
@@ -20,7 +20,7 @@ def embutir(m):
     return f'src="data:image/png;base64,{dados}"'
 
 
-html, n = re.subn(r'src="(assets/img/adm/[a-z0-9-]+\.png)"', embutir, html)
+html, n = re.subn(r'src="(assets/img/(?:adm|selos)/[a-z0-9-]+\.png)"', embutir, html)
 # a fonte Famels só é usada se estiver instalada no computador
 html = html.replace(',url("assets/fonts/Famels-Regular.woff2") format("woff2")', '')
 html = html.replace(',url("assets/fonts/Famels-Italic.woff2") format("woff2")', '')

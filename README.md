@@ -34,7 +34,9 @@ tools/gerar-html-completo.py  gera o dist/lp-completa.html a partir do index.htm
 - **Faixa das administradoras parceiras em movimento** no rodapé do banner. A faixa pausa ao passar o mouse e fica estática para quem ativa "reduzir movimento" no sistema.
   - **Logos:** HS Consórcios, Racon Consórcios, Itaú Consórcios, Bradesco Consórcios, Consórcio Embracon (com a tagline), Santander Consórcios, Klubi, CNP Consórcios, Consórcio Servopa, Mapfre Consórcios e Porto Consórcio.
   - **Cor única:** todos foram convertidos para Névoa, com fundo transparente e sem as cores originais, para seguir a identidade da página. A altura de cada um equilibra o peso visual na faixa.
+  - **Título da faixa:** "Administradoras Parceiras".
   - **Novos logos:** para adicionar outro no mesmo padrão, use `python3 tools/converter-logo.py original.png assets/img/adm/nome.png`. Se o arquivo vier com fundo cinza ou com o quadriculado de "transparência", acrescente `0.12` no fim do comando.
+- **Logos do BACEN e da ABAC** (`assets/img/selos/`): aparecem no indicador de Regulamentação do Quem Somos e no rodapé, na mesma cor única dos logos das administradoras. A ABAC usa a versão com símbolo e sigla, porque o texto por extenso fica ilegível em tamanho pequeno.
 - **Destaque nos títulos:** a palavra principal ganha um degradê da paleta. No banner, os destaques são "estratégia" e "sem pagar juros".
 - **Simulador:** tem borda iluminada e brilho de fundo, e o objetivo selecionado fica em Névoa sólida.
 - **Cards claros** de Soluções e Utilizações escurecem ou destacam o ícone ao passar o mouse.
@@ -91,14 +93,14 @@ O `dist/lp-completa.html` tem tudo dentro dele: CSS, JavaScript, ícones e os lo
 |---|-------|----------|
 | 0 | **Cabeçalho** | Menu (Quem Somos, Como Funciona, Soluções, Benefícios, Utilizações), WhatsApp comercial, botão "Simular agora" e o ícone de modo claro/escuro. |
 | 1 | **Banner + Simulador** | Frase de impacto: "Conquiste seu patrimônio com estratégia e sem pagar juros." Acima, a frase "CONSÓRCIO COM ESTRATÉGIA E PLANEJAMENTO" em caixa alta. Simulador no lado direito, em 2 etapas, com o cartão ajustando a altura a cada etapa. **Etapa 1:** para que é o crédito (Imóvel / Veículo / Investimento), simular pelo valor do crédito (R$ 0 a R$ 4 mi) ou da parcela (R$ 300 a R$ 20.000), com slider e valores sugeridos. Não mostra estimativa. **Etapa 2:** exclusiva para os dados do lead (nome, e-mail, celular, CPF e CEP), com aceite da Política de Privacidade e das notificações. **Retorno:** apenas uma mensagem de que um especialista vai entrar em contato pelo WhatsApp com o resultado. Nenhum valor aparece na tela; o CRM recebe a escolha do cliente e a estimativa. Os indicadores (R$ 20 mi+, 83 clientes, 5 anos) saíram do banner para não repetir o Quem Somos. |
-| 2 | **Quem somos** | Texto institucional, espaço para a foto do escritório com o logotipo e indicadores: R$ 20 mi+, 83 clientes, 5 anos e BACEN · ABAC. |
-| 3 | **Como funciona** | Metodologia em 4 passos: mapear o objetivo, estruturar o crédito, estratégia e acompanhamento. |
-| 4 | **Nossas soluções** | Aquisição, Alavancagem Patrimonial, Alavancagem Financeira e Investimento. A Alavancagem Financeira tem um destaque leve: borda mais firme, halo azul, faixa no topo, ícone em Azul-noite e o selo "Mais procurada". Abaixo dos cards fica o **Mecanismo de Alavancagem Financeira** (ver seção própria). |
-| 5 | **Benefícios** | Quatro cards simples explicando como funciona cada caminho (compra à vista, financiamento, Home Equity e consórcio). O Consórcio vem por último, com a borda iluminada como melhor opção. |
+| 2 | **Quem somos** | Texto institucional, espaço para a foto do escritório com o logotipo e indicadores: R$ 20 mi+, 83 clientes, 5 anos e Regulamentação, com os logos do BACEN e da ABAC. |
+| 3 | **Como funciona** | Metodologia em 4 passos: mapear o objetivo, estruturar o crédito, estratégia e acompanhamento. Abaixo, o botão "Montar meu plano" com a frase "Simulação gratuita e sem compromisso." logo embaixo. |
+| 4 | **Nossas soluções** | Subtítulo: "Do primeiro imóvel à multiplicação do patrimônio: o consórcio certo usado como estratégia, para os objetivos que você procura." Cards: Aquisição, Alavancagem Patrimonial, Alavancagem Financeira e Investimento. A Alavancagem Financeira tem um destaque leve: borda mais firme, halo azul, faixa no topo, ícone em Azul-noite e o selo "Mais procurada". Os links dos cards usam iniciais maiúsculas ("Simular Aquisição", "Simular Alavancagem", "Simular Investimento"). Abaixo dos cards fica o **Mecanismo de Alavancagem Financeira** (ver seção própria). |
+| 5 | **Benefícios** | Quatro cards visuais, cada um com uma frase ou taxa de impacto e três pontos curtos. **Compra à vista:** "Liquidez zero", com custo de oportunidade, dinheiro no tempo e poder de compra e negociação. **Financiamento:** 12% a 17% de juros ao ano, com juros altos, entrada de 20% a 30% e custos invisíveis. **Home Equity:** 18% a 23% de juros ao ano, com patrimônio em risco, juros todo mês e custos de contratação. **Consórcio** (por último, com a borda iluminada como melhor opção): 1% a 2% de taxa ao ano, sem juros, com quatro benefícios (sem juros e sem entrada, preserva o capital, alavancagem financeira, planejado e estruturado). |
 | 6 | **Utilizações** | Aquisição, Construção, Reforma, Quitação de Financiamento, Capital de Giro e Imóveis de Leilão. |
 | 7 | **Depoimentos de clientes** | Três cards com espaço para o texto, a foto e a conquista de cada cliente. |
-| 8 | **Tire suas dúvidas** | Abas centralizadas e expandidas (Contemplação / Documentação / Formas de utilização), com as perguntas abrindo e fechando. Termina com uma chamada para o WhatsApp. |
-| 9 | **Rodapé** | Soluções, atendimento e redes sociais, com selos e aviso legal. |
+| 8 | **Tire suas dúvidas** | Abas centralizadas e expandidas (Consórcio / Contemplação / Documentação / Formas de Utilização), com as perguntas abrindo e fechando. A aba Consórcio explica o que é o consórcio com base na Lei 11.795/2008 e nos materiais da ABAC. No celular, as abas ficam em 2 × 2. Termina com uma chamada para o WhatsApp. |
+| 9 | **Rodapé** | Soluções, atendimento e redes sociais, com os logos do BACEN e da ABAC, o selo LGPD e o aviso legal. |
 
 ## Mecanismo de Alavancagem Financeira
 
@@ -138,7 +140,7 @@ Fica no bloco Nossas Soluções, logo abaixo dos cards.
 | Sem repetir (poupança) | R$ 60 mil | R$ 69,7 mil | R$ 81 mil | R$ 118 mil |
 | Renda fixa, mesmo investimento | | | | R$ 24,1 mil |
 
-Abaixo do gráfico ficam o botão e um aviso curto com as premissas, informando que é uma simulação ilustrativa, sem garantia de resultado.
+Abaixo do gráfico ficam o botão e um aviso curto. Ele explica que a simulação é ilustrativa e varia de acordo com o plano selecionado e a adoção da estratégia. Também informa as premissas: sem repetir o ciclo, o valor da venda rende conforme a poupança, considerando o histórico dos últimos três anos; para a renda fixa, a rentabilidade bruta considerada como projeção é de 14% a.a. do ano 1 ao 3, 10% do ano 3 ao 5 e 8% do ano 5 ao 10.
 
 **Pop-up "Montar estratégia de alavancagem".** O botão abre um cadastro rápido por cima da página, no mesmo visual. O formulário pede:
 - nome, telefone/WhatsApp e e-mail;
@@ -201,7 +203,8 @@ Se `gtag` ou `fbq` estiverem na página, os dois leads também disparam `generat
 - [ ] Três depoimentos reais, com nome, cidade e foto
 - [ ] E-mail, endereço, CNPJ e links das redes sociais (rodapé)
 - [ ] Texto da Política de Privacidade (modal `#privacy`), revisado pelo jurídico
-- [ ] Revisar as premissas do Mecanismo de Alavancagem (27%, poupança e renda fixa) quando a Selic mudar
+- [ ] Revisar as premissas do Mecanismo de Alavancagem (27%, poupança e renda fixa) e as taxas do bloco Benefícios quando a Selic mudar
+- [ ] Confirmar o uso dos logos do BACEN e da ABAC (a ABAC tem regras para associados)
 
 ## Observações
 - **Resultado só depois do cadastro.** O simulador mostra a estimativa apenas após o cadastro, para que o cliente deixe os dados antes de ver o valor.
