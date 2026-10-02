@@ -4,18 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Modo claro/escuro: aplica a escolha salva antes da pintura (evita piscar) -->
-<script>try{if(localStorage.getItem('crm-tema')==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}</script>
+<script>try{if(localStorage.getItem('vero-tema')==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}</script>
 
 <!-- ============================================================
      SEO
      ============================================================ -->
-<title>CRM Consórcios | Estratégias patrimoniais inteligentes com consórcio</title>
+<title>Vero Consórcios | Estratégias patrimoniais inteligentes com consórcio</title>
 <meta name="description" content="Simule seu consórcio em 1 minuto. Conquiste imóveis, veículos e investimentos sem juros e sem entrada, com estratégia de contemplação e acompanhamento do início ao fim.">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#0D1B2A">
+<link rel="icon" type="image/png" href="assets/img/logo/favicon.png">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
-<meta property="og:title" content="Consórcio com estratégia: conquiste sem pagar juros | CRM Consórcios">
+<meta property="og:title" content="Consórcio com estratégia: conquiste sem pagar juros | Vero Consórcios">
 <meta property="og:description" content="Simule seu consórcio de imóvel, veículo ou investimento e receba um plano personalizado.">
 <!-- <meta property="og:image" content="https://seudominio.com.br/assets/img/og.jpg"> -->
 
@@ -179,10 +180,13 @@ section[id]{scroll-margin-top:calc(var(--hdr) - 12px)}
 .hdr{position:fixed;inset:0 0 auto 0;z-index:80;height:var(--hdr);background:rgba(8,18,29,.55);backdrop-filter:blur(var(--glass-blur)) saturate(140%);-webkit-backdrop-filter:blur(var(--glass-blur)) saturate(140%);border-bottom:1px solid var(--glass-border);transition:background .3s,box-shadow .3s}
 .hdr.scrolled{background:rgba(8,18,29,.9);box-shadow:0 12px 30px -18px rgba(0,0,0,.8)}
 .nav{height:var(--nav);display:flex;align-items:center;gap:28px}
-/* Monograma provisório "CC" (manual, Aplicações e diretrizes) — substituir pelo logotipo */
-.logo{display:inline-flex;align-items:center;gap:12px;color:var(--text);flex:0 0 auto}
-.mono{width:42px;height:42px;border-radius:50%;border:1px solid rgba(224,225,221,.45);display:grid;place-items:center;font-family:var(--font-display);font-weight:500;font-size:.82rem;letter-spacing:.04em;color:var(--mist)}
-.logo-txt{font-family:var(--font-display);font-weight:500;font-size:1.06rem;letter-spacing:0;word-spacing:.12em}
+/* Logotipo Vero Consórcios: versão negativa (texto Névoa) nos fundos escuros e versão original no modo claro */
+.logo{display:inline-flex;align-items:center;color:var(--text);flex:0 0 auto}
+.logo-img{display:block;height:44px;width:auto}
+.logo-pos{display:none}
+html[data-theme="light"] .logo-neg{display:none}
+html[data-theme="light"] .logo-pos{display:block}
+.ftr .logo-img{height:54px}
 .menu{display:flex;align-items:center;gap:26px;margin-left:auto}
 .menu a:not(.btn){font-size:var(--fs-sm);font-weight:400;color:var(--text-muted);transition:color .2s;white-space:nowrap}
 .menu a:not(.btn):hover{color:var(--text)}
@@ -665,7 +669,6 @@ html[data-theme="light"] .sec.theme-dark{--sec-bg:#F7F8F6}
 html[data-theme="light"] .sec,html[data-theme="light"] .ftr{--sheet-shadow:0 -22px 44px -26px rgba(13,27,42,.22)}
 html[data-theme="light"] .hdr{background:rgba(247,248,246,.72);border-bottom-color:rgba(13,27,42,.08)}
 html[data-theme="light"] .hdr.scrolled{background:rgba(247,248,246,.94);box-shadow:0 12px 30px -20px rgba(13,27,42,.35)}
-html[data-theme="light"] .mono{border-color:rgba(13,27,42,.4);color:#0D1B2A}
 html[data-theme="light"] .hdr-wa:hover{color:#415A77}
 html[data-theme="light"] .hero{background:#F7F8F6}
 html[data-theme="light"] .hero::before{background:radial-gradient(900px 640px at 76% 24%,rgba(119,141,169,.38),transparent 62%),radial-gradient(700px 520px at 0% 100%,rgba(169,184,203,.3),transparent 60%),radial-gradient(500px 300px at 30% 0%,rgba(119,141,169,.18),transparent 70%)}
@@ -802,9 +805,7 @@ html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
 }
 @media (max-width:400px){
   .nav{gap:6px}
-  .logo{gap:10px}
-  .mono{width:38px;height:38px;font-size:.76rem}
-  .logo-txt{font-size:1rem}
+  .hdr .logo-img{height:38px}
   .theme-tg,.hdr-wa-m,.hamb{width:40px;height:40px;flex:0 0 auto}
 }
 </style>
@@ -867,11 +868,9 @@ html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
      ============================================================ -->
 <header class="hdr" id="hdr">
   <div class="wrap nav">
-    <!-- LOGOTIPO: monograma provisório "CC" (manual). Para trocar pelo logotipo oficial:
-         <img src="assets/img/logo.svg" alt="CRM Consórcios" height="40"> -->
-    <a class="logo" href="#topo" aria-label="CRM Consórcios, voltar ao início">
-      <span class="mono" aria-hidden="true">CC</span>
-      <span class="logo-txt">CRM Consórcios</span>
+    <!-- LOGOTIPO Vero Consórcios (assets/img/logo/): negativo nos fundos escuros, original no modo claro -->
+    <a class="logo" href="#topo" aria-label="Vero Consórcios, voltar ao início">
+      <img class="logo-img logo-neg" src="assets/img/logo/vero-consorcios-negativo.webp" alt="Vero Consórcios" width="158" height="44" decoding="async"><img class="logo-img logo-pos" src="assets/img/logo/vero-consorcios.webp" alt="Vero Consórcios" width="158" height="44" decoding="async">
     </a>
     <a class="hdr-wa-m" href="#" data-wa="Olá, vim por meio do site e gostaria de mais informações." aria-label="WhatsApp comercial (51) 98912-1113"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#i-wa"/></svg></a>
     <button class="hamb" id="hamb" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><svg class="ic"><use href="#i-menu"/></svg></button>
@@ -1057,7 +1056,7 @@ html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
       <div class="about-media reveal" data-rv="left">
         <figure class="photo-slot">
           <!-- IMAGEM: substitua o bloco .ph por:
-               <img src="assets/img/escritorio.jpg" alt="Escritório da CRM Consórcios" width="1200" height="1020" loading="lazy"> -->
+               <img src="assets/img/escritorio.jpg" alt="Escritório da Vero Consórcios" width="1200" height="1020" loading="lazy"> -->
           <div class="ph">
             <svg class="ic"><use href="#i-image"/></svg>
             <b>Espaço para a imagem do escritório com o logotipo</b>
@@ -1493,9 +1492,8 @@ html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
   <div class="wrap">
     <div class="fgrid">
       <div>
-        <a class="logo" href="#topo" aria-label="CRM Consórcios, voltar ao início">
-          <span class="mono" aria-hidden="true">CC</span>
-          <span class="logo-txt">CRM Consórcios</span>
+        <a class="logo" href="#topo" aria-label="Vero Consórcios, voltar ao início">
+          <img class="logo-img logo-neg" src="assets/img/logo/vero-consorcios-negativo.webp" alt="Vero Consórcios" width="194" height="54" loading="lazy" decoding="async"><img class="logo-img logo-pos" src="assets/img/logo/vero-consorcios.webp" alt="Vero Consórcios" width="194" height="54" loading="lazy" decoding="async">
         </a>
         <p>Consultoria especializada em consórcio como ferramenta de aquisição e alavancagem patrimonial.</p>
         <div class="seals">
@@ -1518,7 +1516,7 @@ html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
         <h3>Atendimento</h3>
         <ul>
           <li><a href="#" data-wa="Olá, vim por meio do site e gostaria de mais informações."><svg class="ic"><use href="#i-phone"/></svg>WhatsApp (51) 98912-1113</a></li>
-          <li><a href="mailto:contato@crmconsorcios.com.br"><svg class="ic"><use href="#i-mail"/></svg>contato@crmconsorcios.com.br</a></li>
+          <li><a href="mailto:contato@veroconsorcios.com.br"><svg class="ic"><use href="#i-mail"/></svg>contato@veroconsorcios.com.br</a></li>
           <li><span><svg class="ic"><use href="#i-clock"/></svg>Seg. a sex., 9h às 18h</span></li>
           <li><span><svg class="ic"><use href="#i-pin"/></svg>Endereço · Cidade/UF</span></li>
         </ul>
@@ -1531,11 +1529,11 @@ html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
           <a href="#" aria-label="LinkedIn" target="_blank" rel="noopener"><svg class="ic"><use href="#i-linkedin"/></svg></a>
           <a href="#" aria-label="YouTube" target="_blank" rel="noopener"><svg class="ic"><use href="#i-youtube"/></svg></a>
         </div>
-        <span class="handle">@crmconsorcios</span>
+        <span class="handle">@veroconsorcios</span>
       </div>
     </div>
     <div class="legal">
-      <p>© <span id="year">2026</span> CRM Consórcios · CNPJ 00.000.000/0001-00. Consórcio regulamentado pelo Banco Central do Brasil (Lei 11.795/2008). As simulações são estimativas e não constituem proposta, promessa de contemplação ou de rentabilidade; valores e condições estão sujeitos às regras de cada grupo e à análise da administradora.</p>
+      <p>© <span id="year">2026</span> Vero Consórcios · CNPJ 00.000.000/0001-00. Consórcio regulamentado pelo Banco Central do Brasil (Lei 11.795/2008). As simulações são estimativas e não constituem proposta, promessa de contemplação ou de rentabilidade; valores e condições estão sujeitos às regras de cada grupo e à análise da administradora.</p>
       <nav aria-label="Links legais"><button type="button" data-open-privacy>Política de Privacidade</button><button type="button" data-open-privacy>Termos de Uso</button></nav>
     </div>
   </div>
@@ -1564,7 +1562,7 @@ html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
     <h4>3. Compartilhamento</h4>
     <p>Os dados podem ser compartilhados apenas com administradoras de consórcio parceiras, para fins de cotação e contratação. Não vendemos dados pessoais.</p>
     <h4>4. Seus direitos (LGPD)</h4>
-    <p>Você pode solicitar acesso, correção, portabilidade ou exclusão dos seus dados e revogar o consentimento a qualquer momento pelo e-mail contato@crmconsorcios.com.br.</p>
+    <p>Você pode solicitar acesso, correção, portabilidade ou exclusão dos seus dados e revogar o consentimento a qualquer momento pelo e-mail contato@veroconsorcios.com.br.</p>
     <h4>5. Termos de uso</h4>
     <p>As simulações são estimativas e não constituem proposta comercial, garantia de contemplação ou de rentabilidade. As condições finais dependem do grupo escolhido e da análise da administradora.</p>
   </div>
@@ -1631,7 +1629,7 @@ html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
     </div>
     <label class="cbx" data-f="aceite">
       <input type="checkbox" id="aPriv" name="aceite_privacidade" required>
-      <span>Li e aceito a <button type="button" class="inl" data-open-privacy>Política de Privacidade</button> e autorizo o contato da CRM Consórcios.</span>
+      <span>Li e aceito a <button type="button" class="inl" data-open-privacy>Política de Privacidade</button> e autorizo o contato da Vero Consórcios.</span>
     </label>
     <p class="err" id="aCbxErr" role="alert"></p>
     <button type="submit" class="btn btn-primary btn-block" id="aSubmit" style="margin-top:8px">Quero minha estratégia <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></button>
@@ -1746,7 +1744,7 @@ var CONFIG = {
     // transição suave entre os modos (quando o navegador suporta)
     if (document.startViewTransition && !reduceMotion) document.startViewTransition(function () { applyTheme(next); });
     else applyTheme(next);
-    try { localStorage.setItem('crm-tema', next); } catch (e) { /* navegação privada: vale só nesta visita */ }
+    try { localStorage.setItem('vero-tema', next); } catch (e) { /* navegação privada: vale só nesta visita */ }
     track('tema_alterado', { tema: next });
   });
 

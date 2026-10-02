@@ -1,4 +1,4 @@
-# LP de captação — CRM Consórcios
+# LP de captação — Vero Consórcios
 
 Landing page de captação de leads para consultoria de consórcio, seguindo o **Manual de identidade visual v1.0** (paleta, tipografia, elementos de interface e tom de voz). A página inteira está em um único arquivo (`index.html`, com CSS e JS embutidos), sem dependências, e pode ser hospedada em qualquer lugar.
 
@@ -74,8 +74,15 @@ tools/gerar-html-completo.py  gera o dist/lp-completa.html a partir do index.htm
 - Os erros explicam e orientam, por exemplo "CPF inválido: confira os 11 dígitos".
 - Valores seguem o padrão brasileiro (R$ 1.400.000,00, ou R$ 4 mi e R$ 1,5 mi quando o espaço é curto).
 
-### Logotipo
-Até o logotipo oficial ficar pronto, a página usa o **monograma provisório "CC"** definido no manual. Para trocar, substitua o conteúdo de `<a class="logo">` (no topo e no rodapé) por `<img src="assets/img/logo.svg" alt="CRM Consórcios" height="40">`.
+### Logotipo e nome
+- **Marca:** **Vero Consórcios** é o nome e o logotipo principal da empresa. Aparece no título da página, no topo, no rodapé, nos textos de consentimento e na Política de Privacidade.
+- **Duas versões do logotipo** (`assets/img/logo/`):
+  - `vero-consorcios-negativo.webp`: símbolo original com o nome em Névoa. É usada nos fundos escuros (modo escuro).
+  - `vero-consorcios.webp`: versão original, com o nome em azul-noite. É usada no modo claro.
+- **Troca automática:** o botão de modo claro/escuro alterna as duas versões, no topo e no rodapé.
+- **Tamanho:** 44px de altura no topo (38px em celulares pequenos) e 54px no rodapé.
+- **Favicon:** o ícone da aba do navegador usa só o símbolo "V" (`favicon.png`).
+- **Arquivo vetorial:** os logos foram recortados das imagens enviadas. Quando houver o arquivo vetorial (SVG ou PDF), vale substituir para ganhar nitidez.
 
 ### Fonte Famels
 Coloque os arquivos licenciados em `assets/fonts/Famels-Regular.woff2` e `assets/fonts/Famels-Italic.woff2`. A página passa a usá-los automaticamente.
@@ -198,7 +205,8 @@ Se `gtag` ou `fbq` estiverem na página, os dois leads também disparam `generat
 - [ ] Endereço do CRM (`CONFIG.leadEndpoint`)
 - [x] Logos das 11 administradoras parceiras
 - [ ] Confirmar com cada administradora o uso do logo na versão monocromática
-- [ ] Logotipo oficial e arquivos da fonte Famels
+- [x] Logotipo Vero Consórcios (versões para modo escuro e claro)
+- [ ] Logotipo em arquivo vetorial (SVG) e arquivos da fonte Famels
 - [ ] Foto do escritório (seção Quem somos)
 - [ ] Três depoimentos reais, com nome, cidade e foto
 - [ ] E-mail, endereço, CNPJ e links das redes sociais (rodapé)
