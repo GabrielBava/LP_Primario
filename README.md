@@ -33,6 +33,18 @@ tools/gerar-html-completo.py  gera o dist/lp-completa.html a partir do index.htm
 - **Cards claros** de Soluções e Utilizações escurecem ou destacam o ícone ao passar o mouse.
 - **Botão principal:** Névoa nos blocos escuros e Azul-noite nos blocos claros, sempre com o máximo contraste.
 
+### Animações em sequência
+- **Metodologia:** acima dos cards há uma trilha com os marcadores 1, 2, 3 e 4.
+  - **Entrada:** quando o bloco aparece, os passos entram um a um, a trilha se preenche e o marcador do passo atual acende.
+  - **Depois:** o destaque percorre os passos em ciclo, a cada 2,6 s. Ao passar o mouse num card, ele fica em destaque e o ciclo pausa.
+  - **Telas menores:** a trilha some e só o destaque continua.
+- **Demais blocos:** os itens entram em cascata, um após o outro.
+  - **Onde:** títulos das seções, indicadores, diferenciais do Quem Somos, soluções, benefícios, utilizações, depoimentos e perguntas, que também entram em cascata ao trocar de aba.
+  - **Configuração:** cada grupo tem o atributo `data-stagger` com o intervalo em milissegundos. A direção vem de `data-rv` (`left`, `right` ou `zoom`).
+- **Consórcio em Benefícios:** chega por último, com um pulso de luz na borda e o selo "Melhor opção" aparecendo.
+- **Banner:** o simulador, a lista, os indicadores e a faixa de administradoras entram em sequência.
+- **Acessibilidade:** quem ativa "reduzir movimento" no sistema vê tudo direto, sem animação.
+
 ### Tipografia
 - **Títulos e números:** Famels. Enquanto a licença não estiver instalada, a página usa a substituta oficial, Manrope, carregada pelo Google Fonts.
 - **Texto e interface:** Poppins, nos pesos 300 (apoio), 400 (texto), 500 (botões e rótulos) e 600 (destaques).

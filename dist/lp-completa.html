@@ -348,14 +348,23 @@ input[type=range]:hover::-webkit-slider-thumb,input[type=range]:focus-visible::-
    3 · COMO FUNCIONA (escuro)
    ============================================================ */
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap);margin-top:60px;position:relative}
-.steps::before{content:"";position:absolute;left:4%;right:4%;top:56px;height:1px;background:linear-gradient(90deg,transparent,rgba(169,184,203,.45),transparent)}
+/* Trilha 1 → 2 → 3 → 4: preenche em sequência e o destaque percorre os passos */
+.rail{grid-column:1/-1;position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap);margin-bottom:8px}
+.rail-track{position:absolute;left:calc((100% - 3 * var(--gap)) / 8);right:calc((100% - 3 * var(--gap)) / 8);top:50%;height:2px;margin-top:-1px;background:rgba(169,184,203,.14);border-radius:2px;overflow:hidden}
+.rail-fill{position:absolute;inset:0;transform-origin:left;transform:scaleX(0);background:linear-gradient(90deg,#415A77,#A9B8CB);transition:transform .8s cubic-bezier(.4,.1,.2,1)}
+.node{justify-self:center;position:relative;z-index:1;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-family:var(--font-display);font-weight:600;font-size:.92rem;color:var(--text-muted);background:#0B1724;border:1px solid rgba(169,184,203,.25);transition:background .45s,color .45s,border-color .45s,box-shadow .45s,transform .45s}
+.node.on{background:#1B263B;color:var(--text);border-color:rgba(169,184,203,.55)}
+.node.cur{background:var(--mist);color:var(--ink);border-color:var(--mist);transform:scale(1.08);box-shadow:0 0 0 7px rgba(224,225,221,.08),0 0 28px rgba(169,184,203,.5)}
 .step{position:relative;padding:26px var(--pad) 24px;display:flex;flex-direction:column}
 .step-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
 .step-n{font-family:var(--font-display);font-weight:500;font-size:2.6rem;letter-spacing:-.03em;line-height:1;background:var(--em-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .step h3{font-family:var(--font-display);font-weight:600;font-size:1.2rem;letter-spacing:-.01em;margin-bottom:8px}
 .step p{font-size:var(--fs-md);font-weight:300;line-height:1.6;color:var(--text-muted-card)}
 .step ul{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:18px}
-.step:hover .gi{background:var(--mist);color:var(--ink);border-color:var(--mist)}
+.step .gi,.step .step-n{transition:background .45s,color .45s,border-color .45s,filter .45s}
+.step.active{border-color:rgba(169,184,203,.42);transform:translateY(-6px);box-shadow:var(--shadow-lg),0 0 0 1px rgba(169,184,203,.16),0 26px 50px -24px rgba(119,141,169,.65)}
+.step.active .gi{background:var(--mist);color:var(--ink);border-color:var(--mist)}
+.step.active .step-n{filter:brightness(1.25)}
 .sec-cta{display:flex;justify-content:center;align-items:center;gap:16px;flex-wrap:wrap;margin-top:56px}
 .sec-cta p{font-size:var(--fs-sm);font-weight:300;color:var(--text-muted)}
 
@@ -393,6 +402,11 @@ input[type=range]:hover::-webkit-slider-thumb,input[type=range]:focus-visible::-
 .opt.best h3{color:#fff}
 .opt.best p{color:var(--icon-soft)}
 .opt.best .tag{position:absolute;top:24px;right:20px}
+.opt.best::after{content:"";position:absolute;inset:-1px;border-radius:inherit;border:1px solid rgba(224,225,221,.75);opacity:0;pointer-events:none}
+.opt.best.lit::after{animation:ringOut 1.5s ease-out 2}
+.opt.best.lit .tag{animation:tagPop .6s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes ringOut{0%{opacity:.9;transform:scale(1)}100%{opacity:0;transform:scale(1.07)}}
+@keyframes tagPop{0%{transform:scale(.6);opacity:0}100%{transform:none;opacity:1}}
 
 /* ============================================================
    6 · UTILIZAÇÕES (claro) — 6 opções
@@ -506,8 +520,28 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
 .dlg-b ul{padding-left:18px}
 
 /* ---------- Movimento ---------- */
-.js .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
+/* Entrada em sequência: cada item de um grupo [data-stagger] chega com um pequeno atraso (--d) */
+.js .reveal{opacity:0;transform:translateY(28px);transition:opacity .75s cubic-bezier(.2,.7,.3,1) var(--d,0ms),transform .85s cubic-bezier(.2,.7,.3,1) var(--d,0ms)}
+.js .reveal[data-rv="left"]{transform:translateX(-36px)}
+.js .reveal[data-rv="right"]{transform:translateX(36px)}
+.js .reveal[data-rv="zoom"]{transform:translateY(18px) scale(.94)}
 .js .reveal.in{opacity:1;transform:none}
+/* Banner: simulador, lista e indicadores entram em sequência */
+.hero-sim{animation:simIn 1s cubic-bezier(.2,.7,.3,1) .25s both}
+@keyframes simIn{from{opacity:0;transform:translateY(34px) scale(.97)}to{opacity:1;transform:none}}
+.hero .checks li,.hero-extra>.btn,.hero .trust>div,.partners-cap,.ticker{animation:rise .8s cubic-bezier(.2,.7,.3,1) both}
+.hero .checks li:nth-child(1){animation-delay:.35s}
+.hero .checks li:nth-child(2){animation-delay:.47s}
+.hero .checks li:nth-child(3){animation-delay:.59s}
+.hero-extra>.btn{animation-delay:.71s}
+.hero .trust>div:nth-child(1){animation-delay:.8s}
+.hero .trust>div:nth-child(2){animation-delay:.9s}
+.hero .trust>div:nth-child(3){animation-delay:1s}
+.partners-cap{animation-delay:1.05s}
+.ticker{animation-delay:1.15s}
+/* FAQ: perguntas entram em cascata ao abrir cada aba */
+.tabpanel.anim .qa{animation:qaIn .5s cubic-bezier(.2,.7,.3,1) both;animation-delay:calc(var(--i,0) * 70ms)}
+@keyframes qaIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .hero .reveal-now{animation:rise .8s cubic-bezier(.2,.7,.3,1) both}
 .hero .reveal-now:nth-child(2){animation-delay:.08s}
 .hero .reveal-now:nth-child(3){animation-delay:.16s}
@@ -537,7 +571,7 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
 }
 @media (max-width:1080px){
   .sols,.opts,.steps,.kpis{grid-template-columns:repeat(2,1fr)}
-  .steps::before{display:none}
+  .rail{display:none}
   .uses{grid-template-columns:repeat(2,1fr)}
   .fgrid{grid-template-columns:1fr 1fr}
 }
@@ -865,7 +899,7 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
 <section class="sec theme-light" id="quem-somos" style="--gx:10%;--gy:0%;--gx2:100%;--gy2:100%">
   <div class="wrap">
     <div class="about">
-      <div class="about-media reveal">
+      <div class="about-media reveal" data-rv="left">
         <figure class="photo-slot">
           <!-- IMAGEM: substitua o bloco .ph por:
                <img src="assets/img/escritorio.jpg" alt="Escritório da CRM Consórcios" width="1200" height="1020" loading="lazy"> -->
@@ -881,20 +915,20 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
         </div>
       </div>
 
-      <div class="reveal">
+      <div class="reveal" data-rv="right">
         <span class="label">Quem Somos</span>
         <h2 class="h2">Especialistas em transformar crédito em <em>patrimônio</em>.</h2>
         <p class="lead">Somos uma consultoria especializada em consórcio que une planejamento, estratégia e acompanhamento próximo. Em <b>5 anos</b>, ajudamos mais de <b>80 clientes</b> a conquistar imóveis, veículos e investimentos sem pagar juros e sem descapitalizar.</p>
         <p class="lead" style="margin-top:12px">Trabalhamos com administradoras sólidas, autorizadas e fiscalizadas pelo Banco Central, para que cada carta de crédito cumpra uma função clara no seu plano.</p>
-        <ul class="values">
-          <li><span class="gi"><svg class="ic"><use href="#i-target"/></svg></span><div><b>Estratégia antes da venda</b><span>Primeiro entendemos o seu objetivo; depois indicamos a carta certa.</span></div></li>
-          <li><span class="gi"><svg class="ic"><use href="#i-shield"/></svg></span><div><b>Transparência total</b><span>Taxas, prazos e regras explicados sem letras miúdas.</span></div></li>
-          <li><span class="gi"><svg class="ic"><use href="#i-users"/></svg></span><div><b>Acompanhamento de verdade</b><span>Ao seu lado nas assembleias, nos lances e na liberação do crédito.</span></div></li>
+        <ul class="values" data-stagger="120">
+          <li class="reveal" data-rv="left"><span class="gi"><svg class="ic"><use href="#i-target"/></svg></span><div><b>Estratégia antes da venda</b><span>Primeiro entendemos o seu objetivo; depois indicamos a carta certa.</span></div></li>
+          <li class="reveal" data-rv="left"><span class="gi"><svg class="ic"><use href="#i-shield"/></svg></span><div><b>Transparência total</b><span>Taxas, prazos e regras explicados sem letras miúdas.</span></div></li>
+          <li class="reveal" data-rv="left"><span class="gi"><svg class="ic"><use href="#i-users"/></svg></span><div><b>Acompanhamento de verdade</b><span>Ao seu lado nas assembleias, nos lances e na liberação do crédito.</span></div></li>
         </ul>
       </div>
     </div>
 
-    <div class="kpis theme-dark">
+    <div class="kpis theme-dark" data-stagger="130">
       <div class="kpi card reveal"><div class="kpi-h">Créditos comercializados<span class="gi"><svg class="ic"><use href="#i-wallet"/></svg></span></div><b data-count="20" data-prefix="R$ " data-suffix=" mi+">R$ 20 mi+</b><small>em cartas de crédito</small></div>
       <div class="kpi card reveal"><div class="kpi-h">Clientes atendidos<span class="gi"><svg class="ic"><use href="#i-users"/></svg></span></div><b data-count="80" data-suffix="+">80+</b><small>planos estruturados</small></div>
       <div class="kpi card reveal"><div class="kpi-h">Tempo de mercado<span class="gi"><svg class="ic"><use href="#i-calendar"/></svg></span></div><b data-count="5" data-suffix=" anos">5 anos</b><small>de experiência em consórcio</small></div>
@@ -908,12 +942,16 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
      ============================================================ -->
 <section class="sec theme-dark" id="como-funciona" style="--gx:50%;--gy:0%">
   <div class="wrap">
-    <div class="center">
+    <div class="center" data-stagger="100">
       <span class="label reveal">Como Funciona · Nossa Metodologia</span>
       <h2 class="h2 reveal">4 passos para conquistar com <em>estratégia</em>, não com sorte.</h2>
       <p class="lead reveal">Um método claro que dá direção a cada decisão, do primeiro contato até o bem nas suas mãos.</p>
     </div>
-    <div class="steps">
+    <div class="steps" data-stagger="420" data-sequence>
+      <div class="rail" aria-hidden="true">
+        <div class="rail-track"><span class="rail-fill"></span></div>
+        <span class="node">1</span><span class="node">2</span><span class="node">3</span><span class="node">4</span>
+      </div>
       <article class="step card lift reveal">
         <div class="step-h"><span class="step-n">01</span><span class="gi"><svg class="ic"><use href="#i-target"/></svg></span></div>
         <h3>Mapeamos o objetivo</h3>
@@ -951,12 +989,12 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
      ============================================================ -->
 <section class="sec theme-light" id="solucoes" style="--gx:100%;--gy:30%;--gx2:0%;--gy2:0%">
   <div class="wrap">
-    <div class="center">
+    <div class="center" data-stagger="100">
       <span class="label reveal">Nossas Soluções</span>
       <h2 class="h2 reveal">Uma solução para cada <em>objetivo</em>.</h2>
       <p class="lead reveal">Do primeiro imóvel à multiplicação do patrimônio: o consórcio certo, usado do jeito certo.</p>
     </div>
-    <div class="sols">
+    <div class="sols" data-stagger="130">
       <article class="sol card lift reveal">
         <span class="gi"><svg class="ic"><use href="#i-key"/></svg></span>
         <h3>Aquisição</h3>
@@ -1011,11 +1049,11 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
      ============================================================ -->
 <section class="sec theme-dark deep" id="beneficios" style="--gx:85%;--gy:100%;--gx2:0%;--gy2:0%">
   <div class="wrap">
-    <div class="center">
+    <div class="center" data-stagger="100">
       <span class="label reveal">Benefícios do Consórcio</span>
       <h2 class="h2 reveal">Entenda as formas de conquistar um bem e por que o consórcio é a <em>mais inteligente</em>.</h2>
     </div>
-    <div class="opts">
+    <div class="opts" data-stagger="160">
       <article class="opt card reveal">
         <span class="gi"><svg class="ic"><use href="#i-cash"/></svg></span>
         <h3>Compra à vista</h3>
@@ -1049,18 +1087,18 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
      ============================================================ -->
 <section class="sec theme-light" id="utilizacoes" style="--gx:0%;--gy:20%;--gx2:100%;--gy2:100%">
   <div class="wrap">
-    <div class="center">
+    <div class="center" data-stagger="100">
       <span class="label reveal">Utilizações do Consórcio</span>
       <h2 class="h2 reveal">Como você pode usar a sua <em>carta de crédito</em>.</h2>
       <p class="lead reveal">Com o crédito contemplado, você compra como se fosse à vista e ainda negocia melhores condições.</p>
     </div>
-    <div class="uses">
-      <article class="use card lift reveal"><span class="gi"><svg class="ic"><use href="#i-key"/></svg></span><div><h3>Aquisição</h3><p>Imóveis, veículos e bens, novos ou usados, com poder de compra à vista.</p></div></article>
-      <article class="use card lift reveal"><span class="gi"><svg class="ic"><use href="#i-hammer"/></svg></span><div><h3>Construção</h3><p>Do terreno à obra pronta, com o crédito liberado conforme o andamento da construção.</p></div></article>
-      <article class="use card lift reveal"><span class="gi"><svg class="ic"><use href="#i-roller"/></svg></span><div><h3>Reforma</h3><p>Amplie, modernize e valorize o seu imóvel sem recorrer a juros bancários.</p></div></article>
-      <article class="use card lift reveal"><span class="gi"><svg class="ic"><use href="#i-coins"/></svg></span><div><h3>Levantamento de capital</h3><p>Transforme a carta contemplada em liquidez para novos projetos, investimentos ou troca de dívidas caras.</p></div></article>
-      <article class="use card lift reveal"><span class="gi"><svg class="ic"><use href="#i-cycle"/></svg></span><div><h3>Capital de giro</h3><p>Para empresas: preserve o caixa e financie a operação com custo menor que o crédito bancário.</p></div></article>
-      <article class="use card lift reveal"><span class="gi"><svg class="ic"><use href="#i-crane"/></svg></span><div><h3>Imóveis na planta</h3><p>Garanta o seu imóvel ainda em construção e use o crédito conforme as regras da construtora e do grupo.</p></div></article>
+    <div class="uses" data-stagger="90">
+      <article class="use card lift reveal" data-rv="zoom"><span class="gi"><svg class="ic"><use href="#i-key"/></svg></span><div><h3>Aquisição</h3><p>Imóveis, veículos e bens, novos ou usados, com poder de compra à vista.</p></div></article>
+      <article class="use card lift reveal" data-rv="zoom"><span class="gi"><svg class="ic"><use href="#i-hammer"/></svg></span><div><h3>Construção</h3><p>Do terreno à obra pronta, com o crédito liberado conforme o andamento da construção.</p></div></article>
+      <article class="use card lift reveal" data-rv="zoom"><span class="gi"><svg class="ic"><use href="#i-roller"/></svg></span><div><h3>Reforma</h3><p>Amplie, modernize e valorize o seu imóvel sem recorrer a juros bancários.</p></div></article>
+      <article class="use card lift reveal" data-rv="zoom"><span class="gi"><svg class="ic"><use href="#i-coins"/></svg></span><div><h3>Levantamento de capital</h3><p>Transforme a carta contemplada em liquidez para novos projetos, investimentos ou troca de dívidas caras.</p></div></article>
+      <article class="use card lift reveal" data-rv="zoom"><span class="gi"><svg class="ic"><use href="#i-cycle"/></svg></span><div><h3>Capital de giro</h3><p>Para empresas: preserve o caixa e financie a operação com custo menor que o crédito bancário.</p></div></article>
+      <article class="use card lift reveal" data-rv="zoom"><span class="gi"><svg class="ic"><use href="#i-crane"/></svg></span><div><h3>Imóveis na planta</h3><p>Garanta o seu imóvel ainda em construção e use o crédito conforme as regras da construtora e do grupo.</p></div></article>
     </div>
     <p class="fine reveal">As condições de utilização variam conforme a administradora e as regras de cada grupo.</p>
     <div class="sec-cta reveal">
@@ -1075,12 +1113,12 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
      ============================================================ -->
 <section class="sec theme-dark" id="depoimentos" style="--gx:50%;--gy:0%">
   <div class="wrap">
-    <div class="center">
+    <div class="center" data-stagger="100">
       <span class="label reveal">Depoimentos de Clientes</span>
       <h2 class="h2 reveal">Quem já conquistou com a <em>gente</em>.</h2>
       <p class="lead reveal">Histórias de clientes que transformaram planejamento em patrimônio.</p>
     </div>
-    <div class="tests">
+    <div class="tests" data-stagger="140">
       <article class="tcard card reveal">
         <svg class="q"><use href="#i-quote"/></svg>
         <div class="stars" aria-label="Avaliação 5 de 5"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
@@ -1120,7 +1158,7 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
      ============================================================ -->
 <section class="sec theme-light" id="duvidas" style="--gx:50%;--gy:0%;--gx2:100%;--gy2:100%">
   <div class="wrap">
-    <div class="center">
+    <div class="center" data-stagger="100">
       <span class="label reveal">Tire Suas Dúvidas</span>
       <h2 class="h2 reveal">Perguntas Frequentes</h2>
       <p class="lead reveal">As dúvidas mais comuns sobre contemplação, documentação e formas de utilização do crédito.</p>
@@ -1186,7 +1224,7 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
     </div>
 
     <!-- CTA final -->
-    <div class="final theme-dark reveal">
+    <div class="final theme-dark reveal" data-rv="zoom">
       <div>
         <h2>Seu próximo patrimônio começa com uma simulação.</h2>
         <p>Em menos de 1 minuto você descobre quanto pode conquistar, e um especialista monta a estratégia com você.</p>
@@ -1638,8 +1676,16 @@ var CONFIG = {
       var on = x === t;
       x.setAttribute('aria-selected', on ? 'true' : 'false');
       x.tabIndex = on ? 0 : -1;
-      $('#' + x.getAttribute('aria-controls')).hidden = !on;
+      var panel = $('#' + x.getAttribute('aria-controls'));
+      panel.hidden = !on;
+      if (on) playPanel(panel);
     });
+  }
+  // perguntas da aba entram em cascata
+  function playPanel(panel) {
+    if (reduceMotion) return;
+    $$('.qa', panel).forEach(function (q, i) { q.style.setProperty('--i', i); });
+    panel.classList.remove('anim'); void panel.offsetWidth; panel.classList.add('anim');
   }
   tabs.forEach(function (t, i) {
     t.addEventListener('click', function () { selectTab(t); });
@@ -1679,19 +1725,66 @@ var CONFIG = {
     function step(t) { if (!t0) t0 = t; var p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3); el.textContent = pre + Math.round(end * e) + suf; if (p < 1) requestAnimationFrame(step); }
     requestAnimationFrame(step);
   }
-  var reveals = $$('.reveal'), counters = $$('[data-count]');
+  // Ao terminar a entrada, o item volta às transições normais (hover dos cards etc.)
+  function finish(el) {
+    el.classList.remove('reveal', 'in'); el.style.removeProperty('--d');
+    if (el.classList.contains('best')) el.classList.add('lit');   // pulso no card do consórcio
+  }
+  function show(el) {
+    if (!el.classList.contains('reveal') || el.classList.contains('in')) return;
+    el.classList.add('in');
+    if (el.classList.contains('faq')) playPanel($('.tabpanel:not([hidden])', el)); // perguntas em cascata
+    var d = parseFloat(el.style.getPropertyValue('--d')) || 0;
+    setTimeout(function () { finish(el); }, reduceMotion ? 0 : d + 900);
+  }
+  // Grupos em sequência: cada filho .reveal recebe um atraso crescente
+  var groups = $$('[data-stagger]'), grouped = [];
+  groups.forEach(function (g) {
+    var step = +g.getAttribute('data-stagger') || 100;
+    $$(':scope > .reveal', g).forEach(function (el, i) { el.style.setProperty('--d', (i * step) + 'ms'); grouped.push(el); });
+  });
+  function playGroup(g) {
+    $$(':scope > .reveal', g).forEach(show);
+    if (g.hasAttribute('data-sequence')) methodology(g);
+  }
+
+  /* Metodologia: passos 1 → 2 → 3 → 4 em sequência; depois o destaque percorre os passos */
+  function methodology(g) {
+    var cards = $$('.step', g), nodes = $$('.node', g), fill = $('.rail-fill', g);
+    var step = +g.getAttribute('data-stagger') || 400, idx = -1, paused = false;
+    function activate(i) {
+      idx = i;
+      cards.forEach(function (c, k) { c.classList.toggle('active', k === i); });
+      nodes.forEach(function (n, k) { n.classList.toggle('on', k <= i); n.classList.toggle('cur', k === i); });
+      if (fill) fill.style.transform = 'scaleX(' + (i / (cards.length - 1)) + ')';
+    }
+    if (reduceMotion) { nodes.forEach(function (n) { n.classList.add('on'); }); if (fill) fill.style.transform = 'scaleX(1)'; return; }
+    cards.forEach(function (c, i) { setTimeout(function () { activate(i); }, i * step + 250); });
+    setTimeout(function () {
+      setInterval(function () { if (!paused) activate((idx + 1) % cards.length); }, 2600);
+    }, cards.length * step);
+    cards.forEach(function (c, k) {
+      c.addEventListener('mouseenter', function () { paused = true; activate(k); });
+      c.addEventListener('mouseleave', function () { paused = false; });
+    });
+  }
+
+  var reveals = $$('.reveal').filter(function (el) { return grouped.indexOf(el) === -1; }), counters = $$('[data-count]');
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (ents) {
       ents.forEach(function (en) {
         if (!en.isIntersecting) return;
         var el = en.target;
-        if (el.hasAttribute('data-count')) countUp(el); else el.classList.add('in');
+        if (el.hasAttribute('data-count')) countUp(el);
+        else if (el.hasAttribute('data-stagger')) playGroup(el);
+        else show(el);
         io.unobserve(el);
       });
     }, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
     reveals.forEach(function (el) { io.observe(el); });
+    groups.forEach(function (g) { io.observe(g); });
     counters.forEach(function (el) { io.observe(el); });
-  } else { reveals.forEach(function (el) { el.classList.add('in'); }); }
+  } else { reveals.forEach(show); groups.forEach(playGroup); }
 
   /* ---------------- Barra fixa mobile + WhatsApp ---------------- */
   var mbar = $('#mbar'), waF = $('#waFloat'), ftr = $('.ftr');
