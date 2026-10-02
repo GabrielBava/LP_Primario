@@ -23,9 +23,9 @@ tools/converter-logo.py       converte novos logos para o padrão da faixa
 ### Recursos de modernidade e conversão
 - **Faixa superior do cabeçalho** com o WhatsApp comercial, (51) 98912-1113, sempre visível.
 - **Faixa das administradoras parceiras em movimento** no rodapé do banner. A faixa pausa ao passar o mouse e fica estática para quem ativa "reduzir movimento" no sistema.
-  - **Com logo:** HS Consórcios, Racon Consórcios, Bradesco Consórcios, Consórcio Embracon, Klubi e Consórcio Servopa. Os logos foram convertidos para uma única cor clara (Névoa), com fundo transparente e sem as cores originais, para seguir a identidade da página.
-  - **Só com o nome, no mesmo tom:** Itaú Consórcios, Santander Consórcios, CNP Consórcios, Mapfre Consórcios e Porto Consórcio.
-  - **Novos logos:** para adicionar outro logo no mesmo padrão, use `python3 tools/converter-logo.py original.png assets/img/adm/nome.png`.
+  - **Logos:** HS Consórcios, Racon Consórcios, Itaú Consórcios, Bradesco Consórcios, Consórcio Embracon (com a tagline), Santander Consórcios, Klubi, CNP Consórcios, Consórcio Servopa, Mapfre Consórcios e Porto Consórcio.
+  - **Cor única:** todos foram convertidos para Névoa, com fundo transparente e sem as cores originais, para seguir a identidade da página. A altura de cada um equilibra o peso visual na faixa.
+  - **Novos logos:** para adicionar outro no mesmo padrão, use `python3 tools/converter-logo.py original.png assets/img/adm/nome.png`. Se o arquivo vier com fundo cinza ou com o quadriculado de "transparência", acrescente `0.12` no fim do comando.
 - **Destaque nos títulos:** a palavra principal ganha um degradê da paleta. No banner, os destaques são "estratégia" e "sem pagar juros".
 - **Simulador:** tem borda iluminada e brilho de fundo, e o objetivo selecionado fica em Névoa sólida.
 - **Cards claros** de Soluções e Utilizações escurecem ou destacam o ícone ao passar o mouse.
@@ -107,8 +107,8 @@ Se `gtag` ou `fbq` estiverem na página, também são disparados `generate_lead`
 ## O que falta preencher
 - [x] WhatsApp comercial: (51) 98912-1113
 - [ ] Endereço do CRM (`CONFIG.leadEndpoint`)
-- [x] Logos de HS, Racon, Bradesco, Embracon, Klubi e Servopa
-- [ ] Logos de Itaú, Santander, CNP, Mapfre e Porto (hoje aparecem pelo nome), conforme as regras de uso de marca de cada administradora
+- [x] Logos das 11 administradoras parceiras
+- [ ] Confirmar com cada administradora o uso do logo na versão monocromática
 - [ ] Logotipo oficial e arquivos da fonte Famels
 - [ ] Foto do escritório (seção Quem somos)
 - [ ] Três depoimentos reais, com nome, cidade e foto
