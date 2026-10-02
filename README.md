@@ -19,8 +19,9 @@ assets/img/                   logo, foto do escritório e fotos de clientes
 - **Profundidade:** luz ambiente radial, degradê nos cards (`#1F2B42 → #1B263B` a 160°), vidro no menu e nas pílulas, e seções em "folhas" com cantos arredondados que se sobrepõem.
 
 ### Recursos de modernidade e conversão
-- **Faixa de benefícios em movimento** no rodapé do banner. Ela pausa ao passar o mouse e fica estática para quem ativa "reduzir movimento" no sistema.
-- **Destaque nos títulos:** a palavra principal ganha um degradê da paleta.
+- **Faixa superior do cabeçalho** com o WhatsApp comercial, (51) 98912-1113, sempre visível.
+- **Faixa das administradoras parceiras em movimento** no rodapé do banner: HS Consórcios, Consórcio Embracon, Itaú Consórcios, Santander Consórcios, CNP Consórcios, Mapfre Consórcios, Consórcio Servopa e Porto Consórcio. Os nomes aparecem todos no mesmo tom (Névoa com opacidade reduzida), sem destacar nenhuma marca. A faixa pausa ao passar o mouse e fica estática para quem ativa "reduzir movimento" no sistema.
+- **Destaque nos títulos:** a palavra principal ganha um degradê da paleta. No banner, os destaques são "estratégia" e "sem pagar juros".
 - **Simulador:** tem borda iluminada e brilho de fundo, e o objetivo selecionado fica em Névoa sólida.
 - **Cards claros** de Soluções e Utilizações escurecem ou destacam o ícone ao passar o mouse.
 - **Botão principal:** Névoa nos blocos escuros e Azul-noite nos blocos claros, sempre com o máximo contraste.
@@ -28,13 +29,15 @@ assets/img/                   logo, foto do escritório e fotos de clientes
 ### Tipografia
 - **Títulos e números:** Famels. Enquanto a licença não estiver instalada, a página usa a substituta oficial, Manrope, carregada pelo Google Fonts.
 - **Texto e interface:** Poppins, nos pesos 300 (apoio), 400 (texto), 500 (botões e rótulos) e 600 (destaques).
-- **Regras do manual:** frases com inicial maiúscula, sem rótulos em MAIÚSCULAS, e no máximo dois pesos por card.
+- **Regras do manual:** sem rótulos em MAIÚSCULAS e no máximo dois pesos por card.
+- **Títulos principais:** a pedido do cliente, os nomes das seções, o menu, as abas do FAQ e os títulos do rodapé usam iniciais maiúsculas ("Nossas Soluções", "Benefícios do Consórcio"), com preposições em minúsculo. As frases de destaque continuam com inicial maiúscula só na primeira palavra.
+- **Sem travessões** nos textos, para uma leitura mais natural.
 
 ### Componentes
 - **Botões:** o principal é a pílula de Névoa sólida, usada para a ação mais importante de cada tela. As ações secundárias usam pílula de vidro.
 - **Raios:** 12px (blocos internos), 18px (cards), 20px (painéis) e 28px (moldura). Tudo que é pequeno e clicável vira pílula.
 - **Ícones:** traço de 1,7px no estilo Lucide, dentro de quadrados de vidro.
-- **Status:** sempre com texto, nas cores dessaturadas do manual ("Sem juros", "Melhor opção", "Simulação concluída").
+- **Status:** sempre com texto, nas cores dessaturadas do manual ("Melhor opção", "Simulação concluída").
 - **Movimento:** o card sobe 2px no hover, com transição de 0,2s, e tudo fica desligado para quem ativa "reduzir movimento" no sistema.
 
 ### Tom de voz
@@ -53,7 +56,8 @@ Coloque os arquivos licenciados em `assets/fonts/Famels-Regular.woff2` e `assets
 
 | # | Seção | Conteúdo |
 |---|-------|----------|
-| 1 | **Banner + Simulador** | Simulador no lado direito do banner, em 2 etapas. **Etapa 1:** para que é o crédito (Imóvel / Veículo / Investimento), simular pelo valor do crédito (R$ 0 a R$ 4 mi) ou da parcela (R$ 300 a R$ 20.000), com slider e valores sugeridos. Não mostra estimativa. **Etapa 2:** nome, e-mail, celular, CPF e CEP, com aceite da Política de Privacidade e das notificações. **Resultado:** só depois da captação, mostra a parcela ou o crédito estimado, o prazo e a parcela reduzida, com botão para o WhatsApp. |
+| 0 | **Cabeçalho** | Faixa superior com o WhatsApp comercial e menu com o botão "Simular agora". |
+| 1 | **Banner + Simulador** | Frase de impacto: "Conquiste seu patrimônio com estratégia e sem pagar juros." Simulador no lado direito, em 2 etapas, com o cartão ajustando a altura a cada etapa. **Etapa 1:** para que é o crédito (Imóvel / Veículo / Investimento), simular pelo valor do crédito (R$ 0 a R$ 4 mi) ou da parcela (R$ 300 a R$ 20.000), com slider e valores sugeridos. Não mostra estimativa. **Etapa 2:** nome, e-mail, celular, CPF e CEP, com aceite da Política de Privacidade e das notificações. **Resultado:** só depois da captação, mostra a parcela ou o crédito estimado, o prazo e a parcela reduzida, com botão para o WhatsApp. |
 | 2 | **Quem somos** | Texto institucional, espaço para a foto do escritório com o logotipo e indicadores: R$ 20 mi+, 80+ clientes, 5 anos e BACEN · ABAC. |
 | 3 | **Como funciona** | Metodologia em 4 passos: mapear o objetivo, estruturar o crédito, estratégia e acompanhamento. |
 | 4 | **Nossas soluções** | Aquisição, alavancagem patrimonial, alavancagem financeira e investimento, as quatro com o mesmo peso visual. |
@@ -68,7 +72,7 @@ Coloque os arquivos licenciados em `assets/fonts/Famels-Regular.woff2` e `assets
 Ficam no objeto `CONFIG`, no início do `<script>`, perto do fim do `index.html`:
 
 ```js
-whatsapp: '5554999998888',   // DDI + DDD + número
+whatsapp: '5551989121113',   // WhatsApp comercial (51) 98912-1113: DDI + DDD + número
 leadEndpoint: 'https://...', // webhook do CRM (POST JSON). Vazio = só eventos
 categorias: { imovel: { prazo, taxaAdm, fundoReserva, reducao, ... }, ... }
 ```
@@ -96,15 +100,17 @@ categorias: { imovel: { prazo, taxaAdm, fundoReserva, reducao, ... }, ... }
 Se `gtag` ou `fbq` estiverem na página, também são disparados `generate_lead` e `Lead`.
 
 ## O que falta preencher
-- [ ] Número do WhatsApp e endereço do CRM (`CONFIG`)
+- [x] WhatsApp comercial: (51) 98912-1113
+- [ ] Endereço do CRM (`CONFIG.leadEndpoint`)
+- [ ] Opcional: logotipos monocromáticos das administradoras (em `assets/img/adm/`), conforme as regras de uso de marca de cada uma
 - [ ] Logotipo oficial e arquivos da fonte Famels
 - [ ] Foto do escritório (seção Quem somos)
 - [ ] Três depoimentos reais, com nome, cidade e foto
-- [ ] Telefone, e-mail, endereço, CNPJ e links das redes sociais (rodapé)
+- [ ] E-mail, endereço, CNPJ e links das redes sociais (rodapé)
 - [ ] Texto da Política de Privacidade (modal `#privacy`), revisado pelo jurídico
 
 ## Observações
 - **Resultado só depois do cadastro.** O simulador mostra a estimativa apenas após o cadastro, para que o cliente deixe os dados antes de ver o valor.
 - **BACEN e ABAC.** Quem é regulado pelo Banco Central é a administradora de consórcio, e a ABAC é a associação do setor. Por isso os textos usam "consórcio regulamentado".
 - **Aceite de notificações.** Está como obrigatório, conforme o briefing, e foi redigido como consentimento para receber o resultado da simulação. Valide com o jurídico (LGPD).
-- **Botão flutuante de WhatsApp.** Usa a Névoa da marca, e não o verde do WhatsApp, para respeitar a paleta.
+- **Botão flutuante de WhatsApp.** Usa o Marinho da marca com ícone em Névoa, e não o verde do WhatsApp, para respeitar a paleta e ficar visível tanto nos blocos claros quanto nos escuros.

@@ -7,7 +7,7 @@
 <!-- ============================================================
      SEO
      ============================================================ -->
-<title>CRM Consórcios | Consórcio de imóveis, veículos e investimentos — simule agora</title>
+<title>CRM Consórcios | Estratégias patrimoniais inteligentes com consórcio</title>
 <meta name="description" content="Simule seu consórcio em 1 minuto. Conquiste imóveis, veículos e investimentos sem juros e sem entrada, com estratégia de contemplação e acompanhamento do início ao fim.">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#0D1B2A">
@@ -51,7 +51,7 @@
   /* Espaçamento */
   --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px; --gap:18px; --pad:22px; --space-6:28px;
   --glass-blur:16px;
-  --maxw:1200px; --hdr:74px; --sheet:28px;
+  --maxw:1200px; --top:36px; --nav:74px; --hdr:110px; --sheet:28px;
 }
 
 /* ---------- TEMA ESCURO (padrão) ---------- */
@@ -171,7 +171,17 @@ section[id]{scroll-margin-top:calc(var(--hdr) - 12px)}
    ============================================================ */
 .hdr{position:fixed;inset:0 0 auto 0;z-index:80;height:var(--hdr);background:rgba(8,18,29,.55);backdrop-filter:blur(var(--glass-blur)) saturate(140%);-webkit-backdrop-filter:blur(var(--glass-blur)) saturate(140%);border-bottom:1px solid var(--glass-border);transition:background .3s,box-shadow .3s}
 .hdr.scrolled{background:rgba(8,18,29,.9);box-shadow:0 12px 30px -18px rgba(0,0,0,.8)}
-.nav{height:100%;display:flex;align-items:center;gap:28px}
+.nav{height:var(--nav);display:flex;align-items:center;gap:28px}
+/* Faixa superior com o WhatsApp comercial */
+.topbar{height:var(--top);background:rgba(8,18,29,.82);border-bottom:1px solid var(--glass-border);font-size:var(--fs-xs);color:var(--text-muted)}
+.topbar-in{height:100%;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.tb-note{display:inline-flex;align-items:center;gap:8px;font-weight:300}
+.tb-note .ic{width:14px;height:14px;color:var(--icon-soft)}
+.tb-wa{display:inline-flex;align-items:center;gap:8px;color:var(--text);font-size:var(--fs-sm);transition:color .2s}
+.tb-wa svg{width:16px;height:16px;fill:currentColor;flex:0 0 auto}
+.tb-wa span{color:var(--text-muted);font-weight:300}
+.tb-wa b{font-weight:600;letter-spacing:.01em}
+.tb-wa:hover b{color:#fff}
 /* Monograma provisório "CC" (manual, Aplicações e diretrizes) — substituir pelo logotipo */
 .logo{display:inline-flex;align-items:center;gap:12px;color:var(--text);flex:0 0 auto}
 .mono{width:42px;height:42px;border-radius:50%;border:1px solid rgba(224,225,221,.45);display:grid;place-items:center;font-family:var(--font-display);font-weight:500;font-size:.82rem;letter-spacing:.04em;color:var(--mist)}
@@ -185,7 +195,7 @@ section[id]{scroll-margin-top:calc(var(--hdr) - 12px)}
 /* ============================================================
    1 · BANNER + SIMULADOR (escuro profundo)
    ============================================================ */
-.hero{position:relative;overflow:hidden;background:#08121D;padding:calc(var(--hdr) + 64px) 0 var(--sheet)}
+.hero{position:relative;overflow:hidden;background:#08121D;padding:calc(var(--hdr) + 64px) 0 calc(var(--sheet) + 36px)}
 .hero::before{content:"";position:absolute;inset:0;pointer-events:none;
   background:radial-gradient(900px 640px at 76% 24%,rgba(65,90,119,.6),transparent 62%),radial-gradient(700px 520px at 0% 100%,rgba(119,141,169,.24),transparent 60%),radial-gradient(500px 300px at 30% 0%,rgba(65,90,119,.25),transparent 70%)}
 .hero::after{content:"";position:absolute;inset:0;pointer-events:none;
@@ -197,6 +207,7 @@ section[id]{scroll-margin-top:calc(var(--hdr) - 12px)}
 .hero-extra{grid-area:extra}
 .pill-intro{display:inline-flex;align-items:center;gap:10px;padding:7px 16px 7px 8px;border-radius:var(--radius-pill);font-size:var(--fs-sm);font-weight:400;color:var(--icon-soft);margin-bottom:26px}
 .pill-intro .mono{width:24px;height:24px;font-size:.55rem;border-color:rgba(224,225,221,.3)}
+.pill-intro b{font-weight:600;color:var(--text)}
 .hero h1{font-family:var(--font-display);font-weight:500;font-size:clamp(2.4rem,4.8vw,4rem);line-height:1.04;letter-spacing:-.03em}
 .hero .sub{font-weight:300;font-size:1.1rem;line-height:1.6;color:var(--text-muted);margin-top:24px;max-width:520px}
 .checks{list-style:none;display:grid;gap:12px;margin:30px 0 32px}
@@ -208,24 +219,27 @@ section[id]{scroll-margin-top:calc(var(--hdr) - 12px)}
 .trust div span{font-size:var(--fs-xs);font-weight:300;color:var(--text-muted)}
 
 /* Faixa de benefícios em movimento */
-.ticker{position:relative;z-index:1;margin-top:80px;border-top:1px solid var(--glass-border);border-bottom:1px solid var(--glass-border);background:rgba(224,225,221,.025);overflow:hidden;
+.partners-cap{position:relative;z-index:1;margin-top:72px;margin-bottom:14px;text-align:center;font-size:var(--fs-xs);font-weight:500;letter-spacing:.04em;color:var(--text-muted)}
+.ticker{position:relative;z-index:1;margin-top:0;border-top:1px solid var(--glass-border);border-bottom:1px solid var(--glass-border);background:rgba(224,225,221,.025);overflow:hidden;
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
 .ticker-track{display:flex;width:max-content;animation:marquee 48s linear infinite}
 .ticker:hover .ticker-track{animation-play-state:paused}
-.ticker-group{display:flex;align-items:center;gap:48px;padding:20px 24px;flex:0 0 auto}
-.ticker-group span{display:inline-flex;align-items:center;gap:10px;font-size:var(--fs-md);font-weight:400;color:var(--icon-soft);white-space:nowrap}
-.ticker-group .ic{width:16px;height:16px;color:var(--mist);stroke-width:2}
+.ticker-group{display:flex;align-items:center;gap:64px;padding:22px 32px;flex:0 0 auto}
+.adm{font-family:var(--font-display);font-weight:600;font-size:1.12rem;letter-spacing:-.01em;color:var(--mist);opacity:.62;white-space:nowrap;transition:opacity .2s}
+.adm:hover{opacity:1}
+.adm-logo{height:26px;width:auto;filter:brightness(0) invert(.88);opacity:.62}
 @keyframes marquee{to{transform:translateX(-50%)}}
 
 /* ---------- Simulador: cartão que vira em 2 etapas ---------- */
 .sim{width:100%;max-width:468px;perspective:2200px;position:relative;isolation:isolate}
 .sim::before{content:"";position:absolute;inset:-60px -40px;z-index:-1;pointer-events:none;background:radial-gradient(closest-side,rgba(119,141,169,.38),transparent);filter:blur(24px)}
-.sim-inner{display:grid;transition:transform .85s cubic-bezier(.4,.15,.2,1);transform-style:preserve-3d}
+.sim-inner{position:relative;transition:transform .85s cubic-bezier(.4,.15,.2,1),height .45s ease;transform-style:preserve-3d}
 .sim.flipped .sim-inner{transform:rotateY(180deg)}
-.sim-face{grid-area:1/1;position:relative;border:1px solid transparent;border-radius:var(--radius-panel);
+.sim-face{position:relative;border:1px solid transparent;border-radius:var(--radius-panel);
   background:linear-gradient(160deg,#1F2B42,#1B263B 55%) padding-box,linear-gradient(160deg,rgba(169,184,203,.6),rgba(119,141,169,.08) 42%,rgba(119,141,169,.3)) border-box;
   box-shadow:var(--shadow-float),inset 0 1px 0 rgba(224,225,221,.08);padding:26px 26px 22px;-webkit-backface-visibility:hidden;backface-visibility:hidden;display:flex;flex-direction:column}
-.sim-back{transform:rotateY(180deg)}
+.sim-back{position:absolute;top:0;left:0;width:100%;transform:rotateY(180deg)}
+.sim:not(.flipped) .sim-back,.sim.flipped .sim-front{pointer-events:none}
 .sim-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
 .steps-ind{display:flex;align-items:center;gap:8px;list-style:none;font-size:var(--fs-xs);font-weight:500;color:var(--text-muted)}
 .steps-ind li{display:flex;align-items:center;gap:6px;white-space:nowrap}
@@ -239,9 +253,9 @@ section[id]{scroll-margin-top:calc(var(--hdr) - 12px)}
 .sim-desc{font-size:var(--fs-sm);font-weight:300;color:var(--text-muted);margin:4px 0 20px}
 .sim-label{display:block;font-size:var(--fs-sm);font-weight:500;color:var(--icon-soft);margin-bottom:10px}
 fieldset{border:0;min-width:0;margin-bottom:20px}
-.cat{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.cat button{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 6px 12px;border-radius:var(--radius);border:1px solid var(--border);background:var(--pill-bg);cursor:pointer;font-weight:400;font-size:var(--fs-sm);color:var(--text-muted);transition:.2s}
-.cat button .ic{width:24px;height:24px;color:var(--text-muted);transition:.2s}
+.cat{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.cat button{display:flex;flex-direction:column;align-items:center;gap:6px;padding:11px 6px 9px;border-radius:var(--radius);border:1px solid var(--border);background:var(--pill-bg);cursor:pointer;font-weight:400;font-size:.78rem;color:var(--text-muted);transition:.2s}
+.cat button .ic{width:21px;height:21px;color:var(--text-muted);transition:.2s}
 .cat button:hover{border-color:rgba(169,184,203,.35);color:var(--text)}
 .cat button[aria-checked="true"]{background:var(--mist);border-color:var(--mist);color:var(--ink);font-weight:500;box-shadow:0 10px 24px -12px rgba(224,225,221,.45)}
 .cat button[aria-checked="true"] .ic{color:var(--ink)}
@@ -266,14 +280,7 @@ input[type=range]:hover::-webkit-slider-thumb,input[type=range]:focus-visible::-
 .chips button.on{background:var(--pill-active);border-color:var(--primary-bright);color:var(--text);font-weight:500}
 .err{font-size:var(--fs-xs);color:var(--danger);font-weight:500;margin-top:6px;line-height:1.4}
 .err:empty{display:none}
-#simNext{margin-top:auto}
-.front-gap{flex:0 0 22px}
-.next{display:flex;gap:12px;align-items:flex-start;margin-top:18px;padding:13px 14px;border-radius:var(--radius);background:var(--bg-card-2);border:1px solid var(--border-soft);font-size:var(--fs-xs);font-weight:300;line-height:1.5;color:var(--icon-soft)}
-.next .gi{width:30px;height:30px;border-radius:var(--radius-sm)}
-.next .gi .ic{width:15px;height:15px}
-.next b{display:block;color:var(--text);font-weight:500;font-size:var(--fs-sm);margin-bottom:1px}
-.sim-note{font-size:var(--fs-xs);font-weight:300;color:var(--text-muted);text-align:center;margin-top:12px;display:flex;align-items:center;justify-content:center;gap:6px}
-.sim-note .ic{width:13px;height:13px}
+#simNext{margin-top:24px}
 
 /* Etapa 2 · dados */
 .summary{display:flex;align-items:center;gap:12px;background:var(--bg-card-2);border:1px solid var(--border-soft);border-radius:var(--radius);padding:11px 14px;margin-bottom:16px;font-size:var(--fs-sm);color:var(--text-muted)}
@@ -299,7 +306,6 @@ input[type=range]:hover::-webkit-slider-thumb,input[type=range]:focus-visible::-
 .backlink:hover{color:var(--text)}
 
 /* Etapa 3 · resultado */
-#resultPanel{margin-block:auto}
 .res{list-style:none;border:1px solid var(--border-soft);border-radius:var(--radius);overflow:hidden;margin:16px 0 18px;background:var(--bg-card-2)}
 .res li{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 14px;font-size:var(--fs-sm);border-bottom:1px solid var(--border-soft)}
 .res li:last-child{border-bottom:0}
@@ -523,6 +529,13 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
 @media (max-width:1180px){
   .menu{gap:18px}
 }
+@media (max-width:1100px){
+  .hamb{display:inline-flex}
+  .menu{display:none;position:absolute;top:var(--hdr);left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:rgba(8,18,29,.97);backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur));padding:8px 20px 20px;border-bottom:1px solid var(--glass-border);box-shadow:0 20px 40px -20px rgba(0,0,0,.8)}
+  .menu.open{display:flex}
+  .menu a:not(.btn){padding:14px 4px;border-bottom:1px solid var(--border-soft);font-size:.95rem}
+  .menu .btn{margin-top:14px}
+}
 @media (max-width:1080px){
   .sols,.opts,.steps,.kpis{grid-template-columns:repeat(2,1fr)}
   .steps::before{display:none}
@@ -530,18 +543,13 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
   .fgrid{grid-template-columns:1fr 1fr}
 }
 @media (max-width:980px){
-  :root{--hdr:66px;--sheet:22px}
-  .hamb{display:inline-flex}
-  .menu{display:none;position:absolute;top:var(--hdr);left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:rgba(8,18,29,.97);backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur));padding:8px 20px 20px;border-bottom:1px solid var(--glass-border);box-shadow:0 20px 40px -20px rgba(0,0,0,.8)}
-  .menu.open{display:flex}
-  .menu a:not(.btn){padding:14px 4px;border-bottom:1px solid var(--border-soft);font-size:.95rem}
-  .menu .btn{margin-top:14px}
-  .hero{padding:calc(var(--hdr) + 36px) 0 var(--sheet)}
+  :root{--top:34px;--nav:62px;--hdr:96px;--sheet:22px}
+  .hero{padding:calc(var(--hdr) + 36px) 0 calc(var(--sheet) + 28px)}
   .hero-grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"copy" "sim" "extra";row-gap:32px}
   .hero-copy{padding-top:0}
   .hero-sim{justify-content:center}
   .sim{max-width:520px}
-  .ticker{margin-top:56px}
+  .partners-cap{margin-top:52px}
   .sec{border-radius:22px 22px 0 0}
   .ftr{border-radius:22px 22px 0 0}
   .about{grid-template-columns:minmax(0,1fr);gap:56px}
@@ -553,13 +561,16 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
 }
 @media (max-width:640px){
   .wrap{padding:0 16px}
+  .tb-note{display:none}
+  .topbar-in{justify-content:center}
   .sec{padding:80px 0 calc(80px + var(--sheet))}
   .hero h1{font-size:2.3rem}
+  .pill-intro{border-radius:var(--radius-lg);align-items:center}
   .hero .sub{font-size:1rem}
   .trust{gap:22px}
   .trust div b{font-size:1.4rem}
-  .ticker-group{gap:32px;padding:16px}
-  .ticker-group span{font-size:var(--fs-sm)}
+  .ticker-group{gap:40px;padding:18px 20px}
+  .adm{font-size:1rem}
   .sim-face{padding:22px 18px 18px}
   .steps-ind{gap:6px}
   .steps-ind .bar{width:12px}
@@ -641,17 +652,23 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
      HEADER
      ============================================================ -->
 <header class="hdr" id="hdr">
+  <div class="topbar">
+    <div class="wrap topbar-in">
+      <span class="tb-note"><svg class="ic"><use href="#i-shield"/></svg>Consórcio regulamentado pelo Banco Central</span>
+      <a class="tb-wa" href="#" data-wa="Olá! Vim pelo site e quero falar com um especialista."><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#i-wa"/></svg><span>WhatsApp comercial</span><b>(51) 98912-1113</b></a>
+    </div>
+  </div>
   <div class="wrap nav">
     <!-- LOGOTIPO: monograma provisório "CC" (manual). Para trocar pelo logotipo oficial:
          <img src="assets/img/logo.svg" alt="CRM Consórcios" height="40"> -->
-    <a class="logo" href="#topo" aria-label="CRM Consórcios — voltar ao início">
+    <a class="logo" href="#topo" aria-label="CRM Consórcios, voltar ao início">
       <span class="mono" aria-hidden="true">CC</span>
       <span class="logo-txt">CRM Consórcios</span>
     </a>
     <button class="hamb" id="hamb" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><svg class="ic"><use href="#i-menu"/></svg></button>
     <nav class="menu" id="menu" aria-label="Navegação principal">
-      <a href="#quem-somos">Quem somos</a>
-      <a href="#como-funciona">Como funciona</a>
+      <a href="#quem-somos">Quem Somos</a>
+      <a href="#como-funciona">Como Funciona</a>
       <a href="#solucoes">Soluções</a>
       <a href="#beneficios">Benefícios</a>
       <a href="#utilizacoes">Utilizações</a>
@@ -671,8 +688,8 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
   <div class="wrap hero-grid">
 
     <div class="hero-copy">
-      <span class="pill-intro glass reveal-now"><span class="mono" aria-hidden="true">CC</span>Consultoria especializada em consórcio</span>
-      <h1 class="reveal-now">Conquiste seu imóvel, veículo ou investimento <em>sem pagar juros.</em></h1>
+      <span class="pill-intro glass reveal-now"><span class="mono" aria-hidden="true">CC</span><b>Estratégias patrimoniais inteligentes com consórcio</b></span>
+      <h1 class="reveal-now">Conquiste seu patrimônio com <em>estratégia</em> e <em>sem pagar juros.</em></h1>
       <p class="sub reveal-now">Simule em menos de 1 minuto e receba um plano personalizado para usar o consórcio como ferramenta de aquisição e alavancagem patrimonial.</p>
     </div>
 
@@ -688,7 +705,6 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
                 <li class="bar" aria-hidden="true"></li>
                 <li><span>2</span>Seus dados</li>
               </ol>
-              <span class="tag tag-ok"><svg class="ic"><use href="#i-check"/></svg>Sem juros</span>
             </div>
             <h2 class="sim-title">Simule seu consórcio</h2>
             <p class="sim-desc">Escolha o objetivo e ajuste o valor ideal para você.</p>
@@ -717,13 +733,7 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
             <div class="chips" id="simChips" aria-label="Valores sugeridos"></div>
             <p class="err" id="simErr" role="alert"></p>
 
-            <div class="next">
-              <span class="gi"><svg class="ic"><use href="#i-target"/></svg></span>
-              <div><b>Na próxima etapa</b>Você recebe o valor estimado da parcela ou do crédito e um plano montado por um especialista.</div>
-            </div>
-            <div class="front-gap" aria-hidden="true"></div>
             <button type="button" class="btn btn-primary btn-block" id="simNext">Simular agora <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></button>
-            <p class="sim-note"><svg class="ic"><use href="#i-clock"/></svg>Leva menos de 1 minuto · sem compromisso</p>
           </div>
 
           <!-- ===================== ETAPA 2 · DADOS  /  3 · RESULTADO ===================== -->
@@ -743,7 +753,7 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
 
               <div class="summary">
                 <svg class="ic"><use href="#i-target"/></svg>
-                <span id="sumTxt">—</span>
+                <span id="sumTxt"></span>
                 <button type="button" class="link" id="sumEdit">Editar</button>
               </div>
 
@@ -803,11 +813,11 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
               <span class="tag tag-ok"><svg class="ic"><use href="#i-check"/></svg>Simulação concluída</span>
               <h2 class="sim-title" style="margin-top:14px" tabindex="-1" id="resTitle">Pronto! Este é o seu plano</h2>
               <ul class="res">
-                <li><span>Objetivo</span><b id="rCat">—</b></li>
-                <li><span id="rL1">Crédito</span><b id="rV1">—</b></li>
-                <li class="hl"><span id="rL2">Parcela estimada</span><b id="rV2">—</b></li>
-                <li><span>Prazo</span><b id="rPrazo">—</b></li>
-                <li><span>Parcela reduzida até a contemplação*</span><b id="rRed">—</b></li>
+                <li><span>Objetivo</span><b id="rCat"></b></li>
+                <li><span id="rL1">Crédito</span><b id="rV1"></b></li>
+                <li class="hl"><span id="rL2">Parcela estimada</span><b id="rV2"></b></li>
+                <li><span>Prazo</span><b id="rPrazo"></b></li>
+                <li><span>Parcela reduzida até a contemplação*</span><b id="rRed"></b></li>
               </ul>
               <ol class="after">
                 <li><span>1</span>Um especialista confere as condições dos grupos disponíveis.</li>
@@ -838,10 +848,14 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
     </div>
 
   </div>
-  <div class="ticker" aria-label="Vantagens do consórcio">
+  <p class="partners-cap">Administradoras parceiras</p>
+  <!-- Administradoras: nomes em tom único, no padrão do site. Para usar os logotipos oficiais,
+       troque cada <span class="adm"> por <img class="adm-logo" src="assets/img/adm/nome.svg" alt="Nome">
+       (versão monocromática branca; o CSS aplica a mesma opacidade em todos). -->
+  <div class="ticker" aria-label="Administradoras parceiras">
     <div class="ticker-track">
-      <div class="ticker-group"><span><svg class="ic"><use href="#i-check"/></svg>Zero juros</span><span><svg class="ic"><use href="#i-check"/></svg>Sem entrada</span><span><svg class="ic"><use href="#i-shield"/></svg>Regulamentado pelo Banco Central</span><span><svg class="ic"><use href="#i-compass"/></svg>Lances estratégicos</span><span><svg class="ic"><use href="#i-users"/></svg>Acompanhamento do início à conquista</span><span><svg class="ic"><use href="#i-key"/></svg>Imóveis · veículos · investimentos</span><span><svg class="ic"><use href="#i-chart"/></svg>Carta de crédito como ativo</span></div>
-      <div class="ticker-group" aria-hidden="true"><span><svg class="ic"><use href="#i-check"/></svg>Zero juros</span><span><svg class="ic"><use href="#i-check"/></svg>Sem entrada</span><span><svg class="ic"><use href="#i-shield"/></svg>Regulamentado pelo Banco Central</span><span><svg class="ic"><use href="#i-compass"/></svg>Lances estratégicos</span><span><svg class="ic"><use href="#i-users"/></svg>Acompanhamento do início à conquista</span><span><svg class="ic"><use href="#i-key"/></svg>Imóveis · veículos · investimentos</span><span><svg class="ic"><use href="#i-chart"/></svg>Carta de crédito como ativo</span></div>
+      <div class="ticker-group"><span class="adm">HS Consórcios</span><span class="adm">Consórcio Embracon</span><span class="adm">Itaú Consórcios</span><span class="adm">Santander Consórcios</span><span class="adm">CNP Consórcios</span><span class="adm">Mapfre Consórcios</span><span class="adm">Consórcio Servopa</span><span class="adm">Porto Consórcio</span></div>
+      <div class="ticker-group" aria-hidden="true"><span class="adm">HS Consórcios</span><span class="adm">Consórcio Embracon</span><span class="adm">Itaú Consórcios</span><span class="adm">Santander Consórcios</span><span class="adm">CNP Consórcios</span><span class="adm">Mapfre Consórcios</span><span class="adm">Consórcio Servopa</span><span class="adm">Porto Consórcio</span></div>
     </div>
   </div>
 </section>
@@ -869,9 +883,9 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
       </div>
 
       <div class="reveal">
-        <span class="label">Quem somos</span>
+        <span class="label">Quem Somos</span>
         <h2 class="h2">Especialistas em transformar crédito em <em>patrimônio</em>.</h2>
-        <p class="lead">Somos uma consultoria especializada em consórcio que une planejamento, estratégia e acompanhamento próximo. Em <b>5 anos</b>, ajudamos mais de <b>80 clientes</b> a conquistar imóveis, veículos e investimentos — sem juros e sem descapitalizar.</p>
+        <p class="lead">Somos uma consultoria especializada em consórcio que une planejamento, estratégia e acompanhamento próximo. Em <b>5 anos</b>, ajudamos mais de <b>80 clientes</b> a conquistar imóveis, veículos e investimentos sem pagar juros e sem descapitalizar.</p>
         <p class="lead" style="margin-top:12px">Trabalhamos com administradoras sólidas, autorizadas e fiscalizadas pelo Banco Central, para que cada carta de crédito cumpra uma função clara no seu plano.</p>
         <ul class="values">
           <li><span class="gi"><svg class="ic"><use href="#i-target"/></svg></span><div><b>Estratégia antes da venda</b><span>Primeiro entendemos o seu objetivo; depois indicamos a carta certa.</span></div></li>
@@ -896,9 +910,9 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
 <section class="sec theme-dark" id="como-funciona" style="--gx:50%;--gy:0%">
   <div class="wrap">
     <div class="center">
-      <span class="label reveal">Como funciona · nossa metodologia</span>
+      <span class="label reveal">Como Funciona · Nossa Metodologia</span>
       <h2 class="h2 reveal">4 passos para conquistar com <em>estratégia</em>, não com sorte.</h2>
-      <p class="lead reveal">Um método claro que dá direção a cada decisão — do primeiro contato até o bem nas suas mãos.</p>
+      <p class="lead reveal">Um método claro que dá direção a cada decisão, do primeiro contato até o bem nas suas mãos.</p>
     </div>
     <div class="steps">
       <article class="step card lift reveal">
@@ -922,7 +936,7 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
       <article class="step card lift reveal">
         <div class="step-h"><span class="step-n">04</span><span class="gi"><svg class="ic"><use href="#i-users"/></svg></span></div>
         <h3>Acompanhamento</h3>
-        <p>Acompanhamos assembleias, lances e toda a liberação do crédito até a conquista do bem — e seguimos com você depois dela.</p>
+        <p>Acompanhamos assembleias, lances e toda a liberação do crédito até a conquista do bem. E seguimos com você depois dela.</p>
         <ul><li class="tag">Assembleias</li><li class="tag">Pós-venda</li></ul>
       </article>
     </div>
@@ -939,7 +953,7 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
 <section class="sec theme-light" id="solucoes" style="--gx:100%;--gy:30%;--gx2:0%;--gy2:0%">
   <div class="wrap">
     <div class="center">
-      <span class="label reveal">Nossas soluções</span>
+      <span class="label reveal">Nossas Soluções</span>
       <h2 class="h2 reveal">Uma solução para cada <em>objetivo</em>.</h2>
       <p class="lead reveal">Do primeiro imóvel à multiplicação do patrimônio: o consórcio certo, usado do jeito certo.</p>
     </div>
@@ -999,8 +1013,8 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
 <section class="sec theme-dark deep" id="beneficios" style="--gx:85%;--gy:100%;--gx2:0%;--gy2:0%">
   <div class="wrap">
     <div class="center">
-      <span class="label reveal">Benefícios do consórcio</span>
-      <h2 class="h2 reveal">Entenda as formas de conquistar um bem — e por que o consórcio é a <em>mais inteligente</em>.</h2>
+      <span class="label reveal">Benefícios do Consórcio</span>
+      <h2 class="h2 reveal">Entenda as formas de conquistar um bem e por que o consórcio é a <em>mais inteligente</em>.</h2>
     </div>
     <div class="opts">
       <article class="opt card reveal">
@@ -1037,9 +1051,9 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
 <section class="sec theme-light" id="utilizacoes" style="--gx:0%;--gy:20%;--gx2:100%;--gy2:100%">
   <div class="wrap">
     <div class="center">
-      <span class="label reveal">Utilizações do consórcio</span>
+      <span class="label reveal">Utilizações do Consórcio</span>
       <h2 class="h2 reveal">Como você pode usar a sua <em>carta de crédito</em>.</h2>
-      <p class="lead reveal">Com o crédito contemplado, você compra como se fosse à vista — e ainda negocia melhores condições.</p>
+      <p class="lead reveal">Com o crédito contemplado, você compra como se fosse à vista e ainda negocia melhores condições.</p>
     </div>
     <div class="uses">
       <article class="use card lift reveal"><span class="gi"><svg class="ic"><use href="#i-key"/></svg></span><div><h3>Aquisição</h3><p>Imóveis, veículos e bens, novos ou usados, com poder de compra à vista.</p></div></article>
@@ -1063,7 +1077,7 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
 <section class="sec theme-dark" id="depoimentos" style="--gx:50%;--gy:0%">
   <div class="wrap">
     <div class="center">
-      <span class="label reveal">Depoimentos de clientes</span>
+      <span class="label reveal">Depoimentos de Clientes</span>
       <h2 class="h2 reveal">Quem já conquistou com a <em>gente</em>.</h2>
       <p class="lead reveal">Histórias de clientes que transformaram planejamento em patrimônio.</p>
     </div>
@@ -1108,8 +1122,8 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
 <section class="sec theme-light" id="duvidas" style="--gx:50%;--gy:0%;--gx2:100%;--gy2:100%">
   <div class="wrap">
     <div class="center">
-      <span class="label reveal">Tire suas dúvidas</span>
-      <h2 class="h2 reveal">Perguntas frequentes</h2>
+      <span class="label reveal">Tire Suas Dúvidas</span>
+      <h2 class="h2 reveal">Perguntas Frequentes</h2>
       <p class="lead reveal">As dúvidas mais comuns sobre contemplação, documentação e formas de utilização do crédito.</p>
     </div>
 
@@ -1117,7 +1131,7 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
       <div class="tabs" role="tablist" aria-label="Categorias de perguntas">
         <button type="button" role="tab" id="t-cont" aria-controls="p-cont" aria-selected="true"><svg class="ic"><use href="#i-trophy"/></svg>Contemplação</button>
         <button type="button" role="tab" id="t-doc" aria-controls="p-doc" aria-selected="false" tabindex="-1"><svg class="ic"><use href="#i-doc"/></svg>Documentação</button>
-        <button type="button" role="tab" id="t-uso" aria-controls="p-uso" aria-selected="false" tabindex="-1"><svg class="ic"><use href="#i-key"/></svg>Formas de utilização</button>
+        <button type="button" role="tab" id="t-uso" aria-controls="p-uso" aria-selected="false" tabindex="-1"><svg class="ic"><use href="#i-key"/></svg>Formas de Utilização</button>
       </div>
 
       <div class="tabpanel" role="tabpanel" id="p-cont" aria-labelledby="t-cont">
@@ -1130,11 +1144,11 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
             <ul><li><b>Lance livre:</b> você define o percentual que quer ofertar;</li><li><b>Lance fixo:</b> percentual pré-definido pelo grupo;</li><li><b>Lance embutido:</b> usa parte da própria carta de crédito, sem precisar de dinheiro do bolso.</li></ul>
             <p>No consórcio de imóveis também é possível usar o FGTS no lance, conforme as regras vigentes.</p></div></details>
         <details class="qa"><summary>Em quanto tempo posso ser contemplado?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
-          <div class="a"><p>Não existe data garantida — você concorre desde a primeira assembleia. Com estratégia de lances, análise do histórico do grupo e composição de cartas, as chances de uma contemplação mais rápida aumentam bastante. É isso que trabalhamos na nossa metodologia.</p></div></details>
+          <div class="a"><p>Não existe data garantida: você concorre desde a primeira assembleia. Com estratégia de lances, análise do histórico do grupo e composição de cartas, as chances de uma contemplação mais rápida aumentam bastante. É isso que trabalhamos na nossa metodologia.</p></div></details>
         <details class="qa"><summary>Fui contemplado. Existe prazo para usar o crédito?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
           <div class="a"><p>Não. Após a contemplação, o crédito fica aplicado e é corrigido até você encontrar o bem ideal, respeitando as regras do contrato do grupo.</p></div></details>
         <details class="qa"><summary>Continuo pagando as parcelas depois de contemplado?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
-          <div class="a"><p>Sim. A contemplação antecipa o acesso ao crédito, mas as parcelas seguem até o fim do plano — sempre sem juros, apenas com a taxa de administração prevista em contrato.</p></div></details>
+          <div class="a"><p>Sim. A contemplação antecipa o acesso ao crédito, mas as parcelas seguem até o fim do plano, sempre sem juros e apenas com a taxa de administração prevista em contrato.</p></div></details>
       </div>
 
       <div class="tabpanel" role="tabpanel" id="p-doc" aria-labelledby="t-doc" hidden>
@@ -1142,11 +1156,11 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
           <div class="a"><p>Para aderir a um grupo, normalmente bastam documento de identificação com foto (RG ou CNH), CPF e comprovante de residência. Para pessoa jurídica, também são solicitados o contrato social e os documentos dos sócios.</p></div></details>
         <details class="qa"><summary>O que é exigido para liberar a carta após a contemplação?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
           <div class="a"><p>A administradora realiza uma análise de crédito e solicita:</p>
-            <ul><li>Documentos pessoais atualizados e comprovação de renda;</li><li>Documentação do bem (matrícula do imóvel, nota fiscal ou documento do veículo);</li><li>Garantia — em geral, o próprio bem adquirido fica alienado à administradora até a quitação.</li></ul></div></details>
+            <ul><li>Documentos pessoais atualizados e comprovação de renda;</li><li>Documentação do bem (matrícula do imóvel, nota fiscal ou documento do veículo);</li><li>Garantia: em geral, o próprio bem adquirido fica alienado à administradora até a quitação.</li></ul></div></details>
         <details class="qa"><summary>Como funciona a análise de crédito?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
-          <div class="a"><p>Ela avalia a sua capacidade de continuar pagando as parcelas depois de receber o crédito. Pelas regras do Banco Central, a parcela deve ser compatível com a renda comprovada — muitas administradoras adotam o limite de cerca de 30% de comprometimento da renda.</p></div></details>
+          <div class="a"><p>Ela avalia a sua capacidade de continuar pagando as parcelas depois de receber o crédito. Pelas regras do Banco Central, a parcela deve ser compatível com a renda comprovada. Muitas administradoras adotam o limite de cerca de 30% de comprometimento da renda.</p></div></details>
         <details class="qa"><summary>Posso contratar com o nome negativado?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
-          <div class="a"><p>Sim. A restrição não impede a adesão ao grupo. Você só precisa estar com o nome regularizado no momento da liberação do crédito, após a contemplação — e pode usar esse tempo para organizar as finanças.</p></div></details>
+          <div class="a"><p>Sim. A restrição não impede a adesão ao grupo. Você só precisa estar com o nome regularizado no momento da liberação do crédito, após a contemplação. Você pode usar esse tempo para organizar as finanças.</p></div></details>
         <details class="qa"><summary>Empresas (CNPJ) podem contratar consórcio?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
           <div class="a"><p>Sim. Empresas usam o consórcio para adquirir imóveis, veículos, frotas e equipamentos, preservando o capital de giro.</p></div></details>
       </div>
@@ -1157,7 +1171,7 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
         <details class="qa"><summary>Posso usar o consórcio para quitar um financiamento?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
           <div class="a"><p>Sim. No consórcio de imóveis é possível usar a carta contemplada para quitar o financiamento do seu imóvel, trocando juros altos por um custo muito menor.</p></div></details>
         <details class="qa"><summary>Dá para usar em construção ou reforma?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
-          <div class="a"><p>Sim. O crédito pode ser liberado para construção, reforma e ampliação — normalmente em etapas, conforme o andamento da obra e as regras da administradora.</p></div></details>
+          <div class="a"><p>Sim. O crédito pode ser liberado para construção, reforma e ampliação, normalmente em etapas, conforme o andamento da obra e as regras da administradora.</p></div></details>
         <details class="qa"><summary>Posso usar o crédito em outra cidade ou estado?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
           <div class="a"><p>Sim. A carta de crédito pode ser usada em todo o território nacional, desde que o bem atenda às exigências de avaliação e documentação.</p></div></details>
         <details class="qa"><summary>Posso juntar cartas ou usar o FGTS para complementar?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
@@ -1176,7 +1190,7 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
     <div class="final theme-dark reveal">
       <div>
         <h2>Seu próximo patrimônio começa com uma simulação.</h2>
-        <p>Em menos de 1 minuto você descobre quanto pode conquistar — e um especialista monta a estratégia com você.</p>
+        <p>Em menos de 1 minuto você descobre quanto pode conquistar, e um especialista monta a estratégia com você.</p>
       </div>
       <div class="acts">
         <a class="btn btn-primary" href="#simulador" data-goto-sim>Simular agora <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></a>
@@ -1195,7 +1209,7 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
   <div class="wrap">
     <div class="fgrid">
       <div>
-        <a class="logo" href="#topo" aria-label="CRM Consórcios — voltar ao início">
+        <a class="logo" href="#topo" aria-label="CRM Consórcios, voltar ao início">
           <span class="mono" aria-hidden="true">CC</span>
           <span class="logo-txt">CRM Consórcios</span>
         </a>
@@ -1219,14 +1233,14 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
       <div>
         <h3>Atendimento</h3>
         <ul>
-          <li><a href="#" data-wa="Olá! Vim pelo site e quero falar com um especialista."><svg class="ic"><use href="#i-phone"/></svg>(00) 00000-0000</a></li>
+          <li><a href="#" data-wa="Olá! Vim pelo site e quero falar com um especialista."><svg class="ic"><use href="#i-phone"/></svg>WhatsApp (51) 98912-1113</a></li>
           <li><a href="mailto:contato@crmconsorcios.com.br"><svg class="ic"><use href="#i-mail"/></svg>contato@crmconsorcios.com.br</a></li>
           <li><span><svg class="ic"><use href="#i-clock"/></svg>Seg. a sex., 9h às 18h</span></li>
           <li><span><svg class="ic"><use href="#i-pin"/></svg>Endereço · Cidade/UF</span></li>
         </ul>
       </div>
       <div>
-        <h3>Redes sociais</h3>
+        <h3>Redes Sociais</h3>
         <div class="socials">
           <a href="#" aria-label="Instagram" target="_blank" rel="noopener"><svg class="ic"><use href="#i-instagram"/></svg></a>
           <a href="#" aria-label="Facebook" target="_blank" rel="noopener"><svg class="ic"><use href="#i-facebook"/></svg></a>
@@ -1278,7 +1292,7 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
    ================================================================== */
 var CONFIG = {
   // WhatsApp com DDI + DDD + número, só dígitos. Ex.: 5554999998888
-  whatsapp: '5500000000000',
+  whatsapp: '5551989121113',
 
   // URL do CRM / webhook (Zapier, Make, RD Station, n8n, Supabase...). Recebe POST JSON.
   // Vazio = apenas dispara os eventos do dataLayer.
@@ -1348,7 +1362,11 @@ var CONFIG = {
      A estimativa só aparece no resultado, depois da etapa 2.
      ================================================================== */
   var sim = $('#simulador'), front = $('#simFront'), back = $('#simBack');
-  var rangeEl = $('#simRange'), txt = $('#simTxt');
+  var rangeEl = $('#simRange'), txt = $('#simTxt'), inner = $('.sim-inner', sim);
+  // a altura do cartão acompanha a etapa visível
+  function syncH() { inner.style.height = (sim.classList.contains('flipped') ? back : front).offsetHeight + 'px'; }
+  if ('ResizeObserver' in window) { var ro = new ResizeObserver(syncH); ro.observe(front); ro.observe(back); }
+  window.addEventListener('resize', syncH);
   var S = { cat: 'imovel', mode: 'credito', credito: CONFIG.categorias.imovel.padraoCredito, parcela: 0 };
   var started = false;
 
@@ -1436,6 +1454,7 @@ var CONFIG = {
   /* ---------------- Virar o cartão ---------------- */
   function flip(toBack) {
     sim.classList.toggle('flipped', toBack);
+    syncH();
     if (toBack) { front.setAttribute('inert', ''); back.removeAttribute('inert'); }
     else { back.setAttribute('inert', ''); front.removeAttribute('inert'); }
     if (window.innerWidth < 980) {
@@ -1504,7 +1523,7 @@ var CONFIG = {
       fetch('https://viacep.com.br/ws/' + d + '/json/').then(function (r) { return r.json(); }).then(function (j) {
         if (j && !j.erro && fCep.value.replace(/\D/g, '') === d) {
           cepData = { cidade: j.localidade, uf: j.uf, bairro: j.bairro };
-          $('#cepHint').textContent = '✓ ' + j.localidade + ' – ' + j.uf;
+          $('#cepHint').textContent = '✓ ' + j.localidade + '/' + j.uf;
         }
       }).catch(function () { /* sem conexão: segue sem a cidade */ });
     }
@@ -1693,6 +1712,7 @@ var CONFIG = {
 
   setValor(S.credito);
   render();
+  syncH();
 })();
 </script>
 </body>
