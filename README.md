@@ -1,57 +1,71 @@
-# LP de captação: consórcio
+# LP de captação — CRM Consórcios
 
-Landing page de captação de leads para consultoria de consórcio. É um arquivo único (`index.html`, com CSS e JS embutidos), sem dependências e pronto para hospedar em qualquer lugar (Netlify, Vercel, GitHub Pages, cPanel, etc.).
+Landing page de captação de leads para consultoria de consórcio, seguindo o **Manual de identidade visual v1.0** (paleta, tipografia, elementos de interface e tom de voz). A página inteira está em um único arquivo (`index.html`, com CSS e JS embutidos), sem dependências, e pode ser hospedada em qualquer lugar.
+
+```
+index.html                    página completa
+assets/css/design-tokens.css  tokens oficiais da marca (referência)
+assets/fonts/                 arquivos licenciados da Famels
+assets/img/                   logo, foto do escritório e fotos de clientes
+```
+
+## Identidade visual aplicada
+
+### Cores
+- **Paleta base:** Azul-noite `#0D1B2A`, Marinho `#1B263B`, Ardósia `#415A77`, Aço `#778DA9`, Névoa `#E0E1DD` e Aço-claro `#A9B8CB` (tom auxiliar).
+- **Tema:** escuro, que é o padrão do manual. A proporção segue o manual: muito azul profundo e a Névoa só em pequenas doses (botão principal e destaques).
+- **Profundidade:** luz ambiente radial nas seções, degradê nos cards (`#1F2B42 → #1B263B` a 160°) e efeito de vidro no menu, nas pílulas e nos cards flutuantes.
+
+### Tipografia
+- **Títulos e números:** Famels. Enquanto a licença não estiver instalada, a página usa a substituta oficial, Manrope, carregada pelo Google Fonts.
+- **Texto e interface:** Poppins, nos pesos 300 (apoio), 400 (texto), 500 (botões e rótulos) e 600 (destaques).
+- **Regras do manual:** frases com inicial maiúscula, sem rótulos em MAIÚSCULAS, e no máximo dois pesos por card.
+
+### Componentes
+- **Botões:** o principal é a pílula de Névoa sólida, usada para a ação mais importante de cada tela. As ações secundárias usam pílula de vidro.
+- **Raios:** 12px (blocos internos), 18px (cards), 20px (painéis) e 28px (moldura). Tudo que é pequeno e clicável vira pílula.
+- **Ícones:** traço de 1,7px no estilo Lucide, dentro de quadrados de vidro.
+- **Status:** sempre com texto, nas cores dessaturadas do manual ("Sem juros", "Melhor opção", "Simulação concluída").
+- **Movimento:** o card sobe 2px no hover, com transição de 0,2s, e tudo fica desligado para quem ativa "reduzir movimento" no sistema.
+
+### Tom de voz
+- O número vem primeiro.
+- Os botões usam verbo de ação: "Simular agora", "Ver minha simulação", "Falar com um especialista".
+- Os erros explicam e orientam, por exemplo "CPF inválido: confira os 11 dígitos".
+- Valores seguem o padrão brasileiro (R$ 1.400.000,00, ou R$ 4 mi e R$ 1,5 mi quando o espaço é curto).
+
+### Logotipo
+Até o logotipo oficial ficar pronto, a página usa o **monograma provisório "CC"** definido no manual. Para trocar, substitua o conteúdo de `<a class="logo">` (no topo e no rodapé) por `<img src="assets/img/logo.svg" alt="CRM Consórcios" height="40">`.
+
+### Fonte Famels
+Coloque os arquivos licenciados em `assets/fonts/Famels-Regular.woff2` e `assets/fonts/Famels-Italic.woff2`. A página passa a usá-los automaticamente.
 
 ## Estrutura da página
 
-| # | Seção | O que tem |
-|---|-------|-----------|
-| 1 | **Banner + Simulador** | Simulador no lado direito do banner, em 2 etapas (modelo da Capitalizza, layout da Embracon). **Etapa 1:** categoria (Imóvel / Veículo / Investimento), simulação por crédito (R$ 0 a R$ 4 milhões) ou por parcela (R$ 300 a R$ 20.000), slider, valores sugeridos e estimativa em tempo real. **Etapa 2:** nome, e-mail, celular, CPF e CEP, com aceite da Política de Privacidade e das notificações. **Resultado:** resumo do plano e botão para o WhatsApp com a simulação já preenchida. |
-| 2 | **Quem somos** | Texto institucional, espaço para a foto do escritório com o logo e os números: R$ 20 mi+, 80+ clientes, 5 anos e BACEN · ABAC. |
+| # | Seção | Conteúdo |
+|---|-------|----------|
+| 1 | **Banner + Simulador** | Simulador no lado direito do banner, em 2 etapas. **Etapa 1:** para que é o crédito (Imóvel / Veículo / Investimento), simular pelo valor do crédito (R$ 0 a R$ 4 mi) ou da parcela (R$ 300 a R$ 20.000), com slider e valores sugeridos. Não mostra estimativa. **Etapa 2:** nome, e-mail, celular, CPF e CEP, com aceite da Política de Privacidade e das notificações. **Resultado:** só depois da captação, mostra a parcela ou o crédito estimado, o prazo e a parcela reduzida, com botão para o WhatsApp. |
+| 2 | **Quem somos** | Texto institucional, espaço para a foto do escritório com o logotipo e indicadores: R$ 20 mi+, 80+ clientes, 5 anos e BACEN · ABAC. |
 | 3 | **Como funciona** | Metodologia em 4 passos: mapear o objetivo, estruturar o crédito, estratégia e acompanhamento. |
-| 4 | **Nossas soluções** | Aquisição, alavancagem patrimonial, alavancagem financeira e investimento. Cada card abre o simulador na categoria certa. |
-| 5 | **Benefícios** | Comparativo À vista × Financiamento × Home Equity × **Consórcio** (em destaque), mais um gráfico de custo total. |
-| 6 | **Utilizações** | O que dá para conquistar com a carta de crédito: imóveis, veículos e estratégias. |
-| 7 | **Prova real** | Três cards de depoimento, com espaço para o texto, a foto e a conquista de cada cliente. |
-| 8 | **FAQ** | Abas Contemplação / Documentação / Formas de utilização, com acordeão (formato da Ademicon). |
+| 4 | **Nossas soluções** | Aquisição, alavancagem patrimonial, alavancagem financeira e investimento, as quatro com o mesmo peso visual. |
+| 5 | **Benefícios** | Quatro cards simples explicando como funciona cada caminho (compra à vista, financiamento, Home Equity e consórcio). O Consórcio vem por último, com a borda iluminada como melhor opção. |
+| 6 | **Utilizações** | Aquisição, construção, reforma, levantamento de capital, capital de giro e imóveis na planta. |
+| 7 | **Depoimentos de clientes** | Três cards com espaço para o texto, a foto e a conquista de cada cliente. |
+| 8 | **Tire suas dúvidas** | Abas centralizadas e expandidas (Contemplação / Documentação / Formas de utilização), com as perguntas abrindo e fechando. Termina com uma chamada para o WhatsApp. |
 | 9 | **Rodapé** | Soluções, atendimento e redes sociais, com selos e aviso legal. |
 
-Recursos de conversão incluídos: menu fixo com CTA, botão flutuante de WhatsApp, barra "Simular agora" fixa no celular, CTAs ao longo da página que levam ao simulador, máscaras e validação de CPF, celular e CEP (com cidade preenchida automaticamente via ViaCEP), dados estruturados de FAQ para o Google e eventos de conversão.
+## Configurações
 
-## Como personalizar
-
-Tudo o que precisa ser trocado está marcado com comentários no `index.html`.
-
-### 1. Configurações principais
-Ficam no bloco `CONFIG`, no início do `<script>`, perto do fim do arquivo:
+Ficam no objeto `CONFIG`, no início do `<script>`, perto do fim do `index.html`:
 
 ```js
-whatsapp: '5554999998888',          // DDI + DDD + número
-leadEndpoint: 'https://...',        // webhook do CRM (POST JSON). Vazio = só eventos
+whatsapp: '5554999998888',   // DDI + DDD + número
+leadEndpoint: 'https://...', // webhook do CRM (POST JSON). Vazio = só eventos
 categorias: { imovel: { prazo, taxaAdm, fundoReserva, reducao, ... }, ... }
 ```
 
-- **Premissas do simulador.** Ajuste `prazo`, `taxaAdm` e `fundoReserva` conforme a tabela da administradora. A parcela é calculada por `crédito × (1 + taxaAdm + fundoReserva) ÷ prazo`.
-- **Gráfico comparativo.** As taxas usadas ficam em `CONFIG.comparativo`.
-
-### 2. Logo e nome
-- **Logo:** troque o conteúdo de `<a class="logo">` (no topo e no rodapé) por `<img src="assets/img/logo.svg" alt="Nome da Empresa" height="40">`.
-- **Nome:** busque por `Sua Marca` / `SUA MARCA` e substitua pelo nome da empresa.
-
-### 3. Cores
-Edite as variáveis em `:root`, no início do CSS. `--navy-*` é a cor principal e `--gold-*` é a cor de destaque e dos CTAs.
-
-### 4. Imagens
-- **Quem somos:** substitua o bloco `.ph` por `<img src="assets/img/escritorio.jpg" ...>` (o comentário já traz o código pronto).
-- **Banner (opcional):** em `.hero`, defina `--hero-img:url('assets/img/banner.jpg');`.
-- **Depoimentos:** descomente o `<img>` dentro de cada `.av`.
-
-### 5. Depoimentos, contatos e redes
-- Substitua os textos de exemplo da seção **Prova real**.
-- Atualize telefone, e-mail, endereço, CNPJ e os links das redes sociais no rodapé.
-
-### 6. Política de privacidade
-O texto do modal `#privacy` é um modelo-base e deve ser revisado pelo jurídico.
+- **Cálculo do resultado:** a parcela é `crédito × (1 + taxaAdm + fundoReserva) ÷ prazo`. Ajuste `prazo`, `taxaAdm` e `fundoReserva` conforme a tabela da administradora.
+- **Valores sugeridos:** as listas `chipsCredito` e `chipsParcela` definem as sugestões de cada categoria.
 
 ## Integração com CRM e anúncios
 
@@ -70,16 +84,18 @@ O texto do modal `#privacy` é um modelo-base e deve ser revisado pelo jurídico
 | `simulacao_etapa1` | clique em "Simular agora" |
 | `lead_simulacao` | lead enviado (use como conversão no Google Ads e no Meta) |
 
-Se `gtag` ou `fbq` estiverem na página, também são disparados `generate_lead` e `Lead`. Cole o GTM ou o Pixel no `<head>`, onde está indicado.
+Se `gtag` ou `fbq` estiverem na página, também são disparados `generate_lead` e `Lead`.
+
+## O que falta preencher
+- [ ] Número do WhatsApp e endereço do CRM (`CONFIG`)
+- [ ] Logotipo oficial e arquivos da fonte Famels
+- [ ] Foto do escritório (seção Quem somos)
+- [ ] Três depoimentos reais, com nome, cidade e foto
+- [ ] Telefone, e-mail, endereço, CNPJ e links das redes sociais (rodapé)
+- [ ] Texto da Política de Privacidade (modal `#privacy`), revisado pelo jurídico
 
 ## Observações
-
-- **Seção 6 (Utilizações).** O briefing dessa seção repetia o texto da seção 5. Ela foi interpretada como "o que dá para fazer com a carta de crédito".
-- **BACEN e ABAC.** Quem é regulado pelo Banco Central é a administradora de consórcio. A ABAC é a associação do setor, não um órgão regulador. Os textos usam "consórcio regulamentado" para não afirmar que a consultoria é regulada diretamente.
+- **Resultado só depois do cadastro.** O simulador mostra a estimativa apenas após o cadastro, para que o cliente deixe os dados antes de ver o valor.
+- **BACEN e ABAC.** Quem é regulado pelo Banco Central é a administradora de consórcio, e a ABAC é a associação do setor. Por isso os textos usam "consórcio regulamentado".
 - **Aceite de notificações.** Está como obrigatório, conforme o briefing, e foi redigido como consentimento para receber o resultado da simulação. Valide com o jurídico (LGPD).
-- **Valores exibidos.** Os valores do simulador e do comparativo são estimativas ilustrativas, e a página já traz os avisos correspondentes.
-
-## Referências de mercado
-- **Capitalizza:** simulador em cartão que vira (cálculo → formulário), números de credibilidade e comparativo com destaque.
-- **Embracon:** simulador dentro do banner, no lado direito, com abas de categoria e escolha entre crédito e parcela.
-- **Ademicon:** FAQ em abas (Contemplação, Documentação, Formas de utilização) com acordeão, comparativo de taxa × juros e histórias de clientes.
+- **Botão flutuante de WhatsApp.** Usa a Névoa da marca, e não o verde do WhatsApp, para respeitar a paleta.
