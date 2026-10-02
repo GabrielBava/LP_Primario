@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Modo claro/escuro: aplica a escolha salva antes da pintura (evita piscar) -->
+<script>try{if(localStorage.getItem('crm-tema')==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}</script>
 
 <!-- ============================================================
      SEO
@@ -21,6 +23,7 @@
      RASTREAMENTO — cole aqui o Google Tag Manager / Meta Pixel.
      Eventos enviados ao window.dataLayer:
        simulacao_iniciada · simulacao_etapa1 · lead_simulacao
+       alavancagem_popup_aberto · lead_alavancagem · tema_alterado
      ============================================================ -->
 
 <!-- Tipografia da marca: Famels (comercial) com Manrope como substituta oficial + Poppins -->
@@ -38,6 +41,8 @@
    Fonte: assets/css/design-tokens.css
    A página alterna blocos no TEMA ESCURO e no TEMA CLARO do manual
    (classes .theme-dark / .theme-light), criando contraste entre seções.
+   MODO CLARO (botão sol/lua no topo): html[data-theme="light"] aplica os
+   tokens claros também aos blocos escuros (ajustes no fim do CSS).
    ============================================================ */
 :root{
   /* Paleta base */
@@ -78,10 +83,11 @@
   --em-grad:linear-gradient(100deg,#A9B8CB 0%,#8FA2BC 50%,#778DA9 100%);
   --sec-bg:#0B1724; --glow-op:.6;
   --sheet-shadow:0 -24px 48px -24px rgba(0,0,0,.6),inset 0 1px 0 rgba(224,225,221,.07);
+  --thumb-ring:rgba(224,225,221,.12); --on-primary:#0D1B2A;
   color-scheme:dark;
 }
-/* ---------- TEMA CLARO ---------- */
-.theme-light{
+/* ---------- TEMA CLARO (e modo claro da página inteira) ---------- */
+.theme-light,html[data-theme="light"],html[data-theme="light"] .theme-dark{
   --bg-app:#CFD3D6; --bg-shell:#ECEDEA; --bg-sidebar:#E4E6E2; --bg-card:#FFFFFF; --bg-card-2:#F3F4F2; --card-top:#FFFFFF;
   --bg-active:rgba(65,90,119,.12); --border:rgba(65,90,119,.14); --border-soft:rgba(65,90,119,.10);
   --primary:#415A77; --primary-bright:#415A77; --primary-dark:#1B263B;
@@ -103,6 +109,7 @@
   --em-grad:linear-gradient(100deg,#1B263B 0%,#415A77 55%,#778DA9 100%);
   --sec-bg:#ECEDEA; --glow-op:.35;
   --sheet-shadow:0 -24px 48px -24px rgba(0,0,0,.55);
+  --thumb-ring:rgba(13,27,42,.10); --on-primary:#FFFFFF;
   color-scheme:light;
 }
 .theme-dark,.theme-light{color:var(--text)}
@@ -146,7 +153,7 @@ section[id]{scroll-margin-top:calc(var(--hdr) - 12px)}
 .tag{display:inline-flex;align-items:center;gap:6px;font-size:var(--fs-xs);font-weight:500;letter-spacing:.02em;padding:5px 11px;border-radius:var(--radius-pill);background:var(--pill-bg);border:1px solid var(--tag-border);color:var(--icon-soft);white-space:nowrap}
 .tag .ic{width:13px;height:13px;stroke-width:2}
 .tag-ok{background:rgba(140,197,162,.12);border-color:rgba(140,197,162,.24);color:var(--success)}
-.theme-light .tag-ok{background:rgba(47,125,85,.10);border-color:rgba(47,125,85,.2)}
+.theme-light .tag-ok,html[data-theme="light"] .tag-ok{background:rgba(47,125,85,.10);border-color:rgba(47,125,85,.2)}
 
 /* ---------- Botões (pílula) ---------- */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--font);font-weight:500;font-size:.92rem;line-height:1.2;padding:15px 28px;border-radius:var(--radius-pill);border:1px solid transparent;cursor:pointer;white-space:nowrap;transition:transform .2s,box-shadow .2s,background .2s,border-color .2s,color .2s}
@@ -179,14 +186,21 @@ section[id]{scroll-margin-top:calc(var(--hdr) - 12px)}
 .menu{display:flex;align-items:center;gap:26px;margin-left:auto}
 .menu a:not(.btn){font-size:var(--fs-sm);font-weight:400;color:var(--text-muted);transition:color .2s;white-space:nowrap}
 .menu a:not(.btn):hover{color:var(--text)}
-.hamb{display:none;margin-left:auto;width:44px;height:44px;border-radius:var(--radius-pill);border:1px solid rgba(224,225,221,.14);background:var(--pill-bg);color:var(--text);cursor:pointer;align-items:center;justify-content:center}
+.hamb{display:none;margin-left:auto;width:44px;height:44px;border-radius:var(--radius-pill);border:1px solid var(--glass-btn-border);background:var(--pill-bg);color:var(--text);cursor:pointer;align-items:center;justify-content:center}
 .hamb .ic{width:20px;height:20px}
 /* WhatsApp comercial ao lado do botão "Simular agora" */
 .hdr-wa{display:inline-flex;align-items:center;gap:8px;font-size:var(--fs-sm);font-weight:500;color:var(--text);white-space:nowrap;transition:color .2s}
 .hdr-wa svg{width:17px;height:17px;fill:currentColor;flex:0 0 auto}
 .hdr-wa:hover{color:#fff}
-.hdr-wa-m{display:none;margin-left:auto;width:44px;height:44px;border-radius:var(--radius-pill);border:1px solid rgba(224,225,221,.14);background:var(--pill-bg);color:var(--text);align-items:center;justify-content:center}
+.hdr-wa-m{display:none;margin-left:auto;width:44px;height:44px;border-radius:var(--radius-pill);border:1px solid var(--glass-btn-border);background:var(--pill-bg);color:var(--text);align-items:center;justify-content:center}
 .hdr-wa-m svg{width:20px;height:20px;fill:currentColor}
+/* Modo claro/escuro: só o ícone, ao lado do "Simular agora" */
+.theme-tg{order:5;margin-left:-16px;position:relative;width:40px;height:40px;flex:0 0 auto;border-radius:50%;border:1px solid var(--glass-btn-border);background:var(--pill-bg);color:var(--text);display:inline-grid;place-items:center;cursor:pointer;padding:0;transition:background .2s,border-color .2s,transform .2s}
+.theme-tg:hover{background:var(--pill-active);border-color:var(--primary);transform:rotate(-12deg)}
+.theme-tg .ic{grid-area:1/1;width:18px;height:18px;transition:transform .55s cubic-bezier(.3,1.4,.5,1),opacity .3s}
+.theme-tg .i-moon{opacity:0;transform:rotate(-90deg) scale(.4)}
+html[data-theme="light"] .theme-tg .i-sun{opacity:0;transform:rotate(90deg) scale(.4)}
+html[data-theme="light"] .theme-tg .i-moon{opacity:1;transform:none}
 
 /* ============================================================
    1 · BANNER + SIMULADOR (escuro profundo)
@@ -208,9 +222,6 @@ section[id]{scroll-margin-top:calc(var(--hdr) - 12px)}
 .checks li{display:flex;gap:12px;align-items:center;font-size:.95rem;color:var(--text)}
 .checks .gi{width:30px;height:30px;border-radius:var(--radius-sm)}
 .checks .gi .ic{width:16px;height:16px;stroke-width:2}
-.trust{display:flex;gap:30px;flex-wrap:wrap;margin-top:40px;padding-top:28px;border-top:1px solid var(--border)}
-.trust div b{display:block;font-family:var(--font-display);font-weight:600;font-size:var(--fs-kpi);letter-spacing:-.02em;line-height:1.1}
-.trust div span{font-size:var(--fs-xs);font-weight:300;color:var(--text-muted)}
 
 /* Faixa de benefícios em movimento */
 .partners-cap{position:relative;z-index:1;margin-top:72px;margin-bottom:14px;text-align:center;font-size:var(--fs-xs);font-weight:500;letter-spacing:.04em;color:var(--text-muted)}
@@ -238,7 +249,7 @@ section[id]{scroll-margin-top:calc(var(--hdr) - 12px)}
 .steps-ind li{display:flex;align-items:center;gap:6px;white-space:nowrap}
 .steps-ind li span{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--pill-bg);border:1px solid var(--glass-border);font-size:var(--fs-xs);color:var(--text-muted)}
 .steps-ind li.on{color:var(--text)}
-.steps-ind li.on span{background:var(--mist);border-color:var(--mist);color:var(--ink)}
+.steps-ind li.on span{background:var(--btn-bg);border-color:var(--btn-bg);color:var(--btn-fg)}
 .steps-ind li.done span{background:rgba(140,197,162,.16);border-color:rgba(140,197,162,.3);color:var(--success)}
 .steps-ind li.done span .ic{width:12px;height:12px;stroke-width:2.4}
 .steps-ind .bar{width:22px;height:1px;background:var(--border)}
@@ -250,8 +261,8 @@ fieldset{border:0;min-width:0;margin-bottom:20px}
 .cat button{display:flex;flex-direction:column;align-items:center;gap:6px;padding:11px 6px 9px;border-radius:var(--radius);border:1px solid var(--border);background:var(--pill-bg);cursor:pointer;font-weight:400;font-size:.78rem;color:var(--text-muted);transition:.2s}
 .cat button .ic{width:21px;height:21px;color:var(--text-muted);transition:.2s}
 .cat button:hover{border-color:rgba(169,184,203,.35);color:var(--text)}
-.cat button[aria-checked="true"]{background:var(--mist);border-color:var(--mist);color:var(--ink);font-weight:500;box-shadow:0 10px 24px -12px rgba(224,225,221,.45)}
-.cat button[aria-checked="true"] .ic{color:var(--ink)}
+.cat button[aria-checked="true"]{background:var(--btn-bg);border-color:var(--btn-bg);color:var(--btn-fg);font-weight:500;box-shadow:0 10px 24px -12px var(--btn-glow)}
+.cat button[aria-checked="true"] .ic{color:var(--btn-fg)}
 .seg{display:grid;grid-template-columns:1fr 1fr;padding:4px;border-radius:var(--radius-pill);background:var(--pill-bg);border:1px solid var(--glass-border)}
 .seg button{border:0;background:none;padding:10px 8px;border-radius:var(--radius-pill);font-size:var(--fs-sm);font-weight:400;color:var(--text-muted);cursor:pointer;transition:.2s}
 .seg button:hover{color:var(--text)}
@@ -263,9 +274,9 @@ fieldset{border:0;min-width:0;margin-bottom:20px}
 .money small{font-size:var(--fs-sm);font-weight:300;color:var(--text-muted);white-space:nowrap}
 input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:6px;margin:18px 0 8px;cursor:pointer;outline:none;
   background:linear-gradient(90deg,var(--slate),var(--steel-lt)) no-repeat,var(--track);background-size:30% 100%}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--mist);border:0;box-shadow:0 0 0 6px rgba(224,225,221,.12),0 4px 10px rgba(0,0,0,.5);transition:box-shadow .2s}
-input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--mist);border:0;box-shadow:0 0 0 6px rgba(224,225,221,.12),0 4px 10px rgba(0,0,0,.5)}
-input[type=range]:hover::-webkit-slider-thumb,input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 9px rgba(224,225,221,.16),0 4px 10px rgba(0,0,0,.5)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--btn-bg);border:0;box-shadow:0 0 0 6px var(--thumb-ring),0 4px 10px rgba(0,0,0,.35);transition:box-shadow .2s}
+input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--btn-bg);border:0;box-shadow:0 0 0 6px var(--thumb-ring),0 4px 10px rgba(0,0,0,.35)}
+input[type=range]:hover::-webkit-slider-thumb,input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 9px var(--thumb-ring),0 4px 10px rgba(0,0,0,.35)}
 .scale{display:flex;justify-content:space-between;font-size:var(--fs-xs);font-weight:300;color:var(--text-muted)}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0 4px}
 .chips button{border:1px solid var(--border);background:var(--pill-bg);color:var(--text-muted);font-size:var(--fs-sm);font-weight:400;padding:7px 13px;border-radius:var(--radius-pill);cursor:pointer;transition:.2s}
@@ -288,7 +299,7 @@ input[type=range]:hover::-webkit-slider-thumb,input[type=range]:focus-visible::-
 .cbx{display:flex;gap:10px;align-items:flex-start;font-size:var(--fs-xs);font-weight:300;color:var(--icon-soft);line-height:1.5;margin:10px 0;cursor:pointer}
 .cbx input{appearance:none;-webkit-appearance:none;width:18px;height:18px;flex:0 0 auto;border:1px solid var(--primary);border-radius:6px;margin-top:1px;cursor:pointer;display:grid;place-items:center;background:transparent;transition:.15s}
 .cbx input:checked{background:var(--primary);border-color:var(--primary)}
-.cbx input:checked::after{content:"";width:4px;height:9px;border:solid var(--ink);border-width:0 2px 2px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.cbx input:checked::after{content:"";width:4px;height:9px;border:solid var(--on-primary);border-width:0 2px 2px 0;transform:rotate(45deg) translate(-1px,-1px)}
 .cbx.invalid input{border-color:var(--danger)}
 .cbx .inl{color:var(--text);font-weight:500;border:0;background:none;cursor:pointer;padding:0;font-size:inherit;text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--primary)}
 .backlink{display:block;margin:12px auto 0;border:0;background:none;font-size:var(--fs-sm);font-weight:400;color:var(--text-muted);cursor:pointer;padding:6px}
@@ -345,7 +356,7 @@ input[type=range]:hover::-webkit-slider-thumb,input[type=range]:focus-visible::-
 .step ul{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:18px}
 .step .gi,.step .step-n{transition:background .45s,color .45s,border-color .45s,filter .45s}
 .step.active{border-color:rgba(169,184,203,.42);transform:translateY(-6px);box-shadow:var(--shadow-lg),0 0 0 1px rgba(169,184,203,.16),0 26px 50px -24px rgba(119,141,169,.65)}
-.step.active .gi{background:var(--mist);color:var(--ink);border-color:var(--mist)}
+.step.active .gi{background:var(--btn-bg);color:var(--btn-fg);border-color:var(--btn-bg)}
 .step.active .step-n{filter:brightness(1.25)}
 .sec-cta{display:flex;justify-content:center;align-items:center;gap:16px;flex-wrap:wrap;margin-top:56px}
 .sec-cta p{font-size:var(--fs-sm);font-weight:300;color:var(--text-muted)}
@@ -357,9 +368,13 @@ input[type=range]:hover::-webkit-slider-thumb,input[type=range]:focus-visible::-
 .sols{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap);margin-top:56px}
 .sol{position:relative;display:flex;flex-direction:column;padding:28px var(--pad) 24px}
 /* destaque leve: principal produto */
-.theme-light .sol.featured{border-color:rgba(65,90,119,.5);background:linear-gradient(170deg,#FFFFFF 0%,#F3F4F2 100%);box-shadow:0 0 0 3px rgba(65,90,119,.08),0 20px 40px -22px rgba(13,27,42,.35)}
-.tag-feat{position:absolute;top:22px;right:18px;background:rgba(65,90,119,.10);border-color:rgba(65,90,119,.22);color:#415A77;transition:background .3s,color .3s,border-color .3s}
-.theme-light .sol:hover .tag-feat{background:rgba(224,225,221,.1);border-color:rgba(224,225,221,.2);color:#E0E1DD}
+/* destaque: a mais procurada (borda mais firme, halo azul e faixa no topo) */
+.theme-light .sol.featured{border-color:rgba(65,90,119,.7);background:linear-gradient(170deg,#FFFFFF 0%,#EEF1F4 100%);box-shadow:0 0 0 4px rgba(65,90,119,.12),0 28px 50px -24px rgba(27,38,59,.55)}
+.sol.featured::before{content:"";position:absolute;left:24px;right:24px;top:-1px;height:3px;border-radius:0 0 4px 4px;background:linear-gradient(90deg,#415A77,#A9B8CB)}
+.theme-light .sol.featured .gi{background:#0D1B2A;border-color:#0D1B2A;color:#E0E1DD}
+.tag-feat{position:absolute;top:22px;right:18px;background:#0D1B2A;border-color:#0D1B2A;color:#E0E1DD;transition:background .3s,color .3s,border-color .3s}
+.tag-feat .ic{width:12px;height:12px;fill:currentColor;stroke:none}
+.theme-light .sol:hover .tag-feat{background:rgba(224,225,221,.12);border-color:rgba(224,225,221,.24);color:#E0E1DD}
 .sol .gi{width:52px;height:52px;margin-bottom:22px}
 .sol .gi .ic{width:26px;height:26px}
 .sol h3{font-family:var(--font-display);font-weight:600;font-size:1.25rem;letter-spacing:-.01em;margin-bottom:10px;transition:color .3s}
@@ -375,48 +390,59 @@ input[type=range]:hover::-webkit-slider-thumb,input[type=range]:focus-visible::-
 .theme-light .sol:hover li .ic,.theme-light .sol:hover .link{color:#A9B8CB}
 .theme-light .sol:hover .gi{background:rgba(224,225,221,.08);border-color:rgba(224,225,221,.14);color:#E0E1DD}
 
-/* ---------- Simulador de Alavancagem Financeira (painel escuro dentro do bloco claro) ---------- */
+/* ---------- Mecanismo de Alavancagem Financeira (painel escuro dentro do bloco claro) ---------- */
 #alavancagem{scroll-margin-top:calc(var(--hdr) + 16px)}
-.alav{position:relative;overflow:hidden;margin-top:56px;border-radius:var(--radius-shell);padding:44px 44px 40px;border:1px solid rgba(119,141,169,.22);
+.alav{position:relative;overflow:hidden;margin-top:56px;border-radius:var(--radius-shell);padding:48px 44px 40px;border:1px solid rgba(119,141,169,.22);
   background:radial-gradient(640px 360px at 100% 0%,rgba(65,90,119,.55),transparent 70%),radial-gradient(420px 280px at 0% 100%,rgba(119,141,169,.18),transparent 70%),linear-gradient(160deg,#1B263B,#0B1724);
   box-shadow:0 40px 80px -40px rgba(13,27,42,.75)}
 .alav>*{position:relative;z-index:1}
-.alav-head{max-width:640px}
-.alav-title{font-family:var(--font-display);font-weight:500;font-size:clamp(1.6rem,2.8vw,2.2rem);line-height:1.15;letter-spacing:-.02em}
+.alav-head{text-align:center}
+.alav-head .label{margin-bottom:16px}
+.alav-title{font-family:var(--font-display);font-weight:500;font-size:clamp(1.9rem,3.6vw,2.9rem);line-height:1.1;letter-spacing:-.025em}
 .alav-title em{font-style:normal;background:var(--em-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.alav-head p{font-weight:300;color:var(--text-muted);margin-top:12px;line-height:1.6}
-.alav-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:40px;margin-top:34px;align-items:start}
-.alav-in{background:rgba(224,225,221,.03);border:1px solid var(--border);border-radius:var(--radius-panel);padding:24px}
+.alav-head p{font-weight:300;font-size:var(--fs-lg);color:var(--text-muted);margin:14px auto 0;line-height:1.65;max-width:760px}
+.alav-head p b{color:var(--text);font-weight:500}
+.alav-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:40px;margin-top:38px;align-items:stretch}
+.alav-in{background:rgba(224,225,221,.03);border:1px solid var(--border);border-radius:var(--radius-panel);padding:24px;display:flex;flex-direction:column}
 .alav-in .sim-label{display:block}
-.alav-plan{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin:20px 0 0}
-.alav-kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
-.alav-kpis div{background:var(--bg-card-2);border:1px solid var(--border-soft);border-radius:var(--radius);padding:12px 14px}
-.alav-kpis dt{font-size:var(--fs-xs);font-weight:400;color:var(--text-muted)}
-.alav-kpis dd{font-family:var(--font-display);font-weight:600;font-size:1.2rem;letter-spacing:-.01em;margin-top:2px}
+/* Destaque principal: o investimento inicial (meia parcela) */
+.alav-seed{position:relative;overflow:hidden;margin-top:auto;border-radius:var(--radius-lg);padding:20px 22px 18px;background:var(--btn-bg);color:var(--btn-fg);box-shadow:0 24px 44px -22px var(--btn-glow)}
+.alav-in .seg{margin-bottom:22px}
+.alav-seed .k{display:flex;align-items:center;gap:8px;font-size:var(--fs-md);font-weight:500;opacity:.78}
+.alav-seed .k .ic{width:16px;height:16px}
+.alav-seed b{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;font-family:var(--font-display);font-weight:600;font-size:clamp(2.5rem,4.6vw,3.3rem);letter-spacing:-.03em;line-height:1.05;margin-top:8px}
+.alav-seed b small{font-size:1rem;font-weight:500;letter-spacing:0;opacity:.7}
+.alav-seed p{font-size:var(--fs-sm);font-weight:400;line-height:1.5;opacity:.8;margin-top:8px}
 .alav-out{display:flex;flex-direction:column}
 .alav-sum span{font-size:var(--fs-sm);color:var(--text-muted)}
-.alav-sum b{display:block;font-family:var(--font-display);font-weight:600;font-size:clamp(2.2rem,4vw,3rem);letter-spacing:-.03em;line-height:1.1;margin-top:4px}
+.alav-sum b{display:block;font-family:var(--font-display);font-weight:600;font-size:clamp(1.9rem,3.2vw,2.4rem);letter-spacing:-.03em;line-height:1.1;margin-top:4px}
 .alav-sum small{display:block;font-size:var(--fs-sm);font-weight:300;color:var(--icon-soft);margin-top:4px}
-.chart{margin-top:26px}
-.bars{display:grid;grid-template-columns:repeat(4,1fr);align-items:end;gap:14px;height:250px;border-bottom:1px solid rgba(169,184,203,.3);padding:0 6px}
-.bar-col{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;outline:none;cursor:default}
-.bar-v{font-family:var(--font-display);font-weight:600;font-size:var(--fs-md);color:var(--text);margin-bottom:8px;white-space:nowrap;transition:opacity .4s}
-.bar{width:min(64px,70%);height:4px;border-radius:6px 6px 0 0;background:linear-gradient(180deg,#A9B8CB,#415A77);transition:height .9s cubic-bezier(.3,.8,.3,1),background .25s}
+/* Gráfico: só a barra e o valor acima (sem informações ao passar o mouse) */
+.chart{--cols:4;margin-top:24px}
+.chart.cmp{--cols:5}
+.bars{display:grid;grid-template-columns:repeat(var(--cols),minmax(0,1fr));align-items:end;gap:14px;height:250px;border-bottom:1px solid rgba(169,184,203,.3);padding:0 6px}
+.bar-col{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+.bar-v{font-family:var(--font-display);font-weight:600;font-size:var(--fs-md);color:var(--text);margin-bottom:8px;white-space:nowrap}
+.bar{width:min(64px,72%);height:4px;border-radius:6px 6px 0 0;background:linear-gradient(180deg,#A9B8CB,#415A77);transition:height .9s cubic-bezier(.3,.8,.3,1)}
 .chart.grown .bar{height:max(4px,calc(var(--h,0) * 1.9px))}
 .chart.grown .bar-col:nth-child(2) .bar{transition-delay:.12s}
 .chart.grown .bar-col:nth-child(3) .bar{transition-delay:.24s}
 .chart.grown .bar-col:nth-child(4) .bar{transition-delay:.36s}
-.bar-col:hover .bar,.bar-col:focus-visible .bar{background:linear-gradient(180deg,#E0E1DD,#778DA9)}
-.bar-tip{position:absolute;bottom:calc(100% - 8px);left:50%;transform:translate(-50%,6px);width:max-content;max-width:220px;background:#E0E1DD;color:#0D1B2A;font-size:var(--fs-xs);line-height:1.45;padding:9px 12px;border-radius:var(--radius);box-shadow:var(--shadow-md);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:3;text-align:left}
-.bar-tip b{display:block;font-size:var(--fs-sm)}
-.bar-col:hover .bar-tip,.bar-col:focus-visible .bar-tip{opacity:1;transform:translate(-50%,0)}
-.bar-col:first-child .bar-tip{left:0;transform:translate(0,6px)}
-.bar-col:first-child:hover .bar-tip,.bar-col:first-child:focus-visible .bar-tip{transform:translate(0,0)}
-.bar-col:last-child .bar-tip{left:auto;right:0;transform:translate(0,6px)}
-.bar-col:last-child:hover .bar-tip,.bar-col:last-child:focus-visible .bar-tip{transform:translate(0,0)}
-.bars-x{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:10px 6px 0;text-align:center;font-size:var(--fs-sm);color:var(--text-muted)}
-.alav-disc{font-size:var(--fs-xs);font-weight:300;color:var(--text-muted);margin-top:18px;line-height:1.5}
-.alav-out .btn{align-self:flex-start;margin-top:18px}
+.chart.grown .bar-col:nth-child(5) .bar{transition-delay:.6s}
+/* Comparativo: renda fixa com o mesmo investimento, ao lado dos 10 anos */
+.bar-col.rf::before{content:"";position:absolute;left:-8px;top:12%;bottom:0;border-left:1px dashed rgba(169,184,203,.3)}
+.bar-col.rf .bar{background:rgba(224,225,221,.3)}
+.bar-col.rf .bar-v{color:var(--text-muted)}
+.chart:not(.cmp) .rf{display:none}
+.bars-x{display:grid;grid-template-columns:repeat(var(--cols),minmax(0,1fr));gap:14px;padding:10px 6px 0;text-align:center;font-size:var(--fs-sm);color:var(--text-muted);line-height:1.3}
+.bars-x small{display:block;font-size:var(--fs-xs);opacity:.8}
+.chart-leg{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;margin-top:16px;font-size:var(--fs-xs);color:var(--text-muted)}
+.chart-leg li{display:inline-flex;align-items:center;gap:7px}
+.chart-leg i{width:10px;height:10px;border-radius:3px;background:linear-gradient(180deg,#A9B8CB,#415A77)}
+.chart-leg .rf i{background:rgba(224,225,221,.3)}
+.chart:not(.cmp) + .chart-leg .rf{display:none}
+.alav-foot{display:flex;flex-direction:column;align-items:center;text-align:center;margin-top:32px;padding-top:28px;border-top:1px solid var(--border-soft)}
+.alav-disc{font-size:var(--fs-xs);font-weight:300;color:var(--text-muted);margin-top:16px;line-height:1.55;max-width:820px}
 
 /* ============================================================
    5 · BENEFÍCIOS (escuro profundo) — consórcio com borda iluminada
@@ -451,13 +477,13 @@ input[type=range]:hover::-webkit-slider-thumb,input[type=range]:focus-visible::-
    ============================================================ */
 .tests{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin-top:56px}
 .tcard{position:relative;display:flex;flex-direction:column;padding:28px var(--pad) 24px}
-.tcard .q{position:absolute;top:22px;right:22px;width:38px;height:38px;color:var(--primary-dark)}
+.tcard .q{position:absolute;top:22px;right:22px;width:38px;height:38px;color:var(--text-faint)}
 .stars{display:flex;gap:3px;color:var(--primary-bright);margin-bottom:16px}
 .stars svg{width:16px;height:16px;fill:currentColor}
 .tcard blockquote{font-size:.95rem;font-weight:300;line-height:1.7;color:var(--text);flex:1}
 .tcard .tag{align-self:flex-start;margin-top:18px}
 .who{display:flex;align-items:center;gap:12px;margin-top:20px;padding-top:18px;border-top:1px solid var(--border-soft)}
-.av{width:46px;height:46px;border-radius:50%;background:var(--pill-bg);border:1px solid rgba(224,225,221,.2);color:var(--icon-soft);display:grid;place-items:center;flex:0 0 auto;overflow:hidden}
+.av{width:46px;height:46px;border-radius:50%;background:var(--pill-bg);border:1px solid var(--glass-btn-border);color:var(--icon-soft);display:grid;place-items:center;flex:0 0 auto;overflow:hidden}
 .av img{width:100%;height:100%;object-fit:cover}
 .av .ic{width:20px;height:20px}
 .who b{display:block;font-family:var(--font-display);font-weight:600;font-size:var(--fs-lg)}
@@ -516,7 +542,7 @@ input[type=range]:hover::-webkit-slider-thumb,input[type=range]:focus-visible::-
 .seals{display:flex;gap:6px;flex-wrap:wrap;margin-top:20px}
 .socials{display:flex;gap:10px;flex-wrap:wrap}
 .socials a{width:44px;height:44px;border-radius:var(--radius);background:var(--pill-bg);border:1px solid var(--glass-border);display:grid;place-items:center;color:var(--icon-soft);transition:.2s}
-.socials a:hover{background:var(--mist);border-color:var(--mist);color:var(--ink);transform:translateY(-2px)}
+.socials a:hover{background:var(--btn-bg);border-color:var(--btn-bg);color:var(--btn-fg);transform:translateY(-2px)}
 .socials a .ic{width:20px;height:20px}
 .handle{font-size:var(--fs-sm);font-weight:300;margin-top:14px;display:block;color:var(--text-muted)}
 .legal{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;padding-top:24px}
@@ -547,6 +573,34 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
 .dlg-b h4{font-family:var(--font-display);color:var(--text);font-weight:600;margin:16px 0 6px;font-size:.95rem}
 .dlg-b h4:first-child{margin-top:0}
 .dlg-b ul{padding-left:18px}
+dialog[open]{animation:dlgIn .38s cubic-bezier(.2,.8,.3,1)}
+dialog[open]::backdrop{animation:fadeIn .3s ease}
+@keyframes dlgIn{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+html:has(dialog[open]){overflow:hidden}
+
+/* ---------- Pop-up: Montar estratégia de alavancagem ---------- */
+.lead-dlg{max-width:560px;max-height:calc(100dvh - 32px);overflow:auto;overscroll-behavior:contain}
+.lead-dlg .dlg-h{position:sticky;top:0;z-index:2;background:var(--card-top);align-items:flex-start;gap:16px}
+.lead-dlg .dlg-h small{display:block;font-size:var(--fs-sm);font-weight:500;color:var(--text-muted);margin-bottom:4px}
+.lead-dlg .dlg-h b{font-size:1.3rem;letter-spacing:-.01em;line-height:1.2}
+.lead-dlg .dlg-b{max-height:none;overflow:visible;padding:18px 24px 24px;color:var(--text)}
+.lead-dlg .sim-desc{margin:0 0 16px}
+.lead-dlg fieldset{margin:4px 0 14px}
+.lead-dlg .money input{font-size:1.7rem}
+.lead-dlg input[type=range]{margin:14px 0 6px}
+.lead-dlg .f-cred{margin:6px 0 16px}
+.pick{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.pick button{border:1px solid var(--border);background:var(--pill-bg);color:var(--text-muted);font-size:var(--fs-sm);font-weight:400;padding:11px 10px;border-radius:var(--radius);cursor:pointer;transition:.2s;line-height:1.25}
+.pick button:hover{color:var(--text);border-color:rgba(169,184,203,.35)}
+.pick button[aria-checked="true"]{background:var(--btn-bg);border-color:var(--btn-bg);color:var(--btn-fg);font-weight:500;box-shadow:0 10px 24px -14px var(--btn-glow)}
+.seg3{grid-template-columns:repeat(3,1fr)}
+.lead-dlg .seg button{padding:10px 6px;display:flex;align-items:center;justify-content:center;gap:6px}
+.lead-dlg .seg .ic{width:15px;height:15px}
+.lead-dlg .seg svg.wa{fill:currentColor;stroke:none}
+fieldset.invalid .seg,fieldset.invalid .pick button{border-color:var(--danger)}
+.dlg-done{text-align:center;padding:34px 26px 30px}
+.dlg-done .sim-desc{margin:8px auto 22px;max-width:360px;font-size:var(--fs-md);line-height:1.6}
 
 /* ---------- Movimento ---------- */
 /* Entrada em sequência: cada item de um grupo [data-stagger] chega com um pequeno atraso (--d) */
@@ -558,16 +612,13 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
 /* Banner: simulador, lista e indicadores entram em sequência */
 .hero-sim{animation:simIn 1s cubic-bezier(.2,.7,.3,1) .25s both}
 @keyframes simIn{from{opacity:0;transform:translateY(34px) scale(.97)}to{opacity:1;transform:none}}
-.hero .checks li,.hero-extra>.btn,.hero .trust>div,.partners-cap,.ticker{animation:rise .8s cubic-bezier(.2,.7,.3,1) both}
+.hero .checks li,.hero-extra>.btn,.partners-cap,.ticker{animation:rise .8s cubic-bezier(.2,.7,.3,1) both}
 .hero .checks li:nth-child(1){animation-delay:.35s}
 .hero .checks li:nth-child(2){animation-delay:.47s}
 .hero .checks li:nth-child(3){animation-delay:.59s}
 .hero-extra>.btn{animation-delay:.71s}
-.hero .trust>div:nth-child(1){animation-delay:.8s}
-.hero .trust>div:nth-child(2){animation-delay:.9s}
-.hero .trust>div:nth-child(3){animation-delay:1s}
-.partners-cap{animation-delay:1.05s}
-.ticker{animation-delay:1.15s}
+.partners-cap{animation-delay:.85s}
+.ticker{animation-delay:.95s}
 /* FAQ: perguntas entram em cascata ao abrir cada aba */
 .tabpanel.anim .qa{animation:qaIn .5s cubic-bezier(.2,.7,.3,1) both;animation-delay:calc(var(--i,0) * 70ms)}
 @keyframes qaIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
@@ -586,17 +637,66 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
 }
 
 /* ============================================================
+   MODO CLARO — html[data-theme="light"]
+   Os blocos escuros recebem os tokens claros; aqui ficam só os
+   ajustes de superfícies com cor fixa. Os blocos alternam entre
+   off-white e névoa para manter o contraste entre seções.
+   ============================================================ */
+html[data-theme="light"] .sec.theme-dark{--sec-bg:#F7F8F6}
+html[data-theme="light"] .sec,html[data-theme="light"] .ftr{--sheet-shadow:0 -22px 44px -26px rgba(13,27,42,.22)}
+html[data-theme="light"] .hdr{background:rgba(247,248,246,.72);border-bottom-color:rgba(13,27,42,.08)}
+html[data-theme="light"] .hdr.scrolled{background:rgba(247,248,246,.94);box-shadow:0 12px 30px -20px rgba(13,27,42,.35)}
+html[data-theme="light"] .mono{border-color:rgba(13,27,42,.4);color:#0D1B2A}
+html[data-theme="light"] .hdr-wa:hover{color:#415A77}
+html[data-theme="light"] .hero{background:#F7F8F6}
+html[data-theme="light"] .hero::before{background:radial-gradient(900px 640px at 76% 24%,rgba(119,141,169,.38),transparent 62%),radial-gradient(700px 520px at 0% 100%,rgba(169,184,203,.3),transparent 60%),radial-gradient(500px 300px at 30% 0%,rgba(119,141,169,.18),transparent 70%)}
+html[data-theme="light"] .hero::after{background-image:linear-gradient(rgba(13,27,42,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(13,27,42,.045) 1px,transparent 1px)}
+html[data-theme="light"] .ticker{background:rgba(13,27,42,.02);border-color:rgba(13,27,42,.08)}
+html[data-theme="light"] .adm-logo{filter:brightness(0);opacity:.55}
+html[data-theme="light"] .adm-logo:hover{opacity:.85}
+html[data-theme="light"] .sim::before{background:radial-gradient(closest-side,rgba(119,141,169,.3),transparent)}
+html[data-theme="light"] .sim-face{background:linear-gradient(160deg,#FFFFFF,#F7F8F6 60%) padding-box,linear-gradient(160deg,rgba(65,90,119,.4),rgba(65,90,119,.08) 42%,rgba(65,90,119,.24)) border-box;box-shadow:0 30px 60px -24px rgba(13,27,42,.35),0 0 0 1px rgba(255,255,255,.6)}
+html[data-theme="light"] .seg button[aria-checked="true"]{box-shadow:0 1px 2px rgba(13,27,42,.10),0 6px 14px -8px rgba(13,27,42,.30)}
+html[data-theme="light"] .rail-track{background:rgba(65,90,119,.15)}
+html[data-theme="light"] .node{background:#FFFFFF;border-color:rgba(65,90,119,.25)}
+html[data-theme="light"] .node.on{background:#E0E1DD;color:#0D1B2A;border-color:rgba(65,90,119,.4)}
+html[data-theme="light"] .node.cur{background:#0D1B2A;color:#FFFFFF;border-color:#0D1B2A;box-shadow:0 0 0 7px rgba(13,27,42,.06),0 0 26px rgba(65,90,119,.4)}
+html[data-theme="light"] .step.active{border-color:rgba(65,90,119,.4);box-shadow:var(--shadow-lg),0 0 0 1px rgba(65,90,119,.12),0 26px 50px -24px rgba(65,90,119,.5)}
+html[data-theme="light"] .opt.best{border-color:rgba(65,90,119,.6);background:linear-gradient(160deg,#FFFFFF,#EDF0F4 70%);box-shadow:0 0 0 1px rgba(65,90,119,.35),0 0 30px -4px rgba(65,90,119,.35),0 0 70px -10px rgba(119,141,169,.45),var(--shadow-lg)}
+html[data-theme="light"] .opt.best .gi{background:#0D1B2A;border-color:#0D1B2A;color:#FFFFFF}
+html[data-theme="light"] .opt.best h3{color:#0D1B2A}
+html[data-theme="light"] .opt.best p{color:#415A77}
+html[data-theme="light"] .opt.best::after{border-color:rgba(65,90,119,.6)}
+html[data-theme="light"] .alav,html[data-theme="light"] .final{border-color:rgba(65,90,119,.16);box-shadow:0 40px 80px -44px rgba(13,27,42,.4);
+  background:radial-gradient(640px 360px at 100% 0%,rgba(119,141,169,.3),transparent 70%),radial-gradient(420px 280px at 0% 100%,rgba(169,184,203,.22),transparent 70%),linear-gradient(160deg,#FFFFFF,#F4F5F3)}
+html[data-theme="light"] .final::after{background-image:linear-gradient(rgba(13,27,42,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(13,27,42,.04) 1px,transparent 1px)}
+html[data-theme="light"] .alav-in{background:rgba(255,255,255,.7)}
+html[data-theme="light"] .bars{border-bottom-color:rgba(65,90,119,.25)}
+html[data-theme="light"] .bar-col.rf::before{border-color:rgba(65,90,119,.25)}
+html[data-theme="light"] .bar-col.rf .bar,html[data-theme="light"] .chart-leg .rf i{background:rgba(13,27,42,.16)}
+html[data-theme="light"] .kpi::after{background:radial-gradient(circle,rgba(119,141,169,.14),transparent 70%)}
+html[data-theme="light"] .ftr{background:#E4E6E2}
+html[data-theme="light"] .mbar{background:rgba(247,248,246,.94)}
+html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
+
+/* ============================================================
    RESPONSIVO
    ============================================================ */
 @media (max-width:1180px){
   .menu{gap:18px}
 }
 @media (max-width:1100px){
-  .hamb{display:inline-flex;margin-left:10px}
+  .hamb{display:inline-flex}
   .hdr-wa-m{display:inline-flex}
   .menu .hdr-wa{padding:14px 4px;border-bottom:1px solid var(--border-soft);font-size:.95rem}
   .menu{display:none;position:absolute;top:var(--hdr);left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:rgba(8,18,29,.97);backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur));padding:8px 20px 20px;border-bottom:1px solid var(--glass-border);box-shadow:0 20px 40px -20px rgba(0,0,0,.8)}
   .menu.open{display:flex}
+  html[data-theme="light"] .menu{background:#F7F8F6;box-shadow:0 20px 40px -20px rgba(13,27,42,.35)}
+  .nav{gap:10px}
+  .logo{order:-2;margin-right:auto}
+  .theme-tg{order:-1;margin-left:0;width:44px;height:44px}
+  .hdr-wa-m{margin-left:0}
+  .hamb{margin-left:0}
   .menu a:not(.btn){padding:14px 4px;border-bottom:1px solid var(--border-soft);font-size:.95rem}
   .menu .btn{margin-top:14px}
 }
@@ -630,8 +730,6 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
   .hero h1{font-size:2.3rem}
   .kicker{font-size:.7rem;letter-spacing:.1em}
   .hero .sub{font-size:1rem}
-  .trust{gap:22px}
-  .trust div b{font-size:1.4rem}
   .ticker-group{gap:40px;padding:18px 20px}
   .adm-logo{height:calc(var(--h) * .8)}
   .sim-face{padding:22px 18px 18px}
@@ -656,16 +754,32 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
   .fgrid{grid-template-columns:1fr;gap:34px}
   .float-card{position:relative;right:auto;bottom:auto;margin:-34px 16px 0}
   .final{padding:36px 22px;margin-top:80px}
-  .alav{padding:28px 18px;margin-top:40px}
+  .alav{padding:32px 16px 26px;margin-top:40px}
+  .alav-head p{font-size:var(--fs-md)}
   .alav-in{padding:18px 16px}
-  .bars{height:210px;gap:8px;padding:0}
-  .bars-x{gap:8px;padding:10px 0 0;font-size:var(--fs-xs)}
-  .bar-v{font-size:var(--fs-xs)}
+  .alav-seed{padding:18px 18px 16px}
+  .bars{height:210px;gap:6px;padding:0}
+  .bars-x{gap:6px;padding:10px 0 0;font-size:.66rem}
+  .bars-x small{font-size:.6rem}
+  .bar-v{font-size:.66rem}
+  .bar-col.rf::before{left:-4px}
   .chart.grown .bar{height:max(4px,calc(var(--h,0) * 1.55px))}
-  .alav-out .btn{align-self:stretch}
+  .alav-foot .btn{width:100%;padding:15px 18px}
   .wa-float{width:52px;height:52px;right:16px;bottom:16px}
+  dialog{width:calc(100% - 20px)}
+  .lead-dlg{max-height:calc(100dvh - 20px)}
+  .lead-dlg .dlg-h{padding:16px 18px}
+  .lead-dlg .dlg-b{padding:16px 18px 20px}
+  .lead-dlg .f2{grid-template-columns:minmax(0,1fr)}
   .wa-float .tt{display:none}
   .mbar .btn{padding:11px 18px}
+}
+@media (max-width:400px){
+  .nav{gap:6px}
+  .logo{gap:10px}
+  .mono{width:38px;height:38px;font-size:.76rem}
+  .logo-txt{font-size:1rem}
+  .theme-tg,.hdr-wa-m,.hamb{width:40px;height:40px;flex:0 0 auto}
 }
 </style>
 </head>
@@ -717,6 +831,8 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
   <symbol id="i-linkedin" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10.5V17M8 7.5v.01M12 17v-6.5M12 13.5a2.8 2.8 0 0 1 5.5 0V17"/></symbol>
   <symbol id="i-youtube" viewBox="0 0 24 24"><path d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8z"/><path d="m10 15 5-3-5-3z"/></symbol>
   <symbol id="i-wa" viewBox="0 0 32 32"><path d="M16.04 3C9.0 3 3.3 8.7 3.3 15.7c0 2.25.6 4.45 1.72 6.38L3.2 28.8l6.9-1.8a12.7 12.7 0 0 0 5.94 1.5h.01c7.03 0 12.74-5.7 12.74-12.73 0-3.4-1.32-6.6-3.73-9A12.66 12.66 0 0 0 16.04 3zm0 23.3h-.01a10.6 10.6 0 0 1-5.39-1.48l-.39-.23-4.1 1.07 1.1-4-.25-.41a10.55 10.55 0 0 1-1.62-5.6c0-5.84 4.75-10.6 10.6-10.6 2.83 0 5.49 1.1 7.49 3.11a10.52 10.52 0 0 1 3.1 7.5c0 5.85-4.75 10.6-10.53 10.6zm5.8-7.94c-.32-.16-1.88-.93-2.17-1.03-.29-.11-.5-.16-.71.16-.21.32-.82 1.03-1 1.24-.19.21-.37.24-.69.08-.32-.16-1.34-.5-2.56-1.58a9.58 9.58 0 0 1-1.77-2.2c-.19-.32-.02-.49.14-.65.14-.14.32-.37.48-.56.16-.19.21-.32.32-.53.1-.21.05-.4-.03-.56-.08-.16-.71-1.71-.98-2.34-.26-.62-.52-.53-.71-.54h-.61c-.21 0-.56.08-.85.4-.29.32-1.11 1.08-1.11 2.64 0 1.56 1.14 3.07 1.3 3.28.16.21 2.24 3.42 5.43 4.8.76.33 1.35.52 1.81.67.76.24 1.45.2 2 .12.61-.09 1.88-.77 2.14-1.51.27-.74.27-1.38.19-1.51-.08-.13-.29-.21-.61-.37z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6 6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.5 14.3A8.5 8.5 0 1 1 9.7 3.5a6.6 6.6 0 0 0 10.8 10.8z"/></symbol>
   <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2.5 2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"/></symbol>
 </svg>
 
@@ -742,6 +858,7 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
       <a class="hdr-wa" href="#" data-wa="Olá, vim por meio do site e gostaria de mais informações." aria-label="WhatsApp comercial (51) 98912-1113"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#i-wa"/></svg>(51) 98912-1113</a>
       <a class="btn btn-glass btn-sm" href="#simulador" data-goto-sim>Simular agora</a>
     </nav>
+    <button type="button" class="theme-tg" id="themeTg" aria-label="Ativar modo claro" title="Modo claro"><svg class="ic i-sun" aria-hidden="true"><use href="#i-sun"/></svg><svg class="ic i-moon" aria-hidden="true"><use href="#i-moon"/></svg></button>
   </div>
 </header>
 
@@ -890,11 +1007,6 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
         <li><span class="gi"><svg class="ic"><use href="#i-check"/></svg></span>Acompanhamento do início à conquista</li>
       </ul>
       <a class="btn btn-glass" href="#como-funciona">Como funciona <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></a>
-      <div class="trust">
-        <div><b>R$ 20 mi+</b><span>em créditos comercializados</span></div>
-        <div><b>83</b><span>clientes atendidos</span></div>
-        <div><b>5 anos</b><span>de mercado</span></div>
-      </div>
     </div>
 
   </div>
@@ -1035,7 +1147,7 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
         <button type="button" class="link" data-sim-cat="imovel">Simular alavancagem <svg class="ic"><use href="#i-arrow"/></svg></button>
       </article>
       <article class="sol card lift reveal featured">
-        <span class="tag tag-feat">Principal produto</span>
+        <span class="tag tag-feat"><svg class="ic"><use href="#i-star"/></svg>Mais procurada</span>
         <span class="gi"><svg class="ic"><use href="#i-coins"/></svg></span>
         <h3>Alavancagem Financeira</h3>
         <p>Mantenha seu capital aplicado rendendo enquanto o consórcio viabiliza a compra com custo muito menor que os juros bancários.</p>
@@ -1059,14 +1171,18 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
       </article>
     </div>
 
-    <!-- Simulador de Alavancagem Financeira: plano fixo de imóvel (220 meses, taxa de administração 18%,
-         fundo de reserva 2%, meia parcela), contemplação por sorteio em 12 meses e venda da carta com
-         ágio de 20% do crédito. Premissas em CONFIG.alavancagem. -->
+    <!-- Mecanismo de Alavancagem Financeira. Premissas em CONFIG.alavancagem:
+         plano de imóvel (220 meses, taxa de administração 18%, fundo de reserva 2%, meia parcela),
+         1ª carta contemplada em 12 meses e vendida com ágio de 20% do crédito.
+         Repetir o ciclo = SIM: o valor das vendas paga novas cartas (até N por ano) e, a cada ano,
+           cerca de 27% das cartas ativas são contempladas e vendidas; as demais seguem no grupo.
+         Repetir o ciclo = NÃO: o valor da venda rende na poupança (média 2023 a 2025).
+         Comparativo (SIM): renda fixa com o mesmo investimento (meia parcela por 12 meses). -->
     <div class="alav theme-dark reveal" id="alavancagem" data-rv="zoom">
       <div class="alav-head">
-        <span class="label">Simulador de Alavancagem Financeira</span>
-        <h3 class="alav-title">Contratar, contemplar, vender e <em>repetir o ciclo</em>.</h3>
-        <p>Com o valor da venda da primeira carta, você contrata novas cartas sem tirar dinheiro do bolso. Veja a projeção de patrimônio.</p>
+        <span class="label">Contratar · Contemplar · Vender · Repetir</span>
+        <h3 class="alav-title">Mecanismo de <em>Alavancagem Financeira</em></h3>
+        <p>Funciona como plantar uma semente: com um <b>investimento inicial baixo</b>, a meia parcela, você conquista a primeira carta. Contemplada, ela é vendida com ágio e o valor da venda planta <b>novas cartas, sem tirar mais dinheiro do seu bolso</b>.</p>
       </div>
       <div class="alav-grid">
         <div class="alav-in">
@@ -1082,16 +1198,11 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
             <button type="button" role="radio" aria-checked="false" data-rep="0">Não</button>
           </div>
 
-          <ul class="alav-plan" aria-label="Plano considerado">
-            <li class="tag">Imóvel</li><li class="tag">220 meses</li><li class="tag">Taxa de administração 18%</li><li class="tag">Fundo de reserva 2%</li><li class="tag">Meia parcela</li><li class="tag">Contemplação por sorteio em 12 meses</li><li class="tag">Venda com ágio de 20%</li>
-          </ul>
-
-          <dl class="alav-kpis">
-            <div><dt>Meia parcela</dt><dd id="alMeia"></dd></div>
-            <div><dt>Seu aporte em 12 meses</dt><dd id="alAporte"></dd></div>
-            <div><dt>Venda da carta contemplada</dt><dd id="alVenda"></dd></div>
-            <div><dt>Cartas por ciclo</dt><dd id="alN"></dd></div>
-          </dl>
+          <div class="alav-seed" aria-live="polite">
+            <span class="k"><svg class="ic"><use href="#i-wallet"/></svg>Investimento inicial</span>
+            <b><span id="alMeia">R$ 0</span><small>/mês</small></b>
+            <p id="alSeedTxt"></p>
+          </div>
         </div>
 
         <div class="alav-out">
@@ -1100,13 +1211,19 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
             <b id="alTotal"></b>
             <small id="alSub"></small>
           </div>
-          <div class="chart" id="alChart" role="group" aria-label="Projeção de patrimônio em 1, 3, 5 e 10 anos">
+          <div class="chart cmp" id="alChart" role="group" aria-label="Projeção de patrimônio em 1, 3, 5 e 10 anos">
             <div class="bars" id="alBars"></div>
-            <div class="bars-x"><span>1 ano</span><span>3 anos</span><span>5 anos</span><span>10 anos</span></div>
+            <div class="bars-x" id="alAxis"></div>
           </div>
-          <p class="alav-disc">Simulação ilustrativa, sem garantia de resultado. O desempenho real depende do plano, da estratégia e do acompanhamento.</p>
-          <a class="btn btn-primary" href="#" data-wa="Olá, vim por meio do site e gostaria de mais informações sobre a alavancagem financeira.">Quero montar minha estratégia <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></a>
+          <ul class="chart-leg">
+            <li><i></i>Alavancagem com consórcio</li>
+            <li class="rf"><i></i>Renda fixa com o mesmo investimento</li>
+          </ul>
         </div>
+      </div>
+      <div class="alav-foot">
+        <button type="button" class="btn btn-primary" id="alCta">Montar estratégia de alavancagem <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></button>
+        <p class="alav-disc" id="alDisc"></p>
       </div>
     </div>
   </div>
@@ -1378,7 +1495,7 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
   <div class="dlg-h"><b id="privTitle">Política de Privacidade e Termos de Uso</b><button type="button" data-close aria-label="Fechar"><svg class="ic"><use href="#i-x"/></svg></button></div>
   <div class="dlg-b">
     <h4>1. Quais dados coletamos</h4>
-    <p>Nome, e-mail, celular, CPF e CEP informados no simulador, além das preferências da simulação (objetivo, valor de crédito ou parcela).</p>
+    <p>Nome, e-mail, celular, CPF e CEP informados no simulador, além das preferências da simulação (objetivo, valor de crédito ou parcela). No formulário de estratégia de alavancagem: nome, telefone, e-mail, crédito desejado, prazo para iniciar e preferência de contato e horário.</p>
     <h4>2. Para que usamos</h4>
     <ul><li>Enviar o resultado da simulação e entrar em contato com uma proposta;</li><li>Verificar a elegibilidade junto às administradoras parceiras;</li><li>Enviar notificações sobre a sua simulação, mediante o seu consentimento.</li></ul>
     <h4>3. Compartilhamento</h4>
@@ -1387,6 +1504,80 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
     <p>Você pode solicitar acesso, correção, portabilidade ou exclusão dos seus dados e revogar o consentimento a qualquer momento pelo e-mail contato@crmconsorcios.com.br.</p>
     <h4>5. Termos de uso</h4>
     <p>As simulações são estimativas e não constituem proposta comercial, garantia de contemplação ou de rentabilidade. As condições finais dependem do grupo escolhido e da análise da administradora.</p>
+  </div>
+</dialog>
+
+<!-- Pop-up: Montar estratégia de alavancagem (lead vai para o mesmo CRM, tipo "alavancagem_financeira") -->
+<dialog id="alavDlg" class="lead-dlg" aria-labelledby="aTitle">
+  <div class="dlg-h">
+    <div><small>Alavancagem Financeira</small><b id="aTitle">Monte sua estratégia de alavancagem</b></div>
+    <button type="button" data-close aria-label="Fechar"><svg class="ic"><use href="#i-x"/></svg></button>
+  </div>
+  <form id="aForm" class="dlg-b" novalidate>
+    <p class="sim-desc">Responda em poucos cliques e um especialista monta o plano com você.</p>
+    <div class="f" data-f="nome">
+      <label for="aNome">Nome completo</label>
+      <input id="aNome" name="nome" type="text" autocomplete="name" placeholder="Como podemos te chamar?" required>
+      <p class="err"></p>
+    </div>
+    <div class="f2">
+      <div class="f" data-f="telefone">
+        <label for="aTel">Telefone / WhatsApp</label>
+        <input id="aTel" name="telefone" type="tel" autocomplete="tel-national" inputmode="numeric" placeholder="(00) 00000-0000" maxlength="15" required>
+        <p class="err"></p>
+      </div>
+      <div class="f" data-f="email">
+        <label for="aEmail">E-mail</label>
+        <input id="aEmail" name="email" type="email" autocomplete="email" inputmode="email" placeholder="seu@email.com" required>
+        <p class="err"></p>
+      </div>
+    </div>
+    <div class="f-cred">
+      <label class="sim-label" for="aCred" id="aCredLbl">Crédito desejado</label>
+      <div class="money"><span>R$</span><input id="aCred" name="credito" type="text" inputmode="numeric" autocomplete="off"></div>
+      <input type="range" id="aRange" min="0" max="1000" step="1" value="0" aria-labelledby="aCredLbl">
+      <div class="scale"><span id="aMin">R$ 100 mil</span><span id="aMax">R$ 2 mi</span></div>
+    </div>
+    <fieldset data-f="inicio">
+      <legend class="sim-label">Quando pretende iniciar a alavancagem?</legend>
+      <div class="pick" role="radiogroup" aria-label="Quando pretende iniciar">
+        <button type="button" role="radio" aria-checked="false" data-v="De imediato">De imediato</button>
+        <button type="button" role="radio" aria-checked="false" data-v="1 a 3 meses">1 a 3 meses</button>
+        <button type="button" role="radio" aria-checked="false" data-v="6 a 12 meses">6 a 12 meses</button>
+        <button type="button" role="radio" aria-checked="false" data-v="Apenas pesquisando">Apenas pesquisando</button>
+      </div>
+      <p class="err"></p>
+    </fieldset>
+    <div class="f2">
+      <fieldset data-f="contato">
+        <legend class="sim-label">Preferência de contato</legend>
+        <div class="seg" role="radiogroup" aria-label="Preferência de contato">
+          <button type="button" role="radio" aria-checked="false" data-v="Ligação"><svg class="ic"><use href="#i-phone"/></svg>Ligação</button>
+          <button type="button" role="radio" aria-checked="true" data-v="WhatsApp"><svg class="ic wa" viewBox="0 0 32 32"><use href="#i-wa"/></svg>WhatsApp</button>
+        </div>
+      </fieldset>
+      <fieldset data-f="horario">
+        <legend class="sim-label">Melhor horário</legend>
+        <div class="seg seg3" role="radiogroup" aria-label="Melhor horário para contato">
+          <button type="button" role="radio" aria-checked="false" data-v="Manhã">Manhã</button>
+          <button type="button" role="radio" aria-checked="false" data-v="Tarde">Tarde</button>
+          <button type="button" role="radio" aria-checked="false" data-v="Noite">Noite</button>
+        </div>
+        <p class="err"></p>
+      </fieldset>
+    </div>
+    <label class="cbx" data-f="aceite">
+      <input type="checkbox" id="aPriv" name="aceite_privacidade" required>
+      <span>Li e aceito a <button type="button" class="inl" data-open-privacy>Política de Privacidade</button> e autorizo o contato da CRM Consórcios.</span>
+    </label>
+    <p class="err" id="aCbxErr" role="alert"></p>
+    <button type="submit" class="btn btn-primary btn-block" id="aSubmit" style="margin-top:8px">Quero minha estratégia <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></button>
+  </form>
+  <div class="dlg-done" id="aDone" hidden>
+    <span class="done-ic"><svg class="ic"><use href="#i-check"/></svg></span>
+    <h2 class="sim-title" tabindex="-1" id="aDoneTitle">Recebemos seus dados!</h2>
+    <p class="sim-desc" id="aDoneTxt">Um especialista vai entrar em contato para montar a sua estratégia de alavancagem.</p>
+    <button type="button" class="btn btn-glass" data-close>Fechar</button>
   </div>
 </dialog>
 
@@ -1409,11 +1600,18 @@ var CONFIG = {
   // Premissas para estimar crédito/parcela enviados ao CRM junto com o lead (não aparecem na tela).
   //  prazo: meses · taxaAdm: taxa de administração total · fundoReserva: fundo de reserva total
   //  reducao: desconto da parcela reduzida até a contemplação (0.3 = 30% menor)
-  // Simulador de Alavancagem Financeira (bloco Soluções). Plano sempre de imóvel.
+  // Mecanismo de Alavancagem Financeira (bloco Soluções). Plano sempre de imóvel.
   alavancagem: {
-    taxaAdm: 0.18, fundoReserva: 0.02, prazo: 220,   // plano
-    mesesContemplacao: 12,                           // contemplação por sorteio
+    taxaAdm: 0.18, fundoReserva: 0.02, prazo: 220,   // plano (não aparece na tela)
+    mesesContemplacao: 12,                           // 1ª carta: contemplação por sorteio em 12 meses
     agioVenda: 0.20,                                 // venda da carta contemplada: 20% do crédito
+    probContemplacao: 0.27,                          // ciclos seguintes: chance de contemplação por carta ativa, ao ano
+    poupanca: 0.078,                                 // "Não repetir": poupança, média anual 2023 a 2025 (8,04% · 7,09% · 8,26%)
+    rendaFixa: [                                     // comparativo "Sim": rentabilidade bruta da renda fixa ao ano
+      { ateAno: 3, taxa: 0.14 },                     //  anos 1 a 3
+      { ateAno: 5, taxa: 0.10 },                     //  anos 4 e 5
+      { ateAno: 10, taxa: 0.08 }                     //  anos 6 a 10
+    ],
     credito: { min: 100000, max: 2000000, padrao: 300000 },
     chips: [200000, 300000, 500000, 1000000]
   },
@@ -1469,6 +1667,25 @@ var CONFIG = {
     hamb.setAttribute('aria-expanded', o ? 'true' : 'false');
   });
   $$('a', menu).forEach(function (a) { a.addEventListener('click', function () { menu.classList.remove('open'); hamb.setAttribute('aria-expanded', 'false'); }); });
+
+  /* ---------------- Modo claro / escuro (ícone ao lado do "Simular agora") ---------------- */
+  var root = document.documentElement, themeTg = $('#themeTg'), metaTheme = $('meta[name="theme-color"]');
+  function applyTheme(t) {
+    var light = t === 'light';
+    root.setAttribute('data-theme', light ? 'light' : 'dark');
+    themeTg.setAttribute('aria-label', light ? 'Ativar modo escuro' : 'Ativar modo claro');
+    themeTg.title = light ? 'Modo escuro' : 'Modo claro';
+    if (metaTheme) metaTheme.setAttribute('content', light ? '#F7F8F6' : '#0D1B2A');
+  }
+  applyTheme(root.getAttribute('data-theme'));
+  themeTg.addEventListener('click', function () {
+    var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    // transição suave entre os modos (quando o navegador suporta)
+    if (document.startViewTransition && !reduceMotion) document.startViewTransition(function () { applyTheme(next); });
+    else applyTheme(next);
+    try { localStorage.setItem('crm-tema', next); } catch (e) { /* navegação privada: vale só nesta visita */ }
+    track('tema_alterado', { tema: next });
+  });
 
   /* ==================================================================
      SIMULADOR — Etapa 1 (objetivo · simular pelo · valor)
@@ -1669,6 +1886,16 @@ var CONFIG = {
     return out;
   }
 
+  // Envia o lead ao CRM (POST JSON) sem deixar o cliente esperando se o CRM demorar
+  function postLead(lead, done) {
+    if (!CONFIG.leadEndpoint || !window.fetch) { done(); return; }
+    var fired = false, end = function () { if (!fired) { fired = true; done(); } };
+    var t = setTimeout(end, 4000);
+    fetch(CONFIG.leadEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(lead), keepalive: true })
+      .catch(function () { /* falha silenciosa: a confirmação aparece mesmo assim */ })
+      .then(function () { clearTimeout(t); end(); });
+  }
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     if (!validate()) return;
@@ -1691,13 +1918,7 @@ var CONFIG = {
     track('lead_simulacao', { categoria: S.cat, modo: S.mode, credito: lead.credito, parcela: lead.parcela });
     if (window.gtag) window.gtag('event', 'generate_lead', { currency: 'BRL', value: lead.credito });
     if (window.fbq) window.fbq('track', 'Lead');
-    var done = function () { btn.disabled = false; showResult(lead); };
-    if (CONFIG.leadEndpoint && window.fetch) {
-      var t = setTimeout(done, 4000); // não deixa o cliente esperando se o CRM demorar
-      fetch(CONFIG.leadEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(lead), keepalive: true })
-        .catch(function () { /* falha silenciosa: o resultado aparece mesmo assim */ })
-        .then(function () { clearTimeout(t); done(); });
-    } else { done(); }
+    postLead(lead, function () { btn.disabled = false; showResult(lead); });
   });
 
   /* ---------------- Etapa 3 · retorno ----------------
@@ -1716,73 +1937,204 @@ var CONFIG = {
   });
 
   /* ==================================================================
-     SIMULADOR DE ALAVANCAGEM FINANCEIRA
-     Ciclo: contrata 1 carta → contempla em 12 meses → vende com ágio de 20%.
-     Com o valor da venda, contrata N cartas (as que a venda paga em meias parcelas
-     até a contemplação). Repetindo o ciclo, a cada ano contempla e vende N cartas,
-     reinvestindo só o necessário para as N seguintes e acumulando o restante.
+     MECANISMO DE ALAVANCAGEM FINANCEIRA
+     Ano 1: contrata 1 carta pagando meia parcela, contempla em 12 meses e vende com ágio (20% do crédito).
+     Repetir = SIM (projeção "pé no chão"): a cada ano, o valor das vendas paga a meia parcela das cartas
+       ativas e contrata até N cartas novas (N = cartas que uma venda paga até contemplar). Só ~27% das
+       cartas ativas são contempladas e vendidas no ano; as demais seguem no grupo para o ano seguinte.
+       Patrimônio = valor em caixa (não conta as cartas ainda não contempladas).
+     Repetir = NÃO: o valor da venda rende na poupança.
+     Comparativo (SIM): mesma meia parcela aplicada na renda fixa por 12 meses, com juros compostos
+       mensais (o 1º aporte não rende no mês em que entra); depois, só a rentabilidade anual.
      ================================================================== */
-  (function alavancagem() {
-    var A = CONFIG.alavancagem, box = $('#alavancagem'); if (!box) return;
-    var range = $('#alRange'), txt = $('#alTxt'), bars = $('#alBars'), chart = $('#alChart');
-    var st = { credito: A.credito.padrao, repetir: true }, anos = [1, 3, 5, 10];
-    function calc(C, repetir) {
-      var parcela = C * (1 + A.taxaAdm + A.fundoReserva) / A.prazo;
-      var meia = parcela / 2, aporte = meia * A.mesesContemplacao, venda = C * A.agioVenda;
-      var n = Math.max(1, Math.floor(venda / aporte));            // cartas que a venda paga até contemplar
-      var serie = anos.map(function (t) {
-        if (!repetir) return { t: t, valor: venda, cartas: 1 };
-        return { t: t, valor: venda + (t - 1) * n * (venda - aporte), cartas: 1 + (t - 1) * n };
-      });
-      return { meia: meia, aporte: aporte, venda: venda, n: n, serie: serie };
+  var AL = CONFIG.alavancagem;
+  function alClamp(v) { return Math.min(AL.credito.max, Math.max(AL.credito.min, v)); }
+  // slider não linear (mais precisão nos valores menores)
+  function alToPos(v) { return Math.round(Math.sqrt((alClamp(v) - AL.credito.min) / (AL.credito.max - AL.credito.min)) * 1000); }
+  function alFromPos(p) { return alClamp(Math.round((AL.credito.min + (AL.credito.max - AL.credito.min) * Math.pow(p / 1000, 2)) / 10000) * 10000); }
+  function pct(x) { return (x * 100).toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + '%'; }
+  function taxaRF(ano) { for (var i = 0; i < AL.rendaFixa.length; i++) if (ano <= AL.rendaFixa[i].ateAno) return AL.rendaFixa[i].taxa; return AL.rendaFixa[AL.rendaFixa.length - 1].taxa; }
+  function alCalc(C, repetir) {
+    var meia = C * (1 + AL.taxaAdm + AL.fundoReserva) / AL.prazo / 2;
+    var aporte = meia * AL.mesesContemplacao, venda = C * AL.agioVenda;
+    var n = Math.max(1, Math.floor(venda / aporte));
+    var caixa = venda, ativas = 0, porAno = { 1: venda };
+    for (var ano = 2; ano <= 10; ano++) {
+      if (repetir) {
+        var novas = Math.max(0, Math.min(n, Math.floor((caixa - ativas * aporte) / aporte)));
+        ativas += novas;
+        caixa -= ativas * aporte;                         // meia parcela das cartas ativas no ano
+        var contempladas = ativas * AL.probContemplacao;  // ~27% das cartas ativas
+        caixa += contempladas * venda; ativas -= contempladas;
+      } else {
+        caixa *= 1 + AL.poupanca;
+      }
+      porAno[ano] = caixa;
     }
-    // slider não linear (mais precisão nos valores menores)
-    function toPos(v) { return Math.round(Math.sqrt((v - A.credito.min) / (A.credito.max - A.credito.min)) * 1000); }
-    function fromPos(p) { var v = A.credito.min + (A.credito.max - A.credito.min) * Math.pow(p / 1000, 2); return Math.round(v / 10000) * 10000; }
-    function clampC(v) { return Math.min(A.credito.max, Math.max(A.credito.min, v)); }
-    bars.innerHTML = anos.map(function () {
-      return '<div class="bar-col" tabindex="0"><span class="bar-v"></span><div class="bar"></div><div class="bar-tip" role="tooltip"></div></div>';
+    var r = Math.pow(1 + taxaRF(1), 1 / 12) - 1, rf = 0;
+    for (var m = 1; m <= AL.mesesContemplacao; m++) rf = rf * (1 + r) + meia;
+    for (ano = 2; ano <= 10; ano++) rf *= 1 + taxaRF(ano);
+    return { meia: meia, aporte: aporte, venda: venda, n: n, porAno: porAno, rendaFixa10: rf };
+  }
+
+  (function alavancagem() {
+    var box = $('#alavancagem'); if (!box) return;
+    var range = $('#alRange'), txt = $('#alTxt'), bars = $('#alBars'), chart = $('#alChart');
+    var st = { credito: AL.credito.padrao, repetir: true }, anos = [1, 3, 5, 10];
+    // 4 barras (1, 3, 5 e 10 anos) + comparativo da renda fixa ao lado dos 10 anos
+    bars.innerHTML = anos.concat('rf').map(function (t) {
+      return '<div class="bar-col' + (t === 'rf' ? ' rf' : '') + '"><span class="bar-v"></span><div class="bar"></div></div>';
     }).join('');
+    $('#alAxis').innerHTML = anos.map(function (t) { return '<span>' + (t === 1 ? '1 ano' : t + ' anos') + '</span>'; }).join('') +
+      '<span class="rf">Renda fixa<small>10 anos</small></span>';
     var cols = $$('.bar-col', bars);
-    $('#alChips').innerHTML = A.chips.map(function (c) { return '<button type="button" data-al="' + c + '">' + brlShort(c) + '</button>'; }).join('');
+    $('#alChips').innerHTML = AL.chips.map(function (c) { return '<button type="button" data-al="' + c + '">' + brlShort(c) + '</button>'; }).join('');
+    var r0 = AL.rendaFixa;
+    $('#alDisc').textContent = 'Simulação ilustrativa, sem garantia de resultado. Considera a 1ª carta contemplada em 12 meses e vendida com ágio de ' + pct(AL.agioVenda) +
+      ' do crédito; nos ciclos seguintes, chance de contemplação de ' + pct(AL.probContemplacao) + ' ao ano por carta ativa. Sem repetir o ciclo, o valor da venda rende na poupança (' +
+      pct(AL.poupanca) + ' a.a., média de 2023 a 2025). Renda fixa: rentabilidade bruta de ' + pct(r0[0].taxa) + ' a.a. nos anos 1 a ' + r0[0].ateAno + ', ' +
+      pct(r0[1].taxa) + ' nos anos ' + (r0[0].ateAno + 1) + ' e ' + r0[1].ateAno + ' e ' + pct(r0[2].taxa) + ' nos anos ' + (r0[1].ateAno + 1) + ' a ' + r0[2].ateAno + '.';
     function render() {
-      var r = calc(st.credito, st.repetir), max = Math.max.apply(null, r.serie.map(function (x) { return x.valor; }));
+      var r = alCalc(st.credito, st.repetir);
+      var vals = anos.map(function (t) { return r.porAno[t]; });
+      if (st.repetir) vals.push(r.rendaFixa10);
+      var max = Math.max.apply(null, vals);
       if (document.activeElement !== txt) txt.value = NUM.format(st.credito);
-      var pos = toPos(st.credito); range.value = pos; range.style.backgroundSize = (pos / 10) + '% 100%';
+      var pos = alToPos(st.credito); range.value = pos; range.style.backgroundSize = (pos / 10) + '% 100%';
       range.setAttribute('aria-valuetext', BRL0.format(st.credito));
       $$('[data-al]', box).forEach(function (b) { b.classList.toggle('on', +b.getAttribute('data-al') === st.credito); });
       $$('[data-rep]', box).forEach(function (b) { b.setAttribute('aria-checked', (b.getAttribute('data-rep') === '1') === st.repetir ? 'true' : 'false'); });
-      $('#alMeia').textContent = BRL0.format(r.meia) + '/mês';
-      $('#alAporte').textContent = BRL0.format(r.aporte);
-      $('#alVenda').textContent = BRL0.format(r.venda);
-      $('#alN').textContent = st.repetir ? r.n + ' cartas' : '1 carta';
-      $('#alTotal').textContent = brlShort(r.serie[3].valor);
-      $('#alSub').textContent = st.repetir
-        ? 'com ' + BRL0.format(r.aporte) + ' do seu bolso, uma única vez'
-        : 'uma única operação, sem repetir o ciclo';
-      r.serie.forEach(function (x, i) {
-        var c = cols[i], h = Math.round(x.valor / max * 100);
-        c.querySelector('.bar').style.setProperty('--h', h);
-        c.querySelector('.bar-v').textContent = brlShort(x.valor);
-        c.setAttribute('aria-label', (x.t === 1 ? '1 ano' : x.t + ' anos') + ': ' + BRL0.format(x.valor));
-        c.querySelector('.bar-tip').innerHTML = '<b>' + BRL0.format(x.valor) + '</b>' +
-          (x.t === 1 ? 'Em 1 ano' : 'Em ' + x.t + ' anos') + ': ' + x.cartas + (x.cartas === 1 ? ' carta contemplada e vendida' : ' cartas contempladas e vendidas');
+      $('#alMeia').textContent = BRL0.format(r.meia);
+      $('#alSeedTxt').textContent = 'Meia parcela por 12 meses (' + BRL0.format(r.aporte) + ' no total). ' +
+        (st.repetir ? 'Depois, as novas cartas são pagas com o valor das vendas.' : 'Depois, o valor da venda da carta rende na poupança.');
+      $('#alTotal').textContent = brlShort(r.porAno[10]);
+      $('#alSub').textContent = st.repetir ? 'repetindo o ciclo com o valor das vendas, sem novos aportes' : 'venda da carta no 1º ano, rendendo na poupança a ' + pct(AL.poupanca) + ' a.a.';
+      chart.classList.toggle('cmp', st.repetir);
+      chart.setAttribute('aria-label', 'Projeção de patrimônio: ' + anos.map(function (t, i) { return (t === 1 ? '1 ano' : t + ' anos') + ' ' + BRL0.format(vals[i]); }).join(', ') +
+        (st.repetir ? '. Renda fixa com o mesmo investimento em 10 anos: ' + BRL0.format(r.rendaFixa10) : ''));
+      cols.forEach(function (c, i) {
+        var v = i < 4 ? vals[i] : r.rendaFixa10;
+        c.querySelector('.bar').style.setProperty('--h', Math.round(v / max * 100));
+        c.querySelector('.bar-v').textContent = brlShort(v);
       });
+      st.meia = r.meia; st.total10 = r.porAno[10];
     }
-    range.addEventListener('input', function () { st.credito = clampC(fromPos(+range.value)); render(); });
+    range.addEventListener('input', function () { st.credito = alFromPos(+range.value); render(); });
     txt.addEventListener('input', function () {
       var d = txt.value.replace(/\D/g, '').slice(0, 8), n = d ? parseInt(d, 10) : 0;
       txt.value = d ? NUM.format(n) : '';
-      if (n >= A.credito.min) { st.credito = Math.min(A.credito.max, n); render(); }
+      if (n >= AL.credito.min) { st.credito = Math.min(AL.credito.max, n); render(); }
     });
-    txt.addEventListener('blur', function () { st.credito = clampC(st.credito); render(); });
+    txt.addEventListener('blur', function () { st.credito = alClamp(st.credito); render(); });
     txt.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); txt.blur(); } });
     $('#alChips').addEventListener('click', function (e) { var b = e.target.closest('[data-al]'); if (b) { st.credito = +b.getAttribute('data-al'); render(); } });
     $$('[data-rep]', box).forEach(function (b) { b.addEventListener('click', function () { st.repetir = b.getAttribute('data-rep') === '1'; render(); }); });
-    $('#alMin').textContent = brlShort(A.credito.min); $('#alMax').textContent = brlShort(A.credito.max);
+    $('#alMin').textContent = brlShort(AL.credito.min); $('#alMax').textContent = brlShort(AL.credito.max);
+    $('#alCta').addEventListener('click', function () { openAlavDlg(st); });
     render();
     window.alavGrow = function () { chart.classList.add('grown'); };   // barras crescem quando o painel aparece
   })();
+
+  /* ---------------- Pop-up: Montar estratégia de alavancagem ---------------- */
+  var aDlg = $('#alavDlg'), aForm = $('#aForm'), aCred = $('#aCred'), aRange = $('#aRange'), aTel = $('#aTel');
+  var aSt = { credito: AL.credito.padrao, inicio: '', contato: 'WhatsApp', horario: '', ctx: {} };
+  function aRender() {
+    if (document.activeElement !== aCred) aCred.value = NUM.format(aSt.credito);
+    var pos = alToPos(aSt.credito); aRange.value = pos; aRange.style.backgroundSize = (pos / 10) + '% 100%';
+    aRange.setAttribute('aria-valuetext', BRL0.format(aSt.credito));
+  }
+  $('#aMin').textContent = brlShort(AL.credito.min); $('#aMax').textContent = brlShort(AL.credito.max);
+  aRange.addEventListener('input', function () { aSt.credito = alFromPos(+aRange.value); aRender(); });
+  aCred.addEventListener('input', function () {
+    var d = aCred.value.replace(/\D/g, '').slice(0, 8), n = d ? parseInt(d, 10) : 0;
+    aCred.value = d ? NUM.format(n) : '';
+    if (n >= AL.credito.min) { aSt.credito = Math.min(AL.credito.max, n); aRender(); }
+  });
+  aCred.addEventListener('blur', function () { aSt.credito = alClamp(aSt.credito); aRender(); });
+  aCred.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); aCred.blur(); } });
+  aTel.addEventListener('input', function () { aTel.value = maskPhone(aTel.value); });
+  // escolhas rápidas (um toque): início, preferência de contato e horário
+  $$('[role="radiogroup"]', aForm).forEach(function (g) {
+    var key = g.closest('[data-f]').getAttribute('data-f');
+    g.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-v]'); if (!b) return;
+      aSt[key] = b.getAttribute('data-v');
+      $$('[data-v]', g).forEach(function (x) { x.setAttribute('aria-checked', x === b ? 'true' : 'false'); });
+      var fs = g.closest('[data-f]'); fs.classList.remove('invalid'); var p = $('.err', fs); if (p) p.textContent = '';
+    });
+  });
+  function aSetErr(name, msg) {
+    var box = aForm.querySelector('[data-f="' + name + '"]'); if (!box) return;
+    box.classList.toggle('invalid', !!msg);
+    var p = box.querySelector('.err'); if (p) p.textContent = msg || '';
+  }
+  $$('input', aForm).forEach(function (i) {
+    i.addEventListener('input', function () { var b = i.closest('[data-f]'); if (b) { b.classList.remove('invalid'); var p = b.querySelector('.err'); if (p) p.textContent = ''; } });
+  });
+  $('#aPriv').addEventListener('change', function () { $('[data-f="aceite"]', aForm).classList.remove('invalid'); $('#aCbxErr').textContent = ''; });
+  function aValidate() {
+    var ok = true, first = null, nome = $('#aNome').value.trim(), email = $('#aEmail').value.trim();
+    function bad(n, m, el) { aSetErr(n, m); ok = false; if (!first) first = el; }
+    if (nome.split(/\s+/).filter(Boolean).length < 2 || nome.length < 5) bad('nome', 'Nome incompleto: informe nome e sobrenome.', $('#aNome')); else aSetErr('nome');
+    if (!validPhone(aTel.value)) bad('telefone', 'Telefone inválido: informe DDD e número.', aTel); else aSetErr('telefone');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) bad('email', 'E-mail inválido: confira o endereço digitado.', $('#aEmail')); else aSetErr('email');
+    if (!aSt.inicio) bad('inicio', 'Escolha quando pretende iniciar.', $('[data-f="inicio"] [data-v]', aForm)); else aSetErr('inicio');
+    if (!aSt.horario) bad('horario', 'Escolha o melhor horário.', $('[data-f="horario"] [data-v]', aForm)); else aSetErr('horario');
+    if (!$('#aPriv').checked) { $('[data-f="aceite"]', aForm).classList.add('invalid'); $('#aCbxErr').textContent = 'Para continuar, aceite a Política de Privacidade.'; ok = false; if (!first) first = $('#aPriv'); }
+    if (first) first.focus();
+    return ok;
+  }
+  function openAlavDlg(ctx) {
+    aSt.ctx = { credito: ctx.credito, repetir: ctx.repetir, meia: Math.round(ctx.meia), projecao10: Math.round(ctx.total10) };
+    if (aForm.hidden) { aForm.hidden = false; $('#aDone').hidden = true; }
+    aSt.credito = ctx.credito; aRender();
+    if (aDlg.showModal) aDlg.showModal(); else aDlg.setAttribute('open', '');
+    track('alavancagem_popup_aberto', { credito: aSt.credito });
+    setTimeout(function () { $('#aNome').focus({ preventScroll: true }); }, 60);
+  }
+  function closeAlavDlg() {
+    if (aDlg.close) aDlg.close(); else aDlg.removeAttribute('open');
+  }
+  $$('[data-close]', aDlg).forEach(function (b) { b.addEventListener('click', closeAlavDlg); });
+  aDlg.addEventListener('click', function (e) { if (e.target === aDlg) closeAlavDlg(); });
+  aDlg.addEventListener('close', function () {
+    if (!$('#aDone').hidden) {   // depois do envio, o próximo acesso começa limpo
+      aForm.reset(); aSt.inicio = ''; aSt.horario = ''; aSt.contato = 'WhatsApp';
+      $$('[data-v]', aForm).forEach(function (x) { x.setAttribute('aria-checked', x.getAttribute('data-v') === 'WhatsApp' ? 'true' : 'false'); });
+    }
+  });
+  aForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!aValidate()) return;
+    var lead = {
+      tipo: 'alavancagem_financeira',
+      nome: $('#aNome').value.trim(),
+      telefone: aTel.value.replace(/\D/g, ''),
+      email: $('#aEmail').value.trim(),
+      credito: aSt.credito,
+      inicio: aSt.inicio,
+      preferencia_contato: aSt.contato,
+      melhor_horario: aSt.horario,
+      simulacao: { credito_simulado: aSt.ctx.credito, repetir_ciclo: aSt.ctx.repetir, investimento_inicial_mensal: aSt.ctx.meia, patrimonio_projetado_10_anos: aSt.ctx.projecao10 },
+      aceite_privacidade: true,
+      origem: 'LP Mecanismo de Alavancagem', pagina: location.href, data: new Date().toISOString(),
+      utm: utms()
+    };
+    var btn = $('#aSubmit'); btn.disabled = true;
+    track('lead_alavancagem', { credito: lead.credito, inicio: lead.inicio, preferencia_contato: lead.preferencia_contato, melhor_horario: lead.melhor_horario });
+    if (window.gtag) window.gtag('event', 'generate_lead', { currency: 'BRL', value: lead.credito });
+    if (window.fbq) window.fbq('track', 'Lead');
+    postLead(lead, function () {
+      btn.disabled = false;
+      var periodo = { 'Manhã': 'pela manhã', 'Tarde': 'à tarde', 'Noite': 'à noite' }[lead.melhor_horario] || '';
+      $('#aDoneTitle').textContent = 'Recebemos seus dados, ' + lead.nome.split(' ')[0] + '!';
+      $('#aDoneTxt').textContent = 'Um especialista vai entrar em contato ' + (lead.preferencia_contato === 'WhatsApp' ? 'pelo WhatsApp' : 'por ligação') +
+        ', ' + periodo + ', para montar a sua estratégia de alavancagem.';
+      aForm.hidden = true; $('#aDone').hidden = false;
+      aDlg.scrollTop = 0;
+      $('#aDoneTitle').focus({ preventScroll: true });
+    });
+  });
 
   /* ---------------- CTAs que levam ao simulador ---------------- */
   function gotoSim(catKey) {

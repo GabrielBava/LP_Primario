@@ -22,6 +22,13 @@ tools/gerar-html-completo.py  gera o dist/lp-completa.html a partir do index.htm
 - **Azul mais profundo:** os blocos escuros usam `#08121D` e `#0B1724` (fundo externo e menu lateral do manual), para ganhar contraste com os cards Marinho.
 - **Profundidade:** luz ambiente radial, degradê nos cards (`#1F2B42 → #1B263B` a 160°), vidro no menu e nas pílulas, e seções em "folhas" com cantos arredondados que se sobrepõem.
 
+### Modo claro e modo escuro
+- **Botão:** só o ícone (sol no modo escuro, lua no modo claro), ao lado do "Simular agora". No celular, fica junto dos ícones de WhatsApp e menu.
+- **Modo escuro (padrão):** é o layout aprovado, com os blocos alternando entre escuro e claro.
+- **Modo claro:** a página inteira fica clara. Os blocos alternam entre off-white `#F7F8F6` e Névoa `#ECEDEA` para manter o contraste entre seções, os logos das administradoras ficam em cinza-escuro e o botão principal passa a ser Azul-noite.
+- **Memória:** a escolha fica salva no navegador do visitante e vale nas próximas visitas, sem piscar a página ao abrir. A troca tem uma transição suave nos navegadores que suportam.
+- **Como funciona no código:** o atributo `data-theme="light"` no `<html>` aplica os tokens claros também aos blocos escuros. Os ajustes de superfícies com cor fixa ficam na seção "MODO CLARO" do CSS.
+
 ### Recursos de modernidade e conversão
 - **WhatsApp comercial no cabeçalho:** o número (51) 98912-1113 fica ao lado do botão "Simular agora". O clique abre o WhatsApp com a mensagem "Olá, vim por meio do site e gostaria de mais informações.". No celular, aparece como ícone ao lado do menu.
 - **Faixa das administradoras parceiras em movimento** no rodapé do banner. A faixa pausa ao passar o mouse e fica estática para quem ativa "reduzir movimento" no sistema.
@@ -42,7 +49,7 @@ tools/gerar-html-completo.py  gera o dist/lp-completa.html a partir do index.htm
   - **Onde:** títulos das seções, indicadores, diferenciais do Quem Somos, soluções, benefícios, utilizações, depoimentos e perguntas, que também entram em cascata ao trocar de aba.
   - **Configuração:** cada grupo tem o atributo `data-stagger` com o intervalo em milissegundos. A direção vem de `data-rv` (`left`, `right` ou `zoom`).
 - **Consórcio em Benefícios:** chega por último, com um pulso de luz na borda e o selo "Melhor opção" aparecendo.
-- **Banner:** o simulador, a lista, os indicadores e a faixa de administradoras entram em sequência.
+- **Banner:** o simulador, a lista e a faixa de administradoras entram em sequência.
 - **Acessibilidade:** quem ativa "reduzir movimento" no sistema vê tudo direto, sem animação.
 
 ### Tipografia
@@ -82,50 +89,65 @@ O `dist/lp-completa.html` tem tudo dentro dele: CSS, JavaScript, ícones e os lo
 
 | # | Seção | Conteúdo |
 |---|-------|----------|
-| 0 | **Cabeçalho** | Menu (Quem Somos, Como Funciona, Soluções, Benefícios, Utilizações), WhatsApp comercial e botão "Simular agora". |
-| 1 | **Banner + Simulador** | Frase de impacto: "Conquiste seu patrimônio com estratégia e sem pagar juros." Acima, a frase "CONSÓRCIO COM ESTRATÉGIA E PLANEJAMENTO" em caixa alta. Simulador no lado direito, em 2 etapas, com o cartão ajustando a altura a cada etapa. **Etapa 1:** para que é o crédito (Imóvel / Veículo / Investimento), simular pelo valor do crédito (R$ 0 a R$ 4 mi) ou da parcela (R$ 300 a R$ 20.000), com slider e valores sugeridos. Não mostra estimativa. **Etapa 2:** exclusiva para os dados do lead (nome, e-mail, celular, CPF e CEP), com aceite da Política de Privacidade e das notificações. **Retorno:** apenas uma mensagem de que um especialista vai entrar em contato pelo WhatsApp com o resultado. Nenhum valor aparece na tela; o CRM recebe a escolha do cliente e a estimativa. |
+| 0 | **Cabeçalho** | Menu (Quem Somos, Como Funciona, Soluções, Benefícios, Utilizações), WhatsApp comercial, botão "Simular agora" e o ícone de modo claro/escuro. |
+| 1 | **Banner + Simulador** | Frase de impacto: "Conquiste seu patrimônio com estratégia e sem pagar juros." Acima, a frase "CONSÓRCIO COM ESTRATÉGIA E PLANEJAMENTO" em caixa alta. Simulador no lado direito, em 2 etapas, com o cartão ajustando a altura a cada etapa. **Etapa 1:** para que é o crédito (Imóvel / Veículo / Investimento), simular pelo valor do crédito (R$ 0 a R$ 4 mi) ou da parcela (R$ 300 a R$ 20.000), com slider e valores sugeridos. Não mostra estimativa. **Etapa 2:** exclusiva para os dados do lead (nome, e-mail, celular, CPF e CEP), com aceite da Política de Privacidade e das notificações. **Retorno:** apenas uma mensagem de que um especialista vai entrar em contato pelo WhatsApp com o resultado. Nenhum valor aparece na tela; o CRM recebe a escolha do cliente e a estimativa. Os indicadores (R$ 20 mi+, 83 clientes, 5 anos) saíram do banner para não repetir o Quem Somos. |
 | 2 | **Quem somos** | Texto institucional, espaço para a foto do escritório com o logotipo e indicadores: R$ 20 mi+, 83 clientes, 5 anos e BACEN · ABAC. |
 | 3 | **Como funciona** | Metodologia em 4 passos: mapear o objetivo, estruturar o crédito, estratégia e acompanhamento. |
-| 4 | **Nossas soluções** | Aquisição, Alavancagem Patrimonial, Alavancagem Financeira e Investimento. A Alavancagem Financeira tem um destaque leve (borda e selo "Principal produto"). Abaixo dos cards fica o **Simulador de Alavancagem Financeira** (ver seção própria). |
+| 4 | **Nossas soluções** | Aquisição, Alavancagem Patrimonial, Alavancagem Financeira e Investimento. A Alavancagem Financeira tem um destaque leve: borda mais firme, halo azul, faixa no topo, ícone em Azul-noite e o selo "Mais procurada". Abaixo dos cards fica o **Mecanismo de Alavancagem Financeira** (ver seção própria). |
 | 5 | **Benefícios** | Quatro cards simples explicando como funciona cada caminho (compra à vista, financiamento, Home Equity e consórcio). O Consórcio vem por último, com a borda iluminada como melhor opção. |
 | 6 | **Utilizações** | Aquisição, Construção, Reforma, Quitação de Financiamento, Capital de Giro e Imóveis de Leilão. |
 | 7 | **Depoimentos de clientes** | Três cards com espaço para o texto, a foto e a conquista de cada cliente. |
 | 8 | **Tire suas dúvidas** | Abas centralizadas e expandidas (Contemplação / Documentação / Formas de utilização), com as perguntas abrindo e fechando. Termina com uma chamada para o WhatsApp. |
 | 9 | **Rodapé** | Soluções, atendimento e redes sociais, com selos e aviso legal. |
 
-## Simulador de Alavancagem Financeira
+## Mecanismo de Alavancagem Financeira
 
-Fica no bloco Nossas Soluções, logo abaixo dos cards. O cliente informa o **crédito desejado** e responde se quer **repetir o ciclo** (sim ou não). Ao lado, vê a projeção de patrimônio em 1, 3, 5 e 10 anos num gráfico de barras, com o valor em cada barra e o detalhe ao passar o mouse.
+Fica no bloco Nossas Soluções, logo abaixo dos cards.
 
-**Plano fixo, sempre imóvel** (em `CONFIG.alavancagem`):
+- **Topo:** o título "Mecanismo de Alavancagem Financeira" fica centralizado e ocupa a largura do painel. Logo abaixo vem a analogia da semente: com um investimento inicial baixo, a meia parcela, o cliente conquista a primeira carta; contemplada, ela é vendida com ágio e o valor da venda contrata novas cartas, sem tirar mais dinheiro do bolso.
+- **Entrada:** o cliente informa o **crédito desejado** (slider, valor digitado ou sugestões) e responde se quer **repetir o ciclo**.
+- **Destaque principal:** o **investimento inicial**, isto é, a meia parcela por mês (R$ 818 para R$ 300 mil), com o total dos 12 meses.
+- **Gráfico:** patrimônio em 1, 3, 5 e 10 anos. Mostra só a barra e o valor acima, sem informações ao passar o mouse.
+- **Características do plano:** taxa, fundo de reserva e prazo não aparecem na tela. Ficam só em `CONFIG.alavancagem`.
+
+**Premissas** (em `CONFIG.alavancagem`):
 
 | Premissa | Valor |
 |---|---|
-| Taxa de administração | 18% |
-| Fundo de reserva | 2% |
-| Prazo | 220 meses |
-| Pagamento | meia parcela |
-| Contemplação | por sorteio, em 12 meses |
-| Venda da carta contemplada | ágio de 20% do crédito |
+| Plano | imóvel, 220 meses, taxa de administração 18%, fundo de reserva 2%, meia parcela |
+| 1ª carta | contemplada por sorteio em 12 meses e vendida com ágio de 20% do crédito |
+| Ciclos seguintes | 27% de chance de contemplação ao ano por carta ativa (`probContemplacao`) |
+| Poupança | 7,8% a.a., média de 2023 (8,04%), 2024 (7,09%) e 2025 (8,26%) (`poupanca`) |
+| Renda fixa | 14% a.a. nos anos 1 a 3, 10% nos anos 4 e 5 e 8% nos anos 6 a 10 (`rendaFixa`) |
 
-**Ciclo de tamanho fixo:**
-1. A primeira carta é paga com meia parcela do bolso até a contemplação, que acontece em 12 meses.
-2. A carta é vendida por 20% do crédito.
-3. O valor da venda contrata N novas cartas: as que ele cobre em meias parcelas até a contemplação. Com essas premissas, N = 6.
-4. Repetindo o ciclo, a cada ano N cartas são contempladas e vendidas. Só o necessário é reinvestido para as N seguintes, e o restante se acumula.
+**Não repetir o ciclo.** No ano 1, o patrimônio é o valor da venda da carta. Depois, esse valor rende na poupança até os 10 anos.
 
-**Fórmula:** patrimônio no ano *t* = venda + (*t* − 1) × N × (venda − aporte em 12 meses). Sem repetir o ciclo, o resultado é só a venda da primeira carta.
+**Repetir o ciclo (projeção "pé no chão").**
+1. **Ano 1:** uma carta, contemplada em 12 meses e vendida.
+2. **A cada ano seguinte:** o valor das vendas paga a meia parcela das cartas ativas e contrata até N novas cartas (N = cartas que uma venda paga até contemplar; com estas premissas, 6). Nada sai do bolso do cliente.
+3. **Contemplação:** só cerca de 27% das cartas ativas são contempladas e vendidas no ano, e não 100%. As demais continuam no grupo, pagando meia parcela, e concorrem no ano seguinte.
+4. **Patrimônio:** é o valor em caixa. As cartas ainda não contempladas não entram na conta, o que deixa a projeção conservadora.
 
-**Exemplo com R$ 300 mil:**
+**Comparativo com a renda fixa** (só quando repete o ciclo, ao lado dos 10 anos). Aplica a mesma meia parcela na renda fixa por 12 meses, com juros compostos mensais. O 1º aporte não rende no mês em que entra; no 2º mês, rende sobre o 1º, e assim por diante. Depois do 12º mês, não há novos aportes e o saldo segue só com a rentabilidade de cada período.
 
-| Item | Valor |
-|---|---|
-| Meia parcela | R$ 818 por mês |
-| Aporte até contemplar | R$ 9.818 |
-| Venda | R$ 60 mil |
-| Projeção | R$ 60 mil (1 ano) · R$ 662 mil (3 anos) · R$ 1,3 mi (5 anos) · R$ 2,8 mi (10 anos) |
+**Exemplo com R$ 300 mil** (meia parcela de R$ 818, R$ 9.818 em 12 meses e venda de R$ 60 mil):
 
-Abaixo do gráfico há um aviso curto de que é uma simulação ilustrativa, sem garantia de resultado.
+| Cenário | 1 ano | 3 anos | 5 anos | 10 anos |
+|---|---|---|---|---|
+| Repetindo o ciclo | R$ 60 mil | R$ 158,2 mil | R$ 338,3 mil | R$ 953,8 mil |
+| Sem repetir (poupança) | R$ 60 mil | R$ 69,7 mil | R$ 81 mil | R$ 118 mil |
+| Renda fixa, mesmo investimento | | | | R$ 24,1 mil |
+
+Abaixo do gráfico ficam o botão e um aviso curto com as premissas, informando que é uma simulação ilustrativa, sem garantia de resultado.
+
+**Pop-up "Montar estratégia de alavancagem".** O botão abre um cadastro rápido por cima da página, no mesmo visual. O formulário pede:
+- nome, telefone/WhatsApp e e-mail;
+- crédito desejado, já preenchido com o valor simulado e ajustável pelo slider ou digitando;
+- quando pretende iniciar: De imediato, 1 a 3 meses, 6 a 12 meses ou Apenas pesquisando;
+- preferência de contato (Ligação ou WhatsApp, que vem marcado) e melhor horário (Manhã, Tarde ou Noite);
+- aceite da Política de Privacidade.
+
+Ao enviar, o lead vai para o mesmo CRM e aparece uma confirmação com o nome do cliente, o canal e o período escolhidos.
 
 ## Configurações
 
@@ -142,12 +164,19 @@ categorias: { imovel: { prazo, taxaAdm, fundoReserva, reducao, ... }, ... }
 
 ## Integração com CRM e anúncios
 
-**Envio para o CRM.** Ao concluir a etapa 2, o lead é enviado por `POST` (JSON) para `CONFIG.leadEndpoint`. Campos enviados:
+**Envio para o CRM.** Os dois formulários enviam o lead por `POST` (JSON) para `CONFIG.leadEndpoint`. Se o CRM demorar mais de 4 segundos, a confirmação aparece mesmo assim.
 
+Campos do **simulador** (etapa 2):
 - `nome`, `email`, `celular`, `cpf`, `cep`, `cidade`, `uf`
 - `categoria`, `modo`, `credito`, `parcela`, `prazo`
-- aceites, `pagina`, `data`
+- aceites, `origem` ("LP Simulador"), `pagina`, `data`
 - `utm` (`utm_*`, `gclid`, `fbclid`)
+
+Campos do **pop-up de alavancagem**:
+- `tipo` ("alavancagem_financeira"), `nome`, `telefone`, `email`, `credito`
+- `inicio`, `preferencia_contato`, `melhor_horario`
+- `simulacao` (`credito_simulado`, `repetir_ciclo`, `investimento_inicial_mensal`, `patrimonio_projetado_10_anos`)
+- `aceite_privacidade`, `origem` ("LP Mecanismo de Alavancagem"), `pagina`, `data`, `utm`
 
 **Eventos.** Estes eventos são enviados ao `window.dataLayer` (Google Tag Manager), sem dados pessoais:
 
@@ -155,9 +184,12 @@ categorias: { imovel: { prazo, taxaAdm, fundoReserva, reducao, ... }, ... }
 |--------|--------|
 | `simulacao_iniciada` | primeira interação com o simulador |
 | `simulacao_etapa1` | clique em "Simular agora" |
-| `lead_simulacao` | lead enviado (use como conversão no Google Ads e no Meta) |
+| `lead_simulacao` | lead do simulador enviado (use como conversão no Google Ads e no Meta) |
+| `alavancagem_popup_aberto` | clique em "Montar estratégia de alavancagem" |
+| `lead_alavancagem` | lead do pop-up de alavancagem enviado (conversão) |
+| `tema_alterado` | troca entre modo claro e escuro |
 
-Se `gtag` ou `fbq` estiverem na página, também são disparados `generate_lead` e `Lead`.
+Se `gtag` ou `fbq` estiverem na página, os dois leads também disparam `generate_lead` e `Lead`.
 
 ## O que falta preencher
 - [x] WhatsApp comercial: (51) 98912-1113 (cabeçalho, botão flutuante e rodapé)
@@ -169,6 +201,7 @@ Se `gtag` ou `fbq` estiverem na página, também são disparados `generate_lead`
 - [ ] Três depoimentos reais, com nome, cidade e foto
 - [ ] E-mail, endereço, CNPJ e links das redes sociais (rodapé)
 - [ ] Texto da Política de Privacidade (modal `#privacy`), revisado pelo jurídico
+- [ ] Revisar as premissas do Mecanismo de Alavancagem (27%, poupança e renda fixa) quando a Selic mudar
 
 ## Observações
 - **Resultado só depois do cadastro.** O simulador mostra a estimativa apenas após o cadastro, para que o cliente deixe os dados antes de ver o valor.
