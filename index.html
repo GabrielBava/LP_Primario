@@ -51,7 +51,7 @@
   /* Espaçamento */
   --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px; --gap:18px; --pad:22px; --space-6:28px;
   --glass-blur:16px;
-  --maxw:1200px; --top:36px; --nav:74px; --hdr:110px; --sheet:28px;
+  --maxw:1200px; --nav:74px; --hdr:74px; --sheet:28px;
 }
 
 /* ---------- TEMA ESCURO (padrão) ---------- */
@@ -172,16 +172,6 @@ section[id]{scroll-margin-top:calc(var(--hdr) - 12px)}
 .hdr{position:fixed;inset:0 0 auto 0;z-index:80;height:var(--hdr);background:rgba(8,18,29,.55);backdrop-filter:blur(var(--glass-blur)) saturate(140%);-webkit-backdrop-filter:blur(var(--glass-blur)) saturate(140%);border-bottom:1px solid var(--glass-border);transition:background .3s,box-shadow .3s}
 .hdr.scrolled{background:rgba(8,18,29,.9);box-shadow:0 12px 30px -18px rgba(0,0,0,.8)}
 .nav{height:var(--nav);display:flex;align-items:center;gap:28px}
-/* Faixa superior com o WhatsApp comercial */
-.topbar{height:var(--top);background:rgba(8,18,29,.82);border-bottom:1px solid var(--glass-border);font-size:var(--fs-xs);color:var(--text-muted)}
-.topbar-in{height:100%;display:flex;align-items:center;justify-content:space-between;gap:16px}
-.tb-note{display:inline-flex;align-items:center;gap:8px;font-weight:300}
-.tb-note .ic{width:14px;height:14px;color:var(--icon-soft)}
-.tb-wa{display:inline-flex;align-items:center;gap:8px;color:var(--text);font-size:var(--fs-sm);transition:color .2s}
-.tb-wa svg{width:16px;height:16px;fill:currentColor;flex:0 0 auto}
-.tb-wa span{color:var(--text-muted);font-weight:300}
-.tb-wa b{font-weight:600;letter-spacing:.01em}
-.tb-wa:hover b{color:#fff}
 /* Monograma provisório "CC" (manual, Aplicações e diretrizes) — substituir pelo logotipo */
 .logo{display:inline-flex;align-items:center;gap:12px;color:var(--text);flex:0 0 auto}
 .mono{width:42px;height:42px;border-radius:50%;border:1px solid rgba(224,225,221,.45);display:grid;place-items:center;font-family:var(--font-display);font-weight:500;font-size:.82rem;letter-spacing:.04em;color:var(--mist)}
@@ -191,6 +181,12 @@ section[id]{scroll-margin-top:calc(var(--hdr) - 12px)}
 .menu a:not(.btn):hover{color:var(--text)}
 .hamb{display:none;margin-left:auto;width:44px;height:44px;border-radius:var(--radius-pill);border:1px solid rgba(224,225,221,.14);background:var(--pill-bg);color:var(--text);cursor:pointer;align-items:center;justify-content:center}
 .hamb .ic{width:20px;height:20px}
+/* WhatsApp comercial ao lado do botão "Simular agora" */
+.hdr-wa{display:inline-flex;align-items:center;gap:8px;font-size:var(--fs-sm);font-weight:500;color:var(--text);white-space:nowrap;transition:color .2s}
+.hdr-wa svg{width:17px;height:17px;fill:currentColor;flex:0 0 auto}
+.hdr-wa:hover{color:#fff}
+.hdr-wa-m{display:none;margin-left:auto;width:44px;height:44px;border-radius:var(--radius-pill);border:1px solid rgba(224,225,221,.14);background:var(--pill-bg);color:var(--text);align-items:center;justify-content:center}
+.hdr-wa-m svg{width:20px;height:20px;fill:currentColor}
 
 /* ============================================================
    1 · BANNER + SIMULADOR (escuro profundo)
@@ -205,9 +201,7 @@ section[id]{scroll-margin-top:calc(var(--hdr) - 12px)}
 .hero-copy{grid-area:copy;padding-top:24px}
 .hero-sim{grid-area:sim;display:flex;justify-content:flex-end}
 .hero-extra{grid-area:extra}
-.pill-intro{display:inline-flex;align-items:center;gap:10px;padding:7px 16px 7px 8px;border-radius:var(--radius-pill);font-size:var(--fs-sm);font-weight:400;color:var(--icon-soft);margin-bottom:26px}
-.pill-intro .mono{width:24px;height:24px;font-size:.55rem;border-color:rgba(224,225,221,.3)}
-.pill-intro b{font-weight:600;color:var(--text)}
+.kicker{font-size:var(--fs-sm);font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--icon-soft);margin-bottom:22px}
 .hero h1{font-family:var(--font-display);font-weight:500;font-size:clamp(2.4rem,4.8vw,4rem);line-height:1.04;letter-spacing:-.03em}
 .hero .sub{font-weight:300;font-size:1.1rem;line-height:1.6;color:var(--text-muted);margin-top:24px;max-width:520px}
 .checks{list-style:none;display:grid;gap:12px;margin:30px 0 32px}
@@ -282,10 +276,6 @@ input[type=range]:hover::-webkit-slider-thumb,input[type=range]:focus-visible::-
 #simNext{margin-top:24px}
 
 /* Etapa 2 · dados */
-.summary{display:flex;align-items:center;gap:12px;background:var(--bg-card-2);border:1px solid var(--border-soft);border-radius:var(--radius);padding:11px 14px;margin-bottom:16px;font-size:var(--fs-sm);color:var(--text-muted)}
-.summary .ic{color:var(--icon-soft);width:18px;height:18px}
-.summary b{color:var(--text);font-weight:600}
-.summary button{margin-left:auto}
 .f{margin-bottom:12px}
 .f label{display:block;font-size:var(--fs-sm);font-weight:500;color:var(--icon-soft);margin-bottom:6px}
 .f input{width:100%;height:48px;border:1px solid var(--border);border-radius:var(--radius);padding:0 14px;font-family:var(--font);font-size:.92rem;font-weight:400;color:var(--text);background:var(--bg-card-2);transition:border-color .2s,box-shadow .2s}
@@ -304,19 +294,11 @@ input[type=range]:hover::-webkit-slider-thumb,input[type=range]:focus-visible::-
 .backlink{display:block;margin:12px auto 0;border:0;background:none;font-size:var(--fs-sm);font-weight:400;color:var(--text-muted);cursor:pointer;padding:6px}
 .backlink:hover{color:var(--text)}
 
-/* Etapa 3 · resultado */
-.res{list-style:none;border:1px solid var(--border-soft);border-radius:var(--radius);overflow:hidden;margin:16px 0 18px;background:var(--bg-card-2)}
-.res li{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 14px;font-size:var(--fs-sm);border-bottom:1px solid var(--border-soft)}
-.res li:last-child{border-bottom:0}
-.res li span{color:var(--text-muted);font-weight:300}
-.res li b{color:var(--text);text-align:right;font-weight:500}
-.res li.hl{background:var(--pill-active)}
-.res li.hl span{color:var(--icon-soft);font-weight:500}
-.res li.hl b{font-family:var(--font-display);font-weight:600;font-size:var(--fs-kpi);letter-spacing:-.02em;line-height:1.1}
-.after{list-style:none;display:grid;gap:10px;margin:0 0 18px;font-size:var(--fs-xs);font-weight:300;line-height:1.5;color:var(--icon-soft)}
-.after li{display:flex;gap:10px;align-items:flex-start}
-.after li span{width:20px;height:20px;border-radius:50%;flex:0 0 auto;display:grid;place-items:center;background:var(--pill-bg);border:1px solid var(--glass-border);color:var(--text);font-weight:500;font-size:.66rem}
-.legal-mini{font-size:var(--fs-xs);font-weight:300;color:var(--text-muted);line-height:1.5;margin-top:10px;text-align:center}
+/* Etapa 3 · retorno (sem valores) */
+.done-msg{text-align:center;padding:14px 4px 4px}
+.done-ic{width:64px;height:64px;border-radius:50%;margin:0 auto 18px;display:grid;place-items:center;background:rgba(140,197,162,.14);border:1px solid rgba(140,197,162,.3);color:var(--success)}
+.done-ic .ic{width:30px;height:30px;stroke-width:2.2}
+.done-msg .sim-desc{margin:8px auto 0;max-width:340px;font-size:var(--fs-md);line-height:1.6}
 
 /* ============================================================
    2 · QUEM SOMOS (claro)
@@ -373,7 +355,11 @@ input[type=range]:hover::-webkit-slider-thumb,input[type=range]:focus-visible::-
    ao passar o mouse, o card vira escuro (contraste da marca)
    ============================================================ */
 .sols{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap);margin-top:56px}
-.sol{display:flex;flex-direction:column;padding:28px var(--pad) 24px}
+.sol{position:relative;display:flex;flex-direction:column;padding:28px var(--pad) 24px}
+/* destaque leve: principal produto */
+.theme-light .sol.featured{border-color:rgba(65,90,119,.5);background:linear-gradient(170deg,#FFFFFF 0%,#F3F4F2 100%);box-shadow:0 0 0 3px rgba(65,90,119,.08),0 20px 40px -22px rgba(13,27,42,.35)}
+.tag-feat{position:absolute;top:22px;right:18px;background:rgba(65,90,119,.10);border-color:rgba(65,90,119,.22);color:#415A77;transition:background .3s,color .3s,border-color .3s}
+.theme-light .sol:hover .tag-feat{background:rgba(224,225,221,.1);border-color:rgba(224,225,221,.2);color:#E0E1DD}
 .sol .gi{width:52px;height:52px;margin-bottom:22px}
 .sol .gi .ic{width:26px;height:26px}
 .sol h3{font-family:var(--font-display);font-weight:600;font-size:1.25rem;letter-spacing:-.01em;margin-bottom:10px;transition:color .3s}
@@ -388,6 +374,49 @@ input[type=range]:hover::-webkit-slider-thumb,input[type=range]:focus-visible::-
 .theme-light .sol:hover ul{border-color:rgba(119,141,169,.2)}
 .theme-light .sol:hover li .ic,.theme-light .sol:hover .link{color:#A9B8CB}
 .theme-light .sol:hover .gi{background:rgba(224,225,221,.08);border-color:rgba(224,225,221,.14);color:#E0E1DD}
+
+/* ---------- Simulador de Alavancagem Financeira (painel escuro dentro do bloco claro) ---------- */
+#alavancagem{scroll-margin-top:calc(var(--hdr) + 16px)}
+.alav{position:relative;overflow:hidden;margin-top:56px;border-radius:var(--radius-shell);padding:44px 44px 40px;border:1px solid rgba(119,141,169,.22);
+  background:radial-gradient(640px 360px at 100% 0%,rgba(65,90,119,.55),transparent 70%),radial-gradient(420px 280px at 0% 100%,rgba(119,141,169,.18),transparent 70%),linear-gradient(160deg,#1B263B,#0B1724);
+  box-shadow:0 40px 80px -40px rgba(13,27,42,.75)}
+.alav>*{position:relative;z-index:1}
+.alav-head{max-width:640px}
+.alav-title{font-family:var(--font-display);font-weight:500;font-size:clamp(1.6rem,2.8vw,2.2rem);line-height:1.15;letter-spacing:-.02em}
+.alav-title em{font-style:normal;background:var(--em-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.alav-head p{font-weight:300;color:var(--text-muted);margin-top:12px;line-height:1.6}
+.alav-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:40px;margin-top:34px;align-items:start}
+.alav-in{background:rgba(224,225,221,.03);border:1px solid var(--border);border-radius:var(--radius-panel);padding:24px}
+.alav-in .sim-label{display:block}
+.alav-plan{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin:20px 0 0}
+.alav-kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+.alav-kpis div{background:var(--bg-card-2);border:1px solid var(--border-soft);border-radius:var(--radius);padding:12px 14px}
+.alav-kpis dt{font-size:var(--fs-xs);font-weight:400;color:var(--text-muted)}
+.alav-kpis dd{font-family:var(--font-display);font-weight:600;font-size:1.2rem;letter-spacing:-.01em;margin-top:2px}
+.alav-out{display:flex;flex-direction:column}
+.alav-sum span{font-size:var(--fs-sm);color:var(--text-muted)}
+.alav-sum b{display:block;font-family:var(--font-display);font-weight:600;font-size:clamp(2.2rem,4vw,3rem);letter-spacing:-.03em;line-height:1.1;margin-top:4px}
+.alav-sum small{display:block;font-size:var(--fs-sm);font-weight:300;color:var(--icon-soft);margin-top:4px}
+.chart{margin-top:26px}
+.bars{display:grid;grid-template-columns:repeat(4,1fr);align-items:end;gap:14px;height:250px;border-bottom:1px solid rgba(169,184,203,.3);padding:0 6px}
+.bar-col{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;outline:none;cursor:default}
+.bar-v{font-family:var(--font-display);font-weight:600;font-size:var(--fs-md);color:var(--text);margin-bottom:8px;white-space:nowrap;transition:opacity .4s}
+.bar{width:min(64px,70%);height:4px;border-radius:6px 6px 0 0;background:linear-gradient(180deg,#A9B8CB,#415A77);transition:height .9s cubic-bezier(.3,.8,.3,1),background .25s}
+.chart.grown .bar{height:max(4px,calc(var(--h,0) * 1.9px))}
+.chart.grown .bar-col:nth-child(2) .bar{transition-delay:.12s}
+.chart.grown .bar-col:nth-child(3) .bar{transition-delay:.24s}
+.chart.grown .bar-col:nth-child(4) .bar{transition-delay:.36s}
+.bar-col:hover .bar,.bar-col:focus-visible .bar{background:linear-gradient(180deg,#E0E1DD,#778DA9)}
+.bar-tip{position:absolute;bottom:calc(100% - 8px);left:50%;transform:translate(-50%,6px);width:max-content;max-width:220px;background:#E0E1DD;color:#0D1B2A;font-size:var(--fs-xs);line-height:1.45;padding:9px 12px;border-radius:var(--radius);box-shadow:var(--shadow-md);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:3;text-align:left}
+.bar-tip b{display:block;font-size:var(--fs-sm)}
+.bar-col:hover .bar-tip,.bar-col:focus-visible .bar-tip{opacity:1;transform:translate(-50%,0)}
+.bar-col:first-child .bar-tip{left:0;transform:translate(0,6px)}
+.bar-col:first-child:hover .bar-tip,.bar-col:first-child:focus-visible .bar-tip{transform:translate(0,0)}
+.bar-col:last-child .bar-tip{left:auto;right:0;transform:translate(0,6px)}
+.bar-col:last-child:hover .bar-tip,.bar-col:last-child:focus-visible .bar-tip{transform:translate(0,0)}
+.bars-x{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:10px 6px 0;text-align:center;font-size:var(--fs-sm);color:var(--text-muted)}
+.alav-disc{font-size:var(--fs-xs);font-weight:300;color:var(--text-muted);margin-top:18px;line-height:1.5}
+.alav-out .btn{align-self:flex-start;margin-top:18px}
 
 /* ============================================================
    5 · BENEFÍCIOS (escuro profundo) — consórcio com borda iluminada
@@ -563,7 +592,9 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
   .menu{gap:18px}
 }
 @media (max-width:1100px){
-  .hamb{display:inline-flex}
+  .hamb{display:inline-flex;margin-left:10px}
+  .hdr-wa-m{display:inline-flex}
+  .menu .hdr-wa{padding:14px 4px;border-bottom:1px solid var(--border-soft);font-size:.95rem}
   .menu{display:none;position:absolute;top:var(--hdr);left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:rgba(8,18,29,.97);backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur));padding:8px 20px 20px;border-bottom:1px solid var(--glass-border);box-shadow:0 20px 40px -20px rgba(0,0,0,.8)}
   .menu.open{display:flex}
   .menu a:not(.btn){padding:14px 4px;border-bottom:1px solid var(--border-soft);font-size:.95rem}
@@ -576,7 +607,7 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
   .fgrid{grid-template-columns:1fr 1fr}
 }
 @media (max-width:980px){
-  :root{--top:34px;--nav:62px;--hdr:96px;--sheet:22px}
+  :root{--nav:62px;--hdr:62px;--sheet:22px}
   .hero{padding:calc(var(--hdr) + 36px) 0 calc(var(--sheet) + 28px)}
   .hero-grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"copy" "sim" "extra";row-gap:32px}
   .hero-copy{padding-top:0}
@@ -586,6 +617,7 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
   .sec{border-radius:22px 22px 0 0}
   .ftr{border-radius:22px 22px 0 0}
   .about{grid-template-columns:minmax(0,1fr);gap:56px}
+  .alav-grid{grid-template-columns:minmax(0,1fr);gap:32px}
   .float-card{right:12px}
   .final{grid-template-columns:minmax(0,1fr);padding:44px 32px}
   .mbar{display:flex}
@@ -594,11 +626,9 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
 }
 @media (max-width:640px){
   .wrap{padding:0 16px}
-  .tb-note{display:none}
-  .topbar-in{justify-content:center}
   .sec{padding:80px 0 calc(80px + var(--sheet))}
   .hero h1{font-size:2.3rem}
-  .pill-intro{border-radius:var(--radius-lg);align-items:center}
+  .kicker{font-size:.7rem;letter-spacing:.1em}
   .hero .sub{font-size:1rem}
   .trust{gap:22px}
   .trust div b{font-size:1.4rem}
@@ -626,6 +656,13 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
   .fgrid{grid-template-columns:1fr;gap:34px}
   .float-card{position:relative;right:auto;bottom:auto;margin:-34px 16px 0}
   .final{padding:36px 22px;margin-top:80px}
+  .alav{padding:28px 18px;margin-top:40px}
+  .alav-in{padding:18px 16px}
+  .bars{height:210px;gap:8px;padding:0}
+  .bars-x{gap:8px;padding:10px 0 0;font-size:var(--fs-xs)}
+  .bar-v{font-size:var(--fs-xs)}
+  .chart.grown .bar{height:max(4px,calc(var(--h,0) * 1.55px))}
+  .alav-out .btn{align-self:stretch}
   .wa-float{width:52px;height:52px;right:16px;bottom:16px}
   .wa-float .tt{display:none}
   .mbar .btn{padding:11px 18px}
@@ -663,6 +700,8 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
   <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
   <symbol id="i-hammer" viewBox="0 0 24 24"><path d="m14 7-9.5 9.5a2.1 2.1 0 0 0 3 3L17 10"/><path d="m13 4 7 7"/><path d="M16.5 3.5 21 8l-2 2-4.5-4.5z"/></symbol>
   <symbol id="i-roller" viewBox="0 0 24 24"><rect x="3" y="3" width="15" height="6" rx="1.5"/><path d="M18 6h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-8v3"/><rect x="10" y="14" width="4" height="7" rx="1"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20.5 12a8.5 8.5 0 1 1-2.5-6"/><path d="M20.5 3.5V8H16"/></symbol>
+  <symbol id="i-gavel" viewBox="0 0 24 24"><path d="m14.5 12.5-8 8a2.12 2.12 0 1 1-3-3l8-8"/><path d="m16 16 6-6"/><path d="m8 8 6-6"/><path d="m9 7 8 8"/><path d="m21 11-8-8"/></symbol>
   <symbol id="i-crane" viewBox="0 0 24 24"><path d="M5 21V4"/><path d="M2.5 21h7"/><path d="M5 4h15"/><path d="M5 8l4-4"/><path d="M17 4v5"/><rect x="15" y="9" width="4" height="3" rx=".6"/><path d="M12.5 21v-5.5h8V21"/></symbol>
   <symbol id="i-cash" viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 12h.01M18 12h.01"/></symbol>
   <symbol id="i-cycle" viewBox="0 0 24 24"><path d="M20.5 11A8.5 8.5 0 0 0 6 5.5L3.5 8"/><path d="M3.5 3.5V8H8"/><path d="M3.5 13A8.5 8.5 0 0 0 18 18.5l2.5-2.5"/><path d="M20.5 20.5V16H16"/><path d="M12 8.5v7"/><path d="M14 10.2c-.4-.5-1.1-.8-2-.8-1.1 0-2 .6-2 1.4 0 1.8 4 .9 4 2.8 0 .8-.9 1.4-2 1.4-.9 0-1.6-.3-2-.8"/></symbol>
@@ -685,12 +724,6 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
      HEADER
      ============================================================ -->
 <header class="hdr" id="hdr">
-  <div class="topbar">
-    <div class="wrap topbar-in">
-      <span class="tb-note"><svg class="ic"><use href="#i-shield"/></svg>Consórcio regulamentado pelo Banco Central</span>
-      <a class="tb-wa" href="#" data-wa="Olá! Vim pelo site e quero falar com um especialista."><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#i-wa"/></svg><span>WhatsApp comercial</span><b>(51) 98912-1113</b></a>
-    </div>
-  </div>
   <div class="wrap nav">
     <!-- LOGOTIPO: monograma provisório "CC" (manual). Para trocar pelo logotipo oficial:
          <img src="assets/img/logo.svg" alt="CRM Consórcios" height="40"> -->
@@ -698,6 +731,7 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
       <span class="mono" aria-hidden="true">CC</span>
       <span class="logo-txt">CRM Consórcios</span>
     </a>
+    <a class="hdr-wa-m" href="#" data-wa="Olá, vim por meio do site e gostaria de mais informações." aria-label="WhatsApp comercial (51) 98912-1113"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#i-wa"/></svg></a>
     <button class="hamb" id="hamb" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><svg class="ic"><use href="#i-menu"/></svg></button>
     <nav class="menu" id="menu" aria-label="Navegação principal">
       <a href="#quem-somos">Quem Somos</a>
@@ -705,8 +739,7 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
       <a href="#solucoes">Soluções</a>
       <a href="#beneficios">Benefícios</a>
       <a href="#utilizacoes">Utilizações</a>
-      <a href="#depoimentos">Depoimentos</a>
-      <a href="#duvidas">Dúvidas</a>
+      <a class="hdr-wa" href="#" data-wa="Olá, vim por meio do site e gostaria de mais informações." aria-label="WhatsApp comercial (51) 98912-1113"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#i-wa"/></svg>(51) 98912-1113</a>
       <a class="btn btn-glass btn-sm" href="#simulador" data-goto-sim>Simular agora</a>
     </nav>
   </div>
@@ -721,7 +754,7 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
   <div class="wrap hero-grid">
 
     <div class="hero-copy">
-      <span class="pill-intro glass reveal-now"><span class="mono" aria-hidden="true">CC</span><b>Estratégias patrimoniais inteligentes com consórcio</b></span>
+      <p class="kicker reveal-now">Consórcio com estratégia e planejamento</p>
       <h1 class="reveal-now">Conquiste seu patrimônio com <em>estratégia</em> e <em>sem pagar juros.</em></h1>
       <p class="sub reveal-now">Simule em menos de 1 minuto e receba um plano personalizado para usar o consórcio como ferramenta de aquisição e alavancagem patrimonial.</p>
     </div>
@@ -784,12 +817,6 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
               <h2 class="sim-title">Falta pouco: receba sua simulação</h2>
               <p class="sim-desc">Um especialista monta a estratégia ideal para o seu objetivo.</p>
 
-              <div class="summary">
-                <svg class="ic"><use href="#i-target"/></svg>
-                <span id="sumTxt"></span>
-                <button type="button" class="link" id="sumEdit">Editar</button>
-              </div>
-
               <form id="leadForm" novalidate>
                 <div class="f" data-f="nome">
                   <label for="fNome">Nome completo</label>
@@ -830,7 +857,7 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
                 </label>
                 <p class="err" id="cbxErr" role="alert"></p>
 
-                <button type="submit" class="btn btn-primary btn-block" id="leadSubmit" style="margin-top:10px">Ver minha simulação <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></button>
+                <button type="submit" class="btn btn-primary btn-block" id="leadSubmit" style="margin-top:10px">Receber minha simulação <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></button>
               </form>
               <button type="button" class="backlink" id="simBackBtn">← Voltar e ajustar o plano</button>
             </div>
@@ -843,22 +870,12 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
                   <li class="done"><span><svg class="ic"><use href="#i-check"/></svg></span>Seus dados</li>
                 </ol>
               </div>
-              <span class="tag tag-ok"><svg class="ic"><use href="#i-check"/></svg>Simulação concluída</span>
-              <h2 class="sim-title" style="margin-top:14px" tabindex="-1" id="resTitle">Pronto! Este é o seu plano</h2>
-              <ul class="res">
-                <li><span>Objetivo</span><b id="rCat"></b></li>
-                <li><span id="rL1">Crédito</span><b id="rV1"></b></li>
-                <li class="hl"><span id="rL2">Parcela estimada</span><b id="rV2"></b></li>
-                <li><span>Prazo</span><b id="rPrazo"></b></li>
-                <li><span>Parcela reduzida até a contemplação*</span><b id="rRed"></b></li>
-              </ul>
-              <ol class="after">
-                <li><span>1</span>Um especialista confere as condições dos grupos disponíveis.</li>
-                <li><span>2</span>Você recebe pelo WhatsApp a estratégia de contemplação para o seu objetivo.</li>
-              </ol>
-              <a class="btn btn-primary btn-block" id="rWa" href="#" target="_blank" rel="noopener"><svg class="ic" style="fill:currentColor;stroke:none;width:20px;height:20px"><use href="#i-wa"/></svg>Falar com um especialista</a>
-              <button type="button" class="backlink" id="rRestart">Refazer simulação</button>
-              <p class="legal-mini">Um especialista vai entrar em contato pelo WhatsApp informado. *Parcela reduzida disponível em grupos selecionados. Valores estimados, sujeitos às condições do grupo e à análise da administradora; não constituem proposta.</p>
+              <div class="done-msg">
+                <span class="done-ic"><svg class="ic"><use href="#i-check"/></svg></span>
+                <h2 class="sim-title" tabindex="-1" id="resTitle">Recebemos seus dados!</h2>
+                <p class="sim-desc">Um especialista vai entrar em contato pelo WhatsApp informado para apresentar o resultado da sua simulação.</p>
+              </div>
+              <button type="button" class="backlink" id="rRestart">Fazer nova simulação</button>
             </div>
 
           </div>
@@ -875,7 +892,7 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
       <a class="btn btn-glass" href="#como-funciona">Como funciona <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></a>
       <div class="trust">
         <div><b>R$ 20 mi+</b><span>em créditos comercializados</span></div>
-        <div><b>80+</b><span>clientes atendidos</span></div>
+        <div><b>83</b><span>clientes atendidos</span></div>
         <div><b>5 anos</b><span>de mercado</span></div>
       </div>
     </div>
@@ -918,7 +935,7 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
       <div class="reveal" data-rv="right">
         <span class="label">Quem Somos</span>
         <h2 class="h2">Especialistas em transformar crédito em <em>patrimônio</em>.</h2>
-        <p class="lead">Somos uma consultoria especializada em consórcio que une planejamento, estratégia e acompanhamento próximo. Em <b>5 anos</b>, ajudamos mais de <b>80 clientes</b> a conquistar imóveis, veículos e investimentos sem pagar juros e sem descapitalizar.</p>
+        <p class="lead">Somos uma consultoria especializada em consórcio que une planejamento, estratégia e acompanhamento próximo. Em <b>5 anos</b>, ajudamos <b>83 clientes</b> a conquistar imóveis, veículos e investimentos sem pagar juros e sem descapitalizar.</p>
         <p class="lead" style="margin-top:12px">Trabalhamos com administradoras sólidas, autorizadas e fiscalizadas pelo Banco Central, para que cada carta de crédito cumpra uma função clara no seu plano.</p>
         <ul class="values" data-stagger="120">
           <li class="reveal" data-rv="left"><span class="gi"><svg class="ic"><use href="#i-target"/></svg></span><div><b>Estratégia antes da venda</b><span>Primeiro entendemos o seu objetivo; depois indicamos a carta certa.</span></div></li>
@@ -930,7 +947,7 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
 
     <div class="kpis theme-dark" data-stagger="130">
       <div class="kpi card reveal"><div class="kpi-h">Créditos comercializados<span class="gi"><svg class="ic"><use href="#i-wallet"/></svg></span></div><b data-count="20" data-prefix="R$ " data-suffix=" mi+">R$ 20 mi+</b><small>em cartas de crédito</small></div>
-      <div class="kpi card reveal"><div class="kpi-h">Clientes atendidos<span class="gi"><svg class="ic"><use href="#i-users"/></svg></span></div><b data-count="80" data-suffix="+">80+</b><small>planos estruturados</small></div>
+      <div class="kpi card reveal"><div class="kpi-h">Clientes atendidos<span class="gi"><svg class="ic"><use href="#i-users"/></svg></span></div><b data-count="83">83</b><small>planos estruturados</small></div>
       <div class="kpi card reveal"><div class="kpi-h">Tempo de mercado<span class="gi"><svg class="ic"><use href="#i-calendar"/></svg></span></div><b data-count="5" data-suffix=" anos">5 anos</b><small>de experiência em consórcio</small></div>
       <div class="kpi card reveal"><div class="kpi-h">Regulamentação<span class="gi"><svg class="ic"><use href="#i-shield"/></svg></span></div><b class="sm">BACEN · ABAC</b><small>consórcio regulamentado</small></div>
     </div>
@@ -1008,7 +1025,7 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
       </article>
       <article class="sol card lift reveal">
         <span class="gi"><svg class="ic"><use href="#i-building"/></svg></span>
-        <h3>Alavancagem patrimonial</h3>
+        <h3>Alavancagem Patrimonial</h3>
         <p>Multiplique seu patrimônio adquirindo ativos que se pagam: imóveis para renda, terrenos e construção.</p>
         <ul>
           <li><svg class="ic"><use href="#i-check"/></svg>Aluguel ajudando a pagar a parcela</li>
@@ -1017,16 +1034,17 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
         </ul>
         <button type="button" class="link" data-sim-cat="imovel">Simular alavancagem <svg class="ic"><use href="#i-arrow"/></svg></button>
       </article>
-      <article class="sol card lift reveal">
+      <article class="sol card lift reveal featured">
+        <span class="tag tag-feat">Principal produto</span>
         <span class="gi"><svg class="ic"><use href="#i-coins"/></svg></span>
-        <h3>Alavancagem financeira</h3>
+        <h3>Alavancagem Financeira</h3>
         <p>Mantenha seu capital aplicado rendendo enquanto o consórcio viabiliza a compra com custo muito menor que os juros bancários.</p>
         <ul>
           <li><svg class="ic"><use href="#i-check"/></svg>Seu dinheiro continua rendendo</li>
           <li><svg class="ic"><use href="#i-check"/></svg>Troca de dívida cara por crédito planejado</li>
           <li><svg class="ic"><use href="#i-check"/></svg>Mais fôlego de caixa para a empresa</li>
         </ul>
-        <button type="button" class="link" data-sim-cat="investimento">Simular alavancagem <svg class="ic"><use href="#i-arrow"/></svg></button>
+        <a class="link" href="#alavancagem">Simular alavancagem <svg class="ic"><use href="#i-arrow"/></svg></a>
       </article>
       <article class="sol card lift reveal">
         <span class="gi"><svg class="ic"><use href="#i-pie"/></svg></span>
@@ -1035,12 +1053,62 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
         <ul>
           <li><svg class="ic"><use href="#i-check"/></svg>Diversificação da carteira</li>
           <li><svg class="ic"><use href="#i-check"/></svg>Crédito corrigido pela inflação</li>
-          <li><svg class="ic"><use href="#i-check"/></svg>Possibilidade de venda com ágio*</li>
+          <li><svg class="ic"><use href="#i-check"/></svg>Possibilidade de venda com ágio</li>
         </ul>
         <button type="button" class="link" data-sim-cat="investimento">Simular investimento <svg class="ic"><use href="#i-arrow"/></svg></button>
       </article>
     </div>
-    <p class="fine reveal">*Rentabilidade não garantida. Resultados passados não asseguram resultados futuros.</p>
+
+    <!-- Simulador de Alavancagem Financeira: plano fixo de imóvel (220 meses, taxa de administração 18%,
+         fundo de reserva 2%, meia parcela), contemplação por sorteio em 12 meses e venda da carta com
+         ágio de 20% do crédito. Premissas em CONFIG.alavancagem. -->
+    <div class="alav theme-dark reveal" id="alavancagem" data-rv="zoom">
+      <div class="alav-head">
+        <span class="label">Simulador de Alavancagem Financeira</span>
+        <h3 class="alav-title">Contratar, contemplar, vender e <em>repetir o ciclo</em>.</h3>
+        <p>Com o valor da venda da primeira carta, você contrata novas cartas sem tirar dinheiro do bolso. Veja a projeção de patrimônio.</p>
+      </div>
+      <div class="alav-grid">
+        <div class="alav-in">
+          <label class="sim-label" for="alTxt" id="alLbl">Crédito desejado</label>
+          <div class="money"><span>R$</span><input id="alTxt" type="text" inputmode="numeric" autocomplete="off"></div>
+          <input type="range" id="alRange" min="0" max="1000" step="1" value="0" aria-labelledby="alLbl">
+          <div class="scale"><span id="alMin">R$ 100 mil</span><span id="alMax">R$ 2 mi</span></div>
+          <div class="chips" id="alChips" aria-label="Valores sugeridos"></div>
+
+          <span class="sim-label" id="alRepLbl" style="margin-top:20px">Repetir o ciclo?</span>
+          <div class="seg" role="radiogroup" aria-labelledby="alRepLbl">
+            <button type="button" role="radio" aria-checked="true" data-rep="1">Sim</button>
+            <button type="button" role="radio" aria-checked="false" data-rep="0">Não</button>
+          </div>
+
+          <ul class="alav-plan" aria-label="Plano considerado">
+            <li class="tag">Imóvel</li><li class="tag">220 meses</li><li class="tag">Taxa de administração 18%</li><li class="tag">Fundo de reserva 2%</li><li class="tag">Meia parcela</li><li class="tag">Contemplação por sorteio em 12 meses</li><li class="tag">Venda com ágio de 20%</li>
+          </ul>
+
+          <dl class="alav-kpis">
+            <div><dt>Meia parcela</dt><dd id="alMeia"></dd></div>
+            <div><dt>Seu aporte em 12 meses</dt><dd id="alAporte"></dd></div>
+            <div><dt>Venda da carta contemplada</dt><dd id="alVenda"></dd></div>
+            <div><dt>Cartas por ciclo</dt><dd id="alN"></dd></div>
+          </dl>
+        </div>
+
+        <div class="alav-out">
+          <div class="alav-sum">
+            <span>Patrimônio projetado em 10 anos</span>
+            <b id="alTotal"></b>
+            <small id="alSub"></small>
+          </div>
+          <div class="chart" id="alChart" role="group" aria-label="Projeção de patrimônio em 1, 3, 5 e 10 anos">
+            <div class="bars" id="alBars"></div>
+            <div class="bars-x"><span>1 ano</span><span>3 anos</span><span>5 anos</span><span>10 anos</span></div>
+          </div>
+          <p class="alav-disc">Simulação ilustrativa, sem garantia de resultado. O desempenho real depende do plano, da estratégia e do acompanhamento.</p>
+          <a class="btn btn-primary" href="#" data-wa="Olá, vim por meio do site e gostaria de mais informações sobre a alavancagem financeira.">Quero montar minha estratégia <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1096,11 +1164,10 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
       <article class="use card lift reveal" data-rv="zoom"><span class="gi"><svg class="ic"><use href="#i-key"/></svg></span><div><h3>Aquisição</h3><p>Imóveis, veículos e bens, novos ou usados, com poder de compra à vista.</p></div></article>
       <article class="use card lift reveal" data-rv="zoom"><span class="gi"><svg class="ic"><use href="#i-hammer"/></svg></span><div><h3>Construção</h3><p>Do terreno à obra pronta, com o crédito liberado conforme o andamento da construção.</p></div></article>
       <article class="use card lift reveal" data-rv="zoom"><span class="gi"><svg class="ic"><use href="#i-roller"/></svg></span><div><h3>Reforma</h3><p>Amplie, modernize e valorize o seu imóvel sem recorrer a juros bancários.</p></div></article>
-      <article class="use card lift reveal" data-rv="zoom"><span class="gi"><svg class="ic"><use href="#i-coins"/></svg></span><div><h3>Levantamento de capital</h3><p>Transforme a carta contemplada em liquidez para novos projetos, investimentos ou troca de dívidas caras.</p></div></article>
-      <article class="use card lift reveal" data-rv="zoom"><span class="gi"><svg class="ic"><use href="#i-cycle"/></svg></span><div><h3>Capital de giro</h3><p>Para empresas: preserve o caixa e financie a operação com custo menor que o crédito bancário.</p></div></article>
-      <article class="use card lift reveal" data-rv="zoom"><span class="gi"><svg class="ic"><use href="#i-crane"/></svg></span><div><h3>Imóveis na planta</h3><p>Garanta o seu imóvel ainda em construção e use o crédito conforme as regras da construtora e do grupo.</p></div></article>
+      <article class="use card lift reveal" data-rv="zoom"><span class="gi"><svg class="ic"><use href="#i-refresh"/></svg></span><div><h3>Quitação de Financiamento</h3><p>Use a carta contemplada para quitar o financiamento do seu imóvel e troque juros altos por um custo muito menor.</p></div></article>
+      <article class="use card lift reveal" data-rv="zoom"><span class="gi"><svg class="ic"><use href="#i-cycle"/></svg></span><div><h3>Capital de Giro</h3><p>Para empresas: preserve o caixa e financie a operação com custo menor que o crédito bancário.</p></div></article>
+      <article class="use card lift reveal" data-rv="zoom"><span class="gi"><svg class="ic"><use href="#i-gavel"/></svg></span><div><h3>Imóveis de Leilão</h3><p>Arremate imóveis de leilão com poder de compra à vista e aproveite oportunidades abaixo do valor de mercado.</p></div></article>
     </div>
-    <p class="fine reveal">As condições de utilização variam conforme a administradora e as regras de cada grupo.</p>
     <div class="sec-cta reveal">
       <a class="btn btn-primary" href="#simulador" data-goto-sim>Descobrir quanto consigo conquistar <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></a>
     </div>
@@ -1231,7 +1298,7 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
       </div>
       <div class="acts">
         <a class="btn btn-primary" href="#simulador" data-goto-sim>Simular agora <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></a>
-        <a class="btn btn-glass" href="#" data-wa="Olá! Quero falar com um especialista em consórcio."><svg class="ic" style="fill:currentColor;stroke:none;width:18px;height:18px"><use href="#i-wa"/></svg>Falar no WhatsApp</a>
+        <a class="btn btn-glass" href="#" data-wa="Olá! Quero falar com um especialista em consórcio."><svg class="ic" style="fill:currentColor;stroke:none;width:18px;height:18px"><use href="#i-wa"/></svg>Falar com um especialista</a>
       </div>
     </div>
   </div>
@@ -1261,8 +1328,8 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
         <h3>Soluções</h3>
         <ul>
           <li><button type="button" data-sim-cat="imovel">Aquisição</button></li>
-          <li><button type="button" data-sim-cat="imovel">Alavancagem patrimonial</button></li>
-          <li><button type="button" data-sim-cat="investimento">Alavancagem financeira</button></li>
+          <li><button type="button" data-sim-cat="imovel">Alavancagem Patrimonial</button></li>
+          <li><a href="#alavancagem">Alavancagem Financeira</a></li>
           <li><button type="button" data-sim-cat="investimento">Investimento</button></li>
           <li><a href="#simulador" data-goto-sim>Simulador</a></li>
         </ul>
@@ -1270,7 +1337,7 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
       <div>
         <h3>Atendimento</h3>
         <ul>
-          <li><a href="#" data-wa="Olá! Vim pelo site e quero falar com um especialista."><svg class="ic"><use href="#i-phone"/></svg>WhatsApp (51) 98912-1113</a></li>
+          <li><a href="#" data-wa="Olá, vim por meio do site e gostaria de mais informações."><svg class="ic"><use href="#i-phone"/></svg>WhatsApp (51) 98912-1113</a></li>
           <li><a href="mailto:contato@crmconsorcios.com.br"><svg class="ic"><use href="#i-mail"/></svg>contato@crmconsorcios.com.br</a></li>
           <li><span><svg class="ic"><use href="#i-clock"/></svg>Seg. a sex., 9h às 18h</span></li>
           <li><span><svg class="ic"><use href="#i-pin"/></svg>Endereço · Cidade/UF</span></li>
@@ -1295,7 +1362,7 @@ dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
 </footer>
 
 <!-- WhatsApp flutuante -->
-<a class="wa-float" id="waFloat" href="#" data-wa="Olá! Vim pelo site e quero saber mais sobre consórcio." aria-label="Falar no WhatsApp" target="_blank" rel="noopener">
+<a class="wa-float" id="waFloat" href="#" data-wa="Olá, vim por meio do site e gostaria de mais informações." aria-label="Falar no WhatsApp" target="_blank" rel="noopener">
   <span class="tt">Fale com um especialista</span>
   <svg viewBox="0 0 32 32" aria-hidden="true"><use href="#i-wa"/></svg>
 </a>
@@ -1339,9 +1406,18 @@ var CONFIG = {
   credito: { min: 0,   max: 4000000 },
   parcela: { min: 300, max: 20000 },
 
-  // Premissas usadas no RESULTADO (exibido só depois da etapa 2).
+  // Premissas para estimar crédito/parcela enviados ao CRM junto com o lead (não aparecem na tela).
   //  prazo: meses · taxaAdm: taxa de administração total · fundoReserva: fundo de reserva total
   //  reducao: desconto da parcela reduzida até a contemplação (0.3 = 30% menor)
+  // Simulador de Alavancagem Financeira (bloco Soluções). Plano sempre de imóvel.
+  alavancagem: {
+    taxaAdm: 0.18, fundoReserva: 0.02, prazo: 220,   // plano
+    mesesContemplacao: 12,                           // contemplação por sorteio
+    agioVenda: 0.20,                                 // venda da carta contemplada: 20% do crédito
+    credito: { min: 100000, max: 2000000, padrao: 300000 },
+    chips: [200000, 300000, 500000, 1000000]
+  },
+
   categorias: {
     imovel: {
       label: 'Imóvel', prazo: 200, taxaAdm: 0.20, fundoReserva: 0.02, reducao: 0.30,
@@ -1405,7 +1481,7 @@ var CONFIG = {
   if ('ResizeObserver' in window) { var ro = new ResizeObserver(syncH); ro.observe(front); ro.observe(back); }
   window.addEventListener('resize', syncH);
   var S = { cat: 'imovel', mode: 'credito', credito: CONFIG.categorias.imovel.padraoCredito, parcela: 0 };
-  var started = false;
+  var started = false, chipsKey = '';
 
   function cat() { return CONFIG.categorias[S.cat]; }
   function coef(c) { c = c || cat(); return (1 + c.taxaAdm + c.fundoReserva) / c.prazo; }
@@ -1442,10 +1518,14 @@ var CONFIG = {
     var r = lim();
     $('#scMin').textContent = BRL0.format(r.min);
     $('#scMax').textContent = S.mode === 'credito' ? brlShort(r.max) : BRL0.format(r.max);
-    var chips = S.mode === 'credito' ? c.chipsCredito : c.chipsParcela;
-    $('#simChips').innerHTML = chips.map(function (p) {
-      return '<button type="button" class="' + (p === v ? 'on' : '') + '" data-chip="' + p + '">' + (p >= 1000000 ? brlShort(p) : BRL0.format(p)) + '</button>';
-    }).join('');
+    var chips = S.mode === 'credito' ? c.chipsCredito : c.chipsParcela, key = S.cat + S.mode;
+    if (chipsKey !== key) {
+      chipsKey = key;
+      $('#simChips').innerHTML = chips.map(function (p) {
+        return '<button type="button" data-chip="' + p + '">' + (p >= 1000000 ? brlShort(p) : BRL0.format(p)) + '</button>';
+      }).join('');
+    }
+    $$('[data-chip]').forEach(function (b) { b.classList.toggle('on', +b.getAttribute('data-chip') === v); });
     if (v > 0) $('#simErr').textContent = '';
   }
   function markStarted() { if (!started) { started = true; track('simulacao_iniciada', { categoria: S.cat }); } }
@@ -1499,27 +1579,17 @@ var CONFIG = {
       window.scrollTo({ top: top, behavior: reduceMotion ? 'auto' : 'smooth' });
     }
   }
-  // Resumo da etapa 2: só o que o cliente escolheu (sem estimativa)
-  function summaryText() {
-    var c = cat();
-    return S.mode === 'credito'
-      ? '<b>' + c.label + '</b> · crédito de ' + BRL0.format(S.credito)
-      : '<b>' + c.label + '</b> · parcela de ' + BRL0.format(S.parcela) + ' por mês';
-  }
-
   $('#simNext').addEventListener('click', function () {
     setValor(valor());
     if (S.mode === 'credito' && S.credito <= 0) {
       $('#simErr').textContent = 'Valor zerado: escolha um crédito acima de R$ 0 para simular.';
       rangeEl.focus(); return;
     }
-    $('#sumTxt').innerHTML = summaryText();
     track('simulacao_etapa1', { categoria: S.cat, modo: S.mode, credito: Math.round(S.credito), parcela: Math.round(S.parcela) });
     flip(true);
     setTimeout(function () { $('#fNome').focus({ preventScroll: true }); }, reduceMotion ? 0 : 650);
   });
   $('#simBackBtn').addEventListener('click', function () { flip(false); });
-  $('#sumEdit').addEventListener('click', function () { flip(false); });
 
   /* ==================================================================
      SIMULADOR — Etapa 2 (captação)
@@ -1630,24 +1700,12 @@ var CONFIG = {
     } else { done(); }
   });
 
-  /* ---------------- Etapa 3 · resultado ---------------- */
+  /* ---------------- Etapa 3 · retorno ----------------
+     Sem valores na tela: o especialista apresenta o resultado pelo WhatsApp. */
   var resultShown = false;
   function showResult(lead) {
     if (resultShown) return; resultShown = true;
-    var c = cat(), first = lead.nome.split(' ')[0];
-    $('#resTitle').textContent = 'Pronto, ' + first + '! Este é o seu plano';
-    $('#rCat').textContent = c.label;
-    if (S.mode === 'credito') {
-      $('#rL1').textContent = 'Crédito'; $('#rV1').textContent = BRL0.format(S.credito);
-      $('#rL2').textContent = 'Parcela estimada'; $('#rV2').textContent = BRL2.format(S.parcela);
-    } else {
-      $('#rL1').textContent = 'Parcela mensal'; $('#rV1').textContent = BRL2.format(S.parcela);
-      $('#rL2').textContent = 'Crédito estimado'; $('#rV2').textContent = BRL0.format(S.credito);
-    }
-    $('#rPrazo').textContent = c.prazo + ' meses';
-    $('#rRed').textContent = BRL2.format(S.parcela * (1 - c.reducao));
-    $('#rWa').href = waLink('Olá! Sou ' + lead.nome + ' e fiz uma simulação no site: ' + c.label + ', crédito de ' + BRL0.format(S.credito) +
-      ', parcela de ' + BRL2.format(S.parcela) + ' em ' + c.prazo + ' meses. Quero entender a melhor estratégia.');
+    $('#resTitle').textContent = 'Recebemos seus dados, ' + lead.nome.split(' ')[0] + '!';
     $('#leadPanel').hidden = true; $('#resultPanel').hidden = false;
     $('#resTitle').focus({ preventScroll: true });
   }
@@ -1656,6 +1714,75 @@ var CONFIG = {
     $('#leadPanel').hidden = false; $('#resultPanel').hidden = true;
     flip(false);
   });
+
+  /* ==================================================================
+     SIMULADOR DE ALAVANCAGEM FINANCEIRA
+     Ciclo: contrata 1 carta → contempla em 12 meses → vende com ágio de 20%.
+     Com o valor da venda, contrata N cartas (as que a venda paga em meias parcelas
+     até a contemplação). Repetindo o ciclo, a cada ano contempla e vende N cartas,
+     reinvestindo só o necessário para as N seguintes e acumulando o restante.
+     ================================================================== */
+  (function alavancagem() {
+    var A = CONFIG.alavancagem, box = $('#alavancagem'); if (!box) return;
+    var range = $('#alRange'), txt = $('#alTxt'), bars = $('#alBars'), chart = $('#alChart');
+    var st = { credito: A.credito.padrao, repetir: true }, anos = [1, 3, 5, 10];
+    function calc(C, repetir) {
+      var parcela = C * (1 + A.taxaAdm + A.fundoReserva) / A.prazo;
+      var meia = parcela / 2, aporte = meia * A.mesesContemplacao, venda = C * A.agioVenda;
+      var n = Math.max(1, Math.floor(venda / aporte));            // cartas que a venda paga até contemplar
+      var serie = anos.map(function (t) {
+        if (!repetir) return { t: t, valor: venda, cartas: 1 };
+        return { t: t, valor: venda + (t - 1) * n * (venda - aporte), cartas: 1 + (t - 1) * n };
+      });
+      return { meia: meia, aporte: aporte, venda: venda, n: n, serie: serie };
+    }
+    // slider não linear (mais precisão nos valores menores)
+    function toPos(v) { return Math.round(Math.sqrt((v - A.credito.min) / (A.credito.max - A.credito.min)) * 1000); }
+    function fromPos(p) { var v = A.credito.min + (A.credito.max - A.credito.min) * Math.pow(p / 1000, 2); return Math.round(v / 10000) * 10000; }
+    function clampC(v) { return Math.min(A.credito.max, Math.max(A.credito.min, v)); }
+    bars.innerHTML = anos.map(function () {
+      return '<div class="bar-col" tabindex="0"><span class="bar-v"></span><div class="bar"></div><div class="bar-tip" role="tooltip"></div></div>';
+    }).join('');
+    var cols = $$('.bar-col', bars);
+    $('#alChips').innerHTML = A.chips.map(function (c) { return '<button type="button" data-al="' + c + '">' + brlShort(c) + '</button>'; }).join('');
+    function render() {
+      var r = calc(st.credito, st.repetir), max = Math.max.apply(null, r.serie.map(function (x) { return x.valor; }));
+      if (document.activeElement !== txt) txt.value = NUM.format(st.credito);
+      var pos = toPos(st.credito); range.value = pos; range.style.backgroundSize = (pos / 10) + '% 100%';
+      range.setAttribute('aria-valuetext', BRL0.format(st.credito));
+      $$('[data-al]', box).forEach(function (b) { b.classList.toggle('on', +b.getAttribute('data-al') === st.credito); });
+      $$('[data-rep]', box).forEach(function (b) { b.setAttribute('aria-checked', (b.getAttribute('data-rep') === '1') === st.repetir ? 'true' : 'false'); });
+      $('#alMeia').textContent = BRL0.format(r.meia) + '/mês';
+      $('#alAporte').textContent = BRL0.format(r.aporte);
+      $('#alVenda').textContent = BRL0.format(r.venda);
+      $('#alN').textContent = st.repetir ? r.n + ' cartas' : '1 carta';
+      $('#alTotal').textContent = brlShort(r.serie[3].valor);
+      $('#alSub').textContent = st.repetir
+        ? 'com ' + BRL0.format(r.aporte) + ' do seu bolso, uma única vez'
+        : 'uma única operação, sem repetir o ciclo';
+      r.serie.forEach(function (x, i) {
+        var c = cols[i], h = Math.round(x.valor / max * 100);
+        c.querySelector('.bar').style.setProperty('--h', h);
+        c.querySelector('.bar-v').textContent = brlShort(x.valor);
+        c.setAttribute('aria-label', (x.t === 1 ? '1 ano' : x.t + ' anos') + ': ' + BRL0.format(x.valor));
+        c.querySelector('.bar-tip').innerHTML = '<b>' + BRL0.format(x.valor) + '</b>' +
+          (x.t === 1 ? 'Em 1 ano' : 'Em ' + x.t + ' anos') + ': ' + x.cartas + (x.cartas === 1 ? ' carta contemplada e vendida' : ' cartas contempladas e vendidas');
+      });
+    }
+    range.addEventListener('input', function () { st.credito = clampC(fromPos(+range.value)); render(); });
+    txt.addEventListener('input', function () {
+      var d = txt.value.replace(/\D/g, '').slice(0, 8), n = d ? parseInt(d, 10) : 0;
+      txt.value = d ? NUM.format(n) : '';
+      if (n >= A.credito.min) { st.credito = Math.min(A.credito.max, n); render(); }
+    });
+    txt.addEventListener('blur', function () { st.credito = clampC(st.credito); render(); });
+    txt.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); txt.blur(); } });
+    $('#alChips').addEventListener('click', function (e) { var b = e.target.closest('[data-al]'); if (b) { st.credito = +b.getAttribute('data-al'); render(); } });
+    $$('[data-rep]', box).forEach(function (b) { b.addEventListener('click', function () { st.repetir = b.getAttribute('data-rep') === '1'; render(); }); });
+    $('#alMin').textContent = brlShort(A.credito.min); $('#alMax').textContent = brlShort(A.credito.max);
+    render();
+    window.alavGrow = function () { chart.classList.add('grown'); };   // barras crescem quando o painel aparece
+  })();
 
   /* ---------------- CTAs que levam ao simulador ---------------- */
   function gotoSim(catKey) {
@@ -1734,6 +1861,7 @@ var CONFIG = {
     if (!el.classList.contains('reveal') || el.classList.contains('in')) return;
     el.classList.add('in');
     if (el.classList.contains('faq')) playPanel($('.tabpanel:not([hidden])', el)); // perguntas em cascata
+    if (el.id === 'alavancagem' && window.alavGrow) setTimeout(window.alavGrow, reduceMotion ? 0 : 350); // barras crescem
     var d = parseFloat(el.style.getPropertyValue('--d')) || 0;
     setTimeout(function () { finish(el); }, reduceMotion ? 0 : d + 900);
   }

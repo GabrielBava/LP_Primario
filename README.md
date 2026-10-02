@@ -23,7 +23,7 @@ tools/gerar-html-completo.py  gera o dist/lp-completa.html a partir do index.htm
 - **Profundidade:** luz ambiente radial, degradê nos cards (`#1F2B42 → #1B263B` a 160°), vidro no menu e nas pílulas, e seções em "folhas" com cantos arredondados que se sobrepõem.
 
 ### Recursos de modernidade e conversão
-- **Faixa superior do cabeçalho** com o WhatsApp comercial, (51) 98912-1113, sempre visível.
+- **WhatsApp comercial no cabeçalho:** o número (51) 98912-1113 fica ao lado do botão "Simular agora". O clique abre o WhatsApp com a mensagem "Olá, vim por meio do site e gostaria de mais informações.". No celular, aparece como ícone ao lado do menu.
 - **Faixa das administradoras parceiras em movimento** no rodapé do banner. A faixa pausa ao passar o mouse e fica estática para quem ativa "reduzir movimento" no sistema.
   - **Logos:** HS Consórcios, Racon Consórcios, Itaú Consórcios, Bradesco Consórcios, Consórcio Embracon (com a tagline), Santander Consórcios, Klubi, CNP Consórcios, Consórcio Servopa, Mapfre Consórcios e Porto Consórcio.
   - **Cor única:** todos foram convertidos para Névoa, com fundo transparente e sem as cores originais, para seguir a identidade da página. A altura de cada um equilibra o peso visual na faixa.
@@ -82,16 +82,50 @@ O `dist/lp-completa.html` tem tudo dentro dele: CSS, JavaScript, ícones e os lo
 
 | # | Seção | Conteúdo |
 |---|-------|----------|
-| 0 | **Cabeçalho** | Faixa superior com o WhatsApp comercial e menu com o botão "Simular agora". |
-| 1 | **Banner + Simulador** | Frase de impacto: "Conquiste seu patrimônio com estratégia e sem pagar juros." Simulador no lado direito, em 2 etapas, com o cartão ajustando a altura a cada etapa. **Etapa 1:** para que é o crédito (Imóvel / Veículo / Investimento), simular pelo valor do crédito (R$ 0 a R$ 4 mi) ou da parcela (R$ 300 a R$ 20.000), com slider e valores sugeridos. Não mostra estimativa. **Etapa 2:** nome, e-mail, celular, CPF e CEP, com aceite da Política de Privacidade e das notificações. **Resultado:** só depois da captação, mostra a parcela ou o crédito estimado, o prazo e a parcela reduzida, com botão para o WhatsApp. |
-| 2 | **Quem somos** | Texto institucional, espaço para a foto do escritório com o logotipo e indicadores: R$ 20 mi+, 80+ clientes, 5 anos e BACEN · ABAC. |
+| 0 | **Cabeçalho** | Menu (Quem Somos, Como Funciona, Soluções, Benefícios, Utilizações), WhatsApp comercial e botão "Simular agora". |
+| 1 | **Banner + Simulador** | Frase de impacto: "Conquiste seu patrimônio com estratégia e sem pagar juros." Acima, a frase "CONSÓRCIO COM ESTRATÉGIA E PLANEJAMENTO" em caixa alta. Simulador no lado direito, em 2 etapas, com o cartão ajustando a altura a cada etapa. **Etapa 1:** para que é o crédito (Imóvel / Veículo / Investimento), simular pelo valor do crédito (R$ 0 a R$ 4 mi) ou da parcela (R$ 300 a R$ 20.000), com slider e valores sugeridos. Não mostra estimativa. **Etapa 2:** exclusiva para os dados do lead (nome, e-mail, celular, CPF e CEP), com aceite da Política de Privacidade e das notificações. **Retorno:** apenas uma mensagem de que um especialista vai entrar em contato pelo WhatsApp com o resultado. Nenhum valor aparece na tela; o CRM recebe a escolha do cliente e a estimativa. |
+| 2 | **Quem somos** | Texto institucional, espaço para a foto do escritório com o logotipo e indicadores: R$ 20 mi+, 83 clientes, 5 anos e BACEN · ABAC. |
 | 3 | **Como funciona** | Metodologia em 4 passos: mapear o objetivo, estruturar o crédito, estratégia e acompanhamento. |
-| 4 | **Nossas soluções** | Aquisição, alavancagem patrimonial, alavancagem financeira e investimento, as quatro com o mesmo peso visual. |
+| 4 | **Nossas soluções** | Aquisição, Alavancagem Patrimonial, Alavancagem Financeira e Investimento. A Alavancagem Financeira tem um destaque leve (borda e selo "Principal produto"). Abaixo dos cards fica o **Simulador de Alavancagem Financeira** (ver seção própria). |
 | 5 | **Benefícios** | Quatro cards simples explicando como funciona cada caminho (compra à vista, financiamento, Home Equity e consórcio). O Consórcio vem por último, com a borda iluminada como melhor opção. |
-| 6 | **Utilizações** | Aquisição, construção, reforma, levantamento de capital, capital de giro e imóveis na planta. |
+| 6 | **Utilizações** | Aquisição, Construção, Reforma, Quitação de Financiamento, Capital de Giro e Imóveis de Leilão. |
 | 7 | **Depoimentos de clientes** | Três cards com espaço para o texto, a foto e a conquista de cada cliente. |
 | 8 | **Tire suas dúvidas** | Abas centralizadas e expandidas (Contemplação / Documentação / Formas de utilização), com as perguntas abrindo e fechando. Termina com uma chamada para o WhatsApp. |
 | 9 | **Rodapé** | Soluções, atendimento e redes sociais, com selos e aviso legal. |
+
+## Simulador de Alavancagem Financeira
+
+Fica no bloco Nossas Soluções, logo abaixo dos cards. O cliente informa o **crédito desejado** e responde se quer **repetir o ciclo** (sim ou não). Ao lado, vê a projeção de patrimônio em 1, 3, 5 e 10 anos num gráfico de barras, com o valor em cada barra e o detalhe ao passar o mouse.
+
+**Plano fixo, sempre imóvel** (em `CONFIG.alavancagem`):
+
+| Premissa | Valor |
+|---|---|
+| Taxa de administração | 18% |
+| Fundo de reserva | 2% |
+| Prazo | 220 meses |
+| Pagamento | meia parcela |
+| Contemplação | por sorteio, em 12 meses |
+| Venda da carta contemplada | ágio de 20% do crédito |
+
+**Ciclo de tamanho fixo:**
+1. A primeira carta é paga com meia parcela do bolso até a contemplação, que acontece em 12 meses.
+2. A carta é vendida por 20% do crédito.
+3. O valor da venda contrata N novas cartas: as que ele cobre em meias parcelas até a contemplação. Com essas premissas, N = 6.
+4. Repetindo o ciclo, a cada ano N cartas são contempladas e vendidas. Só o necessário é reinvestido para as N seguintes, e o restante se acumula.
+
+**Fórmula:** patrimônio no ano *t* = venda + (*t* − 1) × N × (venda − aporte em 12 meses). Sem repetir o ciclo, o resultado é só a venda da primeira carta.
+
+**Exemplo com R$ 300 mil:**
+
+| Item | Valor |
+|---|---|
+| Meia parcela | R$ 818 por mês |
+| Aporte até contemplar | R$ 9.818 |
+| Venda | R$ 60 mil |
+| Projeção | R$ 60 mil (1 ano) · R$ 662 mil (3 anos) · R$ 1,3 mi (5 anos) · R$ 2,8 mi (10 anos) |
+
+Abaixo do gráfico há um aviso curto de que é uma simulação ilustrativa, sem garantia de resultado.
 
 ## Configurações
 
@@ -126,7 +160,7 @@ categorias: { imovel: { prazo, taxaAdm, fundoReserva, reducao, ... }, ... }
 Se `gtag` ou `fbq` estiverem na página, também são disparados `generate_lead` e `Lead`.
 
 ## O que falta preencher
-- [x] WhatsApp comercial: (51) 98912-1113
+- [x] WhatsApp comercial: (51) 98912-1113 (cabeçalho, botão flutuante e rodapé)
 - [ ] Endereço do CRM (`CONFIG.leadEndpoint`)
 - [x] Logos das 11 administradoras parceiras
 - [ ] Confirmar com cada administradora o uso do logo na versão monocromática
