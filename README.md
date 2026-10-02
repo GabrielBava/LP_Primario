@@ -11,10 +11,19 @@ assets/img/                   logo, foto do escritório e fotos de clientes
 
 ## Identidade visual aplicada
 
-### Cores
+### Cores e contraste entre blocos
 - **Paleta base:** Azul-noite `#0D1B2A`, Marinho `#1B263B`, Ardósia `#415A77`, Aço `#778DA9`, Névoa `#E0E1DD` e Aço-claro `#A9B8CB` (tom auxiliar).
-- **Tema:** escuro, que é o padrão do manual. A proporção segue o manual: muito azul profundo e a Névoa só em pequenas doses (botão principal e destaques).
-- **Profundidade:** luz ambiente radial nas seções, degradê nos cards (`#1F2B42 → #1B263B` a 160°) e efeito de vidro no menu, nas pílulas e nos cards flutuantes.
+- **Alternância de blocos:** a página alterna entre o **tema escuro** e o **tema claro** do manual. A sequência é banner (escuro) → Quem somos (claro) → Como funciona (escuro) → Soluções (claro) → Benefícios (escuro) → Utilizações (claro) → Depoimentos (escuro) → Dúvidas (claro, com o CTA final em painel escuro) → rodapé (escuro).
+- **Classes de tema:** `.theme-dark` e `.theme-light` trocam os tokens semânticos dentro de cada bloco, com os mesmos nomes do `design-tokens.css`. Também dá para inverter um elemento isolado: os indicadores do Quem somos ficam escuros dentro do bloco claro.
+- **Azul mais profundo:** os blocos escuros usam `#08121D` e `#0B1724` (fundo externo e menu lateral do manual), para ganhar contraste com os cards Marinho.
+- **Profundidade:** luz ambiente radial, degradê nos cards (`#1F2B42 → #1B263B` a 160°), vidro no menu e nas pílulas, e seções em "folhas" com cantos arredondados que se sobrepõem.
+
+### Recursos de modernidade e conversão
+- **Faixa de benefícios em movimento** no rodapé do banner. Ela pausa ao passar o mouse e fica estática para quem ativa "reduzir movimento" no sistema.
+- **Destaque nos títulos:** a palavra principal ganha um degradê da paleta.
+- **Simulador:** tem borda iluminada e brilho de fundo, e o objetivo selecionado fica em Névoa sólida.
+- **Cards claros** de Soluções e Utilizações escurecem ou destacam o ícone ao passar o mouse.
+- **Botão principal:** Névoa nos blocos escuros e Azul-noite nos blocos claros, sempre com o máximo contraste.
 
 ### Tipografia
 - **Títulos e números:** Famels. Enquanto a licença não estiver instalada, a página usa a substituta oficial, Manrope, carregada pelo Google Fonts.
