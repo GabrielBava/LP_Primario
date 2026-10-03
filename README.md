@@ -30,7 +30,16 @@ tools/gerar-html-completo.py  gera o dist/lp-completa.html a partir do index.htm
 - **Como funciona no código:** o atributo `data-theme="light"` no `<html>` aplica os tokens claros também aos blocos escuros. Os ajustes de superfícies com cor fixa ficam na seção "MODO CLARO" do CSS.
 
 ### Recursos de modernidade e conversão
-- **WhatsApp comercial no cabeçalho:** o número (51) 98912-1113 fica ao lado do botão "Simular agora". O clique abre o WhatsApp com a mensagem "Olá, vim por meio do site e gostaria de mais informações.". No celular, aparece como ícone ao lado do menu.
+- **WhatsApp comercial no cabeçalho:** o número (51) 98912-1113 fica ao lado do botão "Simular agora". O clique abre o WhatsApp direto com a mensagem pronta.
+- **Mensagens por origem:** cada botão de WhatsApp tem a sua mensagem, para a equipe saber de onde veio o contato, e dispara o evento `whatsapp_clique` com a origem:
+
+  | Botão | Origem | Mensagem |
+  |---|---|---|
+  | Número no topo e no rodapé | `numero_topo` / `numero_rodape` | "Olá! Encontrei o WhatsApp de vocês no site da Vero Consórcios e gostaria de mais informações." |
+  | Botão flutuante | `botao_flutuante` | "Olá! Vim pelo site da Vero Consórcios e gostaria de falar com um especialista." |
+  | Dúvidas (FAQ) | `duvidas` | "Olá! Vim pelo site da Vero Consórcios e tenho uma dúvida sobre consórcio." |
+  | CTA final | `cta_final` | "Olá! Vim pelo site da Vero Consórcios e quero falar com um especialista em consórcio." |
+ - **No celular,** o número aparecece como ícone ao lado do menu.
 - **Faixa das administradoras parceiras em movimento** no rodapé do banner. A faixa pausa ao passar o mouse e fica estática para quem ativa "reduzir movimento" no sistema.
   - **Logos:** HS Consórcios, Racon Consórcios, Itaú Consórcios, Bradesco Consórcios, Consórcio Embracon (com a tagline), Santander Consórcios, Klubi, CNP Consórcios, Consórcio Servopa, Mapfre Consórcios e Porto Consórcio.
   - **Cor única:** todos foram convertidos para Névoa, com fundo transparente e sem as cores originais, para seguir a identidade da página. A altura de cada um equilibra o peso visual na faixa.
@@ -71,7 +80,7 @@ tools/gerar-html-completo.py  gera o dist/lp-completa.html a partir do index.htm
 ### Tom de voz
 - O número vem primeiro.
 - Os botões usam verbo de ação: "Simular agora", "Ver minha simulação", "Falar com um especialista".
-- Os erros explicam e orientam, por exemplo "CPF inválido: confira os 11 dígitos".
+- Os erros explicam e orientam, por exemplo "Celular inválido: informe DDD e número".
 - Valores seguem o padrão brasileiro (R$ 1.400.000,00, ou R$ 4 mi e R$ 1,5 mi quando o espaço é curto).
 
 ### Logotipo e nome
@@ -98,16 +107,16 @@ O `dist/lp-completa.html` tem tudo dentro dele: CSS, JavaScript, ícones e os lo
 
 | # | Seção | Conteúdo |
 |---|-------|----------|
-| 0 | **Cabeçalho** | Menu (Quem Somos, Como Funciona, Soluções, Benefícios, Utilizações), WhatsApp comercial, botão "Simular agora" e o ícone de modo claro/escuro. |
-| 1 | **Banner + Simulador** | Frase de impacto: "Conquiste seu patrimônio com estratégia e sem pagar juros." Acima, a frase "CONSÓRCIO COM ESTRATÉGIA E PLANEJAMENTO" em caixa alta. Simulador no lado direito, em 2 etapas, com o cartão ajustando a altura a cada etapa. **Etapa 1:** para que é o crédito (Imóvel / Veículo / Investimento), simular pelo valor do crédito (R$ 0 a R$ 4 mi) ou da parcela (R$ 300 a R$ 20.000), com slider e valores sugeridos. Não mostra estimativa. **Etapa 2:** exclusiva para os dados do lead (nome, e-mail, celular, CPF e CEP), com aceite da Política de Privacidade e das notificações. **Retorno:** apenas uma mensagem de que um especialista vai entrar em contato pelo WhatsApp com o resultado. Nenhum valor aparece na tela; o CRM recebe a escolha do cliente e a estimativa. Os indicadores (R$ 20 mi+, 83 clientes, 5 anos) saíram do banner para não repetir o Quem Somos. |
-| 2 | **Quem somos** | Texto institucional, espaço para a foto do escritório com o logotipo e indicadores: R$ 20 mi+, 83 clientes, 5 anos e Regulamentação, com os logos do BACEN e da ABAC. |
+| 0 | **Cabeçalho** | Menu (Quem Somos, Como Funciona, Soluções, Benefícios, Utilizações), WhatsApp comercial, botão "Simular agora" e o ícone de modo claro/escuro. O "Simular agora" é claro no modo escuro e escuro no modo claro. |
+| 1 | **Banner + Simulador** | Frase de impacto: "Conquiste seu patrimônio com estratégia e sem pagar juros." Acima, o slogan "ESTRATÉGIAS PARA CONSTRUIR PATRIMÔNIO" em caixa alta (também no título da página). Simulador no lado direito, em 2 etapas, com o cartão ajustando a altura a cada etapa. **Etapa 1:** para que é o crédito (Imóvel / Veículo / Investimento), simular pelo valor do crédito (R$ 0 a R$ 4 mi) ou da parcela (R$ 300 a R$ 20.000), com slider e valores sugeridos. Não mostra estimativa. **Etapa 2:** exclusiva para os dados do lead (nome, e-mail, celular, preferência de contato e melhor horário), com aceite da Política de Privacidade e das notificações. **Retorno:** apenas uma mensagem de que um especialista vai entrar em contato pelo canal e no período escolhidos. Nenhum valor aparece na tela; o CRM recebe a escolha do cliente e a estimativa. Os indicadores (R$ 20 mi+, 83 clientes, 5 anos) saíram do banner para não repetir o Quem Somos. |
+| 2 | **Quem somos** | Texto institucional, foto do escritório da Vero em Porto Alegre (`assets/img/escritorio.webp`) e indicadores: R$ 20 mi+, 83 clientes, 5 anos e Regulamentação, com os logos do BACEN e da ABAC. |
 | 3 | **Como funciona** | Metodologia em 4 passos: mapear o objetivo, estruturar o crédito, estratégia e acompanhamento. Abaixo, o botão "Montar meu plano" com a frase "Simulação gratuita e sem compromisso." logo embaixo. |
 | 4 | **Nossas soluções** | Subtítulo: "Do primeiro imóvel à multiplicação do patrimônio: o consórcio certo usado como estratégia, para os objetivos que você procura." Cards: Aquisição, Alavancagem Patrimonial, Alavancagem Financeira e Investimento. A Alavancagem Financeira tem um destaque leve: borda mais firme, halo azul, faixa no topo, ícone em Azul-noite e o selo "Mais procurada". Os links dos cards usam iniciais maiúsculas ("Simular Aquisição", "Simular Alavancagem", "Simular Investimento"). Abaixo dos cards fica o **Mecanismo de Alavancagem Financeira** (ver seção própria). |
 | 5 | **Benefícios** | Quatro cards visuais, cada um com uma frase ou taxa de impacto e três pontos curtos. **Compra à vista:** "Liquidez zero", com custo de oportunidade, dinheiro no tempo e poder de compra e negociação. **Financiamento:** 12% a 17% de juros ao ano, com juros altos, entrada de 20% a 30% e custos invisíveis. **Home Equity:** 18% a 23% de juros ao ano, com patrimônio em risco, juros todo mês e custos de contratação. **Consórcio** (por último, com a borda iluminada como melhor opção): 1% a 2% de taxa ao ano, sem juros, com quatro benefícios (sem juros e sem entrada, preserva o capital, alavancagem financeira, planejado e estruturado). |
 | 6 | **Utilizações** | Aquisição, Construção, Reforma, Quitação de Financiamento, Capital de Giro e Imóveis de Leilão. |
-| 7 | **Depoimentos de clientes** | Três cards com espaço para o texto, a foto e a conquista de cada cliente. |
+| 7 | **Depoimentos de clientes** | Três depoimentos **de exemplo**, de clientes do RS (imóvel), de SC (veículo) e de SP (investimento), com avatar de iniciais. Substitua por relatos reais e autorizados antes de publicar (ver Observações). |
 | 8 | **Tire suas dúvidas** | Abas centralizadas e expandidas (Consórcio / Contemplação / Documentação / Formas de Utilização), com as perguntas abrindo e fechando. A aba Consórcio explica o que é o consórcio com base na Lei 11.795/2008 e nos materiais da ABAC. No celular, as abas ficam em 2 × 2. Termina com uma chamada para o WhatsApp. |
-| 9 | **Rodapé** | Soluções, atendimento e redes sociais, com os logos do BACEN e da ABAC, o selo LGPD e o aviso legal. |
+| 9 | **Rodapé** | Soluções, atendimento e redes sociais, com o logotipo maior, os logos do BACEN e da ABAC e o aviso legal. Atendimento: WhatsApp, contato@veroconsorciosbr.com.br, seg. a sex. das 8h às 18h, Porto Alegre/RS. Redes: Instagram, Facebook e LinkedIn. |
 
 ## Mecanismo de Alavancagem Financeira
 
@@ -115,7 +124,7 @@ Fica no bloco Nossas Soluções, logo abaixo dos cards.
 
 - **Topo:** o título "Mecanismo de Alavancagem Financeira" fica centralizado e ocupa a largura do painel. Logo abaixo vem a analogia da semente: com um investimento inicial baixo, a meia parcela, o cliente conquista a primeira carta; contemplada, ela é vendida com ágio e o valor da venda contrata novas cartas, sem tirar mais dinheiro do bolso.
 - **Entrada:** o cliente informa o **crédito desejado** (slider, valor digitado ou sugestões) e responde se quer **repetir o ciclo**.
-- **Destaque principal:** o **investimento inicial**, isto é, a meia parcela por mês (R$ 818 para R$ 300 mil), com o total dos 12 meses.
+- **Destaque principal:** o **investimento inicial**, isto é, a meia parcela por mês (R$ 832 para R$ 300 mil), com o total dos 12 meses.
 - **Gráfico:** patrimônio em 1, 3, 5 e 10 anos. Mostra só a barra e o valor acima, sem informações ao passar o mouse.
 - **Características do plano:** taxa, fundo de reserva e prazo não aparecem na tela. Ficam só em `CONFIG.alavancagem`.
 
@@ -123,7 +132,7 @@ Fica no bloco Nossas Soluções, logo abaixo dos cards.
 
 | Premissa | Valor |
 |---|---|
-| Plano | imóvel, 220 meses, taxa de administração 18%, fundo de reserva 2%, meia parcela |
+| Plano | imóvel, 220 meses, taxa de administração 20%, fundo de reserva 2%, meia parcela |
 | 1ª carta | contemplada por sorteio em 12 meses e vendida com ágio de 20% do crédito |
 | Ciclos seguintes | 27% de chance de contemplação ao ano por carta ativa (`probContemplacao`) |
 | Poupança | 7,8% a.a., média de 2023 (8,04%), 2024 (7,09%) e 2025 (8,26%) (`poupanca`) |
@@ -139,13 +148,13 @@ Fica no bloco Nossas Soluções, logo abaixo dos cards.
 
 **Comparativo com a renda fixa** (só quando repete o ciclo, ao lado dos 10 anos). Aplica a mesma meia parcela na renda fixa por 12 meses, com juros compostos mensais. O 1º aporte não rende no mês em que entra; no 2º mês, rende sobre o 1º, e assim por diante. Depois do 12º mês, não há novos aportes e o saldo segue só com a rentabilidade de cada período.
 
-**Exemplo com R$ 300 mil** (meia parcela de R$ 818, R$ 9.818 em 12 meses e venda de R$ 60 mil):
+**Exemplo com R$ 300 mil** (meia parcela de R$ 832, R$ 9.982 em 12 meses e venda de R$ 60 mil):
 
 | Cenário | 1 ano | 3 anos | 5 anos | 10 anos |
 |---|---|---|---|---|
-| Repetindo o ciclo | R$ 60 mil | R$ 158,2 mil | R$ 338,3 mil | R$ 953,8 mil |
+| Repetindo o ciclo | R$ 60 mil | R$ 155,6 mil | R$ 331,2 mil | R$ 930,9 mil |
 | Sem repetir (poupança) | R$ 60 mil | R$ 69,7 mil | R$ 81 mil | R$ 118 mil |
-| Renda fixa, mesmo investimento | | | | R$ 24,1 mil |
+| Renda fixa, mesmo investimento | | | | R$ 24,5 mil |
 
 Abaixo do gráfico ficam o botão e um aviso curto. Ele explica que a simulação é ilustrativa e varia de acordo com o plano selecionado e a adoção da estratégia. Também informa as premissas: sem repetir o ciclo, o valor da venda rende conforme a poupança, considerando o histórico dos últimos três anos; para a renda fixa, a rentabilidade bruta considerada como projeção é de 14% a.a. do ano 1 ao 3, 10% do ano 3 ao 5 e 8% do ano 5 ao 10.
 
@@ -176,7 +185,7 @@ categorias: { imovel: { prazo, taxaAdm, fundoReserva, reducao, ... }, ... }
 **Envio para o CRM.** Os dois formulários enviam o lead por `POST` (JSON) para `CONFIG.leadEndpoint`. Se o CRM demorar mais de 4 segundos, a confirmação aparece mesmo assim.
 
 Campos do **simulador** (etapa 2):
-- `nome`, `email`, `celular`, `cpf`, `cep`, `cidade`, `uf`
+- `nome`, `email`, `celular`, `preferencia_contato`, `melhor_horario`
 - `categoria`, `modo`, `credito`, `parcela`, `prazo`
 - aceites, `origem` ("LP Simulador"), `pagina`, `data`
 - `utm` (`utm_*`, `gclid`, `fbclid`)
@@ -197,6 +206,7 @@ Campos do **pop-up de alavancagem**:
 | `alavancagem_popup_aberto` | clique em "Montar estratégia de alavancagem" |
 | `lead_alavancagem` | lead do pop-up de alavancagem enviado (conversão) |
 | `tema_alterado` | troca entre modo claro e escuro |
+| `whatsapp_clique` | clique em qualquer botão de WhatsApp, com a `origem` (ver tabela acima) |
 
 Se `gtag` ou `fbq` estiverem na página, os dois leads também disparam `generate_lead` e `Lead`.
 
@@ -207,9 +217,10 @@ Se `gtag` ou `fbq` estiverem na página, os dois leads também disparam `generat
 - [ ] Confirmar com cada administradora o uso do logo na versão monocromática
 - [x] Logotipo Vero Consórcios (versões para modo escuro e claro)
 - [ ] Logotipo em arquivo vetorial (SVG) e arquivos da fonte Famels
-- [ ] Foto do escritório (seção Quem somos)
-- [ ] Três depoimentos reais, com nome, cidade e foto
-- [ ] E-mail, endereço, CNPJ e links das redes sociais (rodapé)
+- [x] Foto do escritório (seção Quem somos)
+- [ ] Trocar os depoimentos de exemplo por três depoimentos reais, autorizados, com nome, cidade e foto
+- [x] E-mail, cidade, horário e redes sociais (rodapé)
+- [ ] CNPJ no aviso legal do rodapé, quando a alteração na Junta for concluída
 - [ ] Texto da Política de Privacidade (modal `#privacy`), revisado pelo jurídico
 - [ ] Revisar as premissas do Mecanismo de Alavancagem (27%, poupança e renda fixa) e as taxas do bloco Benefícios quando a Selic mudar
 - [ ] Confirmar o uso dos logos do BACEN e da ABAC (a ABAC tem regras para associados)
@@ -218,4 +229,5 @@ Se `gtag` ou `fbq` estiverem na página, os dois leads também disparam `generat
 - **Resultado só depois do cadastro.** O simulador mostra a estimativa apenas após o cadastro, para que o cliente deixe os dados antes de ver o valor.
 - **BACEN e ABAC.** Quem é regulado pelo Banco Central é a administradora de consórcio, e a ABAC é a associação do setor. Por isso os textos usam "consórcio regulamentado".
 - **Aceite de notificações.** Está como obrigatório, conforme o briefing, e foi redigido como consentimento para receber o resultado da simulação. Valide com o jurídico (LGPD).
+- **Depoimentos de exemplo.** Os três depoimentos (nomes, textos e valores) são ilustrativos, para mostrar o formato. Publicar depoimento fictício como se fosse real pode ser considerado propaganda enganosa (Código de Defesa do Consumidor e CONAR). Por isso, troque pelos relatos reais, com autorização do cliente, antes de colocar a página no ar. Pelo mesmo motivo, os avatares usam iniciais, e não fotos de pessoas.
 - **Botão flutuante de WhatsApp.** Usa o Marinho da marca com ícone em Névoa, e não o verde do WhatsApp, para respeitar a paleta e ficar visível tanto nos blocos claros quanto nos escuros.

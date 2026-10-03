@@ -9,7 +9,7 @@
 <!-- ============================================================
      SEO
      ============================================================ -->
-<title>Vero Consórcios | Estratégias patrimoniais inteligentes com consórcio</title>
+<title>Vero Consórcios | Estratégias para Construir Patrimônio</title>
 <meta name="description" content="Simule seu consórcio em 1 minuto. Conquiste imóveis, veículos e investimentos sem juros e sem entrada, com estratégia de contemplação e acompanhamento do início ao fim.">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#0D1B2A">
@@ -186,7 +186,7 @@ section[id]{scroll-margin-top:calc(var(--hdr) - 12px)}
 .logo-pos{display:none}
 html[data-theme="light"] .logo-neg{display:none}
 html[data-theme="light"] .logo-pos{display:block}
-.ftr .logo-img{height:54px}
+.ftr .logo-img{height:72px}
 .menu{display:flex;align-items:center;gap:26px;margin-left:auto}
 .menu a:not(.btn){font-size:var(--fs-sm);font-weight:400;color:var(--text-muted);transition:color .2s;white-space:nowrap}
 .menu a:not(.btn):hover{color:var(--text)}
@@ -320,11 +320,8 @@ input[type=range]:hover::-webkit-slider-thumb,input[type=range]:focus-visible::-
    ============================================================ */
 .about{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
 .about-media{position:relative}
-.photo-slot{position:relative;aspect-ratio:4/3.4;border-radius:var(--radius-shell);overflow:hidden;background:radial-gradient(500px 300px at 80% 0%,rgba(65,90,119,.55),transparent 70%),linear-gradient(160deg,#1F2B42,#0D1B2A);box-shadow:0 30px 60px -24px rgba(13,27,42,.55)}
-.photo-slot img{width:100%;height:100%;object-fit:cover}
-.photo-slot .ph{position:absolute;inset:18px;border:1px dashed rgba(119,141,169,.55);border-radius:var(--radius-panel);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;padding:20px;color:#778DA9;font-size:var(--fs-sm);font-weight:300}
-.photo-slot .ph .ic{width:40px;height:40px;color:#A9B8CB}
-.photo-slot .ph b{color:#A9B8CB;font-weight:500;font-size:var(--fs-md)}
+.photo-slot{position:relative;aspect-ratio:4/3;border-radius:var(--radius-shell);overflow:hidden;background:radial-gradient(500px 300px at 80% 0%,rgba(65,90,119,.55),transparent 70%),linear-gradient(160deg,#1F2B42,#0D1B2A);box-shadow:0 30px 60px -24px rgba(13,27,42,.55)}
+.photo-slot img{width:100%;height:100%;object-fit:cover;object-position:35% 50%}
 .float-card{position:absolute;right:-22px;bottom:-26px;border-radius:var(--radius-lg);padding:16px 20px;display:flex;align-items:center;gap:14px;box-shadow:var(--shadow-float)}
 .float-card .big{font-family:var(--font-display);font-weight:600;font-size:var(--fs-kpi);letter-spacing:-.02em;line-height:1}
 .float-card span{font-size:var(--fs-xs);font-weight:300;color:var(--text-muted);line-height:1.4}
@@ -509,6 +506,8 @@ input[type=range]:hover::-webkit-slider-thumb,input[type=range]:focus-visible::-
 .av{width:46px;height:46px;border-radius:50%;background:var(--pill-bg);border:1px solid var(--glass-btn-border);color:var(--icon-soft);display:grid;place-items:center;flex:0 0 auto;overflow:hidden}
 .av img{width:100%;height:100%;object-fit:cover}
 .av .ic{width:20px;height:20px}
+/* avatar genérico com as iniciais (troque por <img> quando tiver a foto autorizada do cliente) */
+.av.ini{background:linear-gradient(160deg,#778DA9,#415A77 55%,#1B263B);border-color:rgba(169,184,203,.35);color:#E0E1DD;font-family:var(--font-display);font-weight:600;font-size:.9rem;letter-spacing:.02em}
 .who b{display:block;font-family:var(--font-display);font-weight:600;font-size:var(--fs-lg)}
 .who span{font-size:var(--fs-xs);font-weight:300;color:var(--text-muted)}
 
@@ -562,12 +561,13 @@ input[type=range]:hover::-webkit-slider-thumb,input[type=range]:focus-visible::-
 .ftr li a,.ftr li button,.ftr li span{font-size:var(--fs-sm);font-weight:400;color:var(--text-muted);transition:color .2s;display:inline-flex;align-items:center;gap:10px;border:0;background:none;cursor:pointer;text-align:left;padding:0}
 .ftr li a:hover,.ftr li button:hover{color:var(--text)}
 .ftr li .ic{width:18px;height:18px;color:var(--icon-soft)}
-.seals{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:22px}
+.seals{display:flex;align-items:center;gap:26px;flex-wrap:wrap;margin-top:26px}
 .socials{display:flex;gap:10px;flex-wrap:wrap}
 .socials a{width:44px;height:44px;border-radius:var(--radius);background:var(--pill-bg);border:1px solid var(--glass-border);display:grid;place-items:center;color:var(--icon-soft);transition:.2s}
 .socials a:hover{background:var(--btn-bg);border-color:var(--btn-bg);color:var(--btn-fg);transform:translateY(-2px)}
 .socials a .ic{width:20px;height:20px}
-.handle{font-size:var(--fs-sm);font-weight:300;margin-top:14px;display:block;color:var(--text-muted)}
+.handle{font-size:var(--fs-sm);font-weight:300;margin-top:14px;display:inline-block;color:var(--text-muted);transition:color .2s}
+.handle:hover{color:var(--text)}
 .legal{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;padding-top:24px}
 .legal p{max-width:780px;margin:0;font-size:var(--fs-xs);line-height:1.6}
 .legal nav{display:flex;gap:18px}
@@ -618,9 +618,10 @@ html:has(dialog[open]){overflow:hidden}
 .pick button:hover{color:var(--text);border-color:rgba(169,184,203,.35)}
 .pick button[aria-checked="true"]{background:var(--btn-bg);border-color:var(--btn-bg);color:var(--btn-fg);font-weight:500;box-shadow:0 10px 24px -14px var(--btn-glow)}
 .seg3{grid-template-columns:repeat(3,1fr)}
-.lead-dlg .seg button{padding:10px 6px;display:flex;align-items:center;justify-content:center;gap:6px}
-.lead-dlg .seg .ic{width:15px;height:15px}
-.lead-dlg .seg svg.wa{fill:currentColor;stroke:none}
+.lead-dlg .seg button,.seg-ic button,.seg3 button{padding:10px 6px;display:flex;align-items:center;justify-content:center;gap:6px}
+.seg button .ic{width:15px;height:15px}
+.seg svg.wa{fill:currentColor;stroke:none}
+#leadForm .f2-pick fieldset{margin:2px 0 12px}
 fieldset.invalid .seg,fieldset.invalid .pick button{border-color:var(--danger)}
 .dlg-done{text-align:center;padding:34px 26px 30px}
 .dlg-done .sim-desc{margin:8px auto 22px;max-width:360px;font-size:var(--fs-md);line-height:1.6}
@@ -762,7 +763,8 @@ html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
   .sim-back .sim-top .tag{display:none}
   .money input{font-size:1.75rem}
   .f input{padding:0 12px;font-size:.9rem}
-  .f-wide,.f-cep{grid-column:1/-1}
+  .f-wide{grid-column:1/-1}
+  #leadForm .f2-pick{grid-template-columns:minmax(0,1fr)}
   .sols,.opts,.steps,.uses,.tests{grid-template-columns:minmax(0,1fr)}
   .kpis{grid-template-columns:1fr 1fr;gap:12px;margin-top:64px}
   .kpi{padding:18px 14px}
@@ -856,7 +858,6 @@ html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
   <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></symbol>
   <symbol id="i-facebook" viewBox="0 0 24 24"><path d="M15 3h-2.5A4.5 4.5 0 0 0 8 7.5V10H5.5v4H8v7h4v-7h3l.5-4H12V7.8a.8.8 0 0 1 .8-.8H15z"/></symbol>
   <symbol id="i-linkedin" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10.5V17M8 7.5v.01M12 17v-6.5M12 13.5a2.8 2.8 0 0 1 5.5 0V17"/></symbol>
-  <symbol id="i-youtube" viewBox="0 0 24 24"><path d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8z"/><path d="m10 15 5-3-5-3z"/></symbol>
   <symbol id="i-wa" viewBox="0 0 32 32"><path d="M16.04 3C9.0 3 3.3 8.7 3.3 15.7c0 2.25.6 4.45 1.72 6.38L3.2 28.8l6.9-1.8a12.7 12.7 0 0 0 5.94 1.5h.01c7.03 0 12.74-5.7 12.74-12.73 0-3.4-1.32-6.6-3.73-9A12.66 12.66 0 0 0 16.04 3zm0 23.3h-.01a10.6 10.6 0 0 1-5.39-1.48l-.39-.23-4.1 1.07 1.1-4-.25-.41a10.55 10.55 0 0 1-1.62-5.6c0-5.84 4.75-10.6 10.6-10.6 2.83 0 5.49 1.1 7.49 3.11a10.52 10.52 0 0 1 3.1 7.5c0 5.85-4.75 10.6-10.53 10.6zm5.8-7.94c-.32-.16-1.88-.93-2.17-1.03-.29-.11-.5-.16-.71.16-.21.32-.82 1.03-1 1.24-.19.21-.37.24-.69.08-.32-.16-1.34-.5-2.56-1.58a9.58 9.58 0 0 1-1.77-2.2c-.19-.32-.02-.49.14-.65.14-.14.32-.37.48-.56.16-.19.21-.32.32-.53.1-.21.05-.4-.03-.56-.08-.16-.71-1.71-.98-2.34-.26-.62-.52-.53-.71-.54h-.61c-.21 0-.56.08-.85.4-.29.32-1.11 1.08-1.11 2.64 0 1.56 1.14 3.07 1.3 3.28.16.21 2.24 3.42 5.43 4.8.76.33 1.35.52 1.81.67.76.24 1.45.2 2 .12.61-.09 1.88-.77 2.14-1.51.27-.74.27-1.38.19-1.51-.08-.13-.29-.21-.61-.37z"/></symbol>
   <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6 6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></symbol>
   <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.5 14.3A8.5 8.5 0 1 1 9.7 3.5a6.6 6.6 0 0 0 10.8 10.8z"/></symbol>
@@ -872,7 +873,7 @@ html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
     <a class="logo" href="#topo" aria-label="Vero Consórcios, voltar ao início">
       <img class="logo-img logo-neg" src="assets/img/logo/vero-consorcios-negativo.webp" alt="Vero Consórcios" width="158" height="44" decoding="async"><img class="logo-img logo-pos" src="assets/img/logo/vero-consorcios.webp" alt="Vero Consórcios" width="158" height="44" decoding="async">
     </a>
-    <a class="hdr-wa-m" href="#" data-wa="Olá, vim por meio do site e gostaria de mais informações." aria-label="WhatsApp comercial (51) 98912-1113"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#i-wa"/></svg></a>
+    <a class="hdr-wa-m" href="#" data-wa="Olá! Encontrei o WhatsApp de vocês no site da Vero Consórcios e gostaria de mais informações." data-wa-origem="numero_topo" aria-label="WhatsApp comercial (51) 98912-1113"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#i-wa"/></svg></a>
     <button class="hamb" id="hamb" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><svg class="ic"><use href="#i-menu"/></svg></button>
     <nav class="menu" id="menu" aria-label="Navegação principal">
       <a href="#quem-somos">Quem Somos</a>
@@ -880,8 +881,8 @@ html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
       <a href="#solucoes">Soluções</a>
       <a href="#beneficios">Benefícios</a>
       <a href="#utilizacoes">Utilizações</a>
-      <a class="hdr-wa" href="#" data-wa="Olá, vim por meio do site e gostaria de mais informações." aria-label="WhatsApp comercial (51) 98912-1113"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#i-wa"/></svg>(51) 98912-1113</a>
-      <a class="btn btn-glass btn-sm" href="#simulador" data-goto-sim>Simular agora</a>
+      <a class="hdr-wa" href="#" data-wa="Olá! Encontrei o WhatsApp de vocês no site da Vero Consórcios e gostaria de mais informações." data-wa-origem="numero_topo" aria-label="WhatsApp comercial (51) 98912-1113"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#i-wa"/></svg>(51) 98912-1113</a>
+      <a class="btn btn-primary btn-sm" href="#simulador" data-goto-sim>Simular agora</a>
     </nav>
     <button type="button" class="theme-tg" id="themeTg" aria-label="Ativar modo claro" title="Modo claro"><svg class="ic i-sun" aria-hidden="true"><use href="#i-sun"/></svg><svg class="ic i-moon" aria-hidden="true"><use href="#i-moon"/></svg></button>
   </div>
@@ -896,7 +897,7 @@ html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
   <div class="wrap hero-grid">
 
     <div class="hero-copy">
-      <p class="kicker reveal-now">Consórcio com estratégia e planejamento</p>
+      <p class="kicker reveal-now">Estratégias para Construir Patrimônio</p>
       <h1 class="reveal-now">Conquiste seu patrimônio com <em>estratégia</em> e <em>sem pagar juros.</em></h1>
       <p class="sub reveal-now">Simule em menos de 1 minuto e receba um plano personalizado para usar o consórcio como ferramenta de aquisição e alavancagem patrimonial.</p>
     </div>
@@ -971,22 +972,29 @@ html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
                     <input id="fEmail" name="email" type="email" autocomplete="email" inputmode="email" placeholder="seu@email.com" required>
                     <p class="err"></p>
                   </div>
-                  <div class="f" data-f="celular">
+                  <div class="f f-wide" data-f="celular">
                     <label for="fCel">Celular / WhatsApp</label>
                     <input id="fCel" name="celular" type="tel" autocomplete="tel-national" inputmode="numeric" placeholder="(00) 00000-0000" maxlength="15" required>
                     <p class="err"></p>
                   </div>
-                  <div class="f" data-f="cpf">
-                    <label for="fCpf">CPF</label>
-                    <input id="fCpf" name="cpf" type="text" inputmode="numeric" placeholder="000.000.000-00" maxlength="14" required>
+                </div>
+                <div class="f2 f2-pick">
+                  <fieldset data-f="contato">
+                    <legend class="sim-label">Preferência de contato</legend>
+                    <div class="seg seg-ic" role="radiogroup" aria-label="Preferência de contato">
+                      <button type="button" role="radio" aria-checked="false" data-v="Ligação"><svg class="ic"><use href="#i-phone"/></svg>Ligação</button>
+                      <button type="button" role="radio" aria-checked="true" data-v="WhatsApp"><svg class="ic wa" viewBox="0 0 32 32"><use href="#i-wa"/></svg>WhatsApp</button>
+                    </div>
+                  </fieldset>
+                  <fieldset data-f="horario">
+                    <legend class="sim-label">Melhor horário</legend>
+                    <div class="seg seg3" role="radiogroup" aria-label="Melhor horário para contato">
+                      <button type="button" role="radio" aria-checked="false" data-v="Manhã">Manhã</button>
+                      <button type="button" role="radio" aria-checked="false" data-v="Tarde">Tarde</button>
+                      <button type="button" role="radio" aria-checked="false" data-v="Noite">Noite</button>
+                    </div>
                     <p class="err"></p>
-                  </div>
-                  <div class="f f-cep" data-f="cep">
-                    <label for="fCep">CEP</label>
-                    <input id="fCep" name="cep" type="text" autocomplete="postal-code" inputmode="numeric" placeholder="00000-000" maxlength="9" required>
-                    <p class="hint" id="cepHint"></p>
-                    <p class="err"></p>
-                  </div>
+                  </fieldset>
                 </div>
 
                 <label class="cbx" data-f="privacidade">
@@ -1015,7 +1023,7 @@ html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
               <div class="done-msg">
                 <span class="done-ic"><svg class="ic"><use href="#i-check"/></svg></span>
                 <h2 class="sim-title" tabindex="-1" id="resTitle">Recebemos seus dados!</h2>
-                <p class="sim-desc">Um especialista vai entrar em contato pelo WhatsApp informado para apresentar o resultado da sua simulação.</p>
+                <p class="sim-desc" id="resTxt">Um especialista vai entrar em contato para apresentar o resultado da sua simulação.</p>
               </div>
               <button type="button" class="backlink" id="rRestart">Fazer nova simulação</button>
             </div>
@@ -1055,13 +1063,7 @@ html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
     <div class="about">
       <div class="about-media reveal" data-rv="left">
         <figure class="photo-slot">
-          <!-- IMAGEM: substitua o bloco .ph por:
-               <img src="assets/img/escritorio.jpg" alt="Escritório da Vero Consórcios" width="1200" height="1020" loading="lazy"> -->
-          <div class="ph">
-            <svg class="ic"><use href="#i-image"/></svg>
-            <b>Espaço para a imagem do escritório com o logotipo</b>
-            <span>Recomendado: 1200 × 1020 px · JPG ou WebP</span>
-          </div>
+          <img src="assets/img/escritorio.webp" alt="Escritório da Vero Consórcios em Porto Alegre/RS" width="1200" height="900" loading="lazy" decoding="async">
         </figure>
         <div class="float-card glass theme-light">
           <span class="gi"><svg class="ic"><use href="#i-trophy"/></svg></span>
@@ -1197,7 +1199,7 @@ html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
     </div>
 
     <!-- Mecanismo de Alavancagem Financeira. Premissas em CONFIG.alavancagem:
-         plano de imóvel (220 meses, taxa de administração 18%, fundo de reserva 2%, meia parcela),
+         plano de imóvel (220 meses, taxa de administração 20%, fundo de reserva 2%, meia parcela),
          1ª carta contemplada em 12 meses e vendida com ágio de 20% do crédito.
          Repetir o ciclo = SIM: o valor das vendas paga novas cartas (até N por ano) e, a cada ano,
            cerca de 27% das cartas ativas são contempladas e vendidas; as demais seguem no grupo.
@@ -1345,35 +1347,38 @@ html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
       <h2 class="h2 reveal">Quem já conquistou com a <em>gente</em>.</h2>
       <p class="lead reveal">Histórias de clientes que transformaram planejamento em patrimônio.</p>
     </div>
+    <!-- DEPOIMENTOS DE EXEMPLO (nomes, textos e valores ilustrativos): substitua por relatos reais,
+         com autorização por escrito do cliente, antes de publicar. Para usar a foto do cliente, troque
+         <div class="av ini">..</div> por <div class="av"><img src="assets/img/cliente-1.webp" alt="Nome do cliente"></div>. -->
     <div class="tests" data-stagger="140">
       <article class="tcard card reveal">
         <svg class="q"><use href="#i-quote"/></svg>
         <div class="stars" aria-label="Avaliação 5 de 5"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
-        <blockquote>“Espaço para o depoimento do cliente 1. Conte qual era o objetivo, como foi a experiência com a consultoria e qual foi o resultado conquistado com o consórcio.”</blockquote>
-        <span class="tag"><svg class="ic"><use href="#i-home"/></svg>Imóvel · carta de R$ 000 mil</span>
+        <blockquote>“Eu queria sair do aluguel sem pagar os juros de um financiamento. A Vero montou um plano com lance embutido e me acompanhou em cada assembleia até a contemplação. Hoje moro no meu apartamento e mantive a minha reserva aplicada.”</blockquote>
+        <span class="tag"><svg class="ic"><use href="#i-home"/></svg>Imóvel · carta de R$ 450 mil</span>
         <div class="who">
-          <div class="av"><svg class="ic"><use href="#i-user"/></svg><!-- <img src="assets/img/cliente-1.jpg" alt="Nome do cliente"> --></div>
-          <div><b>Nome do cliente</b><span>Cidade/UF · cliente desde 20XX</span></div>
+          <div class="av ini" aria-hidden="true">RM</div>
+          <div><b>Rafael M.</b><span>Porto Alegre/RS · cliente desde 2022</span></div>
         </div>
       </article>
       <article class="tcard card reveal">
         <svg class="q"><use href="#i-quote"/></svg>
         <div class="stars" aria-label="Avaliação 5 de 5"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
-        <blockquote>“Espaço para o depoimento do cliente 2. Destaque o diferencial do atendimento, a estratégia de lance utilizada e o tempo até a contemplação.”</blockquote>
-        <span class="tag"><svg class="ic"><use href="#i-car"/></svg>Veículo · carta de R$ 000 mil</span>
+        <blockquote>“Precisava renovar o carro da clínica sem mexer no capital de giro. Com o consórcio e a estratégia de lances da Vero, conquistei o veículo planejando cada etapa, e o caixa da empresa continuou trabalhando.”</blockquote>
+        <span class="tag"><svg class="ic"><use href="#i-car"/></svg>Veículo · carta de R$ 140 mil</span>
         <div class="who">
-          <div class="av"><svg class="ic"><use href="#i-user"/></svg><!-- <img src="assets/img/cliente-2.jpg" alt="Nome do cliente"> --></div>
-          <div><b>Nome do cliente</b><span>Cidade/UF · cliente desde 20XX</span></div>
+          <div class="av ini" aria-hidden="true">CR</div>
+          <div><b>Camila R.</b><span>Florianópolis/SC · cliente desde 2023</span></div>
         </div>
       </article>
       <article class="tcard card reveal">
         <svg class="q"><use href="#i-quote"/></svg>
         <div class="stars" aria-label="Avaliação 5 de 5"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
-        <blockquote>“Espaço para o depoimento do cliente 3. Ideal para um caso de investimento ou alavancagem patrimonial, mostrando o resultado em números.”</blockquote>
-        <span class="tag"><svg class="ic"><use href="#i-chart"/></svg>Investimento · carta de R$ 000 mil</span>
+        <blockquote>“Eu buscava diversificar meus investimentos. A Vero me apresentou a alavancagem financeira: contratei a carta, fui contemplado e vendi com ágio. Com esse valor, contratei novas cartas sem tirar mais dinheiro do bolso.”</blockquote>
+        <span class="tag"><svg class="ic"><use href="#i-chart"/></svg>Investimento · carta de R$ 300 mil</span>
         <div class="who">
-          <div class="av"><svg class="ic"><use href="#i-user"/></svg><!-- <img src="assets/img/cliente-3.jpg" alt="Nome do cliente"> --></div>
-          <div><b>Nome do cliente</b><span>Cidade/UF · cliente desde 20XX</span></div>
+          <div class="av ini" aria-hidden="true">ES</div>
+          <div><b>Eduardo S.</b><span>Campinas/SP · cliente desde 2021</span></div>
         </div>
       </article>
     </div>
@@ -1465,7 +1470,7 @@ html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
 
       <div class="help card">
         <div><b>Não encontrou a sua dúvida?</b><p>Fale direto com um especialista pelo WhatsApp.</p></div>
-        <a class="btn btn-glass" href="#" data-wa="Olá! Tenho uma dúvida sobre consórcio."><svg class="ic" style="fill:currentColor;stroke:none;width:18px;height:18px"><use href="#i-wa"/></svg>Chamar no WhatsApp</a>
+        <a class="btn btn-glass" href="#" data-wa="Olá! Vim pelo site da Vero Consórcios e tenho uma dúvida sobre consórcio." data-wa-origem="duvidas"><svg class="ic" style="fill:currentColor;stroke:none;width:18px;height:18px"><use href="#i-wa"/></svg>Chamar no WhatsApp</a>
       </div>
     </div>
 
@@ -1477,7 +1482,7 @@ html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
       </div>
       <div class="acts">
         <a class="btn btn-primary" href="#simulador" data-goto-sim>Simular agora <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></a>
-        <a class="btn btn-glass" href="#" data-wa="Olá! Quero falar com um especialista em consórcio."><svg class="ic" style="fill:currentColor;stroke:none;width:18px;height:18px"><use href="#i-wa"/></svg>Falar com um especialista</a>
+        <a class="btn btn-glass" href="#" data-wa="Olá! Vim pelo site da Vero Consórcios e quero falar com um especialista em consórcio." data-wa-origem="cta_final"><svg class="ic" style="fill:currentColor;stroke:none;width:18px;height:18px"><use href="#i-wa"/></svg>Falar com um especialista</a>
       </div>
     </div>
   </div>
@@ -1493,13 +1498,11 @@ html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
     <div class="fgrid">
       <div>
         <a class="logo" href="#topo" aria-label="Vero Consórcios, voltar ao início">
-          <img class="logo-img logo-neg" src="assets/img/logo/vero-consorcios-negativo.webp" alt="Vero Consórcios" width="194" height="54" loading="lazy" decoding="async"><img class="logo-img logo-pos" src="assets/img/logo/vero-consorcios.webp" alt="Vero Consórcios" width="194" height="54" loading="lazy" decoding="async">
+          <img class="logo-img logo-neg" src="assets/img/logo/vero-consorcios-negativo.webp" alt="Vero Consórcios" width="258" height="72" loading="lazy" decoding="async"><img class="logo-img logo-pos" src="assets/img/logo/vero-consorcios.webp" alt="Vero Consórcios" width="258" height="72" loading="lazy" decoding="async">
         </a>
-        <p>Consultoria especializada em consórcio como ferramenta de aquisição e alavancagem patrimonial.</p>
         <div class="seals">
-          <img class="selo" src="assets/img/selos/bacen.png" alt="BACEN, Banco Central do Brasil" width="35" height="44" style="--h:44px" loading="lazy" decoding="async">
-          <img class="selo" src="assets/img/selos/abac.png" alt="ABAC, Associação Brasileira de Administradoras de Consórcios" width="49" height="36" style="--h:36px" loading="lazy" decoding="async">
-          <span class="tag"><svg class="ic"><use href="#i-lock"/></svg>LGPD</span>
+          <img class="selo" src="assets/img/selos/bacen.png" alt="BACEN, Banco Central do Brasil" width="45" height="56" style="--h:56px" loading="lazy" decoding="async">
+          <img class="selo" src="assets/img/selos/abac.png" alt="ABAC, Associação Brasileira de Administradoras de Consórcios" width="63" height="46" style="--h:46px" loading="lazy" decoding="async">
         </div>
       </div>
       <div>
@@ -1515,32 +1518,31 @@ html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
       <div>
         <h3>Atendimento</h3>
         <ul>
-          <li><a href="#" data-wa="Olá, vim por meio do site e gostaria de mais informações."><svg class="ic"><use href="#i-phone"/></svg>WhatsApp (51) 98912-1113</a></li>
-          <li><a href="mailto:contato@veroconsorcios.com.br"><svg class="ic"><use href="#i-mail"/></svg>contato@veroconsorcios.com.br</a></li>
-          <li><span><svg class="ic"><use href="#i-clock"/></svg>Seg. a sex., 9h às 18h</span></li>
-          <li><span><svg class="ic"><use href="#i-pin"/></svg>Endereço · Cidade/UF</span></li>
+          <li><a href="#" data-wa="Olá! Encontrei o WhatsApp de vocês no site da Vero Consórcios e gostaria de mais informações." data-wa-origem="numero_rodape"><svg class="ic"><use href="#i-phone"/></svg>WhatsApp (51) 98912-1113</a></li>
+          <li><a href="mailto:contato@veroconsorciosbr.com.br"><svg class="ic"><use href="#i-mail"/></svg>contato@veroconsorciosbr.com.br</a></li>
+          <li><span><svg class="ic"><use href="#i-clock"/></svg>Seg. a sex., 8h às 18h</span></li>
+          <li><span><svg class="ic"><use href="#i-pin"/></svg>Porto Alegre/RS</span></li>
         </ul>
       </div>
       <div>
         <h3>Redes Sociais</h3>
         <div class="socials">
-          <a href="#" aria-label="Instagram" target="_blank" rel="noopener"><svg class="ic"><use href="#i-instagram"/></svg></a>
-          <a href="#" aria-label="Facebook" target="_blank" rel="noopener"><svg class="ic"><use href="#i-facebook"/></svg></a>
-          <a href="#" aria-label="LinkedIn" target="_blank" rel="noopener"><svg class="ic"><use href="#i-linkedin"/></svg></a>
-          <a href="#" aria-label="YouTube" target="_blank" rel="noopener"><svg class="ic"><use href="#i-youtube"/></svg></a>
+          <a href="https://www.instagram.com/veroconsorcios/" aria-label="Instagram @veroconsorcios" target="_blank" rel="noopener"><svg class="ic"><use href="#i-instagram"/></svg></a>
+          <a href="https://www.facebook.com/profile.php?id=61595209915390" aria-label="Facebook Vero Consórcios" target="_blank" rel="noopener"><svg class="ic"><use href="#i-facebook"/></svg></a>
+          <a href="https://www.linkedin.com/company/veroconsorcios" aria-label="LinkedIn Vero Consórcios" target="_blank" rel="noopener"><svg class="ic"><use href="#i-linkedin"/></svg></a>
         </div>
-        <span class="handle">@veroconsorcios</span>
+        <a class="handle" href="https://www.instagram.com/veroconsorcios/" target="_blank" rel="noopener">@veroconsorcios</a>
       </div>
     </div>
     <div class="legal">
-      <p>© <span id="year">2026</span> Vero Consórcios · CNPJ 00.000.000/0001-00. Consórcio regulamentado pelo Banco Central do Brasil (Lei 11.795/2008). As simulações são estimativas e não constituem proposta, promessa de contemplação ou de rentabilidade; valores e condições estão sujeitos às regras de cada grupo e à análise da administradora.</p>
+      <p>© <span id="year">2026</span> Vero Consórcios. Consórcio regulamentado pelo Banco Central do Brasil (Lei 11.795/2008). As simulações são estimativas e não constituem proposta, promessa de contemplação ou de rentabilidade; valores e condições estão sujeitos às regras de cada grupo e à análise da administradora.</p>
       <nav aria-label="Links legais"><button type="button" data-open-privacy>Política de Privacidade</button><button type="button" data-open-privacy>Termos de Uso</button></nav>
     </div>
   </div>
 </footer>
 
 <!-- WhatsApp flutuante -->
-<a class="wa-float" id="waFloat" href="#" data-wa="Olá, vim por meio do site e gostaria de mais informações." aria-label="Falar no WhatsApp" target="_blank" rel="noopener">
+<a class="wa-float" id="waFloat" href="#" data-wa="Olá! Vim pelo site da Vero Consórcios e gostaria de falar com um especialista." data-wa-origem="botao_flutuante" aria-label="Falar no WhatsApp" target="_blank" rel="noopener">
   <span class="tt">Fale com um especialista</span>
   <svg viewBox="0 0 32 32" aria-hidden="true"><use href="#i-wa"/></svg>
 </a>
@@ -1556,13 +1558,13 @@ html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
   <div class="dlg-h"><b id="privTitle">Política de Privacidade e Termos de Uso</b><button type="button" data-close aria-label="Fechar"><svg class="ic"><use href="#i-x"/></svg></button></div>
   <div class="dlg-b">
     <h4>1. Quais dados coletamos</h4>
-    <p>Nome, e-mail, celular, CPF e CEP informados no simulador, além das preferências da simulação (objetivo, valor de crédito ou parcela). No formulário de estratégia de alavancagem: nome, telefone, e-mail, crédito desejado, prazo para iniciar e preferência de contato e horário.</p>
+    <p>Nome, e-mail, celular, preferência de contato e melhor horário informados no simulador, além das preferências da simulação (objetivo, valor de crédito ou parcela). No formulário de estratégia de alavancagem: nome, telefone, e-mail, crédito desejado, prazo para iniciar e preferência de contato e horário.</p>
     <h4>2. Para que usamos</h4>
     <ul><li>Enviar o resultado da simulação e entrar em contato com uma proposta;</li><li>Verificar a elegibilidade junto às administradoras parceiras;</li><li>Enviar notificações sobre a sua simulação, mediante o seu consentimento.</li></ul>
     <h4>3. Compartilhamento</h4>
     <p>Os dados podem ser compartilhados apenas com administradoras de consórcio parceiras, para fins de cotação e contratação. Não vendemos dados pessoais.</p>
     <h4>4. Seus direitos (LGPD)</h4>
-    <p>Você pode solicitar acesso, correção, portabilidade ou exclusão dos seus dados e revogar o consentimento a qualquer momento pelo e-mail contato@veroconsorcios.com.br.</p>
+    <p>Você pode solicitar acesso, correção, portabilidade ou exclusão dos seus dados e revogar o consentimento a qualquer momento pelo e-mail contato@veroconsorciosbr.com.br.</p>
     <h4>5. Termos de uso</h4>
     <p>As simulações são estimativas e não constituem proposta comercial, garantia de contemplação ou de rentabilidade. As condições finais dependem do grupo escolhido e da análise da administradora.</p>
   </div>
@@ -1663,7 +1665,7 @@ var CONFIG = {
   //  reducao: desconto da parcela reduzida até a contemplação (0.3 = 30% menor)
   // Mecanismo de Alavancagem Financeira (bloco Soluções). Plano sempre de imóvel.
   alavancagem: {
-    taxaAdm: 0.18, fundoReserva: 0.02, prazo: 220,   // plano (não aparece na tela)
+    taxaAdm: 0.20, fundoReserva: 0.02, prazo: 220,   // plano (não aparece na tela)
     mesesContemplacao: 12,                           // 1ª carta: contemplação por sorteio em 12 meses
     agioVenda: 0.20,                                 // venda da carta contemplada: 20% do crédito
     probContemplacao: 0.27,                          // ciclos seguintes: chance de contemplação por carta ativa, ao ano
@@ -1714,9 +1716,11 @@ var CONFIG = {
   function waLink(msg) { return 'https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent(msg.replace(/ /g, ' ')); }
 
   /* ---------------- Links de WhatsApp ---------------- */
+  // Cada botão tem a sua mensagem; o evento whatsapp_clique informa de onde veio o clique
   $$('[data-wa]').forEach(function (a) {
     a.href = waLink(a.getAttribute('data-wa'));
     a.target = '_blank'; a.rel = 'noopener';
+    a.addEventListener('click', function () { track('whatsapp_clique', { origem: a.getAttribute('data-wa-origem') || 'site' }); });
   });
 
   /* ---------------- Header / menu ---------------- */
@@ -1880,39 +1884,28 @@ var CONFIG = {
     if (d.length <= 10) return '(' + d.slice(0, 2) + ') ' + d.slice(2, 6) + '-' + d.slice(6);
     return '(' + d.slice(0, 2) + ') ' + d.slice(2, 7) + '-' + d.slice(7);
   }
-  function maskCpf(v) {
-    var d = v.replace(/\D/g, '').slice(0, 11);
-    return d.replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})(\d{1,2})$/, '$1-$2');
-  }
-  function maskCep(v) { var d = v.replace(/\D/g, '').slice(0, 8); return d.length > 5 ? d.slice(0, 5) + '-' + d.slice(5) : d; }
-  function validCpf(c) {
-    c = c.replace(/\D/g, '');
-    if (c.length !== 11 || /^(\d)\1{10}$/.test(c)) return false;
-    var s = 0, i, r;
-    for (i = 0; i < 9; i++) s += +c[i] * (10 - i);
-    r = (s * 10) % 11; if (r === 10) r = 0; if (r !== +c[9]) return false;
-    s = 0; for (i = 0; i < 10; i++) s += +c[i] * (11 - i);
-    r = (s * 10) % 11; if (r === 10) r = 0; return r === +c[10];
-  }
   function validPhone(p) { var d = p.replace(/\D/g, ''); return d.length === 11 ? d[2] === '9' : d.length === 10; }
 
-  var fCel = $('#fCel'), fCpf = $('#fCpf'), fCep = $('#fCep');
+  var fCel = $('#fCel');
   fCel.addEventListener('input', function () { fCel.value = maskPhone(fCel.value); });
-  fCpf.addEventListener('input', function () { fCpf.value = maskCpf(fCpf.value); });
-  var cepData = {};
-  fCep.addEventListener('input', function () {
-    fCep.value = maskCep(fCep.value);
-    var d = fCep.value.replace(/\D/g, '');
-    $('#cepHint').textContent = ''; cepData = {};
-    if (d.length === 8 && window.fetch) {
-      fetch('https://viacep.com.br/ws/' + d + '/json/').then(function (r) { return r.json(); }).then(function (j) {
-        if (j && !j.erro && fCep.value.replace(/\D/g, '') === d) {
-          cepData = { cidade: j.localidade, uf: j.uf, bairro: j.bairro };
-          $('#cepHint').textContent = '✓ ' + j.localidade + '/' + j.uf;
-        }
-      }).catch(function () { /* sem conexão: segue sem a cidade */ });
-    }
-  });
+  // preferência de contato e melhor horário (um toque)
+  var S2 = { contato: 'WhatsApp', horario: '' };
+  function bindPicks(formEl, store) {
+    $$('[role="radiogroup"]', formEl).forEach(function (g) {
+      var fs = g.closest('[data-f]'), key = fs.getAttribute('data-f');
+      g.addEventListener('click', function (e) {
+        var b = e.target.closest('[data-v]'); if (!b) return;
+        store[key] = b.getAttribute('data-v');
+        $$('[data-v]', g).forEach(function (x) { x.setAttribute('aria-checked', x === b ? 'true' : 'false'); });
+        fs.classList.remove('invalid'); var p = $('.err', fs); if (p) p.textContent = '';
+      });
+    });
+  }
+  function resetPicks(formEl, store) {
+    store.contato = 'WhatsApp'; store.horario = ''; if ('inicio' in store) store.inicio = '';
+    $$('[data-v]', formEl).forEach(function (x) { x.setAttribute('aria-checked', x.getAttribute('data-v') === 'WhatsApp' ? 'true' : 'false'); });
+  }
+  bindPicks(form, S2);
 
   function setErr(name, msg) {
     var box = form.querySelector('[data-f="' + name + '"]'); if (!box) return;
@@ -1932,8 +1925,7 @@ var CONFIG = {
     if (nome.split(/\s+/).filter(Boolean).length < 2 || nome.length < 5) bad('nome', 'Nome incompleto: informe nome e sobrenome.', $('#fNome')); else setErr('nome');
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) bad('email', 'E-mail inválido: confira o endereço digitado.', $('#fEmail')); else setErr('email');
     if (!validPhone(fCel.value)) bad('celular', 'Celular inválido: informe DDD e número.', fCel); else setErr('celular');
-    if (!validCpf(fCpf.value)) bad('cpf', 'CPF inválido: confira os 11 dígitos.', fCpf); else setErr('cpf');
-    if (fCep.value.replace(/\D/g, '').length !== 8) bad('cep', 'CEP inválido: informe os 8 dígitos.', fCep); else setErr('cep');
+    if (!S2.horario) bad('horario', 'Escolha o melhor horário.', $('[data-f="horario"] [data-v]', form)); else setErr('horario');
     var faltam = [];
     if (!$('#fPriv').checked) { $('[data-f="privacidade"]').classList.add('invalid'); faltam.push('a Política de Privacidade'); ok = false; if (!first) first = $('#fPriv'); }
     if (!$('#fNotif').checked) { $('[data-f="notificacoes"]').classList.add('invalid'); faltam.push('as notificações'); ok = false; if (!first) first = $('#fNotif'); }
@@ -1941,6 +1933,7 @@ var CONFIG = {
     if (first) first.focus();
     return ok;
   }
+  function periodo(h) { return { 'Manhã': 'pela manhã', 'Tarde': 'à tarde', 'Noite': 'à noite' }[h] || 'no horário escolhido'; }
   function utms() {
     var out = {}, q = new URLSearchParams(location.search);
     ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'fbclid'].forEach(function (k) { if (q.get(k)) out[k] = q.get(k); });
@@ -1965,9 +1958,7 @@ var CONFIG = {
       nome: $('#fNome').value.trim(),
       email: $('#fEmail').value.trim(),
       celular: fCel.value.replace(/\D/g, ''),
-      cpf: fCpf.value.replace(/\D/g, ''),
-      cep: fCep.value.replace(/\D/g, ''),
-      cidade: cepData.cidade || '', uf: cepData.uf || '',
+      preferencia_contato: S2.contato, melhor_horario: S2.horario,
       categoria: c.label, modo: S.mode,
       credito: Math.round(S.credito), parcela: Math.round(S.parcela), prazo: c.prazo,
       aceite_privacidade: true, aceite_notificacoes: true,
@@ -1988,11 +1979,13 @@ var CONFIG = {
   function showResult(lead) {
     if (resultShown) return; resultShown = true;
     $('#resTitle').textContent = 'Recebemos seus dados, ' + lead.nome.split(' ')[0] + '!';
+    $('#resTxt').textContent = 'Um especialista vai entrar em contato ' + (lead.preferencia_contato === 'WhatsApp' ? 'pelo WhatsApp' : 'por ligação') +
+      ', ' + periodo(lead.melhor_horario) + ', para apresentar o resultado da sua simulação.';
     $('#leadPanel').hidden = true; $('#resultPanel').hidden = false;
     $('#resTitle').focus({ preventScroll: true });
   }
   $('#rRestart').addEventListener('click', function () {
-    resultShown = false; form.reset(); $('#cepHint').textContent = ''; cepData = {};
+    resultShown = false; form.reset(); resetPicks(form, S2);
     $('#leadPanel').hidden = false; $('#resultPanel').hidden = true;
     flip(false);
   });
@@ -2116,15 +2109,7 @@ var CONFIG = {
   aCred.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); aCred.blur(); } });
   aTel.addEventListener('input', function () { aTel.value = maskPhone(aTel.value); });
   // escolhas rápidas (um toque): início, preferência de contato e horário
-  $$('[role="radiogroup"]', aForm).forEach(function (g) {
-    var key = g.closest('[data-f]').getAttribute('data-f');
-    g.addEventListener('click', function (e) {
-      var b = e.target.closest('[data-v]'); if (!b) return;
-      aSt[key] = b.getAttribute('data-v');
-      $$('[data-v]', g).forEach(function (x) { x.setAttribute('aria-checked', x === b ? 'true' : 'false'); });
-      var fs = g.closest('[data-f]'); fs.classList.remove('invalid'); var p = $('.err', fs); if (p) p.textContent = '';
-    });
-  });
+  bindPicks(aForm, aSt);
   function aSetErr(name, msg) {
     var box = aForm.querySelector('[data-f="' + name + '"]'); if (!box) return;
     box.classList.toggle('invalid', !!msg);
@@ -2161,8 +2146,7 @@ var CONFIG = {
   aDlg.addEventListener('click', function (e) { if (e.target === aDlg) closeAlavDlg(); });
   aDlg.addEventListener('close', function () {
     if (!$('#aDone').hidden) {   // depois do envio, o próximo acesso começa limpo
-      aForm.reset(); aSt.inicio = ''; aSt.horario = ''; aSt.contato = 'WhatsApp';
-      $$('[data-v]', aForm).forEach(function (x) { x.setAttribute('aria-checked', x.getAttribute('data-v') === 'WhatsApp' ? 'true' : 'false'); });
+      aForm.reset(); resetPicks(aForm, aSt);
     }
   });
   aForm.addEventListener('submit', function (e) {
@@ -2188,10 +2172,9 @@ var CONFIG = {
     if (window.fbq) window.fbq('track', 'Lead');
     postLead(lead, function () {
       btn.disabled = false;
-      var periodo = { 'Manhã': 'pela manhã', 'Tarde': 'à tarde', 'Noite': 'à noite' }[lead.melhor_horario] || '';
       $('#aDoneTitle').textContent = 'Recebemos seus dados, ' + lead.nome.split(' ')[0] + '!';
       $('#aDoneTxt').textContent = 'Um especialista vai entrar em contato ' + (lead.preferencia_contato === 'WhatsApp' ? 'pelo WhatsApp' : 'por ligação') +
-        ', ' + periodo + ', para montar a sua estratégia de alavancagem.';
+        ', ' + periodo(lead.melhor_horario) + ', para montar a sua estratégia de alavancagem.';
       aForm.hidden = true; $('#aDone').hidden = false;
       aDlg.scrollTop = 0;
       $('#aDoneTitle').focus({ preventScroll: true });
