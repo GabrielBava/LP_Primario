@@ -363,7 +363,7 @@ input[type=range]:hover::-webkit-slider-thumb,input[type=range]:focus-visible::-
 
 /* ---------- Cartas contempladas (painel escuro dentro do bloco Quem Somos) ---------- */
 #contempladas{scroll-margin-top:calc(var(--hdr) + 16px)}
-.contemp{position:relative;overflow:hidden;margin-top:96px;border-radius:var(--radius-shell);padding:48px 44px 36px;border:1px solid rgba(119,141,169,.22);
+.contemp{position:relative;overflow:hidden;margin-top:96px;border-radius:var(--radius-shell);padding:48px 44px 44px;border:1px solid rgba(119,141,169,.22);
   background:radial-gradient(640px 360px at 0% 0%,rgba(65,90,119,.5),transparent 70%),radial-gradient(460px 300px at 100% 100%,rgba(119,141,169,.16),transparent 70%),linear-gradient(160deg,#1B263B,#0B1724);
   box-shadow:0 40px 80px -40px rgba(13,27,42,.75)}
 .contemp>*{position:relative;z-index:1}
@@ -372,14 +372,9 @@ input[type=range]:hover::-webkit-slider-thumb,input[type=range]:focus-visible::-
 .contemp-title{font-family:var(--font-display);font-weight:500;font-size:clamp(1.9rem,3.4vw,2.7rem);line-height:1.1;letter-spacing:-.025em}
 .contemp-title em{font-style:normal;background:var(--em-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .contemp-head p{font-weight:300;font-size:var(--fs-lg);color:var(--text-muted);margin-top:12px;line-height:1.6}
-.contemp-seg{display:flex;justify-content:center;gap:8px;margin:30px auto 0;max-width:460px}
+.contemp-seg{display:flex;justify-content:center;gap:8px;margin:30px auto 28px;max-width:460px}
 .contemp-seg button{flex:1;padding:13px 8px 11px;font-size:var(--fs-sm)}
 .contemp-seg button .ic{width:22px;height:22px}
-.ct-meta{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:28px 0 12px;font-size:var(--fs-sm);color:var(--text-muted)}
-.ct-day{display:inline-flex;align-items:center;gap:9px}
-.ct-day i{width:8px;height:8px;border-radius:50%;background:var(--success);box-shadow:0 0 0 0 rgba(140,197,162,.55);animation:ctPulse 2.2s ease-out infinite}
-@keyframes ctPulse{70%{box-shadow:0 0 0 8px rgba(140,197,162,0)}100%{box-shadow:0 0 0 0 rgba(140,197,162,0)}}
-.ct-demo{font-size:var(--fs-xs);font-weight:500;color:var(--warning);border:1px solid rgba(227,190,118,.35);background:rgba(227,190,118,.08);padding:4px 10px;border-radius:var(--radius-pill)}
 .ct-wrap{border:1px solid var(--border);border-radius:var(--radius-panel);overflow:hidden;background:rgba(224,225,221,.02)}
 .ct{width:100%;border-collapse:collapse;font-size:var(--fs-md)}
 .ct th{font-size:var(--fs-xs);font-weight:500;letter-spacing:.02em;color:var(--text-muted);text-align:right;padding:14px 18px;background:rgba(224,225,221,.035);border-bottom:1px solid var(--border);white-space:nowrap}
@@ -395,7 +390,6 @@ input[type=range]:hover::-webkit-slider-thumb,input[type=range]:focus-visible::-
 .ct .btn{padding:9px 16px;font-size:var(--fs-sm)}
 .ct tbody.swap tr{animation:ctRow .45s cubic-bezier(.2,.7,.3,1) both;animation-delay:calc(var(--i,0) * 45ms)}
 @keyframes ctRow{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.ct-note{font-size:var(--fs-xs);font-weight:300;color:var(--text-muted);margin-top:16px;text-align:center;line-height:1.5}
 
 /* ============================================================
    3 · COMO FUNCIONA (escuro)
@@ -752,7 +746,6 @@ html[data-theme="light"] .contemp{border-color:rgba(65,90,119,.16);box-shadow:0 
 html[data-theme="light"] .ct-wrap{background:#FFFFFF}
 html[data-theme="light"] .ct th{background:#F3F4F2}
 html[data-theme="light"] .ct tbody tr:hover{background:#F7F8F6}
-html[data-theme="light"] .ct-demo{color:#8A5A0B;border-color:rgba(168,111,18,.3);background:rgba(168,111,18,.08)}
 html[data-theme="light"] .alav,html[data-theme="light"] .final{border-color:rgba(65,90,119,.16);box-shadow:0 40px 80px -44px rgba(13,27,42,.4);
   background:radial-gradient(640px 360px at 100% 0%,rgba(119,141,169,.3),transparent 70%),radial-gradient(420px 280px at 0% 100%,rgba(169,184,203,.22),transparent 70%),linear-gradient(160deg,#FFFFFF,#F4F5F3)}
 html[data-theme="light"] .final::after{background-image:linear-gradient(rgba(13,27,42,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(13,27,42,.04) 1px,transparent 1px)}
@@ -1206,19 +1199,14 @@ html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
         <p>Cartas já contempladas, sem esperar sorteio ou lance: você paga a entrada, assume as parcelas e usa o crédito.</p>
       </div>
       <div class="cat contemp-seg reveal" role="radiogroup" aria-label="Segmento das cartas contempladas" id="ctSeg"></div>
-      <div class="ct-meta reveal">
-        <span class="ct-day"><i aria-hidden="true"></i><span id="ctDay">Seleção do dia</span></span>
-        <span class="ct-demo" id="ctDemo" hidden>Dados de exemplo: importe o estoque do parceiro</span>
-      </div>
       <div class="ct-wrap reveal">
-        <table class="ct" aria-describedby="ctDay">
+        <table class="ct" aria-label="Cartas contempladas disponíveis">
           <thead>
-            <tr><th scope="col">ADM</th><th scope="col">Crédito</th><th scope="col">Entrada</th><th scope="col">% Entrada</th><th scope="col">Parcela</th><th scope="col">Prazo</th><th scope="col"><span class="sr-only">Ação</span></th></tr>
+            <tr><th scope="col">Administradora</th><th scope="col">Crédito</th><th scope="col">Entrada</th><th scope="col">% Entrada</th><th scope="col">Parcela</th><th scope="col">Prazo</th><th scope="col"><span class="sr-only">Ação</span></th></tr>
           </thead>
           <tbody id="ctBody"></tbody>
         </table>
       </div>
-      <p class="ct-note reveal">Cartas sujeitas à disponibilidade e à confirmação da administradora no momento da negociação. Os valores podem variar até a transferência da cota.</p>
     </div>
   </div>
 </section>
@@ -2703,10 +2691,8 @@ var CONFIG = {
     var C = CONFIG.contempladas, box = $('#contempladas'); if (!C || !box) return;
     var SEGS = { imovel: { label: 'Imóvel', icon: 'i-home' }, veiculo: { label: 'Veículo', icon: 'i-car' } };
     var porSeg = C.porSegmento || 8, body = $('#ctBody'), atual = [];
+    var PCT1 = new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
     var DIA = Math.floor((Date.now() - 3 * 3600e3) / 864e5);   // dia corrente em Brasília (UTC-3)
-    var hoje = new Date(DIA * 864e5 + 12 * 3600e3);
-    $('#ctDay').textContent = 'Seleção do dia ' + ('0' + hoje.getUTCDate()).slice(-2) + '/' + ('0' + (hoje.getUTCMonth() + 1)).slice(-2) + ' · estoque atualizado diariamente';
-    if (C.exemplo) $('#ctDemo').hidden = false;
     var segs = Object.keys(SEGS).filter(function (k) { return C.estoque.some(function (c) { return c.segmento === k; }); });
     if (!segs.length) { box.hidden = true; return; }
     // sorteio estável do dia: o mesmo resultado o dia todo, outro no dia seguinte
@@ -2754,9 +2740,9 @@ var CONFIG = {
       $$('[data-ct]', box).forEach(function (b) { b.setAttribute('aria-checked', b.getAttribute('data-ct') === seg ? 'true' : 'false'); });
       atual = doDia(seg);
       body.innerHTML = atual.map(function (c, i) {
-        var pct = Math.round(c.entrada / c.credito * 100) + '%';
+        var pct = PCT1.format(c.entrada / c.credito * 100) + '%';
         return '<tr style="--i:' + i + '">' +
-          '<td data-l="ADM"><span class="adm">' + esc(c.adm) + '</span></td>' +
+          '<td data-l="Administradora"><span class="adm">' + esc(c.adm) + '</span></td>' +
           '<td data-l="Crédito"><span class="cred">' + BRL0.format(c.credito) + '</span></td>' +
           '<td data-l="Entrada">' + BRL0.format(c.entrada) + '</td>' +
           '<td data-l="% Entrada"><span class="pct">' + pct + '</span></td>' +

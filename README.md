@@ -136,7 +136,7 @@ O `dist/lp-completa.html` (consórcios) e o `dist/lp-planejamento.html` (planeja
 Painel logo abaixo do Quem Somos (dentro do mesmo bloco, para manter a alternância de cores entre as seções).
 
 - **Segmento:** o visitante escolhe pelo ícone: Imóvel ou Veículo.
-- **Tabela:** 8 cotas por segmento, com ADM, Crédito, Entrada, % Entrada (calculada), Parcela e Prazo. Sem filtros, busca ou ordenação.
+- **Tabela:** 8 cotas por segmento, com Administradora, Crédito, Entrada, % Entrada (calculada, com uma casa decimal, ex.: 42,6%), Parcela e Prazo. Sem filtros, busca ou ordenação, e sem textos acima ou abaixo da tabela: só os dados.
 - **Grade em escala crescente de crédito:** cada linha corresponde a um degrau da escala (`CONFIG.contempladas.escala`):
 
   | Segmento | Escala |
@@ -147,10 +147,9 @@ Painel logo abaixo do Quem Somos (dentro do mesmo bloco, para manter a alternân
   - Para cada degrau entra uma cota de até 12% do valor (o último degrau vale "daquele valor para cima").
   - Se não houver cota para um degrau, ele é trocado pelo próximo valor de `reservas`. No estoque atual não há imóveis de R$ 2 milhões ou mais, então a grade de imóvel usa R$ 600 mil no lugar e termina na faixa de R$ 1 milhão ou mais.
   - Entre duas cotas vizinhas há sempre pelo menos 12% de diferença no crédito, e a grade sai do menor para o maior.
-- **Renovação diária:** a cada dia (meia-noite, horário de Brasília) é sorteada outra cota dentro de cada degrau, mantendo a escala. A tabela mostra "Seleção do dia dd/mm".
+- **Renovação diária:** a cada dia (meia-noite, horário de Brasília) é sorteada outra cota dentro de cada degrau, mantendo a escala.
 - **Tenho interesse:** abre o WhatsApp com a mensagem "Olá, vim por meio do seu site e estou interessado na carta contemplada com a configuração abaixo:", seguida do segmento, **código da cota**, administradora, crédito, entrada (e %), parcela e prazo. Dispara o evento `contemplada_interesse`.
 - **No celular:** cada cota vira um cartão, com o botão em largura total.
-- **Aviso:** abaixo da tabela, "Cartas sujeitas à disponibilidade e à confirmação da administradora no momento da negociação".
 
 **Estoque.** Fica em `CONFIG.contempladas.estoque` (no fim do `index.html`), entre os marcadores `CONTEMPLADAS:INICIO` e `CONTEMPLADAS:FIM`. O estoque atual veio da planilha `estoque-cotas-2026-11-07.xlsx`: 328 cotas com status "Disponível" (201 de imóvel, de R$ 62 mil a R$ 1,23 milhão, e 127 de veículo, de R$ 20 mil a R$ 412 mil). As 73 cotas reservadas ficaram de fora. Para atualizar com uma planilha nova:
 
