@@ -1,16 +1,25 @@
-# LP de captação — Vero Consórcios
+# LPs de captação — Vero Consórcios e Vero Planejamento
+
+O repositório tem duas landing pages separadas, com a mesma identidade visual (cores, fontes, componentes e modo claro/escuro):
+
+- **Vero Consórcios** (`index.html`): consultoria de consórcio. Descrita a partir daqui.
+- **Vero Planejamento** (`planejamento/index.html`): planejamento financeiro. Ver a seção [LP Vero Planejamento](#lp-vero-planejamento).
+
+No topo da LP de consórcios, o menu **Ecossistema** mostra o logo da Vero Planejamento ao passar o mouse; o clique abre a LP de planejamento em nova guia. A LP de planejamento não tem nenhuma referência à Vero Consórcios.
 
 Landing page de captação de leads para consultoria de consórcio, seguindo o **Manual de identidade visual v1.0** (paleta, tipografia, elementos de interface e tom de voz). A página inteira está em um único arquivo (`index.html`, com CSS e JS embutidos), sem dependências, e pode ser hospedada em qualquer lugar.
 
 ```
 index.html                    página (usa os arquivos de assets/)
 dist/lp-completa.html         HTML completo em arquivo único, com os logos embutidos
+dist/lp-planejamento.html     LP Vero Planejamento em arquivo único
+planejamento/                 LP Vero Planejamento (index.html + assets/ próprios)
 assets/css/design-tokens.css  tokens oficiais da marca (referência)
 assets/fonts/                 arquivos licenciados da Famels
 assets/img/                   logo, foto do escritório e fotos de clientes
 assets/img/adm/               logos das administradoras (Névoa, fundo transparente)
 tools/converter-logo.py       converte novos logos para o padrão da faixa
-tools/gerar-html-completo.py  gera o dist/lp-completa.html a partir do index.html
+tools/gerar-html-completo.py  gera os dois arquivos únicos da pasta dist/
 ```
 
 ## Identidade visual aplicada
@@ -98,16 +107,17 @@ Coloque os arquivos licenciados em `assets/fonts/Famels-Regular.woff2` e `assets
 
 ## HTML completo (arquivo único)
 
-O `dist/lp-completa.html` tem tudo dentro dele: CSS, JavaScript, ícones e os logos das administradoras. Funciona sozinho, sem a pasta `assets/`, e serve para enviar, publicar em qualquer hospedagem ou colar em construtores de página que aceitam HTML.
+O `dist/lp-completa.html` (consórcios) e o `dist/lp-planejamento.html` (planejamento) têm tudo dentro deles: CSS, JavaScript, ícones e imagens. No arquivo único de consórcios, o menu Ecossistema abre o `lp-planejamento.html`, então publique os dois na mesma pasta. Funciona sozinho, sem a pasta `assets/`, e serve para enviar, publicar em qualquer hospedagem ou colar em construtores de página que aceitam HTML.
 
 - **Precisa de internet:** só as fontes Poppins e Manrope, que vêm do Google Fonts.
-- **Atualização:** sempre que o `index.html` mudar, rode `python3 tools/gerar-html-completo.py` para gerar o arquivo de novo.
+- **Atualização:** sempre que uma das páginas mudar, rode `python3 tools/gerar-html-completo.py` para gerar os dois arquivos de novo.
+- **Vídeo da LP de planejamento:** é embutido no arquivo único quando tem até 8 MB. Acima disso, publique `assets/video/familia.mp4` junto com o arquivo.
 
 ## Estrutura da página
 
 | # | Seção | Conteúdo |
 |---|-------|----------|
-| 0 | **Cabeçalho** | Menu (Quem Somos, Como Funciona, Soluções, Benefícios, Utilizações), WhatsApp comercial, botão "Simular agora" e o ícone de modo claro/escuro. O "Simular agora" é claro no modo escuro e escuro no modo claro. |
+| 0 | **Cabeçalho** | Menu (Quem Somos, Como Funciona, Soluções, Benefícios, Ecossistema), WhatsApp comercial, botão "Simular agora" e o ícone de modo claro/escuro. O "Simular agora" é claro no modo escuro e escuro no modo claro. **Ecossistema:** ao passar o mouse (ou tocar), abre um painel com o logo da Vero Planejamento, na versão do modo atual; o clique abre a LP de planejamento em nova guia e dispara o evento `ecossistema_clique`. No celular, o logo aparece direto no menu. O link fica em `href="planejamento/index.html"`: quando a LP tiver domínio próprio, troque pelo endereço final. |
 | 1 | **Banner + Simulador** | Frase de impacto: "Conquiste seu patrimônio com estratégia e sem pagar juros." Acima, o slogan "ESTRATÉGIAS PARA CONSTRUIR PATRIMÔNIO" em caixa alta (também no título da página). Simulador no lado direito, em 2 etapas, com o cartão ajustando a altura a cada etapa. **Etapa 1:** para que é o crédito (Imóvel / Veículo / Investimento), simular pelo valor do crédito (R$ 0 a R$ 4 mi) ou da parcela (R$ 300 a R$ 20.000), com slider e valores sugeridos. Não mostra estimativa. **Etapa 2:** exclusiva para os dados do lead (nome, e-mail, celular, preferência de contato e melhor horário), com aceite da Política de Privacidade e das notificações. **Retorno:** apenas uma mensagem de que um especialista vai entrar em contato pelo canal e no período escolhidos. Nenhum valor aparece na tela; o CRM recebe a escolha do cliente e a estimativa. Os indicadores (R$ 20 mi+, 83 clientes, 5 anos) saíram do banner para não repetir o Quem Somos. |
 | 2 | **Quem somos** | Texto institucional, foto do escritório da Vero em Porto Alegre (`assets/img/escritorio.webp`) e indicadores: R$ 20 mi+, 83 clientes, 5 anos e Regulamentação, com os logos do BACEN e da ABAC. |
 | 3 | **Como funciona** | Metodologia em 4 passos: mapear o objetivo, estruturar o crédito, estratégia e acompanhamento. Abaixo, o botão "Montar meu plano" com a frase "Simulação gratuita e sem compromisso." logo embaixo. |
@@ -225,9 +235,52 @@ Se `gtag` ou `fbq` estiverem na página, os dois leads também disparam `generat
 - [ ] Revisar as premissas do Mecanismo de Alavancagem (27%, poupança e renda fixa) e as taxas do bloco Benefícios quando a Selic mudar
 - [ ] Confirmar o uso dos logos do BACEN e da ABAC (a ABAC tem regras para associados)
 
+## LP Vero Planejamento
+
+Página separada (`planejamento/index.html`), com a mesma base visual da LP de consórcios e o logotipo da **Vero Planejamento** (versão negativa no modo escuro e original no modo claro, em `planejamento/assets/img/logo/`).
+
+```
+planejamento/index.html                         página
+planejamento/assets/img/logo/                   logotipo (positivo e negativo) e favicon
+planejamento/assets/img/dashplan.webp           tela do Dashplan (com o logotipo corrigido)
+planejamento/assets/img/planejadores/           fotos dos planejadores
+planejamento/assets/video/familia.mp4           vídeo de fundo do topo (enviar)
+```
+
+| # | Seção | Conteúdo |
+|---|-------|----------|
+| 0 | **Cabeçalho** | Benefícios, Como Começar, Jornada, Soluções, Planejadores, WhatsApp, botão "Solicitar atendimento" (abre o pop-up) e ícone de modo claro/escuro. |
+| 1 | **Topo** | Vídeo de fundo com desfoque, escurecimento e opacidade (`.hero-video`), frase de efeito à esquerda e formulário em 2 etapas à direita. |
+| 2 | **Benefícios do Planejamento** | Seis cartões com o título e o principal benefício: Organização da Vida Financeira e Patrimonial, Proteção e Sucessão Familiar, Otimização de Investimentos, Concretização de Objetivos e Desejos, Expansão Patrimonial e Eficiência Fiscal e Tributária. Entram em cascata, com um brilho que segue o cursor. |
+| 3 | **Passo a passo** | Esteira com trilha clicável (1 a 5) e setas: Agendamento, Reunião de Diagnóstico, Plano de Planejamento Financeiro, Reunião de Consultoria e Acompanhamento. Avança sozinha até o visitante interagir; no celular, dá para deslizar. |
+| 4 | **Jornada** | As cinco etapas do processo (Mapear e Organizar, Proteger, Expansão de Patrimônio, Investimento e Conscientização), com a mesma trilha animada da metodologia da LP de consórcios. |
+| 5 | **Ferramentas e Soluções** | Tela do Dashplan em um notebook (dois terços do bloco) e, ao lado, as seis soluções: Planejamento Financeiro 360º, Revisão Tributária e Fiscal, Aposentadoria, Expansão de Patrimônio, Planejamento Sucessório e Sucessão Familiar e Patrimonial. |
+| 6 | **Planejadores da Vero** | Cartão com foto, nome em destaque e cargo (Gabriel Bavaresco, Planejador Financeiro). A foto fica em tons de cinza e ganha cor ao passar o mouse. Para incluir outro planejador, copie o `<article class="person">`. |
+| 7 | **Dúvidas** | FAQ em abas: Planejamento, Como Funciona e Segurança e Privacidade. |
+| 8 | **Depoimentos** | Três depoimentos **de exemplo** no formato da LP de consórcios (ver Observações). |
+| 9 | **Encerramento** | Painel final com "Solicitar atendimento" e "Falar com um planejador" (WhatsApp), e o rodapé. |
+
+**Formulário em 2 etapas (topo e pop-up).** O mesmo formulário aparece no topo e no pop-up "Solicitar atendimento", aberto pelos botões do cabeçalho, do passo a passo, da jornada, das soluções, dos planejadores, das dúvidas, do encerramento, do rodapé e da barra fixa do celular.
+- **Etapa 1 (objetivo):** principal objetivo (Sair das dívidas, Controlar gastos, Casa própria, Fazer uma viagem, Começar a investir), prazo (menos de 6 meses, 1 a 3 anos, mais de 3 anos), renda familiar mensal (até R$ 7 mil, R$ 7 a 10 mil, R$ 10 a 15 mil, acima de R$ 15 mil) e se consegue guardar (Sim, invisto o que sobra · Consigo, mas gasto depois · Não consigo guardar).
+- **Etapa 2 (dados):** os mesmos campos da LP de consórcios: nome, e-mail, celular, preferência de contato, melhor horário e os dois aceites.
+
+**Envio para o CRM.** POST JSON para `CONFIG.leadEndpoint` (no fim do `planejamento/index.html`), com `tipo` "planejamento_financeiro", `nome`, `email`, `celular`, `preferencia_contato`, `melhor_horario`, `objetivo`, `prazo`, `renda_familiar`, `consegue_guardar`, aceites, `origem` (ex.: "LP Planejamento · topo" ou "LP Planejamento · popup_jornada"), `pagina`, `data` e `utm`.
+
+**Eventos (dataLayer).** `planejamento_iniciado`, `planejamento_etapa1`, `lead_planejamento` (conversão), `atendimento_popup_aberto` (com o botão de origem), `whatsapp_clique` e `tema_alterado`.
+
+**O que falta na LP de planejamento**
+- [ ] Vídeo de fundo: salvar em `planejamento/assets/video/familia.mp4` (instruções na mesma pasta). Sem ele, o topo mostra o fundo azul da marca.
+- [ ] E-mail de contato (`contato@veroplanejamento.com.br` está provisório) e redes sociais
+- [ ] Endereço do CRM (`CONFIG.leadEndpoint`)
+- [ ] Domínio da LP, para atualizar o link do menu Ecossistema na LP de consórcios
+- [ ] Trocar os depoimentos de exemplo por relatos reais e autorizados
+- [ ] Fotos de outros planejadores, se houver
+
 ## Observações
 - **Resultado só depois do cadastro.** O simulador mostra a estimativa apenas após o cadastro, para que o cliente deixe os dados antes de ver o valor.
 - **BACEN e ABAC.** Quem é regulado pelo Banco Central é a administradora de consórcio, e a ABAC é a associação do setor. Por isso os textos usam "consórcio regulamentado".
 - **Aceite de notificações.** Está como obrigatório, conforme o briefing, e foi redigido como consentimento para receber o resultado da simulação. Valide com o jurídico (LGPD).
+- **Tela do Dashplan.** O print enviado tinha "PLANEJAMENTTO" no logotipo; a imagem usada na LP recebeu o logotipo oficial por cima, com a grafia certa. Vale corrigir também no próprio Dashplan.
+- **Selo CFP®.** A jornada fala em "boas práticas internacionais de planejamento financeiro" e não usa a marca CFP®, que só pode ser usada por profissionais certificados pela Planejar.
 - **Depoimentos de exemplo.** Os três depoimentos (nomes, textos e valores) são ilustrativos, para mostrar o formato. Publicar depoimento fictício como se fosse real pode ser considerado propaganda enganosa (Código de Defesa do Consumidor e CONAR). Por isso, troque pelos relatos reais, com autorização do cliente, antes de colocar a página no ar. Pelo mesmo motivo, os avatares usam iniciais, e não fotos de pessoas.
 - **Botão flutuante de WhatsApp.** Usa o Marinho da marca com ícone em Névoa, e não o verde do WhatsApp, para respeitar a paleta e ficar visível tanto nos blocos claros quanto nos escuros.

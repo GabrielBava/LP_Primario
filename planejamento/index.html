@@ -1,0 +1,1988 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Modo claro/escuro: aplica a escolha salva antes da pintura (evita piscar) -->
+<script>try{if(localStorage.getItem('vero-tema')==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}</script>
+
+<!-- ============================================================
+     SEO
+     ============================================================ -->
+<title>Vero Planejamento | Planejamento Financeiro para a Sua Vida</title>
+<meta name="description" content="Planejamento financeiro completo: diagnóstico, plano personalizado e acompanhamento para organizar, proteger e fazer o seu patrimônio crescer.">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0D1B2A">
+<link rel="icon" type="image/png" href="assets/img/logo/favicon.png">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Vero Planejamento | Planejamento Financeiro para a Sua Vida">
+<meta property="og:description" content="Diagnóstico, plano personalizado e acompanhamento para organizar, proteger e fazer o seu patrimônio crescer.">
+
+<!-- ============================================================
+     RASTREAMENTO — cole aqui o Google Tag Manager / Meta Pixel.
+     Eventos enviados ao window.dataLayer:
+       planejamento_iniciado · planejamento_etapa1 · lead_planejamento
+       atendimento_popup_aberto · whatsapp_clique · tema_alterado
+     ============================================================ -->
+
+<!-- Tipografia da marca: Famels (comercial) com Manrope como substituta oficial + Poppins -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* Famels: coloque os arquivos licenciados em assets/fonts/ (ver README) */
+@font-face{font-family:"Famels";src:local("Famels Regular"),url("assets/fonts/Famels-Regular.woff2") format("woff2");font-weight:400 600;font-style:normal;font-display:swap}
+@font-face{font-family:"Famels";src:local("Famels Italic"),url("assets/fonts/Famels-Italic.woff2") format("woff2");font-weight:400 600;font-style:italic;font-display:swap}
+
+/* ============================================================
+   DESIGN TOKENS — identidade visual v1.0
+   Fonte: assets/css/design-tokens.css
+   A página alterna blocos no TEMA ESCURO e no TEMA CLARO do manual
+   (classes .theme-dark / .theme-light), criando contraste entre seções.
+   MODO CLARO (botão sol/lua no topo): html[data-theme="light"] aplica os
+   tokens claros também aos blocos escuros (ajustes no fim do CSS).
+   ============================================================ */
+:root{
+  /* Paleta base */
+  --ink:#0D1B2A; --navy:#1B263B; --slate:#415A77; --steel:#778DA9; --mist:#E0E1DD; --steel-lt:#A9B8CB;
+  /* Tipografia */
+  --font-display:"Famels","Manrope","Segoe UI",sans-serif;
+  --font:"Poppins","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --fs-hero:2.6rem; --fs-h1:2rem; --fs-kpi:1.75rem; --fs-lg:1.05rem; --fs-md:.88rem; --fs-sm:.8rem; --fs-xs:.7rem;
+  /* Forma */
+  --radius-sm:8px; --radius:12px; --radius-lg:18px; --radius-panel:20px; --radius-shell:28px; --radius-pill:999px;
+  /* Espaçamento */
+  --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px; --gap:18px; --pad:22px; --space-6:28px;
+  --glass-blur:16px;
+  --maxw:1200px; --nav:74px; --hdr:74px; --sheet:28px;
+}
+
+/* ---------- TEMA ESCURO (padrão) ---------- */
+:root,.theme-dark{
+  --bg-app:#08121D; --bg-shell:#0D1B2A; --bg-sidebar:#0B1724; --bg-card:#1B263B; --bg-card-2:#22304A; --card-top:#1F2B42;
+  --bg-active:rgba(119,141,169,.16); --border:rgba(119,141,169,.16); --border-soft:rgba(119,141,169,.10);
+  --primary:#778DA9; --primary-bright:#A9B8CB; --primary-dark:#415A77;
+  --text:#E0E1DD; --text-muted:#778DA9; --text-faint:#415A77; --icon-soft:#A9B8CB;
+  --success:#8CC5A2; --warning:#E3BE76; --danger:#E38A8A;
+  --track:rgba(224,225,221,.08); --pill-bg:rgba(224,225,221,.04); --pill-active:rgba(224,225,221,.10);
+  --glass-shell:rgba(13,27,42,.62); --glass-border:rgba(224,225,221,.08);
+  --glow-1:rgba(65,90,119,.55); --glow-2:rgba(119,141,169,.22);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.35),0 2px 6px rgba(0,0,0,.25);
+  --shadow-md:inset 0 1px 0 rgba(224,225,221,.05),0 2px 4px rgba(0,0,0,.30),0 12px 28px -8px rgba(0,0,0,.55);
+  --shadow-lg:inset 0 1px 0 rgba(224,225,221,.07),0 4px 8px rgba(0,0,0,.30),0 24px 48px -12px rgba(0,0,0,.65);
+  --shadow-float:0 30px 60px -18px rgba(0,0,0,.75),0 0 0 1px rgba(224,225,221,.06);
+  /* Derivados (só combinam valores do manual) */
+  --card-grad:linear-gradient(160deg,#1F2B42,#1B263B 55%);
+  --text-muted-card:#8296B1;            /* ajuste do manual p/ texto longo sobre cards (AA) */
+  --gi-bg:rgba(224,225,221,.04); --gi-border:rgba(224,225,221,.08);
+  --tag-border:rgba(224,225,221,.10);
+  --btn-bg:#E0E1DD; --btn-fg:#0D1B2A; --btn-hover:#ECEDEA; --btn-glow:rgba(224,225,221,.30);
+  --glass-btn-border:rgba(224,225,221,.16);
+  --em-grad:linear-gradient(100deg,#A9B8CB 0%,#8FA2BC 50%,#778DA9 100%);
+  --sec-bg:#0B1724; --glow-op:.6;
+  --sheet-shadow:0 -24px 48px -24px rgba(0,0,0,.6),inset 0 1px 0 rgba(224,225,221,.07);
+  --thumb-ring:rgba(224,225,221,.12); --on-primary:#0D1B2A;
+  color-scheme:dark;
+}
+/* ---------- TEMA CLARO (e modo claro da página inteira) ---------- */
+.theme-light,html[data-theme="light"],html[data-theme="light"] .theme-dark{
+  --bg-app:#CFD3D6; --bg-shell:#ECEDEA; --bg-sidebar:#E4E6E2; --bg-card:#FFFFFF; --bg-card-2:#F3F4F2; --card-top:#FFFFFF;
+  --bg-active:rgba(65,90,119,.12); --border:rgba(65,90,119,.14); --border-soft:rgba(65,90,119,.10);
+  --primary:#415A77; --primary-bright:#415A77; --primary-dark:#1B263B;
+  --text:#0D1B2A; --text-muted:#415A77; --text-faint:#778DA9; --icon-soft:#415A77;
+  --success:#2F7D55; --warning:#A86F12; --danger:#B84545;
+  --track:rgba(13,27,42,.08); --pill-bg:rgba(13,27,42,.04); --pill-active:rgba(255,255,255,.95);
+  --glass-shell:rgba(236,237,234,.70); --glass-border:rgba(255,255,255,.85);
+  --glow-1:rgba(119,141,169,.55); --glow-2:rgba(65,90,119,.25);
+  --shadow-sm:0 1px 2px rgba(13,27,42,.08);
+  --shadow-md:0 1px 2px rgba(13,27,42,.05),0 10px 24px -10px rgba(13,27,42,.20);
+  --shadow-lg:0 2px 4px rgba(13,27,42,.06),0 22px 44px -14px rgba(13,27,42,.30);
+  --shadow-float:0 30px 60px -20px rgba(13,27,42,.35),0 0 0 1px rgba(255,255,255,.9);
+  --card-grad:linear-gradient(160deg,#FFFFFF,#FFFFFF);
+  --text-muted-card:#415A77;
+  --gi-bg:#F3F4F2; --gi-border:rgba(65,90,119,.12);
+  --tag-border:rgba(65,90,119,.14);
+  --btn-bg:#0D1B2A; --btn-fg:#FFFFFF; --btn-hover:#1B263B; --btn-glow:rgba(13,27,42,.35);
+  --glass-btn-border:rgba(65,90,119,.24);
+  --em-grad:linear-gradient(100deg,#1B263B 0%,#415A77 55%,#778DA9 100%);
+  --sec-bg:#ECEDEA; --glow-op:.35;
+  --sheet-shadow:0 -24px 48px -24px rgba(0,0,0,.55);
+  --thumb-ring:rgba(13,27,42,.10); --on-primary:#FFFFFF;
+  color-scheme:light;
+}
+.theme-dark,.theme-light{color:var(--text)}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--font);font-weight:400;color:var(--text);background:var(--bg-app);line-height:1.45;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block;height:auto}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+b,strong{font-weight:600}
+:focus-visible{outline:2px solid var(--primary-bright);outline-offset:3px;border-radius:6px}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;position:relative;z-index:1}
+.ic{width:24px;height:24px;flex:0 0 auto;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+section[id]{scroll-margin-top:calc(var(--hdr) - 12px)}
+
+/* ---------- Tipografia ---------- */
+.label{display:inline-flex;align-items:center;gap:8px;font-size:var(--fs-sm);font-weight:500;letter-spacing:.01em;color:var(--icon-soft);padding:6px 14px 6px 11px;border-radius:var(--radius-pill);background:var(--pill-bg);border:1px solid var(--tag-border);margin-bottom:20px}
+.label::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 0 3px var(--bg-active)}
+.h2{font-family:var(--font-display);font-weight:500;font-size:clamp(2rem,3.6vw,3rem);line-height:1.1;letter-spacing:-.025em;color:var(--text)}
+.h2 em,.hero h1 em{font-style:normal;background:var(--em-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{font-weight:300;font-size:var(--fs-lg);line-height:1.65;color:var(--text-muted);max-width:640px;margin-top:18px}
+.lead b{color:var(--text);font-weight:600}
+.center{text-align:center}
+.center .lead{margin-left:auto;margin-right:auto}
+.fine{font-size:var(--fs-xs);font-weight:300;color:var(--text-muted);margin-top:24px;text-align:center}
+
+/* ---------- Seções em "folhas" que se sobrepõem, alternando escuro/claro ---------- */
+.sec{position:relative;padding:112px 0 calc(112px + var(--sheet));margin-top:calc(var(--sheet) * -1);background:var(--sec-bg);border-radius:var(--radius-shell) var(--radius-shell) 0 0;box-shadow:var(--sheet-shadow);overflow:hidden}
+.sec.deep{--sec-bg:#08121D}
+.sec::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:var(--glow-op);
+  background:radial-gradient(760px 440px at var(--gx,85%) var(--gy,0%),var(--glow-1),transparent 65%),radial-gradient(520px 380px at var(--gx2,0%) var(--gy2,100%),var(--glow-2),transparent 65%)}
+
+/* ---------- Superfícies ---------- */
+.card{background:var(--card-grad);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-md);transition:transform .2s,box-shadow .2s,border-color .2s,background .3s,color .3s}
+.card.lift:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.glass{background:var(--glass-shell);border:1px solid var(--glass-border);backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur));box-shadow:inset 0 1px 0 rgba(224,225,221,.06)}
+.gi{width:44px;height:44px;border-radius:var(--radius);background:var(--gi-bg);border:1px solid var(--gi-border);box-shadow:inset 0 1px 0 rgba(224,225,221,.06);display:grid;place-items:center;color:var(--icon-soft);flex:0 0 auto;transition:background .25s,color .25s,border-color .25s}
+.gi .ic{width:22px;height:22px}
+.tag{display:inline-flex;align-items:center;gap:6px;font-size:var(--fs-xs);font-weight:500;letter-spacing:.02em;padding:5px 11px;border-radius:var(--radius-pill);background:var(--pill-bg);border:1px solid var(--tag-border);color:var(--icon-soft);white-space:nowrap}
+.tag .ic{width:13px;height:13px;stroke-width:2}
+.tag-ok{background:rgba(140,197,162,.12);border-color:rgba(140,197,162,.24);color:var(--success)}
+.theme-light .tag-ok,html[data-theme="light"] .tag-ok{background:rgba(47,125,85,.10);border-color:rgba(47,125,85,.2)}
+
+/* ---------- Botões (pílula) ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--font);font-weight:500;font-size:.92rem;line-height:1.2;padding:15px 28px;border-radius:var(--radius-pill);border:1px solid transparent;cursor:pointer;white-space:nowrap;transition:transform .2s,box-shadow .2s,background .2s,border-color .2s,color .2s}
+.btn .ic{width:16px;height:16px;transition:transform .2s}
+.btn:hover .ic-arrow{transform:translateX(3px)}
+/* Botão principal: névoa sólida no escuro, azul-noite no claro — um por tela */
+.btn-primary{background:var(--btn-bg);color:var(--btn-fg);box-shadow:var(--shadow-sm)}
+.btn-primary:hover{transform:translateY(-2px);background:var(--btn-hover);box-shadow:0 16px 32px -14px var(--btn-glow),var(--shadow-sm)}
+/* Ações secundárias: pílula de vidro */
+.btn-glass{background:var(--pill-bg);color:var(--text);border-color:var(--glass-btn-border);backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur))}
+.btn-glass:hover{background:var(--pill-active);border-color:var(--primary)}
+.btn-block{width:100%}
+.btn-sm{padding:10px 18px;font-size:var(--fs-sm)}
+.btn[disabled]{opacity:.7;cursor:progress}
+.link{display:inline-flex;align-items:center;gap:8px;font-weight:500;font-size:var(--fs-md);color:var(--primary-bright);border:0;background:none;cursor:pointer;padding:0;transition:color .2s}
+.link .ic{width:16px;height:16px;transition:transform .2s}
+.link:hover{color:var(--text)}
+.link:hover .ic{transform:translateX(3px)}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.hdr{position:fixed;inset:0 0 auto 0;z-index:80;height:var(--hdr);background:rgba(8,18,29,.55);backdrop-filter:blur(var(--glass-blur)) saturate(140%);-webkit-backdrop-filter:blur(var(--glass-blur)) saturate(140%);border-bottom:1px solid var(--glass-border);transition:background .3s,box-shadow .3s}
+.hdr.scrolled{background:rgba(8,18,29,.9);box-shadow:0 12px 30px -18px rgba(0,0,0,.8)}
+.nav{height:var(--nav);display:flex;align-items:center;gap:28px}
+/* Logotipo Vero Planejamento: versão negativa (texto Névoa) nos fundos escuros e versão original no modo claro */
+.logo{display:inline-flex;align-items:center;color:var(--text);flex:0 0 auto}
+.logo-img{display:block;height:44px;width:auto}
+.logo-pos{display:none}
+html[data-theme="light"] .logo-neg{display:none}
+html[data-theme="light"] .logo-pos{display:block}
+.ftr .logo-img{height:72px}
+.menu{display:flex;align-items:center;gap:26px;margin-left:auto}
+.menu a:not(.btn){font-size:var(--fs-sm);font-weight:400;color:var(--text-muted);transition:color .2s;white-space:nowrap}
+.menu a:not(.btn):hover{color:var(--text)}
+/* Menu "Ecossistema": painel com o logo da Vero Planejamento (abre em nova guia) */
+.menu-eco{position:relative}
+.menu-eco-btn{display:inline-flex;align-items:center;gap:5px;border:0;background:none;padding:8px 0;cursor:pointer;font-size:var(--fs-sm);font-weight:400;color:var(--text-muted);transition:color .2s;white-space:nowrap}
+.menu-eco-btn .ic{width:14px;height:14px;transition:transform .25s}
+.menu-eco:hover .menu-eco-btn,.menu-eco:focus-within .menu-eco-btn,.menu-eco.open .menu-eco-btn{color:var(--text)}
+.menu-eco:hover .menu-eco-btn .ic,.menu-eco:focus-within .menu-eco-btn .ic,.menu-eco.open .menu-eco-btn .ic{transform:rotate(180deg)}
+.eco-panel{position:absolute;top:100%;left:50%;padding-top:14px;transform:translate(-50%,8px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .22s,transform .22s,visibility .22s;z-index:5}
+.menu-eco:hover .eco-panel,.menu-eco:focus-within .eco-panel,.menu-eco.open .eco-panel{opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,0)}
+.eco-card{display:flex;flex-direction:column;align-items:flex-start;gap:12px;width:260px;padding:18px 20px 16px;border-radius:var(--radius-lg);background:var(--card-grad);border:1px solid var(--border);box-shadow:var(--shadow-float);transition:border-color .2s,transform .2s}
+.eco-card:hover{border-color:rgba(169,184,203,.45);transform:translateY(-2px)}
+.eco-k{font-size:var(--fs-xs);font-weight:500;color:var(--text-muted)}
+.eco-logo{height:52px;width:auto}
+.eco-txt{display:inline-flex;align-items:center;gap:6px;font-size:var(--fs-sm);font-weight:500;color:var(--text)}
+.eco-txt .ic{width:15px;height:15px;transition:transform .2s}
+.eco-card:hover .eco-txt .ic{transform:translate(2px,-2px)}
+.hamb{display:none;margin-left:auto;width:44px;height:44px;border-radius:var(--radius-pill);border:1px solid var(--glass-btn-border);background:var(--pill-bg);color:var(--text);cursor:pointer;align-items:center;justify-content:center}
+.hamb .ic{width:20px;height:20px}
+/* WhatsApp ao lado do botão "Solicitar atendimento" */
+.hdr-wa{display:inline-flex;align-items:center;gap:8px;font-size:var(--fs-sm);font-weight:500;color:var(--text);white-space:nowrap;transition:color .2s}
+.hdr-wa svg{width:17px;height:17px;fill:currentColor;flex:0 0 auto}
+.hdr-wa:hover{color:#fff}
+.hdr-wa-m{display:none;margin-left:auto;width:44px;height:44px;border-radius:var(--radius-pill);border:1px solid var(--glass-btn-border);background:var(--pill-bg);color:var(--text);align-items:center;justify-content:center}
+.hdr-wa-m svg{width:20px;height:20px;fill:currentColor}
+/* Modo claro/escuro: só o ícone, ao lado do "Solicitar atendimento" */
+.theme-tg{order:5;margin-left:-16px;position:relative;width:40px;height:40px;flex:0 0 auto;border-radius:50%;border:1px solid var(--glass-btn-border);background:var(--pill-bg);color:var(--text);display:inline-grid;place-items:center;cursor:pointer;padding:0;transition:background .2s,border-color .2s,transform .2s}
+.theme-tg:hover{background:var(--pill-active);border-color:var(--primary);transform:rotate(-12deg)}
+.theme-tg .ic{grid-area:1/1;width:18px;height:18px;transition:transform .55s cubic-bezier(.3,1.4,.5,1),opacity .3s}
+.theme-tg .i-moon{opacity:0;transform:rotate(-90deg) scale(.4)}
+html[data-theme="light"] .theme-tg .i-sun{opacity:0;transform:rotate(90deg) scale(.4)}
+html[data-theme="light"] .theme-tg .i-moon{opacity:1;transform:none}
+
+/* ============================================================
+   1 · TOPO + FORMULÁRIO (escuro profundo)
+   ============================================================ */
+.hero{position:relative;overflow:hidden;background:#08121D;padding:calc(var(--hdr) + 64px) 0 calc(var(--sheet) + 36px)}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(900px 640px at 76% 24%,rgba(65,90,119,.6),transparent 62%),radial-gradient(700px 520px at 0% 100%,rgba(119,141,169,.24),transparent 60%),radial-gradient(500px 300px at 30% 0%,rgba(65,90,119,.25),transparent 70%)}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(224,225,221,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(224,225,221,.035) 1px,transparent 1px);background-size:64px 64px;
+  -webkit-mask-image:radial-gradient(ellipse 75% 70% at 65% 35%,#000 15%,transparent 72%);mask-image:radial-gradient(ellipse 75% 70% at 65% 35%,#000 15%,transparent 72%)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);grid-template-areas:"copy sim" "extra sim";grid-template-rows:auto 1fr;column-gap:64px;align-items:start}
+.hero-copy{grid-area:copy;padding-top:24px}
+.hero-sim{grid-area:sim;display:flex;justify-content:flex-end}
+.hero-extra{grid-area:extra}
+.kicker{font-size:var(--fs-sm);font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--icon-soft);margin-bottom:22px}
+.hero h1{font-family:var(--font-display);font-weight:500;font-size:clamp(2.4rem,4.8vw,4rem);line-height:1.04;letter-spacing:-.03em}
+.hero .sub{font-weight:300;font-size:1.1rem;line-height:1.6;color:var(--text-muted);margin-top:24px;max-width:520px}
+.checks{list-style:none;display:grid;gap:12px;margin:30px 0 32px}
+.checks li{display:flex;gap:12px;align-items:center;font-size:.95rem;color:var(--text)}
+.checks .gi{width:30px;height:30px;border-radius:var(--radius-sm)}
+.checks .gi .ic{width:16px;height:16px;stroke-width:2}
+
+/* ---------- Simulador: cartão que vira em 2 etapas ---------- */
+.sim{width:100%;max-width:468px;perspective:2200px;position:relative;isolation:isolate}
+.sim::before{content:"";position:absolute;inset:-60px -40px;z-index:-1;pointer-events:none;background:radial-gradient(closest-side,rgba(119,141,169,.38),transparent);filter:blur(24px)}
+.sim-inner{position:relative;transition:transform .85s cubic-bezier(.4,.15,.2,1),height .45s ease;transform-style:preserve-3d}
+.sim.flipped .sim-inner{transform:rotateY(180deg)}
+.sim-face{position:relative;border:1px solid transparent;border-radius:var(--radius-panel);
+  background:linear-gradient(160deg,#1F2B42,#1B263B 55%) padding-box,linear-gradient(160deg,rgba(169,184,203,.6),rgba(119,141,169,.08) 42%,rgba(119,141,169,.3)) border-box;
+  box-shadow:var(--shadow-float),inset 0 1px 0 rgba(224,225,221,.08);padding:26px 26px 22px;-webkit-backface-visibility:hidden;backface-visibility:hidden;display:flex;flex-direction:column}
+.sim-back{position:absolute;top:0;left:0;width:100%;transform:rotateY(180deg)}
+.sim:not(.flipped) .sim-back,.sim.flipped .sim-front{pointer-events:none}
+.sim-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.steps-ind{display:flex;align-items:center;gap:8px;list-style:none;font-size:var(--fs-xs);font-weight:500;color:var(--text-muted)}
+.steps-ind li{display:flex;align-items:center;gap:6px;white-space:nowrap}
+.steps-ind li span{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--pill-bg);border:1px solid var(--glass-border);font-size:var(--fs-xs);color:var(--text-muted)}
+.steps-ind li.on{color:var(--text)}
+.steps-ind li.on span{background:var(--btn-bg);border-color:var(--btn-bg);color:var(--btn-fg)}
+.steps-ind li.done span{background:rgba(140,197,162,.16);border-color:rgba(140,197,162,.3);color:var(--success)}
+.steps-ind li.done span .ic{width:12px;height:12px;stroke-width:2.4}
+.steps-ind .bar{width:22px;height:1px;background:var(--border)}
+.sim-title{font-family:var(--font-display);font-weight:500;font-size:1.45rem;letter-spacing:-.015em;line-height:1.2}
+.sim-desc{font-size:var(--fs-sm);font-weight:300;color:var(--text-muted);margin:4px 0 20px}
+.sim-label{display:block;font-size:var(--fs-sm);font-weight:500;color:var(--icon-soft);margin-bottom:10px}
+fieldset{border:0;min-width:0;margin-bottom:20px}
+.cat{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.cat button{display:flex;flex-direction:column;align-items:center;gap:6px;padding:11px 6px 9px;border-radius:var(--radius);border:1px solid var(--border);background:var(--pill-bg);cursor:pointer;font-weight:400;font-size:.78rem;color:var(--text-muted);transition:.2s}
+.cat button .ic{width:21px;height:21px;color:var(--text-muted);transition:.2s}
+.cat button:hover{border-color:rgba(169,184,203,.35);color:var(--text)}
+.cat button[aria-checked="true"]{background:var(--btn-bg);border-color:var(--btn-bg);color:var(--btn-fg);font-weight:500;box-shadow:0 10px 24px -12px var(--btn-glow)}
+.cat button[aria-checked="true"] .ic{color:var(--btn-fg)}
+.seg{display:grid;grid-template-columns:1fr 1fr;padding:4px;border-radius:var(--radius-pill);background:var(--pill-bg);border:1px solid var(--glass-border)}
+.seg button{border:0;background:none;padding:10px 8px;border-radius:var(--radius-pill);font-size:var(--fs-sm);font-weight:400;color:var(--text-muted);cursor:pointer;transition:.2s}
+.seg button:hover{color:var(--text)}
+.seg button[aria-checked="true"]{background:var(--pill-active);color:var(--text);font-weight:500;box-shadow:inset 0 1px 0 rgba(224,225,221,.08)}
+.err{font-size:var(--fs-xs);color:var(--danger);font-weight:500;margin-top:6px;line-height:1.4}
+.err:empty{display:none}
+#simNext{margin-top:24px}
+
+/* Etapa 2 · dados */
+.f{margin-bottom:12px}
+.f label{display:block;font-size:var(--fs-sm);font-weight:500;color:var(--icon-soft);margin-bottom:6px}
+.f input{width:100%;height:48px;border:1px solid var(--border);border-radius:var(--radius);padding:0 14px;font-family:var(--font);font-size:.92rem;font-weight:400;color:var(--text);background:var(--bg-card-2);transition:border-color .2s,box-shadow .2s}
+.f input::placeholder{color:var(--text-muted);font-weight:300}
+.f input:focus{outline:none;border-color:var(--primary-bright);box-shadow:0 0 0 4px rgba(169,184,203,.14)}
+.f.invalid input{border-color:var(--danger);box-shadow:0 0 0 4px rgba(227,138,138,.12)}
+.f .hint{font-size:var(--fs-xs);color:var(--success);font-weight:500;margin-top:5px}
+.f .hint:empty{display:none}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}
+.cbx{display:flex;gap:10px;align-items:flex-start;font-size:var(--fs-xs);font-weight:300;color:var(--icon-soft);line-height:1.5;margin:10px 0;cursor:pointer}
+.cbx input{appearance:none;-webkit-appearance:none;width:18px;height:18px;flex:0 0 auto;border:1px solid var(--primary);border-radius:6px;margin-top:1px;cursor:pointer;display:grid;place-items:center;background:transparent;transition:.15s}
+.cbx input:checked{background:var(--primary);border-color:var(--primary)}
+.cbx input:checked::after{content:"";width:4px;height:9px;border:solid var(--on-primary);border-width:0 2px 2px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.cbx.invalid input{border-color:var(--danger)}
+.cbx .inl{color:var(--text);font-weight:500;border:0;background:none;cursor:pointer;padding:0;font-size:inherit;text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--primary)}
+.backlink{display:block;margin:12px auto 0;border:0;background:none;font-size:var(--fs-sm);font-weight:400;color:var(--text-muted);cursor:pointer;padding:6px}
+.backlink:hover{color:var(--text)}
+
+/* Etapa 3 · retorno (sem valores) */
+.done-msg{text-align:center;padding:14px 4px 4px}
+.done-ic{width:64px;height:64px;border-radius:50%;margin:0 auto 18px;display:grid;place-items:center;background:rgba(140,197,162,.14);border:1px solid rgba(140,197,162,.3);color:var(--success)}
+.done-ic .ic{width:30px;height:30px;stroke-width:2.2}
+.done-msg .sim-desc{margin:8px auto 0;max-width:340px;font-size:var(--fs-md);line-height:1.6}
+
+/* ============================================================
+   4 · JORNADA (trilha 1 → 5)
+   ============================================================ */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap);margin-top:60px;position:relative}
+/* Trilha 1 → 2 → 3 → 4: preenche em sequência e o destaque percorre os passos */
+.rail{grid-column:1/-1;position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap);margin-bottom:8px}
+.rail-track{position:absolute;left:calc((100% - 3 * var(--gap)) / 8);right:calc((100% - 3 * var(--gap)) / 8);top:50%;height:2px;margin-top:-1px;background:rgba(169,184,203,.14);border-radius:2px;overflow:hidden}
+.rail-fill{position:absolute;inset:0;transform-origin:left;transform:scaleX(0);background:linear-gradient(90deg,#415A77,#A9B8CB);transition:transform .8s cubic-bezier(.4,.1,.2,1)}
+.node{justify-self:center;position:relative;z-index:1;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-family:var(--font-display);font-weight:600;font-size:.92rem;color:var(--text-muted);background:#0B1724;border:1px solid rgba(169,184,203,.25);transition:background .45s,color .45s,border-color .45s,box-shadow .45s,transform .45s}
+.node.on{background:#1B263B;color:var(--text);border-color:rgba(169,184,203,.55)}
+.node.cur{background:var(--mist);color:var(--ink);border-color:var(--mist);transform:scale(1.08);box-shadow:0 0 0 7px rgba(224,225,221,.08),0 0 28px rgba(169,184,203,.5)}
+.step{position:relative;padding:26px var(--pad) 24px;display:flex;flex-direction:column}
+.step-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+.step-n{font-family:var(--font-display);font-weight:500;font-size:2.6rem;letter-spacing:-.03em;line-height:1;background:var(--em-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.step h3{font-family:var(--font-display);font-weight:600;font-size:1.2rem;letter-spacing:-.01em;margin-bottom:8px}
+.step p{font-size:var(--fs-md);font-weight:300;line-height:1.6;color:var(--text-muted-card)}
+.step ul{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:18px}
+.step .gi,.step .step-n{transition:background .45s,color .45s,border-color .45s,filter .45s}
+.step.active{border-color:rgba(169,184,203,.42);transform:translateY(-6px);box-shadow:var(--shadow-lg),0 0 0 1px rgba(169,184,203,.16),0 26px 50px -24px rgba(119,141,169,.65)}
+.step.active .gi{background:var(--btn-bg);color:var(--btn-fg);border-color:var(--btn-bg)}
+.step.active .step-n{filter:brightness(1.25)}
+.sec-cta{display:flex;justify-content:center;align-items:center;gap:16px;flex-wrap:wrap;margin-top:56px}
+.sec-cta p{font-size:var(--fs-sm);font-weight:300;color:var(--text-muted)}
+.sec-cta.stack{flex-direction:column;gap:12px}
+
+/* ============================================================
+   7 · DEPOIMENTOS DE CLIENTES (escuro)
+   ============================================================ */
+.tests{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin-top:56px}
+.tcard{position:relative;display:flex;flex-direction:column;padding:28px var(--pad) 24px}
+.tcard .q{position:absolute;top:22px;right:22px;width:38px;height:38px;color:var(--text-faint)}
+.stars{display:flex;gap:3px;color:var(--primary-bright);margin-bottom:16px}
+.stars svg{width:16px;height:16px;fill:currentColor}
+.tcard blockquote{font-size:.95rem;font-weight:300;line-height:1.7;color:var(--text);flex:1}
+.tcard .tag{align-self:flex-start;margin-top:18px}
+.who{display:flex;align-items:center;gap:12px;margin-top:20px;padding-top:18px;border-top:1px solid var(--border-soft)}
+.av{width:46px;height:46px;border-radius:50%;background:var(--pill-bg);border:1px solid var(--glass-btn-border);color:var(--icon-soft);display:grid;place-items:center;flex:0 0 auto;overflow:hidden}
+.av img{width:100%;height:100%;object-fit:cover}
+.av .ic{width:20px;height:20px}
+/* avatar genérico com as iniciais (troque por <img> quando tiver a foto autorizada do cliente) */
+.av.ini{background:linear-gradient(160deg,#778DA9,#415A77 55%,#1B263B);border-color:rgba(169,184,203,.35);color:#E0E1DD;font-family:var(--font-display);font-weight:600;font-size:.9rem;letter-spacing:.02em}
+.who b{display:block;font-family:var(--font-display);font-weight:600;font-size:var(--fs-lg)}
+.who span{font-size:var(--fs-xs);font-weight:300;color:var(--text-muted)}
+
+/* ============================================================
+   8 · FAQ (claro) — abas centralizadas e expandidas
+   ============================================================ */
+.faq{max-width:920px;margin:44px auto 0}
+.tabs{display:flex;justify-content:center;gap:4px;padding:5px;border-radius:var(--radius-pill);background:var(--pill-bg);border:1px solid var(--tag-border);width:100%;margin:0 auto 28px}
+.tabs button{flex:1;border:0;background:none;padding:13px 20px;border-radius:var(--radius-pill);font-size:var(--fs-md);font-weight:400;color:var(--text-muted);cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap}
+.tabs button .ic{width:17px;height:17px}
+.tabs button:hover{color:var(--text)}
+.tabs button[aria-selected="true"]{background:var(--btn-bg);color:var(--btn-fg);font-weight:500;box-shadow:var(--shadow-sm)}
+.qa{background:var(--card-grad);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:10px;box-shadow:var(--shadow-sm);transition:border-color .2s,box-shadow .2s}
+.qa[open]{border-color:rgba(65,90,119,.32);box-shadow:var(--shadow-md)}
+.qa summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:19px 22px;font-family:var(--font-display);font-weight:600;font-size:1.02rem;letter-spacing:-.005em;color:var(--text)}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary .pm{width:30px;height:30px;border-radius:50%;background:var(--gi-bg);border:1px solid var(--gi-border);display:grid;place-items:center;flex:0 0 auto;transition:transform .3s,background .2s,color .2s;color:var(--icon-soft)}
+.qa summary .pm .ic{width:15px;height:15px;stroke-width:2}
+.qa[open] summary .pm{transform:rotate(45deg);background:var(--btn-bg);border-color:var(--btn-bg);color:var(--btn-fg)}
+.qa .a{padding:0 22px 20px;color:var(--text-muted-card);font-size:.92rem;font-weight:300;line-height:1.7}
+.qa .a b{color:var(--text);font-weight:500}
+.qa .a p+p,.qa .a p+ul,.qa .a ul+p{margin-top:10px}
+.qa .a ul{padding-left:18px}
+.qa[open] .a{animation:fadeDown .3s ease}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.tabpanel[hidden]{display:none}
+.help{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:24px;padding:20px 22px;border-radius:var(--radius-lg)}
+.help b{font-family:var(--font-display);font-weight:600;font-size:var(--fs-lg)}
+.help p{font-size:var(--fs-sm);font-weight:300;color:var(--text-muted);margin-top:2px}
+
+/* CTA final — painel escuro dentro do bloco claro */
+.final{position:relative;overflow:hidden;border-radius:var(--radius-shell);padding:64px 56px;display:grid;grid-template-columns:1.3fr .7fr;gap:32px;align-items:center;margin-top:104px;border:1px solid rgba(119,141,169,.2);
+  background:radial-gradient(620px 340px at 92% 0%,rgba(65,90,119,.65),transparent 70%),radial-gradient(420px 260px at 0% 100%,rgba(119,141,169,.22),transparent 70%),linear-gradient(160deg,#1B263B,#0B1724);
+  box-shadow:0 40px 80px -36px rgba(13,27,42,.75)}
+.final::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(224,225,221,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(224,225,221,.03) 1px,transparent 1px);background-size:48px 48px;
+  -webkit-mask-image:radial-gradient(ellipse 60% 80% at 85% 20%,#000,transparent 70%);mask-image:radial-gradient(ellipse 60% 80% at 85% 20%,#000,transparent 70%)}
+.final>*{position:relative;z-index:1}
+.final h2{font-family:var(--font-display);font-weight:500;font-size:clamp(1.8rem,3.2vw,2.6rem);line-height:1.12;letter-spacing:-.025em}
+.final p{font-weight:300;color:var(--text-muted);margin-top:12px;font-size:var(--fs-lg);line-height:1.6}
+.final .acts{display:flex;flex-direction:column;gap:12px}
+
+/* ============================================================
+   9 · RODAPÉ (escuro profundo)
+   ============================================================ */
+.ftr{position:relative;background:#08121D;padding:80px 0 28px;margin-top:calc(var(--sheet) * -1);border-radius:var(--radius-shell) var(--radius-shell) 0 0;box-shadow:var(--sheet-shadow)}
+.fgrid{display:grid;grid-template-columns:1.4fr 1fr 1.1fr 1fr;gap:40px;padding-bottom:44px;border-bottom:1px solid var(--border-soft)}
+.ftr p{font-size:var(--fs-sm);font-weight:300;color:var(--text-muted);margin-top:16px;max-width:320px;line-height:1.6}
+.ftr h3{font-family:var(--font-display);font-size:var(--fs-lg);font-weight:600;letter-spacing:-.01em;margin-bottom:18px}
+.ftr ul{list-style:none;display:grid;gap:12px}
+.ftr li a,.ftr li button,.ftr li span{font-size:var(--fs-sm);font-weight:400;color:var(--text-muted);transition:color .2s;display:inline-flex;align-items:center;gap:10px;border:0;background:none;cursor:pointer;text-align:left;padding:0}
+.ftr li a:hover,.ftr li button:hover{color:var(--text)}
+.ftr li .ic{width:18px;height:18px;color:var(--icon-soft)}
+.seals{display:flex;align-items:center;gap:26px;flex-wrap:wrap;margin-top:26px}
+.socials{display:flex;gap:10px;flex-wrap:wrap}
+.socials a{width:44px;height:44px;border-radius:var(--radius);background:var(--pill-bg);border:1px solid var(--glass-border);display:grid;place-items:center;color:var(--icon-soft);transition:.2s}
+.socials a:hover{background:var(--btn-bg);border-color:var(--btn-bg);color:var(--btn-fg);transform:translateY(-2px)}
+.socials a .ic{width:20px;height:20px}
+.handle{font-size:var(--fs-sm);font-weight:300;margin-top:14px;display:inline-block;color:var(--text-muted);transition:color .2s}
+.handle:hover{color:var(--text)}
+.legal{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;padding-top:24px}
+.legal p{max-width:780px;margin:0;font-size:var(--fs-xs);line-height:1.6}
+.legal nav{display:flex;gap:18px}
+.legal button{border:0;background:none;color:var(--text-muted);cursor:pointer;font-size:var(--fs-xs);font-weight:400}
+.legal button:hover{color:var(--text)}
+
+/* ---------- WhatsApp flutuante + barra fixa (mobile) ---------- */
+.wa-float{position:fixed;right:22px;bottom:22px;z-index:70;width:58px;height:58px;border-radius:50%;background:linear-gradient(160deg,#22304A,#0D1B2A);border:1px solid rgba(224,225,221,.22);color:#E0E1DD;display:grid;place-items:center;box-shadow:0 18px 40px -12px rgba(8,18,29,.7),0 0 0 4px rgba(224,225,221,.06);transition:transform .2s,bottom .3s,opacity .2s}
+.wa-float:hover{transform:translateY(-2px)}
+.wa-float svg{width:28px;height:28px;fill:currentColor}
+.wa-float .tt{position:absolute;right:70px;background:#1B263B;border:1px solid rgba(119,141,169,.2);color:#E0E1DD;font-size:var(--fs-sm);font-weight:500;padding:8px 12px;border-radius:var(--radius-pill);white-space:nowrap;box-shadow:var(--shadow-md);opacity:0;transform:translateX(6px);transition:.2s;pointer-events:none}
+.wa-float:hover .tt{opacity:1;transform:none}
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:75;padding:10px 16px calc(10px + env(safe-area-inset-bottom));display:none;align-items:center;gap:12px;transform:translateY(110%);transition:transform .3s;border-width:1px 0 0;background:rgba(8,18,29,.88)}
+.mbar.show{transform:none}
+.mbar p{font-size:var(--fs-xs);font-weight:300;line-height:1.35;color:var(--text-muted);flex:1}
+.mbar p b{display:block;color:var(--text);font-size:var(--fs-sm);font-weight:500}
+
+/* ---------- Modal de privacidade ---------- */
+dialog{border:1px solid var(--border);border-radius:var(--radius-panel);padding:0;max-width:640px;width:calc(100% - 32px);background:var(--card-grad);color:var(--text);box-shadow:var(--shadow-float);margin:auto}
+dialog::backdrop{background:rgba(8,18,29,.7);backdrop-filter:blur(4px)}
+.dlg-h{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid var(--border-soft)}
+.dlg-h b{font-family:var(--font-display);font-weight:600;font-size:var(--fs-lg)}
+.dlg-h button{width:38px;height:38px;border-radius:50%;border:1px solid var(--glass-border);background:var(--pill-bg);cursor:pointer;display:grid;place-items:center;color:var(--icon-soft)}
+.dlg-h button .ic{width:16px;height:16px}
+.dlg-b{padding:20px 24px 26px;max-height:60vh;overflow:auto;font-size:var(--fs-md);font-weight:300;color:var(--text-muted-card);line-height:1.6}
+.dlg-b h4{font-family:var(--font-display);color:var(--text);font-weight:600;margin:16px 0 6px;font-size:.95rem}
+.dlg-b h4:first-child{margin-top:0}
+.dlg-b ul{padding-left:18px}
+dialog[open]{animation:dlgIn .38s cubic-bezier(.2,.8,.3,1)}
+dialog[open]::backdrop{animation:fadeIn .3s ease}
+@keyframes dlgIn{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+html:has(dialog[open]){overflow:hidden}
+
+/* ---------- Movimento ---------- */
+/* Entrada em sequência: cada item de um grupo [data-stagger] chega com um pequeno atraso (--d) */
+.js .reveal{opacity:0;transform:translateY(28px);transition:opacity .75s cubic-bezier(.2,.7,.3,1) var(--d,0ms),transform .85s cubic-bezier(.2,.7,.3,1) var(--d,0ms)}
+.js .reveal[data-rv="left"]{transform:translateX(-36px)}
+.js .reveal[data-rv="right"]{transform:translateX(36px)}
+.js .reveal[data-rv="zoom"]{transform:translateY(18px) scale(.94)}
+.js .reveal.in{opacity:1;transform:none}
+/* Banner: simulador, lista e indicadores entram em sequência */
+.hero-sim{animation:simIn 1s cubic-bezier(.2,.7,.3,1) .25s both}
+@keyframes simIn{from{opacity:0;transform:translateY(34px) scale(.97)}to{opacity:1;transform:none}}
+.hero .checks li,.hero-extra>.btn{animation:rise .8s cubic-bezier(.2,.7,.3,1) both}
+.hero .checks li:nth-child(1){animation-delay:.35s}
+.hero .checks li:nth-child(2){animation-delay:.47s}
+.hero .checks li:nth-child(3){animation-delay:.59s}
+.hero-extra>.btn{animation-delay:.71s}
+/* FAQ: perguntas entram em cascata ao abrir cada aba */
+.tabpanel.anim .qa{animation:qaIn .5s cubic-bezier(.2,.7,.3,1) both;animation-delay:calc(var(--i,0) * 70ms)}
+@keyframes qaIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.hero .reveal-now{animation:rise .8s cubic-bezier(.2,.7,.3,1) both}
+.hero .reveal-now:nth-child(2){animation-delay:.08s}
+.hero .reveal-now:nth-child(3){animation-delay:.16s}
+@keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.pulse-once{animation:ring 1.2s ease}
+@keyframes ring{0%{box-shadow:0 0 0 0 rgba(169,184,203,.6),var(--shadow-float)}100%{box-shadow:0 0 0 22px rgba(169,184,203,0),var(--shadow-float)}}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .js .reveal{opacity:1;transform:none}
+}
+
+/* ============================================================
+   MODO CLARO — html[data-theme="light"]
+   Os blocos escuros recebem os tokens claros; aqui ficam só os
+   ajustes de superfícies com cor fixa. Os blocos alternam entre
+   off-white e névoa para manter o contraste entre seções.
+   ============================================================ */
+html[data-theme="light"] .sec.theme-dark{--sec-bg:#F7F8F6}
+html[data-theme="light"] .sec,html[data-theme="light"] .ftr{--sheet-shadow:0 -22px 44px -26px rgba(13,27,42,.22)}
+html[data-theme="light"] .hdr{background:rgba(247,248,246,.72);border-bottom-color:rgba(13,27,42,.08)}
+html[data-theme="light"] .hdr.scrolled{background:rgba(247,248,246,.94);box-shadow:0 12px 30px -20px rgba(13,27,42,.35)}
+html[data-theme="light"] .hdr-wa:hover{color:#415A77}
+html[data-theme="light"] .hero{background:#F7F8F6}
+html[data-theme="light"] .hero::before{background:radial-gradient(900px 640px at 76% 24%,rgba(119,141,169,.38),transparent 62%),radial-gradient(700px 520px at 0% 100%,rgba(169,184,203,.3),transparent 60%),radial-gradient(500px 300px at 30% 0%,rgba(119,141,169,.18),transparent 70%)}
+html[data-theme="light"] .hero::after{background-image:linear-gradient(rgba(13,27,42,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(13,27,42,.045) 1px,transparent 1px)}
+html[data-theme="light"] .sim::before{background:radial-gradient(closest-side,rgba(119,141,169,.3),transparent)}
+html[data-theme="light"] .sim-face{background:linear-gradient(160deg,#FFFFFF,#F7F8F6 60%) padding-box,linear-gradient(160deg,rgba(65,90,119,.4),rgba(65,90,119,.08) 42%,rgba(65,90,119,.24)) border-box;box-shadow:0 30px 60px -24px rgba(13,27,42,.35),0 0 0 1px rgba(255,255,255,.6)}
+html[data-theme="light"] .seg button[aria-checked="true"]{box-shadow:0 1px 2px rgba(13,27,42,.10),0 6px 14px -8px rgba(13,27,42,.30)}
+html[data-theme="light"] .rail-track{background:rgba(65,90,119,.15)}
+html[data-theme="light"] .node{background:#FFFFFF;border-color:rgba(65,90,119,.25)}
+html[data-theme="light"] .node.on{background:#E0E1DD;color:#0D1B2A;border-color:rgba(65,90,119,.4)}
+html[data-theme="light"] .node.cur{background:#0D1B2A;color:#FFFFFF;border-color:#0D1B2A;box-shadow:0 0 0 7px rgba(13,27,42,.06),0 0 26px rgba(65,90,119,.4)}
+html[data-theme="light"] .step.active{border-color:rgba(65,90,119,.4);box-shadow:var(--shadow-lg),0 0 0 1px rgba(65,90,119,.12),0 26px 50px -24px rgba(65,90,119,.5)}
+html[data-theme="light"] .final{border-color:rgba(65,90,119,.16);box-shadow:0 40px 80px -44px rgba(13,27,42,.4);
+  background:radial-gradient(640px 360px at 100% 0%,rgba(119,141,169,.3),transparent 70%),radial-gradient(420px 280px at 0% 100%,rgba(169,184,203,.22),transparent 70%),linear-gradient(160deg,#FFFFFF,#F4F5F3)}
+html[data-theme="light"] .final::after{background-image:linear-gradient(rgba(13,27,42,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(13,27,42,.04) 1px,transparent 1px)}
+html[data-theme="light"] .ftr{background:#E4E6E2}
+html[data-theme="light"] .mbar{background:rgba(247,248,246,.94)}
+html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
+
+/* ============================================================
+   RESPONSIVO
+   ============================================================ */
+@media (max-width:1180px){
+  .menu{gap:18px}
+}
+@media (max-width:1100px){
+  .hamb{display:inline-flex}
+  .hdr-wa-m{display:inline-flex}
+  .menu .hdr-wa{padding:14px 4px;border-bottom:1px solid var(--border-soft);font-size:.95rem}
+  .menu{display:none;position:absolute;top:var(--hdr);left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:#08121D;backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur));padding:8px 20px 20px;border-bottom:1px solid var(--glass-border);box-shadow:0 20px 40px -20px rgba(0,0,0,.8)}
+  .menu.open{display:flex}
+  html[data-theme="light"] .menu{background:#F7F8F6;box-shadow:0 20px 40px -20px rgba(13,27,42,.35)}
+  .nav{gap:10px}
+  .logo{order:-2;margin-right:auto}
+  .theme-tg{order:-1;margin-left:0;width:44px;height:44px}
+  .hdr-wa-m{margin-left:0}
+  .hamb{margin-left:0}
+  .menu a:not(.btn){padding:14px 4px;border-bottom:1px solid var(--border-soft);font-size:.95rem}
+  .menu .btn{margin-top:14px}
+  .menu-eco{border-bottom:1px solid var(--border-soft);padding:6px 4px 14px}
+  .menu-eco-btn{padding:8px 0;font-size:.95rem;pointer-events:none}
+  .menu-eco-btn .ic{display:none}
+  .eco-panel{position:static;padding-top:6px;transform:none;opacity:1;visibility:visible;pointer-events:auto}
+  .menu-eco:hover .eco-panel,.menu-eco:focus-within .eco-panel,.menu-eco.open .eco-panel{transform:none}
+  .menu a.eco-card{width:100%;flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:space-between;box-shadow:none;padding:14px 16px;border:1px solid var(--border)}
+  .eco-k{display:none}
+  .eco-logo{height:44px}
+}
+@media (max-width:1080px){
+.steps{grid-template-columns:repeat(2,1fr)}
+  .rail{display:none}
+  .fgrid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:980px){
+  :root{--nav:62px;--hdr:62px;--sheet:22px}
+  .hero{padding:calc(var(--hdr) + 36px) 0 calc(var(--sheet) + 28px)}
+  .hero-grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"copy" "sim" "extra";row-gap:32px}
+  .hero-copy{padding-top:0}
+  .hero-sim{justify-content:center}
+  .sim{max-width:520px}
+  .sec{border-radius:22px 22px 0 0}
+  .ftr{border-radius:22px 22px 0 0}
+  .final{grid-template-columns:minmax(0,1fr);padding:44px 32px}
+  .mbar{display:flex}
+  .wa-float.lift{bottom:88px}
+  .wa-float.away{opacity:0;transform:scale(.6);pointer-events:none}
+}
+@media (max-width:640px){
+  .wrap{padding:0 16px}
+  .sec{padding:80px 0 calc(80px + var(--sheet))}
+  .hero h1{font-size:2.3rem}
+  .kicker{font-size:.7rem;letter-spacing:.1em}
+  .hero .sub{font-size:1rem}
+  .sim-face{padding:22px 18px 18px}
+  .steps-ind{gap:6px}
+  .steps-ind .bar{width:12px}
+  .sim-back .sim-top .tag{display:none}
+  .f input{padding:0 12px;font-size:.9rem}
+  .f-wide{grid-column:1/-1}
+.steps,.tests{grid-template-columns:minmax(0,1fr)}
+  .tabs button{padding:11px 6px;font-size:var(--fs-sm);white-space:normal;line-height:1.25;text-align:center}
+  .tabs button .ic{display:none}
+  .qa summary{padding:17px 18px;font-size:.96rem}
+  .qa .a{padding:0 18px 18px}
+  .help{flex-direction:column;align-items:stretch;text-align:center}
+  .btn{white-space:normal;text-align:center}
+  .sec-cta .btn,.help .btn{width:100%}
+  .fgrid{grid-template-columns:1fr;gap:34px}
+  .final{padding:36px 22px;margin-top:80px}
+  .wa-float{width:52px;height:52px;right:16px;bottom:16px}
+  dialog{width:calc(100% - 20px)}
+  .wa-float .tt{display:none}
+  .mbar .btn{padding:11px 18px}
+}
+@media (max-width:520px){
+  .tabs{display:grid;grid-template-columns:1fr 1fr;border-radius:var(--radius-lg)}
+}
+@media (max-width:400px){
+  .nav{gap:6px}
+  .hdr .logo-img{height:38px}
+  .theme-tg,.hdr-wa-m,.hamb{width:40px;height:40px;flex:0 0 auto}
+}
+
+/* ============================================================
+   VERO PLANEJAMENTO — componentes próprios desta LP
+   (tokens, botões, cartões, cabeçalho, FAQ e rodapé vêm da mesma
+   base da LP de consórcios, sem alteração)
+   ============================================================ */
+
+/* ---------- 1 · Topo com vídeo de fundo ---------- */
+.hero-video{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:#08121D}
+.hero-video video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.08);
+  filter:blur(4px) saturate(.8) brightness(.8);opacity:.5}
+/* véu azul-noite: mais forte à direita (formulário) e no rodapé do banner */
+.hero-video::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(100deg,rgba(8,18,29,.86) 0%,rgba(8,18,29,.55) 38%,rgba(8,18,29,.78) 72%,rgba(8,18,29,.92) 100%),linear-gradient(180deg,transparent 60%,rgba(8,18,29,.9) 100%)}
+.hero-plan::before{z-index:1;opacity:.75}
+.hero-plan::after{display:none}
+.hero-plan>.wrap{z-index:2}
+.hero-plan .hero-grid{grid-template-areas:"copy sim" "extra sim";align-items:center}
+.hero-plan .hero-copy{align-self:end}
+.hero-plan .hero-extra{align-self:start}
+.hero-plan .sub{max-width:540px}
+.hero-plan{padding-bottom:calc(var(--sheet) + 72px)}
+/* objetivos do formulário: 3 + 2 cartões */
+.cat5{grid-template-columns:repeat(6,minmax(0,1fr))}
+.cat5 button{grid-column:span 2}
+.cat5 button:nth-child(n+4){grid-column:span 3}
+.sim-plan .sim-face{padding:24px 24px 20px}
+.sim-plan fieldset{margin-bottom:16px}
+.sim-plan .sim-label{margin-bottom:8px}
+.sim-plan .sim-desc{margin-bottom:16px}
+.pick{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.pick3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.pick button{border:1px solid var(--border);background:var(--pill-bg);color:var(--text-muted);font-size:var(--fs-sm);font-weight:400;padding:9px 8px;border-radius:var(--radius);cursor:pointer;transition:.2s;line-height:1.25;text-align:center}
+.pick button small{display:block;font-size:.66rem;font-weight:300;opacity:.85;margin-top:2px}
+.pick button:hover{color:var(--text);border-color:rgba(169,184,203,.35)}
+.pick button[aria-checked="true"]{background:var(--btn-bg);border-color:var(--btn-bg);color:var(--btn-fg);font-weight:500;box-shadow:0 10px 24px -14px var(--btn-glow)}
+fieldset.invalid .pick button,fieldset.invalid .cat button{border-color:var(--danger)}
+.seg3{grid-template-columns:repeat(3,1fr)}
+.seg-ic button,.seg3 button{padding:10px 6px;display:flex;align-items:center;justify-content:center;gap:6px}
+.seg button .ic{width:15px;height:15px}
+.seg svg.wa{fill:currentColor;stroke:none}
+.f2-pick fieldset{margin:2px 0 12px}
+
+/* ---------- Pop-up "Solicitar atendimento": o mesmo cartão do topo ---------- */
+.lead-pop{background:transparent;border:0;box-shadow:none;padding:58px 10px 16px;max-width:520px;width:calc(100% - 16px);max-height:100dvh;overflow:auto;overscroll-behavior:contain}
+.lead-pop .sim{max-width:none;margin:0 auto}
+.lead-pop .sim::before{display:none}
+.pop-close{position:absolute;top:12px;right:14px;width:40px;height:40px;border-radius:50%;border:1px solid rgba(224,225,221,.25);background:rgba(13,27,42,.75);color:#E0E1DD;display:grid;place-items:center;cursor:pointer;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:background .2s,transform .2s}
+.pop-close:hover{background:rgba(27,38,59,.95);transform:rotate(90deg)}
+.pop-close .ic{width:18px;height:18px}
+.pop-k{position:absolute;top:20px;left:22px;font-size:var(--fs-sm);font-weight:500;color:#E0E1DD;display:flex;align-items:center;gap:8px}
+.pop-k::before{content:"";width:6px;height:6px;border-radius:50%;background:#A9B8CB;box-shadow:0 0 0 3px rgba(169,184,203,.2)}
+
+/* ---------- 2 · Benefícios: cartões com brilho que segue o cursor ---------- */
+.bens{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gap);margin-top:60px}
+.ben{position:relative;overflow:hidden;padding:30px 28px 28px;display:flex;flex-direction:column;min-height:270px;isolation:isolate}
+.ben::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .35s;
+  background:radial-gradient(360px circle at var(--mx,50%) var(--my,0%),rgba(119,141,169,.20),transparent 60%)}
+.ben:hover::before{opacity:1}
+.ben::after{content:"";position:absolute;left:28px;right:28px;top:0;height:2px;border-radius:0 0 2px 2px;background:linear-gradient(90deg,#415A77,#A9B8CB);transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.3,.8,.3,1)}
+.ben:hover::after,.ben.seen::after{transform:scaleX(1)}
+.ben-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:26px}
+.ben-n{font-family:var(--font-display);font-weight:500;font-size:.9rem;letter-spacing:.08em;color:var(--text-faint)}
+.ben h3{font-family:var(--font-display);font-weight:600;font-size:1.22rem;letter-spacing:-.01em;line-height:1.25}
+.ben-b{margin-top:auto;padding-top:20px}
+.ben-b span{display:flex;align-items:center;gap:8px;font-size:var(--fs-sm);font-weight:500;color:var(--icon-soft);margin-bottom:8px}
+.ben-b span::before{content:"";width:18px;height:1px;background:currentColor;opacity:.6}
+.ben-b p{font-size:var(--fs-md);font-weight:300;line-height:1.6;color:var(--text-muted-card)}
+.ben:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:rgba(65,90,119,.32)}
+.ben:hover .gi{background:var(--btn-bg);border-color:var(--btn-bg);color:var(--btn-fg)}
+
+/* ---------- 3 · Passo a passo: esteira com trilha clicável ---------- */
+.road{margin-top:56px}
+.road-rail{position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));margin-bottom:26px}
+.road-track{position:absolute;left:10%;right:10%;top:20px;height:2px;background:rgba(169,184,203,.16);border-radius:2px;overflow:hidden}
+.road-fill{position:absolute;inset:0;transform-origin:left;transform:scaleX(0);background:linear-gradient(90deg,#415A77,#A9B8CB);transition:transform .6s cubic-bezier(.4,.1,.2,1)}
+.road-node{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:10px;border:0;background:none;color:var(--text-muted);cursor:pointer;font:inherit;padding:0 4px}
+.road-node i{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-family:var(--font-display);font-weight:600;font-size:.92rem;background:#0B1724;border:1px solid rgba(169,184,203,.25);transition:background .35s,color .35s,border-color .35s,transform .35s,box-shadow .35s}
+.road-node span{font-size:var(--fs-sm);font-weight:500;text-align:center;line-height:1.3;transition:color .3s}
+.road-node:hover span{color:var(--text)}
+.road-node.on i{background:#1B263B;color:var(--text);border-color:rgba(169,184,203,.55)}
+.road-node.cur i{background:var(--mist);color:var(--ink);border-color:var(--mist);transform:scale(1.08);box-shadow:0 0 0 7px rgba(224,225,221,.08),0 0 28px rgba(169,184,203,.5)}
+.road-node.cur span{color:var(--text)}
+.road-view{position:relative;-webkit-mask-image:linear-gradient(90deg,#000 82%,transparent);mask-image:linear-gradient(90deg,#000 82%,transparent)}
+.road-view.at-end{-webkit-mask-image:none;mask-image:none}
+.road-list{list-style:none;display:flex;gap:var(--gap);overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;padding:8px 2px 22px;margin:0 -2px}
+.road-list::-webkit-scrollbar{display:none}
+.road-card{flex:0 0 calc((100% - 2 * var(--gap)) / 2.6);scroll-snap-align:start;padding:28px 28px 26px;display:flex;flex-direction:column;opacity:.55;transition:opacity .4s,transform .4s,border-color .4s,box-shadow .4s}
+.road-card.cur{opacity:1;transform:translateY(-4px);border-color:rgba(169,184,203,.42);box-shadow:var(--shadow-lg),0 0 0 1px rgba(169,184,203,.14),0 26px 50px -26px rgba(119,141,169,.6)}
+.road-card.cur .gi{background:var(--btn-bg);border-color:var(--btn-bg);color:var(--btn-fg)}
+.road-card .step-h{margin-bottom:20px}
+.road-card h3{font-family:var(--font-display);font-weight:600;font-size:1.3rem;letter-spacing:-.01em;margin-bottom:10px}
+.road-card p{font-size:var(--fs-md);font-weight:300;line-height:1.65;color:var(--text-muted-card)}
+.road-card .tag{align-self:flex-start;margin-top:20px}
+.road-ctrl{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:6px}
+.road-count{font-family:var(--font-display);font-size:var(--fs-md);color:var(--text-muted)}
+.road-count b{color:var(--text);font-weight:600}
+.road-arrows{display:flex;gap:8px}
+.road-arrows button{width:48px;height:48px;border-radius:50%;border:1px solid var(--glass-btn-border);background:var(--pill-bg);color:var(--text);display:grid;place-items:center;cursor:pointer;transition:background .2s,border-color .2s,opacity .2s,transform .2s}
+.road-arrows button:hover:not([disabled]){background:var(--pill-active);border-color:var(--primary);transform:translateY(-1px)}
+.road-arrows button[disabled]{opacity:.35;cursor:default}
+.road-arrows .ic{width:18px;height:18px}
+.road-arrows .prev .ic{transform:rotate(180deg)}
+
+/* ---------- 4 · Jornada: 5 etapas com a trilha da metodologia ---------- */
+.steps.s5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.s5 .rail{grid-template-columns:repeat(5,minmax(0,1fr))}
+.s5 .rail-track{left:calc((100% - 4 * var(--gap)) / 10);right:calc((100% - 4 * var(--gap)) / 10)}
+.s5 .step{padding:24px 20px 22px}
+.s5 .step-n{font-size:2.2rem}
+.s5 .step h3{font-size:1.1rem}
+/* trilha e etapas também no bloco claro */
+.theme-light .rail-track,.theme-light .road-track{background:rgba(65,90,119,.15)}
+.theme-light .node,.theme-light .road-node i{background:#FFFFFF;border-color:rgba(65,90,119,.25)}
+.theme-light .node.on,.theme-light .road-node.on i{background:#E0E1DD;color:#0D1B2A;border-color:rgba(65,90,119,.4)}
+.theme-light .node.cur,.theme-light .road-node.cur i{background:#0D1B2A;color:#FFFFFF;border-color:#0D1B2A;box-shadow:0 0 0 7px rgba(13,27,42,.06),0 0 26px rgba(65,90,119,.4)}
+.theme-light .step.active,.theme-light .road-card.cur{border-color:rgba(65,90,119,.4);box-shadow:var(--shadow-lg),0 0 0 1px rgba(65,90,119,.12),0 26px 50px -24px rgba(65,90,119,.5)}
+
+/* ---------- 5 · Dashplan + Soluções ---------- */
+.tools{display:grid;grid-template-columns:minmax(0,1.9fr) minmax(0,1fr);gap:56px;align-items:center;margin-top:60px}
+.device{position:relative;margin:0;padding-bottom:22px}
+.device-screen{position:relative;border-radius:18px 18px 8px 8px;padding:12px 12px 14px;background:linear-gradient(160deg,#1F2B42,#0B1724);border:1px solid rgba(169,184,203,.22);box-shadow:0 50px 90px -40px rgba(0,0,0,.85),inset 0 1px 0 rgba(224,225,221,.08)}
+.device-screen::before{content:"";position:absolute;top:5px;left:50%;width:6px;height:6px;margin-left:-3px;border-radius:50%;background:rgba(169,184,203,.35)}
+.device-screen img{display:block;width:100%;height:auto;border-radius:8px;background:#fff}
+.device-base{position:absolute;left:-5%;right:-5%;bottom:0;height:22px;border-radius:2px 2px 16px 16px;background:linear-gradient(180deg,#A9B8CB,#415A77 55%,#1B263B);box-shadow:0 18px 30px -16px rgba(0,0,0,.8)}
+.device-base::before{content:"";position:absolute;top:0;left:50%;width:16%;height:7px;margin-left:-8%;border-radius:0 0 10px 10px;background:rgba(13,27,42,.45)}
+.device-glow{position:absolute;inset:8% 6% 14%;z-index:-1;background:radial-gradient(closest-side,rgba(119,141,169,.45),transparent);filter:blur(30px)}
+.float-chip{position:absolute;display:flex;align-items:center;gap:10px;padding:10px 16px 10px 10px;border-radius:var(--radius-lg);background:var(--card-grad);border:1px solid var(--border);box-shadow:var(--shadow-float);font-size:var(--fs-sm);font-weight:500;color:var(--text);z-index:2}
+.float-chip .gi{width:32px;height:32px;border-radius:var(--radius-sm)}
+.float-chip .gi .ic{width:16px;height:16px}
+.float-chip small{display:block;font-size:var(--fs-xs);font-weight:300;color:var(--text-muted)}
+.chip-a{left:-48px;top:40%;animation:bob 6s ease-in-out infinite}
+.chip-b{right:-36px;bottom:12%;animation:bob 6s ease-in-out 3s infinite}
+@keyframes bob{50%{transform:translateY(-8px)}}
+.sol-list{list-style:none;display:grid;gap:8px}
+.sol-list li{display:flex;gap:14px;align-items:center;padding:11px 14px;border-radius:var(--radius-lg);border:1px solid var(--border-soft);background:var(--pill-bg);transition:border-color .25s,background .25s,transform .25s}
+.sol-list li:hover{border-color:rgba(169,184,203,.35);background:var(--pill-active);transform:translateX(4px)}
+.sol-list .gi{width:38px;height:38px}
+.sol-list .gi .ic{width:20px;height:20px}
+.sol-list b{display:block;font-family:var(--font-display);font-weight:600;font-size:.98rem;letter-spacing:-.005em}
+.sol-list span{display:block;font-size:var(--fs-xs);font-weight:300;line-height:1.5;color:var(--text-muted-card);margin-top:1px}
+.tools-k{font-size:var(--fs-sm);font-weight:500;color:var(--icon-soft);margin-bottom:14px}
+
+/* ---------- 6 · Planejadores ---------- */
+.team{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px;align-items:center}
+.team-cards{display:flex;justify-content:center;gap:var(--gap);flex-wrap:wrap}
+.person{position:relative;width:min(340px,100%);border-radius:var(--radius-shell);overflow:hidden;background:var(--card-grad);border:1px solid var(--border);box-shadow:var(--shadow-lg);isolation:isolate}
+.person-img{position:relative;aspect-ratio:4/5;overflow:hidden}
+.person-img img{width:100%;height:100%;object-fit:cover;filter:grayscale(.85) contrast(1.02);transform:scale(1.02);transition:filter .6s,transform .8s cubic-bezier(.2,.7,.3,1)}
+.person:hover .person-img img,.person:focus-within .person-img img{filter:none;transform:scale(1.06)}
+.person-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(8,18,29,.88) 100%)}
+.person-info{position:absolute;left:0;right:0;bottom:0;padding:22px 24px 22px;z-index:1;color:#E0E1DD}
+.person-info b{display:block;font-family:var(--font-display);font-weight:600;font-size:1.45rem;letter-spacing:-.015em;line-height:1.15}
+.person-info span{display:inline-flex;align-items:center;gap:8px;font-size:var(--fs-sm);font-weight:400;color:#A9B8CB;margin-top:6px}
+.person-info span::before{content:"";width:18px;height:1px;background:currentColor}
+.person::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:2;opacity:0;transition:opacity .4s;
+  background:radial-gradient(260px circle at var(--mx,50%) var(--my,30%),rgba(224,225,221,.16),transparent 60%)}
+.person:hover::after{opacity:1}
+
+
+/* ---------- Modo claro: topo com vídeo e componentes novos ---------- */
+html[data-theme="light"] .hero-video{background:#F7F8F6}
+html[data-theme="light"] .hero-video video{filter:blur(4px) saturate(.75);opacity:.45}
+html[data-theme="light"] .hero-video::after{background:linear-gradient(100deg,rgba(247,248,246,.9) 0%,rgba(247,248,246,.6) 38%,rgba(247,248,246,.8) 72%,rgba(247,248,246,.94) 100%),linear-gradient(180deg,transparent 60%,rgba(247,248,246,.92) 100%)}
+html[data-theme="light"] .road-track{background:rgba(65,90,119,.15)}
+html[data-theme="light"] .road-node i{background:#FFFFFF;border-color:rgba(65,90,119,.25)}
+html[data-theme="light"] .road-node.on i{background:#E0E1DD;color:#0D1B2A;border-color:rgba(65,90,119,.4)}
+html[data-theme="light"] .road-node.cur i{background:#0D1B2A;color:#FFFFFF;border-color:#0D1B2A;box-shadow:0 0 0 7px rgba(13,27,42,.06),0 0 26px rgba(65,90,119,.4)}
+html[data-theme="light"] .road-card.cur{border-color:rgba(65,90,119,.4);box-shadow:var(--shadow-lg),0 0 0 1px rgba(65,90,119,.12),0 26px 50px -24px rgba(65,90,119,.5)}
+html[data-theme="light"] .device-screen{background:linear-gradient(160deg,#2A3A55,#1B263B);border-color:rgba(65,90,119,.3);box-shadow:0 50px 90px -40px rgba(13,27,42,.45)}
+html[data-theme="light"] .device-glow{background:radial-gradient(closest-side,rgba(119,141,169,.35),transparent)}
+html[data-theme="light"] .ben::before{background:radial-gradient(360px circle at var(--mx,50%) var(--my,0%),rgba(65,90,119,.10),transparent 60%)}
+html[data-theme="light"] .pop-close{background:rgba(255,255,255,.9);color:#0D1B2A;border-color:rgba(13,27,42,.15)}
+html[data-theme="light"] .pop-k{color:#0D1B2A}
+html[data-theme="light"] .pop-k::before{background:#415A77;box-shadow:0 0 0 3px rgba(65,90,119,.18)}
+
+/* ---------- Responsivo dos componentes novos ---------- */
+@media (max-width:1080px){
+  .chip-a{left:-10px}
+  .chip-b{right:-10px}
+  .bens{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .steps.s5{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .steps.s5 .step{grid-column:span 2}
+  .steps.s5 .step:nth-of-type(n+4){grid-column:span 3}
+  .tools{grid-template-columns:minmax(0,1fr);gap:48px}
+  .road-card{flex-basis:calc((100% - var(--gap)) / 1.6)}
+  .team{grid-template-columns:minmax(0,1fr);gap:40px}
+}
+@media (max-width:980px){
+  .hero-plan .hero-grid{grid-template-areas:"copy" "sim" "extra"}
+  .hero-video video{filter:blur(5px) saturate(.8) brightness(.75)}
+}
+@media (max-width:640px){
+  .bens{grid-template-columns:minmax(0,1fr)}
+  .ben{min-height:0;padding:26px 22px 24px}
+  .steps.s5{grid-template-columns:minmax(0,1fr)}
+  .steps.s5 .step,.steps.s5 .step:nth-of-type(n+4){grid-column:auto}
+  .road-rail{margin-bottom:18px}
+  .road-node span{display:none}
+  .road-card{flex-basis:86%;padding:24px 20px 22px}
+  .cat5 button{font-size:.72rem;padding:10px 4px 8px}
+  .pick button{padding:9px 6px}
+  .f2-pick{grid-template-columns:minmax(0,1fr)}
+  .chip-a{left:-4px;top:auto;bottom:-14px}
+  .chip-b{right:-4px;bottom:4%}
+  .float-chip{padding:8px 11px;font-size:var(--fs-xs)}
+  .float-chip .gi{width:26px;height:26px}
+  .lead-pop{padding:56px 6px 10px;width:100%}
+}
+
+/* ---------- Ajustes de estrutura desta LP ---------- */
+.help-acts{display:flex;gap:10px;flex-wrap:wrap}
+.fgrid-plan{grid-template-columns:1.4fr 1fr 1.2fr}
+.menu button.btn{font:inherit;font-weight:500;font-size:var(--fs-sm)}
+@media (max-width:1080px){.fgrid-plan{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){
+  .fgrid-plan{grid-template-columns:1fr}
+  .help-acts{flex-direction:column}
+  .help-acts .btn{width:100%}
+}
+@media (max-width:640px){.float-chip{display:none}}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     ÍCONES — traço de 1,7px, base Lucide (manual: Iconografia)
+     ============================================================ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9v12h14V9"/><path d="M9.5 21v-6h5v6"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 6-6"/><path d="M15 8h5v5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 4.5-9 4.5-9-4.5z"/><path d="m3 12 9 4.5 9-4.5"/><path d="m3 16.5 9 4.5 9-4.5"/></symbol>
+  <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2.2 4.8-4.8 2.2 2.2-4.8z"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 20v-1.5A3.5 3.5 0 0 0 12.5 15h-5A3.5 3.5 0 0 0 4 18.5V20"/><circle cx="10" cy="8" r="3.5"/><path d="M20 20v-1.5a3.5 3.5 0 0 0-2.5-3.35"/><path d="M15.5 4.7a3.5 3.5 0 0 1 0 6.6"/></symbol>
+  <symbol id="i-building" viewBox="0 0 24 24"><rect x="4" y="3" width="11" height="18" rx="1.5"/><path d="M15 9h4a1 1 0 0 1 1 1v11"/><path d="M8 7h3M8 11h3M8 15h3"/><path d="M3 21h18"/></symbol>
+  <symbol id="i-coins" viewBox="0 0 24 24"><ellipse cx="9" cy="6.5" rx="6" ry="3"/><path d="M3 6.5v4c0 1.66 2.69 3 6 3s6-1.34 6-3v-4"/><path d="M3 10.5v4c0 1.66 2.69 3 6 3 1.1 0 2.13-.15 3-.4"/><ellipse cx="16.5" cy="14.5" rx="4.5" ry="2.3"/><path d="M12 14.5v3.2c0 1.27 2 2.3 4.5 2.3s4.5-1.03 4.5-2.3v-3.2"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 21.5s8-3.8 8-9.8V5.2L12 2.5 4 5.2v6.5c0 6 8 9.8 8 9.8z"/><path d="m8.8 12 2.2 2.2 4.4-4.4"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7.5a4 4 0 0 1 8 0V11"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M21 16.5v3a2 2 0 0 1-2.2 2A19.8 19.8 0 0 1 2.5 5.2 2 2 0 0 1 4.5 3h3a2 2 0 0 1 2 1.7c.13.96.37 1.9.7 2.8a2 2 0 0 1-.45 2.1L8.5 10.9a16 16 0 0 0 4.6 4.6l1.3-1.3a2 2 0 0 1 2.1-.45c.9.33 1.84.57 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6 8.5-6"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-11.5a7 7 0 0 0-14 0C5 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20.5 12a8.5 8.5 0 1 1-2.5-6"/><path d="M20.5 3.5V8H16"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 2.5H6.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V8z"/><path d="M14 2.5V8h5.5"/><path d="M8.5 13h7M8.5 17h5"/></symbol>
+  <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M19 7V5.5A1.5 1.5 0 0 0 17.5 4H5a2 2 0 0 0 0 4h14a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H5a2 2 0 0 1-2-2V6"/><path d="M16 14h.01"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="16.5" rx="2"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 32 32"><path d="M16.04 3C9.0 3 3.3 8.7 3.3 15.7c0 2.25.6 4.45 1.72 6.38L3.2 28.8l6.9-1.8a12.7 12.7 0 0 0 5.94 1.5h.01c7.03 0 12.74-5.7 12.74-12.73 0-3.4-1.32-6.6-3.73-9A12.66 12.66 0 0 0 16.04 3zm0 23.3h-.01a10.6 10.6 0 0 1-5.39-1.48l-.39-.23-4.1 1.07 1.1-4-.25-.41a10.55 10.55 0 0 1-1.62-5.6c0-5.84 4.75-10.6 10.6-10.6 2.83 0 5.49 1.1 7.49 3.11a10.52 10.52 0 0 1 3.1 7.5c0 5.85-4.75 10.6-10.53 10.6zm5.8-7.94c-.32-.16-1.88-.93-2.17-1.03-.29-.11-.5-.16-.71.16-.21.32-.82 1.03-1 1.24-.19.21-.37.24-.69.08-.32-.16-1.34-.5-2.56-1.58a9.58 9.58 0 0 1-1.77-2.2c-.19-.32-.02-.49.14-.65.14-.14.32-.37.48-.56.16-.19.21-.32.32-.53.1-.21.05-.4-.03-.56-.08-.16-.71-1.71-.98-2.34-.26-.62-.52-.53-.71-.54h-.61c-.21 0-.56.08-.85.4-.29.32-1.11 1.08-1.11 2.64 0 1.56 1.14 3.07 1.3 3.28.16.21 2.24 3.42 5.43 4.8.76.33 1.35.52 1.81.67.76.24 1.45.2 2 .12.61-.09 1.88-.77 2.14-1.51.27-.74.27-1.38.19-1.51-.08-.13-.29-.21-.61-.37z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6 6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.5 14.3A8.5 8.5 0 1 1 9.7 3.5a6.6 6.6 0 0 0 10.8 10.8z"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-ext" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2.5 2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"/></symbol>
+
+  <symbol id="i-quote" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M10 7.5C6.7 8.4 4.5 11 4.5 14.6V19h6v-6H7.6c.2-1.8 1.3-3 3-3.6zM19.5 7.5c-3.3.9-5.5 3.5-5.5 7.1V19h6v-6h-2.9c.2-1.8 1.3-3 3-3.6z"/></symbol>
+  <symbol id="i-trend-down" viewBox="0 0 24 24"><path d="m3 7 6 6 4-4 8 8"/><path d="M21 11v6h-6"/></symbol>
+  <symbol id="i-plane" viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></symbol>
+  <symbol id="i-umbrella" viewBox="0 0 24 24"><path d="M22 12a10 10 0 0 0-20 0z"/><path d="M12 12v7a2 2 0 0 0 4 0"/><path d="M12 2v1"/></symbol>
+  <symbol id="i-map" viewBox="0 0 24 24"><path d="M14.1 5.6a2 2 0 0 0 1.8 0l3.7-1.8a1 1 0 0 1 1.4.9v12.7a1 1 0 0 1-.6.9l-4.5 2.3a2 2 0 0 1-1.8 0l-4.2-2.1a2 2 0 0 0-1.8 0l-3.7 1.8A1 1 0 0 1 3 19.4V6.6a1 1 0 0 1 .6-.9l4.5-2.3a2 2 0 0 1 1.8 0z"/><path d="M15 5.8v15M9 3.2v15"/></symbol>
+  <symbol id="i-sprout" viewBox="0 0 24 24"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></symbol>
+  <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M5 21V3l2 1.5L9 3l2 1.5L13 3l2 1.5L17 3l2 1.5V21l-2-1.5-2 1.5-2-1.5-2 1.5-2-1.5L7 21z"/><path d="M9 8h6M9 12h6M9 16h3"/></symbol>
+  <symbol id="i-sunrise" viewBox="0 0 24 24"><path d="M12 2v6"/><path d="m4.9 10.1 1.4 1.4"/><path d="M2 18h2M20 18h2"/><path d="m19.1 10.1-1.4 1.4"/><path d="M22 22H2"/><path d="m8 6 4-4 4 4"/><path d="M16 18a4 4 0 0 0-8 0"/></symbol>
+  <symbol id="i-tree" viewBox="0 0 24 24"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M18 9v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9"/><path d="M12 12v3"/></symbol>
+</svg>
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header class="hdr" id="hdr">
+  <div class="wrap nav">
+    <!-- LOGOTIPO Vero Planejamento (assets/img/logo/): negativo nos fundos escuros, original no modo claro -->
+    <a class="logo" href="#topo" aria-label="Vero Planejamento, voltar ao início">
+      <img class="logo-img logo-neg" src="assets/img/logo/vero-planejamento-negativo.webp" alt="Vero Planejamento" width="143" height="44" decoding="async"><img class="logo-img logo-pos" src="assets/img/logo/vero-planejamento.webp" alt="Vero Planejamento" width="143" height="44" decoding="async">
+    </a>
+    <a class="hdr-wa-m" href="#" data-wa="Olá! Encontrei o WhatsApp de vocês no site da Vero Planejamento e gostaria de mais informações." data-wa-origem="numero_topo" aria-label="WhatsApp (51) 98912-1113"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#i-wa"/></svg></a>
+    <button class="hamb" id="hamb" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><svg class="ic"><use href="#i-menu"/></svg></button>
+    <nav class="menu" id="menu" aria-label="Navegação principal">
+      <a href="#beneficios">Benefícios</a>
+      <a href="#como-comecar">Como Começar</a>
+      <a href="#jornada">Jornada</a>
+      <a href="#solucoes">Soluções</a>
+      <a href="#planejadores">Planejadores</a>
+      <a class="hdr-wa" href="#" data-wa="Olá! Encontrei o WhatsApp de vocês no site da Vero Planejamento e gostaria de mais informações." data-wa-origem="numero_topo" aria-label="WhatsApp (51) 98912-1113"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#i-wa"/></svg>(51) 98912-1113</a>
+      <button type="button" class="btn btn-primary btn-sm" data-atendimento="menu">Solicitar atendimento</button>
+    </nav>
+    <button type="button" class="theme-tg" id="themeTg" aria-label="Ativar modo claro" title="Modo claro"><svg class="ic i-sun" aria-hidden="true"><use href="#i-sun"/></svg><svg class="ic i-moon" aria-hidden="true"><use href="#i-moon"/></svg></button>
+  </div>
+</header>
+
+<main id="topo">
+
+<!-- ============================================================
+     1 · TOPO: vídeo de fundo + frase de efeito + formulário em 2 etapas
+     ============================================================ -->
+<section class="hero hero-plan theme-dark" aria-label="Comece seu planejamento financeiro">
+  <!-- VÍDEO DE FUNDO: coloque o arquivo em assets/video/familia.mp4 (de preferência 1280 a 1920 px de largura,
+       10 a 20 segundos, sem áudio, até ~4 MB). O escurecimento, o desfoque e a opacidade são aplicados pelo CSS
+       (.hero-video). Sem o arquivo, o topo mostra só o fundo azul da marca. -->
+  <div class="hero-video" aria-hidden="true">
+    <video autoplay muted loop playsinline preload="metadata" disablepictureinpicture>
+      <source src="assets/video/familia.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="wrap hero-grid">
+
+    <div class="hero-copy">
+      <p class="kicker reveal-now">Planejamento Financeiro Completo</p>
+      <h1 class="reveal-now">Seu patrimônio com <em>direção</em>. Sua família com <em>tranquilidade.</em></h1>
+      <p class="sub reveal-now">Organizamos, protegemos e fazemos o seu patrimônio crescer com um plano feito para a sua vida: do diagnóstico ao acompanhamento.</p>
+    </div>
+
+    <div class="hero-sim">
+        <div class="sim sim-plan" id="simulador">
+          <div class="sim-inner">
+
+            <!-- ===================== ETAPA 1 · OBJETIVO ===================== -->
+            <div class="sim-face sim-front" data-front>
+              <div class="sim-top">
+                <ol class="steps-ind" aria-label="Etapas">
+                  <li class="on"><span>1</span>Seu objetivo</li>
+                  <li class="bar" aria-hidden="true"></li>
+                  <li><span>2</span>Seus dados</li>
+                </ol>
+              </div>
+              <h2 class="sim-title">Comece seu planejamento</h2>
+              <p class="sim-desc">Responda 4 perguntas rápidas sobre o seu momento.</p>
+              <fieldset data-q="objetivo">
+                <legend class="sim-label">Qual é o seu principal objetivo financeiro hoje?</legend>
+                <div class="cat cat5" role="radiogroup" aria-label="Principal objetivo financeiro"><button type="button" role="radio" aria-checked="false" data-v="Sair das dívidas"><svg class="ic"><use href="#i-trend-down"/></svg>Sair das dívidas</button><button type="button" role="radio" aria-checked="false" data-v="Controlar gastos"><svg class="ic"><use href="#i-wallet"/></svg>Controlar gastos</button><button type="button" role="radio" aria-checked="false" data-v="Casa própria"><svg class="ic"><use href="#i-home"/></svg>Casa própria</button><button type="button" role="radio" aria-checked="false" data-v="Fazer uma viagem"><svg class="ic"><use href="#i-plane"/></svg>Fazer uma viagem</button><button type="button" role="radio" aria-checked="false" data-v="Começar a investir"><svg class="ic"><use href="#i-chart"/></svg>Começar a investir</button></div>
+              </fieldset>
+              <fieldset data-q="prazo">
+                <legend class="sim-label">Em quanto tempo você quer alcançar esse objetivo?</legend>
+                <div class="pick pick3" role="radiogroup" aria-label="Prazo do objetivo"><button type="button" role="radio" aria-checked="false" data-v="O quanto antes (menos de 6 meses)">O quanto antes<small>menos de 6 meses</small></button><button type="button" role="radio" aria-checked="false" data-v="Médio prazo (1 a 3 anos)">Médio prazo<small>1 a 3 anos</small></button><button type="button" role="radio" aria-checked="false" data-v="Longo prazo (mais de 3 anos)">Longo prazo<small>mais de 3 anos</small></button></div>
+              </fieldset>
+              <fieldset data-q="renda">
+                <legend class="sim-label">Qual é a sua renda familiar mensal média?</legend>
+                <div class="pick" role="radiogroup" aria-label="Renda familiar mensal"><button type="button" role="radio" aria-checked="false" data-v="Até R$ 7.000">Até R$ 7 mil</button><button type="button" role="radio" aria-checked="false" data-v="De R$ 7.000 a R$ 10.000">R$ 7 mil a R$ 10 mil</button><button type="button" role="radio" aria-checked="false" data-v="De R$ 10.000 a R$ 15.000">R$ 10 mil a R$ 15 mil</button><button type="button" role="radio" aria-checked="false" data-v="Acima de R$ 15.000">Acima de R$ 15 mil</button></div>
+              </fieldset>
+              <fieldset data-q="guarda">
+                <legend class="sim-label">Hoje, você consegue guardar ou investir parte da renda todo mês?</legend>
+                <div class="pick pick3" role="radiogroup" aria-label="Consegue guardar ou investir"><button type="button" role="radio" aria-checked="false" data-v="Sim, invisto o que sobra">Sim<small>invisto o que sobra</small></button><button type="button" role="radio" aria-checked="false" data-v="Consigo, mas gasto depois">Consigo<small>mas gasto depois</small></button><button type="button" role="radio" aria-checked="false" data-v="Não consigo guardar">Não<small>não consigo guardar</small></button></div>
+              </fieldset>
+              <p class="err" data-err1 role="alert"></p>
+              <button type="button" class="btn btn-primary btn-block" data-next style="margin-top:6px">Continuar <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></button>
+            </div>
+
+            <!-- ===================== ETAPA 2 · DADOS  /  RETORNO ===================== -->
+            <div class="sim-face sim-back" data-back inert>
+              <div data-lead>
+                <div class="sim-top">
+                  <ol class="steps-ind" aria-label="Etapas">
+                    <li class="done"><span><svg class="ic"><use href="#i-check"/></svg></span>Seu objetivo</li>
+                    <li class="bar" aria-hidden="true"></li>
+                    <li class="on"><span>2</span>Seus dados</li>
+                  </ol>
+                  <span class="tag"><svg class="ic"><use href="#i-lock"/></svg>Dados protegidos</span>
+                </div>
+                <h2 class="sim-title">Falta pouco: agende seu diagnóstico</h2>
+                <p class="sim-desc">Um planejador analisa suas respostas e entra em contato.</p>
+                <form data-form novalidate>
+                  <div class="f" data-f="nome">
+                    <label for="hNome">Nome completo</label>
+                    <input id="hNome" data-nome name="nome" type="text" autocomplete="name" placeholder="Como podemos te chamar?" required>
+                    <p class="err"></p>
+                  </div>
+                  <div class="f2">
+                    <div class="f f-wide" data-f="email">
+                      <label for="hEmail">E-mail</label>
+                      <input id="hEmail" data-email name="email" type="email" autocomplete="email" inputmode="email" placeholder="seu@email.com" required>
+                      <p class="err"></p>
+                    </div>
+                    <div class="f f-wide" data-f="celular">
+                      <label for="hCel">Celular / WhatsApp</label>
+                      <input id="hCel" data-cel name="celular" type="tel" autocomplete="tel-national" inputmode="numeric" placeholder="(00) 00000-0000" maxlength="15" required>
+                      <p class="err"></p>
+                    </div>
+                  </div>
+                  <div class="f2 f2-pick">
+                    <fieldset data-f="contato">
+                      <legend class="sim-label">Preferência de contato</legend>
+                      <div class="seg seg-ic" role="radiogroup" aria-label="Preferência de contato">
+                        <button type="button" role="radio" aria-checked="false" data-v="Ligação"><svg class="ic"><use href="#i-phone"/></svg>Ligação</button>
+                        <button type="button" role="radio" aria-checked="true" data-v="WhatsApp"><svg class="ic wa" viewBox="0 0 32 32"><use href="#i-wa"/></svg>WhatsApp</button>
+                      </div>
+                    </fieldset>
+                    <fieldset data-f="horario">
+                      <legend class="sim-label">Melhor horário</legend>
+                      <div class="seg seg3" role="radiogroup" aria-label="Melhor horário para contato">
+                        <button type="button" role="radio" aria-checked="false" data-v="Manhã">Manhã</button>
+                        <button type="button" role="radio" aria-checked="false" data-v="Tarde">Tarde</button>
+                        <button type="button" role="radio" aria-checked="false" data-v="Noite">Noite</button>
+                      </div>
+                      <p class="err"></p>
+                    </fieldset>
+                  </div>
+                  <label class="cbx" data-f="privacidade">
+                    <input type="checkbox" data-priv name="aceite_privacidade" required>
+                    <span>Li e aceito a <button type="button" class="inl" data-open-privacy>Política de Privacidade</button> e os Termos de Uso.</span>
+                  </label>
+                  <label class="cbx" data-f="contato-aceite">
+                    <input type="checkbox" data-notif name="aceite_contato" required>
+                    <span>Concordo em receber contato sobre o meu diagnóstico financeiro por WhatsApp, e-mail, ligação e SMS.</span>
+                  </label>
+                  <p class="err" data-cbxerr role="alert"></p>
+                  <button type="submit" class="btn btn-primary btn-block" style="margin-top:10px">Solicitar atendimento <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></button>
+                </form>
+                <button type="button" class="backlink" data-backbtn>← Voltar e ajustar as respostas</button>
+              </div>
+
+              <div data-result hidden>
+                <div class="sim-top">
+                  <ol class="steps-ind" aria-label="Etapas">
+                    <li class="done"><span><svg class="ic"><use href="#i-check"/></svg></span>Seu objetivo</li>
+                    <li class="bar" aria-hidden="true"></li>
+                    <li class="done"><span><svg class="ic"><use href="#i-check"/></svg></span>Seus dados</li>
+                  </ol>
+                </div>
+                <div class="done-msg">
+                  <span class="done-ic"><svg class="ic"><use href="#i-check"/></svg></span>
+                  <h2 class="sim-title" tabindex="-1" data-res-title>Recebemos seus dados!</h2>
+                  <p class="sim-desc" data-res-txt>Um planejador vai entrar em contato para agendar o seu diagnóstico financeiro.</p>
+                </div>
+                <button type="button" class="backlink" data-restart>Enviar outra solicitação</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="hero-extra">
+      <ul class="checks">
+        <li><span class="gi"><svg class="ic"><use href="#i-check"/></svg></span>Diagnóstico completo da sua vida financeira</li>
+        <li><span class="gi"><svg class="ic"><use href="#i-check"/></svg></span>Plano personalizado para cada objetivo</li>
+        <li><span class="gi"><svg class="ic"><use href="#i-check"/></svg></span>Acompanhamento contínuo com o Dashplan</li>
+      </ul>
+      <a class="btn btn-glass" href="#como-comecar">Como funciona <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     2 · BENEFÍCIOS DO PLANEJAMENTO
+     ============================================================ -->
+<section class="sec theme-light" id="beneficios" style="--gx:85%;--gy:0%;--gx2:0%;--gy2:100%">
+  <div class="wrap">
+    <div class="center" data-stagger="100">
+      <span class="label reveal">Benefícios do Planejamento</span>
+      <h2 class="h2 reveal">O que muda quando o seu dinheiro tem um <em>plano</em>.</h2>
+      <p class="lead reveal">Cada área da sua vida financeira trabalhando a favor dos seus objetivos, com clareza, proteção e estratégia.</p>
+    </div>
+    <div class="bens" data-stagger="120">
+      <article class="ben card reveal" data-rv="zoom">
+        <div class="ben-top"><span class="gi"><svg class="ic"><use href="#i-layers"/></svg></span><span class="ben-n">01</span></div>
+        <h3>Organização da Vida Financeira e Patrimonial</h3>
+        <div class="ben-b"><span>Seu benefício</span><p>Clareza total sobre renda, gastos, dívidas e patrimônio, reunidos em uma visão única.</p></div>
+      </article>
+      <article class="ben card reveal" data-rv="zoom">
+        <div class="ben-top"><span class="gi"><svg class="ic"><use href="#i-shield"/></svg></span><span class="ben-n">02</span></div>
+        <h3>Proteção e Sucessão Familiar</h3>
+        <div class="ben-b"><span>Seu benefício</span><p>Sua família protegida contra imprevistos e o patrimônio transmitido com segurança e menos conflitos.</p></div>
+      </article>
+      <article class="ben card reveal" data-rv="zoom">
+        <div class="ben-top"><span class="gi"><svg class="ic"><use href="#i-chart"/></svg></span><span class="ben-n">03</span></div>
+        <h3>Otimização de Investimentos</h3>
+        <div class="ben-b"><span>Seu benefício</span><p>Uma carteira alinhada aos seus objetivos, prazos e perfil, sem produtos que não servem para você.</p></div>
+      </article>
+      <article class="ben card reveal" data-rv="zoom">
+        <div class="ben-top"><span class="gi"><svg class="ic"><use href="#i-target"/></svg></span><span class="ben-n">04</span></div>
+        <h3>Concretização de Objetivos e Desejos</h3>
+        <div class="ben-b"><span>Seu benefício</span><p>Cada objetivo com valor, prazo e estratégia definidos, da viagem dos sonhos à casa própria.</p></div>
+      </article>
+      <article class="ben card reveal" data-rv="zoom">
+        <div class="ben-top"><span class="gi"><svg class="ic"><use href="#i-building"/></svg></span><span class="ben-n">05</span></div>
+        <h3>Expansão Patrimonial</h3>
+        <div class="ben-b"><span>Seu benefício</span><p>Estratégias para multiplicar o patrimônio com disciplina e visão de longo prazo.</p></div>
+      </article>
+      <article class="ben card reveal" data-rv="zoom">
+        <div class="ben-top"><span class="gi"><svg class="ic"><use href="#i-receipt"/></svg></span><span class="ben-n">06</span></div>
+        <h3>Eficiência Fiscal e Tributária</h3>
+        <div class="ben-b"><span>Seu benefício</span><p>Menos impostos pagos de forma legal, com uma estrutura fiscal pensada para o seu caso.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     3 · PASSO A PASSO PARA COMEÇAR A PLANEJAR (esteira)
+     ============================================================ -->
+<section class="sec theme-dark" id="como-comecar" style="--gx:50%;--gy:0%">
+  <div class="wrap">
+    <div class="center" data-stagger="100">
+      <span class="label reveal">Como Começar</span>
+      <h2 class="h2 reveal">Passo a passo para começar a <em>planejar</em>.</h2>
+      <p class="lead reveal">Do primeiro contato ao acompanhamento: veja o caminho até o seu plano financeiro.</p>
+    </div>
+    <div class="road reveal" data-road>
+      <div class="road-rail">
+        <div class="road-track" aria-hidden="true"><span class="road-fill"></span></div>
+        <button type="button" class="road-node" aria-label="Etapa 1: Agendamento"><i>1</i><span>Agendamento</span></button>
+        <button type="button" class="road-node" aria-label="Etapa 2: Reunião de Diagnóstico"><i>2</i><span>Reunião de Diagnóstico</span></button>
+        <button type="button" class="road-node" aria-label="Etapa 3: Plano de Planejamento Financeiro"><i>3</i><span>Plano Financeiro</span></button>
+        <button type="button" class="road-node" aria-label="Etapa 4: Reunião de Consultoria"><i>4</i><span>Reunião de Consultoria</span></button>
+        <button type="button" class="road-node" aria-label="Etapa 5: Acompanhamento"><i>5</i><span>Acompanhamento</span></button>
+      </div>
+      <div class="road-view">
+        <ol class="road-list">
+          <li class="road-card card">
+            <div class="step-h"><span class="step-n">01</span><span class="gi"><svg class="ic"><use href="#i-calendar"/></svg></span></div>
+            <h3>Agendamento</h3>
+            <p>Você responde 4 perguntas rápidas e deixa seu contato. Um planejador fala com você e agenda a reunião no melhor dia e horário.</p>
+            <span class="tag">Você escolhe o horário</span>
+          </li>
+          <li class="road-card card">
+            <div class="step-h"><span class="step-n">02</span><span class="gi"><svg class="ic"><use href="#i-chat"/></svg></span></div>
+            <h3>Reunião de Diagnóstico</h3>
+            <p>Mapeamos renda, gastos, dívidas, patrimônio, proteção e objetivos para entender o seu momento atual com profundidade.</p>
+            <span class="tag">Seu momento atual</span>
+          </li>
+          <li class="road-card card">
+            <div class="step-h"><span class="step-n">03</span><span class="gi"><svg class="ic"><use href="#i-doc"/></svg></span></div>
+            <h3>Plano de Planejamento Financeiro</h3>
+            <p>Montamos o seu plano com metas, prazos e estratégias para cada objetivo, da organização do orçamento à expansão do patrimônio.</p>
+            <span class="tag">Metas e estratégias</span>
+          </li>
+          <li class="road-card card">
+            <div class="step-h"><span class="step-n">04</span><span class="gi"><svg class="ic"><use href="#i-users"/></svg></span></div>
+            <h3>Reunião de Consultoria</h3>
+            <p>Apresentamos o plano, esclarecemos cada ponto e definimos juntos as primeiras ações para colocar a estratégia em prática.</p>
+            <span class="tag">Plano em ação</span>
+          </li>
+          <li class="road-card card">
+            <div class="step-h"><span class="step-n">05</span><span class="gi"><svg class="ic"><use href="#i-refresh"/></svg></span></div>
+            <h3>Acompanhamento</h3>
+            <p>Revisões periódicas e ajustes de rota sempre que a vida muda, com a evolução do plano visível no Dashplan.</p>
+            <span class="tag">Revisões periódicas</span>
+          </li>
+        </ol>
+      </div>
+      <div class="road-ctrl">
+        <span class="road-count">Etapa <b>1</b> de 5</span>
+        <div class="road-arrows">
+          <button type="button" class="prev" aria-label="Etapa anterior"><svg class="ic"><use href="#i-arrow"/></svg></button>
+          <button type="button" class="next" aria-label="Próxima etapa"><svg class="ic"><use href="#i-arrow"/></svg></button>
+        </div>
+      </div>
+    </div>
+    <div class="sec-cta stack reveal">
+      <button type="button" class="btn btn-primary" data-atendimento="passo_a_passo">Solicitar atendimento <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></button>
+      <p>Responda 4 perguntas e um planejador entra em contato.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     4 · JORNADA PARA UM PLANEJAMENTO SEGURO E ASSERTIVO
+     ============================================================ -->
+<section class="sec theme-light" id="jornada" style="--gx:10%;--gy:0%;--gx2:100%;--gy2:100%">
+  <div class="wrap">
+    <div class="center" data-stagger="100">
+      <span class="label reveal">Nossa Metodologia</span>
+      <h2 class="h2 reveal">Jornada para um planejamento <em>seguro e assertivo</em>.</h2>
+      <p class="lead reveal">Um processo estruturado, alinhado às boas práticas internacionais de planejamento financeiro, para mapear, proteger e fazer o seu patrimônio crescer.</p>
+    </div>
+    <div class="steps s5" data-stagger="380" data-sequence>
+      <div class="rail" aria-hidden="true">
+        <div class="rail-track"><span class="rail-fill"></span></div>
+        <span class="node">1</span><span class="node">2</span><span class="node">3</span><span class="node">4</span><span class="node">5</span>
+      </div>
+      <article class="step card lift reveal">
+        <div class="step-h"><span class="step-n">01</span><span class="gi"><svg class="ic"><use href="#i-map"/></svg></span></div>
+        <h3>Mapear e Organizar</h3>
+        <p>Fluxo de caixa, orçamento, dívidas e patrimônio organizados para enxergar com clareza o ponto de partida.</p>
+        <ul><li class="tag">Fluxo de caixa</li><li class="tag">Orçamento</li></ul>
+      </article>
+      <article class="step card lift reveal">
+        <div class="step-h"><span class="step-n">02</span><span class="gi"><svg class="ic"><use href="#i-umbrella"/></svg></span></div>
+        <h3>Proteger</h3>
+        <p>Reserva de emergência, seguros e proteção da renda e da família contra imprevistos.</p>
+        <ul><li class="tag">Reserva</li><li class="tag">Seguros</li></ul>
+      </article>
+      <article class="step card lift reveal">
+        <div class="step-h"><span class="step-n">03</span><span class="gi"><svg class="ic"><use href="#i-building"/></svg></span></div>
+        <h3>Expansão de Patrimônio</h3>
+        <p>Estratégias para fazer o patrimônio crescer, como imóveis, participações e crédito estruturado, sempre de acordo com o seu perfil.</p>
+        <ul><li class="tag">Imóveis</li><li class="tag">Longo prazo</li></ul>
+      </article>
+      <article class="step card lift reveal">
+        <div class="step-h"><span class="step-n">04</span><span class="gi"><svg class="ic"><use href="#i-chart"/></svg></span></div>
+        <h3>Investimento</h3>
+        <p>Carteira alinhada a objetivos, prazos e perfil de risco, com diversificação e acompanhamento.</p>
+        <ul><li class="tag">Carteira</li><li class="tag">Diversificação</li></ul>
+      </article>
+      <article class="step card lift reveal">
+        <div class="step-h"><span class="step-n">05</span><span class="gi"><svg class="ic"><use href="#i-sprout"/></svg></span></div>
+        <h3>Conscientização</h3>
+        <p>Educação financeira e hábitos que sustentam as boas decisões no longo prazo, para você e para a família.</p>
+        <ul><li class="tag">Hábitos</li><li class="tag">Educação financeira</li></ul>
+      </article>
+    </div>
+    <div class="sec-cta stack reveal">
+      <button type="button" class="btn btn-primary" data-atendimento="jornada">Solicitar atendimento <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></button>
+      <p>Na reunião de diagnóstico, você entende como cada etapa se aplica ao seu caso.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     5 · FERRAMENTAS DE AUXÍLIO + SOLUÇÕES (Dashplan)
+     ============================================================ -->
+<section class="sec theme-dark deep" id="solucoes" style="--gx:15%;--gy:30%;--gx2:100%;--gy2:100%">
+  <div class="wrap">
+    <div class="center" data-stagger="100">
+      <span class="label reveal">Ferramentas e Soluções</span>
+      <h2 class="h2 reveal">Mais do que conversa: <em>tecnologia e soluções</em> para executar o plano.</h2>
+      <p class="lead reveal">Com o Dashplan, você acompanha patrimônio, metas e projeções em um só lugar. E conta com as soluções que tiram o plano do papel.</p>
+    </div>
+    <div class="tools">
+      <figure class="device reveal" data-rv="left">
+        <span class="device-glow" aria-hidden="true"></span>
+        <div class="device-screen">
+          <img src="assets/img/dashplan.webp" alt="Dashplan: painel Meu Futuro da Vero Planejamento, com a projeção de independência financeira" width="1609" height="977" loading="lazy" decoding="async">
+        </div>
+        <span class="device-base" aria-hidden="true"></span>
+        <div class="float-chip glass chip-a"><span class="gi"><svg class="ic"><use href="#i-wallet"/></svg></span><div>Patrimônio consolidado<small>tudo em um só lugar</small></div></div>
+        <div class="float-chip glass chip-b"><span class="gi"><svg class="ic"><use href="#i-target"/></svg></span><div>Metas e projeções<small>atualizadas com o seu plano</small></div></div>
+      </figure>
+      <div class="reveal" data-rv="right">
+        <p class="tools-k">Soluções que levamos por meio do planejamento</p>
+        <ul class="sol-list">
+          <li><span class="gi"><svg class="ic"><use href="#i-compass"/></svg></span><div><b>Planejamento Financeiro 360º</b><span>Renda, gastos, proteção, investimentos e objetivos em um único plano.</span></div></li>
+          <li><span class="gi"><svg class="ic"><use href="#i-receipt"/></svg></span><div><b>Revisão Tributária e Fiscal</b><span>Oportunidades legais para pagar menos impostos.</span></div></li>
+          <li><span class="gi"><svg class="ic"><use href="#i-sunrise"/></svg></span><div><b>Aposentadoria</b><span>Quanto investir hoje para manter o padrão de vida amanhã.</span></div></li>
+          <li><span class="gi"><svg class="ic"><use href="#i-coins"/></svg></span><div><b>Expansão de Patrimônio</b><span>Estratégias para multiplicar o patrimônio com segurança.</span></div></li>
+          <li><span class="gi"><svg class="ic"><use href="#i-doc"/></svg></span><div><b>Planejamento Sucessório</b><span>Testamento, previdência e seguros para reduzir custos e prazos de inventário.</span></div></li>
+          <li><span class="gi"><svg class="ic"><use href="#i-tree"/></svg></span><div><b>Sucessão Familiar e Patrimonial</b><span>Holding e governança para proteger o patrimônio e a empresa da família.</span></div></li>
+        </ul>
+        <button type="button" class="btn btn-glass" data-atendimento="solucoes" style="margin-top:22px">Solicitar atendimento <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     6 · PLANEJADORES DA VERO
+     ============================================================ -->
+<section class="sec theme-light" id="planejadores" style="--gx:100%;--gy:0%;--gx2:0%;--gy2:100%">
+  <div class="wrap team">
+    <div class="reveal" data-rv="left">
+      <span class="label">Planejadores da Vero</span>
+      <h2 class="h2">Quem cuida do seu <em>plano</em>.</h2>
+      <p class="lead">Profissionais dedicados a entender a sua vida, montar a estratégia e acompanhar cada passo com você, do diagnóstico às revisões.</p>
+      <div class="sec-cta" style="justify-content:flex-start;margin-top:32px">
+        <button type="button" class="btn btn-primary" data-atendimento="planejadores">Falar com um planejador <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></button>
+      </div>
+    </div>
+    <!-- Para incluir outro planejador, copie o <article class="person"> e troque a foto (assets/img/planejadores/), o nome e o cargo -->
+    <div class="team-cards" data-stagger="140">
+      <article class="person reveal" data-rv="zoom" tabindex="0">
+        <div class="person-img"><img src="assets/img/planejadores/gabriel-bavaresco.webp" alt="Gabriel Bavaresco, planejador financeiro da Vero Planejamento" width="720" height="900" loading="lazy" decoding="async"></div>
+        <div class="person-info"><b>Gabriel Bavaresco</b><span>Planejador Financeiro</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     7 · FAQ PLANEJAMENTO
+     ============================================================ -->
+<section class="sec theme-dark" id="duvidas" style="--gx:50%;--gy:0%">
+  <div class="wrap">
+    <div class="center" data-stagger="100">
+      <span class="label reveal">Tire Suas Dúvidas</span>
+      <h2 class="h2 reveal">Perguntas Frequentes</h2>
+      <p class="lead reveal">Como funciona o planejamento financeiro, as etapas do atendimento e a segurança dos seus dados.</p>
+    </div>
+
+    <div class="faq reveal">
+      <div class="tabs" role="tablist" aria-label="Categorias de perguntas">
+        <button type="button" role="tab" id="t-plan" aria-controls="p-plan" aria-selected="true"><svg class="ic"><use href="#i-compass"/></svg>Planejamento</button>
+        <button type="button" role="tab" id="t-func" aria-controls="p-func" aria-selected="false" tabindex="-1"><svg class="ic"><use href="#i-layers"/></svg>Como Funciona</button>
+        <button type="button" role="tab" id="t-seg" aria-controls="p-seg" aria-selected="false" tabindex="-1"><svg class="ic"><use href="#i-shield"/></svg>Segurança e Privacidade</button>
+      </div>
+
+      <div class="tabpanel" role="tabpanel" id="p-plan" aria-labelledby="t-plan">
+        <details class="qa" open><summary>O que é planejamento financeiro?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+          <div class="a"><p>É o processo de organizar renda, gastos, dívidas, proteção, investimentos e objetivos em <b>um plano único</b>, que orienta as decisões de hoje e do futuro.</p></div></details>
+        <details class="qa"><summary>Para quem é o planejamento financeiro?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+          <div class="a"><p>Para quem quer sair das dívidas, organizar o orçamento, realizar objetivos ou fazer o patrimônio crescer. Atendemos desde quem está começando a se organizar até famílias com patrimônio estruturado.</p></div></details>
+        <details class="qa"><summary>Preciso ter muito dinheiro para começar?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+          <div class="a"><p>Não. O plano parte da sua realidade atual. Quanto antes você começa, mais tempo o seu dinheiro tem para trabalhar a seu favor.</p></div></details>
+        <details class="qa"><summary>Qual a diferença entre poupar e planejar?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+          <div class="a"><p>Poupar é guardar parte da renda. <b>Planejar</b> é definir quanto, onde, por quanto tempo e para qual objetivo vai cada valor, com metas, prazos e revisões.</p></div></details>
+        <details class="qa"><summary>O planejamento é só sobre investimentos?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+          <div class="a"><p>Não. Investir é uma parte. O plano também cuida do orçamento, das dívidas, da proteção da família, da aposentadoria, dos impostos e da sucessão.</p></div></details>
+      </div>
+      <div class="tabpanel" role="tabpanel" id="p-func" aria-labelledby="t-func" hidden>
+        <details class="qa" open><summary>Como faço para começar?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+          <div class="a"><p>Clique em <b>Solicitar atendimento</b>, responda as 4 perguntas rápidas e deixe seu contato. Um planejador fala com você para agendar a reunião de diagnóstico.</p></div></details>
+        <details class="qa"><summary>Como é a reunião de diagnóstico?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+          <div class="a"><p>É uma conversa para entender o seu momento: renda, gastos, dívidas, patrimônio, proteção e objetivos. Pode ser online ou no nosso escritório, em Porto Alegre/RS.</p></div></details>
+        <details class="qa"><summary>Quanto tempo leva para receber o plano?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+          <div class="a"><p>Depende da complexidade do seu caso e do envio das informações. Depois do diagnóstico, combinamos com você o prazo de entrega e a data da reunião de consultoria.</p></div></details>
+        <details class="qa"><summary>Como funciona o acompanhamento?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+          <div class="a"><p>Fazemos revisões periódicas para acompanhar as metas, ajustar as estratégias e registrar a evolução do patrimônio, sempre que a vida muda.</p></div></details>
+        <details class="qa"><summary>O que é o Dashplan?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+          <div class="a"><p>É a ferramenta onde você acompanha o seu plano: patrimônio, metas, projeções e o caminho até cada objetivo, atualizados com o seu planejador.</p></div></details>
+      </div>
+      <div class="tabpanel" role="tabpanel" id="p-seg" aria-labelledby="t-seg" hidden>
+        <details class="qa" open><summary>Meus dados ficam seguros?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+          <div class="a"><p>Sim. Tratamos as suas informações com sigilo e de acordo com a <b>LGPD</b>. Elas são usadas apenas para preparar e acompanhar o seu plano.</p></div></details>
+        <details class="qa"><summary>Preciso transferir meus investimentos?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+          <div class="a"><p>Não. O plano considera onde o seu patrimônio está hoje. Qualquer mudança só acontece se fizer sentido para os seus objetivos e com a sua decisão.</p></div></details>
+        <details class="qa"><summary>Preciso conectar minha conta bancária?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+          <div class="a"><p>Não. O diagnóstico parte das informações que você compartilha com o planejador.</p></div></details>
+        <details class="qa"><summary>O plano garante rentabilidade?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+          <div class="a"><p>Não. O planejamento organiza decisões e estratégias, mas nenhum plano garante rentabilidade. O acompanhamento existe justamente para ajustar a rota quando o cenário muda.</p></div></details>
+      </div>
+
+      <div class="help card">
+        <div><b>Ainda tem dúvidas?</b><p>Fale com um planejador pelo WhatsApp ou solicite seu atendimento.</p></div>
+        <div class="help-acts">
+          <a class="btn btn-glass" href="#" data-wa="Olá! Vim pelo site da Vero Planejamento e tenho uma dúvida sobre planejamento financeiro." data-wa-origem="duvidas"><svg class="ic" style="fill:currentColor;stroke:none;width:18px;height:18px"><use href="#i-wa"/></svg>WhatsApp</a>
+          <button type="button" class="btn btn-primary" data-atendimento="duvidas">Solicitar atendimento</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     8 · DEPOIMENTOS DE CLIENTES  ·  9 · ENCERRAMENTO
+     ============================================================ -->
+<section class="sec theme-light" id="depoimentos" style="--gx:50%;--gy:0%;--gx2:100%;--gy2:100%">
+  <div class="wrap">
+    <div class="center" data-stagger="100">
+      <span class="label reveal">Depoimentos de Clientes</span>
+      <h2 class="h2 reveal">Quem já planeja com a <em>gente</em>.</h2>
+      <p class="lead reveal">Histórias de clientes que transformaram organização em conquistas.</p>
+    </div>
+    <!-- DEPOIMENTOS DE EXEMPLO (nomes e textos ilustrativos): substitua por relatos reais, com autorização
+         por escrito do cliente, antes de publicar. Para usar a foto, troque <div class="av ini">..</div> por
+         <div class="av"><img src="assets/img/clientes/nome.webp" alt="Nome do cliente"></div>. -->
+    <div class="tests" data-stagger="140">
+      <article class="tcard card reveal">
+        <svg class="q"><use href="#i-quote"/></svg>
+        <div class="stars" aria-label="Avaliação 5 de 5"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
+        <blockquote>“Eu tinha uma boa renda, mas nunca sobrava nada no fim do mês. Com o diagnóstico da Vero, entendi para onde o dinheiro ia, quitei as dívidas do cartão e hoje invisto todos os meses com metas claras.”</blockquote>
+        <span class="tag"><svg class="ic"><use href="#i-trend-down"/></svg>Organização e dívidas</span>
+        <div class="who">
+          <div class="av ini" aria-hidden="true">MT</div>
+          <div><b>Mariana T.</b><span>Porto Alegre/RS · cliente desde 2024</span></div>
+        </div>
+      </article>
+      <article class="tcard card reveal">
+        <svg class="q"><use href="#i-quote"/></svg>
+        <div class="stars" aria-label="Avaliação 5 de 5"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
+        <blockquote>“Queríamos a casa própria sem abrir mão da reserva. O plano mostrou o caminho, o prazo e quanto guardar por mês. Hoje sabemos exatamente quando vamos chegar lá, e sem aperto.”</blockquote>
+        <span class="tag"><svg class="ic"><use href="#i-home"/></svg>Casa própria</span>
+        <div class="who">
+          <div class="av ini" aria-hidden="true">RF</div>
+          <div><b>Ricardo e Paula F.</b><span>Joinville/SC · clientes desde 2024</span></div>
+        </div>
+      </article>
+      <article class="tcard card reveal">
+        <svg class="q"><use href="#i-quote"/></svg>
+        <div class="stars" aria-label="Avaliação 5 de 5"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
+        <blockquote>“Como empresário, eu misturava as contas da empresa com as da família. A Vero organizou tudo, revisou a parte tributária e estruturou a proteção da família. Acompanho cada passo pelo Dashplan.”</blockquote>
+        <span class="tag"><svg class="ic"><use href="#i-shield"/></svg>Proteção e eficiência fiscal</span>
+        <div class="who">
+          <div class="av ini" aria-hidden="true">AL</div>
+          <div><b>André L.</b><span>São Paulo/SP · cliente desde 2023</span></div>
+        </div>
+      </article>
+    </div>
+
+
+    <!-- Encerramento -->
+    <div class="final theme-dark reveal" data-rv="zoom">
+      <div>
+        <h2>Seu futuro planejado começa com uma conversa.</h2>
+        <p>Conte o seu objetivo e um planejador monta com você o caminho até ele.</p>
+      </div>
+      <div class="acts">
+        <button type="button" class="btn btn-primary" data-atendimento="cta_final">Solicitar atendimento <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></button>
+        <a class="btn btn-glass" href="#" data-wa="Olá! Vim pelo site da Vero Planejamento e quero falar com um planejador financeiro." data-wa-origem="cta_final"><svg class="ic" style="fill:currentColor;stroke:none;width:18px;height:18px"><use href="#i-wa"/></svg>Falar com um planejador</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================================================
+     RODAPÉ
+     ============================================================ -->
+<footer class="ftr theme-dark">
+  <div class="wrap">
+    <div class="fgrid fgrid-plan">
+      <div>
+        <a class="logo" href="#topo" aria-label="Vero Planejamento, voltar ao início">
+          <img class="logo-img logo-neg" src="assets/img/logo/vero-planejamento-negativo.webp" alt="Vero Planejamento" width="233" height="72" loading="lazy" decoding="async"><img class="logo-img logo-pos" src="assets/img/logo/vero-planejamento.webp" alt="Vero Planejamento" width="233" height="72" loading="lazy" decoding="async">
+        </a>
+      </div>
+      <div>
+        <h3>Navegação</h3>
+        <ul>
+          <li><a href="#beneficios">Benefícios</a></li>
+          <li><a href="#como-comecar">Como Começar</a></li>
+          <li><a href="#jornada">Jornada</a></li>
+          <li><a href="#solucoes">Soluções</a></li>
+          <li><a href="#planejadores">Planejadores</a></li>
+          <li><a href="#duvidas">Dúvidas</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Atendimento</h3>
+        <ul>
+          <li><a href="#" data-wa="Olá! Encontrei o WhatsApp de vocês no site da Vero Planejamento e gostaria de mais informações." data-wa-origem="numero_rodape"><svg class="ic"><use href="#i-phone"/></svg>WhatsApp (51) 98912-1113</a></li>
+          <li><a href="mailto:contato@veroplanejamento.com.br"><svg class="ic"><use href="#i-mail"/></svg>contato@veroplanejamento.com.br</a></li>
+          <li><span><svg class="ic"><use href="#i-clock"/></svg>Seg. a sex., 8h às 18h</span></li>
+          <li><span><svg class="ic"><use href="#i-pin"/></svg>Porto Alegre/RS</span></li>
+          <li><button type="button" data-atendimento="rodape"><svg class="ic"><use href="#i-calendar"/></svg>Solicitar atendimento</button></li>
+        </ul>
+      </div>
+    </div>
+    <div class="legal">
+      <p>© <span id="year">2026</span> Vero Planejamento. Conteúdo informativo. As decisões financeiras devem considerar objetivos, riscos e o contexto de cada cliente. O planejamento financeiro não constitui promessa de rentabilidade.</p>
+      <nav aria-label="Links legais"><button type="button" data-open-privacy>Política de Privacidade</button><button type="button" data-open-privacy>Termos de Uso</button></nav>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp flutuante -->
+<a class="wa-float" id="waFloat" href="#" data-wa="Olá! Vim pelo site da Vero Planejamento e gostaria de falar com um planejador." data-wa-origem="botao_flutuante" aria-label="Falar no WhatsApp" target="_blank" rel="noopener">
+  <span class="tt">Fale com um planejador</span>
+  <svg viewBox="0 0 32 32" aria-hidden="true"><use href="#i-wa"/></svg>
+</a>
+
+<!-- Barra fixa (mobile) -->
+<div class="mbar glass" id="mbar" aria-hidden="true">
+  <p><b>Comece seu planejamento</b>Responda 4 perguntas rápidas</p>
+  <button type="button" class="btn btn-primary btn-sm" data-atendimento="barra_mobile" tabindex="-1">Solicitar atendimento</button>
+</div>
+
+<!-- Pop-up "Solicitar atendimento": o mesmo formulário do topo -->
+<dialog id="atendimento" class="lead-pop" aria-label="Solicitar atendimento">
+  <span class="pop-k">Vero Planejamento · Atendimento</span>
+  <button type="button" class="pop-close" aria-label="Fechar"><svg class="ic"><use href="#i-x"/></svg></button>
+        <div class="sim sim-plan" id="simPop">
+          <div class="sim-inner">
+
+            <!-- ===================== ETAPA 1 · OBJETIVO ===================== -->
+            <div class="sim-face sim-front" data-front>
+              <div class="sim-top">
+                <ol class="steps-ind" aria-label="Etapas">
+                  <li class="on"><span>1</span>Seu objetivo</li>
+                  <li class="bar" aria-hidden="true"></li>
+                  <li><span>2</span>Seus dados</li>
+                </ol>
+              </div>
+              <h2 class="sim-title">Solicite seu atendimento</h2>
+              <p class="sim-desc">Responda 4 perguntas rápidas e deixe seu contato.</p>
+              <fieldset data-q="objetivo">
+                <legend class="sim-label">Qual é o seu principal objetivo financeiro hoje?</legend>
+                <div class="cat cat5" role="radiogroup" aria-label="Principal objetivo financeiro"><button type="button" role="radio" aria-checked="false" data-v="Sair das dívidas"><svg class="ic"><use href="#i-trend-down"/></svg>Sair das dívidas</button><button type="button" role="radio" aria-checked="false" data-v="Controlar gastos"><svg class="ic"><use href="#i-wallet"/></svg>Controlar gastos</button><button type="button" role="radio" aria-checked="false" data-v="Casa própria"><svg class="ic"><use href="#i-home"/></svg>Casa própria</button><button type="button" role="radio" aria-checked="false" data-v="Fazer uma viagem"><svg class="ic"><use href="#i-plane"/></svg>Fazer uma viagem</button><button type="button" role="radio" aria-checked="false" data-v="Começar a investir"><svg class="ic"><use href="#i-chart"/></svg>Começar a investir</button></div>
+              </fieldset>
+              <fieldset data-q="prazo">
+                <legend class="sim-label">Em quanto tempo você quer alcançar esse objetivo?</legend>
+                <div class="pick pick3" role="radiogroup" aria-label="Prazo do objetivo"><button type="button" role="radio" aria-checked="false" data-v="O quanto antes (menos de 6 meses)">O quanto antes<small>menos de 6 meses</small></button><button type="button" role="radio" aria-checked="false" data-v="Médio prazo (1 a 3 anos)">Médio prazo<small>1 a 3 anos</small></button><button type="button" role="radio" aria-checked="false" data-v="Longo prazo (mais de 3 anos)">Longo prazo<small>mais de 3 anos</small></button></div>
+              </fieldset>
+              <fieldset data-q="renda">
+                <legend class="sim-label">Qual é a sua renda familiar mensal média?</legend>
+                <div class="pick" role="radiogroup" aria-label="Renda familiar mensal"><button type="button" role="radio" aria-checked="false" data-v="Até R$ 7.000">Até R$ 7 mil</button><button type="button" role="radio" aria-checked="false" data-v="De R$ 7.000 a R$ 10.000">R$ 7 mil a R$ 10 mil</button><button type="button" role="radio" aria-checked="false" data-v="De R$ 10.000 a R$ 15.000">R$ 10 mil a R$ 15 mil</button><button type="button" role="radio" aria-checked="false" data-v="Acima de R$ 15.000">Acima de R$ 15 mil</button></div>
+              </fieldset>
+              <fieldset data-q="guarda">
+                <legend class="sim-label">Hoje, você consegue guardar ou investir parte da renda todo mês?</legend>
+                <div class="pick pick3" role="radiogroup" aria-label="Consegue guardar ou investir"><button type="button" role="radio" aria-checked="false" data-v="Sim, invisto o que sobra">Sim<small>invisto o que sobra</small></button><button type="button" role="radio" aria-checked="false" data-v="Consigo, mas gasto depois">Consigo<small>mas gasto depois</small></button><button type="button" role="radio" aria-checked="false" data-v="Não consigo guardar">Não<small>não consigo guardar</small></button></div>
+              </fieldset>
+              <p class="err" data-err1 role="alert"></p>
+              <button type="button" class="btn btn-primary btn-block" data-next style="margin-top:6px">Continuar <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></button>
+            </div>
+
+            <!-- ===================== ETAPA 2 · DADOS  /  RETORNO ===================== -->
+            <div class="sim-face sim-back" data-back inert>
+              <div data-lead>
+                <div class="sim-top">
+                  <ol class="steps-ind" aria-label="Etapas">
+                    <li class="done"><span><svg class="ic"><use href="#i-check"/></svg></span>Seu objetivo</li>
+                    <li class="bar" aria-hidden="true"></li>
+                    <li class="on"><span>2</span>Seus dados</li>
+                  </ol>
+                  <span class="tag"><svg class="ic"><use href="#i-lock"/></svg>Dados protegidos</span>
+                </div>
+                <h2 class="sim-title">Falta pouco: agende seu diagnóstico</h2>
+                <p class="sim-desc">Um planejador analisa suas respostas e entra em contato.</p>
+                <form data-form novalidate>
+                  <div class="f" data-f="nome">
+                    <label for="pNome">Nome completo</label>
+                    <input id="pNome" data-nome name="nome" type="text" autocomplete="name" placeholder="Como podemos te chamar?" required>
+                    <p class="err"></p>
+                  </div>
+                  <div class="f2">
+                    <div class="f f-wide" data-f="email">
+                      <label for="pEmail">E-mail</label>
+                      <input id="pEmail" data-email name="email" type="email" autocomplete="email" inputmode="email" placeholder="seu@email.com" required>
+                      <p class="err"></p>
+                    </div>
+                    <div class="f f-wide" data-f="celular">
+                      <label for="pCel">Celular / WhatsApp</label>
+                      <input id="pCel" data-cel name="celular" type="tel" autocomplete="tel-national" inputmode="numeric" placeholder="(00) 00000-0000" maxlength="15" required>
+                      <p class="err"></p>
+                    </div>
+                  </div>
+                  <div class="f2 f2-pick">
+                    <fieldset data-f="contato">
+                      <legend class="sim-label">Preferência de contato</legend>
+                      <div class="seg seg-ic" role="radiogroup" aria-label="Preferência de contato">
+                        <button type="button" role="radio" aria-checked="false" data-v="Ligação"><svg class="ic"><use href="#i-phone"/></svg>Ligação</button>
+                        <button type="button" role="radio" aria-checked="true" data-v="WhatsApp"><svg class="ic wa" viewBox="0 0 32 32"><use href="#i-wa"/></svg>WhatsApp</button>
+                      </div>
+                    </fieldset>
+                    <fieldset data-f="horario">
+                      <legend class="sim-label">Melhor horário</legend>
+                      <div class="seg seg3" role="radiogroup" aria-label="Melhor horário para contato">
+                        <button type="button" role="radio" aria-checked="false" data-v="Manhã">Manhã</button>
+                        <button type="button" role="radio" aria-checked="false" data-v="Tarde">Tarde</button>
+                        <button type="button" role="radio" aria-checked="false" data-v="Noite">Noite</button>
+                      </div>
+                      <p class="err"></p>
+                    </fieldset>
+                  </div>
+                  <label class="cbx" data-f="privacidade">
+                    <input type="checkbox" data-priv name="aceite_privacidade" required>
+                    <span>Li e aceito a <button type="button" class="inl" data-open-privacy>Política de Privacidade</button> e os Termos de Uso.</span>
+                  </label>
+                  <label class="cbx" data-f="contato-aceite">
+                    <input type="checkbox" data-notif name="aceite_contato" required>
+                    <span>Concordo em receber contato sobre o meu diagnóstico financeiro por WhatsApp, e-mail, ligação e SMS.</span>
+                  </label>
+                  <p class="err" data-cbxerr role="alert"></p>
+                  <button type="submit" class="btn btn-primary btn-block" style="margin-top:10px">Solicitar atendimento <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></button>
+                </form>
+                <button type="button" class="backlink" data-backbtn>← Voltar e ajustar as respostas</button>
+              </div>
+
+              <div data-result hidden>
+                <div class="sim-top">
+                  <ol class="steps-ind" aria-label="Etapas">
+                    <li class="done"><span><svg class="ic"><use href="#i-check"/></svg></span>Seu objetivo</li>
+                    <li class="bar" aria-hidden="true"></li>
+                    <li class="done"><span><svg class="ic"><use href="#i-check"/></svg></span>Seus dados</li>
+                  </ol>
+                </div>
+                <div class="done-msg">
+                  <span class="done-ic"><svg class="ic"><use href="#i-check"/></svg></span>
+                  <h2 class="sim-title" tabindex="-1" data-res-title>Recebemos seus dados!</h2>
+                  <p class="sim-desc" data-res-txt>Um planejador vai entrar em contato para agendar o seu diagnóstico financeiro.</p>
+                </div>
+                <button type="button" class="backlink" data-restart>Enviar outra solicitação</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+</dialog>
+
+<!-- Política de privacidade (texto-base — revisar com o jurídico) -->
+<dialog id="privacy" aria-labelledby="privTitle">
+  <div class="dlg-h"><b id="privTitle">Política de Privacidade e Termos de Uso</b><button type="button" data-close aria-label="Fechar"><svg class="ic"><use href="#i-x"/></svg></button></div>
+  <div class="dlg-b">
+    <h4>1. Quais dados coletamos</h4>
+    <p>Nome, e-mail, celular, preferência de contato e melhor horário, além das respostas sobre objetivo, prazo, renda familiar e capacidade de poupar informadas no formulário.</p>
+    <h4>2. Para que usamos</h4>
+    <ul><li>Entrar em contato e agendar o seu diagnóstico financeiro;</li><li>Preparar a reunião com base no seu momento e nos seus objetivos;</li><li>Enviar comunicações sobre o seu atendimento, mediante o seu consentimento.</li></ul>
+    <h4>3. Compartilhamento</h4>
+    <p>Não vendemos dados pessoais. As informações só são compartilhadas com parceiros quando necessário para executar soluções que você decidir contratar.</p>
+    <h4>4. Seus direitos (LGPD)</h4>
+    <p>Você pode solicitar acesso, correção, portabilidade ou exclusão dos seus dados e revogar o consentimento a qualquer momento pelo e-mail contato@veroplanejamento.com.br.</p>
+    <h4>5. Termos de uso</h4>
+    <p>O conteúdo desta página é informativo e não constitui recomendação de investimento nem promessa de rentabilidade. As estratégias são definidas de forma individual, a partir do diagnóstico de cada cliente.</p>
+  </div>
+</dialog>
+
+<script>
+/* ==================================================================
+   CONFIGURAÇÕES — edite aqui
+   ================================================================== */
+var CONFIG = {
+  // WhatsApp com DDI + DDD + número, só dígitos
+  whatsapp: '5551989121113',
+  // URL do CRM / webhook (Zapier, Make, RD Station, n8n...). Recebe POST JSON. Vazio = só eventos do dataLayer.
+  leadEndpoint: ''
+};
+
+(function () {
+  'use strict';
+  document.documentElement.classList.add('js');
+
+  var $ = function (s, c) { return (c || document).querySelector(s); };
+  var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.dataLayer = window.dataLayer || [];
+  function track(ev, data) { var o = { event: ev }; for (var k in data) o[k] = data[k]; window.dataLayer.push(o); }
+  function waLink(msg) { return 'https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent(msg); }
+
+  /* ---------------- WhatsApp: cada botão com a sua mensagem e a origem do clique ---------------- */
+  $$('[data-wa]').forEach(function (a) {
+    a.href = waLink(a.getAttribute('data-wa'));
+    a.target = '_blank'; a.rel = 'noopener';
+    a.addEventListener('click', function () { track('whatsapp_clique', { origem: a.getAttribute('data-wa-origem') || 'site' }); });
+  });
+
+  /* ---------------- Header / menu ---------------- */
+  var hdr = $('#hdr'), menu = $('#menu'), hamb = $('#hamb');
+  function onScrollHdr() { hdr.classList.toggle('scrolled', window.scrollY > 20); }
+  window.addEventListener('scroll', onScrollHdr, { passive: true }); onScrollHdr();
+  function closeMenu() { menu.classList.remove('open'); hamb.setAttribute('aria-expanded', 'false'); }
+  hamb.addEventListener('click', function () {
+    var o = menu.classList.toggle('open');
+    hamb.setAttribute('aria-expanded', o ? 'true' : 'false');
+  });
+  $$('a, button', menu).forEach(function (a) { a.addEventListener('click', closeMenu); });
+
+  /* ---------------- Modo claro / escuro ---------------- */
+  var root = document.documentElement, themeTg = $('#themeTg'), metaTheme = $('meta[name="theme-color"]');
+  function applyTheme(t) {
+    var light = t === 'light';
+    root.setAttribute('data-theme', light ? 'light' : 'dark');
+    themeTg.setAttribute('aria-label', light ? 'Ativar modo escuro' : 'Ativar modo claro');
+    themeTg.title = light ? 'Modo escuro' : 'Modo claro';
+    if (metaTheme) metaTheme.setAttribute('content', light ? '#F7F8F6' : '#0D1B2A');
+  }
+  applyTheme(root.getAttribute('data-theme'));
+  themeTg.addEventListener('click', function () {
+    var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    if (document.startViewTransition && !reduceMotion) document.startViewTransition(function () { applyTheme(next); });
+    else applyTheme(next);
+    try { localStorage.setItem('vero-tema', next); } catch (e) { /* navegação privada: vale só nesta visita */ }
+    track('tema_alterado', { tema: next });
+  });
+
+  /* ---------------- Vídeo de fundo do topo ---------------- */
+  var video = $('.hero-video video');
+  if (video) {
+    if (reduceMotion) { video.removeAttribute('autoplay'); video.pause(); }
+    else { var p = video.play && video.play(); if (p && p.catch) p.catch(function () { /* autoplay bloqueado: fica o fundo */ }); }
+  }
+
+  /* ==================================================================
+     FORMULÁRIO EM 2 ETAPAS (topo e pop-up "Solicitar atendimento")
+     Etapa 1: objetivo, prazo, renda e capacidade de guardar
+     Etapa 2: nome, e-mail, celular, preferência de contato e horário
+     ================================================================== */
+  function maskPhone(v) {
+    var d = v.replace(/\D/g, '').slice(0, 11);
+    if (d.length <= 2) return d.length ? '(' + d : '';
+    if (d.length <= 6) return '(' + d.slice(0, 2) + ') ' + d.slice(2);
+    if (d.length <= 10) return '(' + d.slice(0, 2) + ') ' + d.slice(2, 6) + '-' + d.slice(6);
+    return '(' + d.slice(0, 2) + ') ' + d.slice(2, 7) + '-' + d.slice(7);
+  }
+  function validPhone(p) { var d = p.replace(/\D/g, ''); return d.length === 11 ? d[2] === '9' : d.length === 10; }
+  function periodo(h) { return { 'Manhã': 'pela manhã', 'Tarde': 'à tarde', 'Noite': 'à noite' }[h] || 'no horário escolhido'; }
+  function utms() {
+    var out = {}, q = new URLSearchParams(location.search);
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'fbclid'].forEach(function (k) { if (q.get(k)) out[k] = q.get(k); });
+    return out;
+  }
+  // Envia o lead ao CRM (POST JSON) sem deixar o cliente esperando se o CRM demorar
+  function postLead(lead, done) {
+    if (!CONFIG.leadEndpoint || !window.fetch) { done(); return; }
+    var fired = false, end = function () { if (!fired) { fired = true; done(); } };
+    var t = setTimeout(end, 4000);
+    fetch(CONFIG.leadEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(lead), keepalive: true })
+      .catch(function () { /* falha silenciosa: a confirmação aparece mesmo assim */ })
+      .then(function () { clearTimeout(t); end(); });
+  }
+
+  var PERGUNTAS = ['objetivo', 'prazo', 'renda', 'guarda'];
+  function LeadFlow(sim, opts) {
+    var front = $('[data-front]', sim), back = $('[data-back]', sim), inner = $('.sim-inner', sim);
+    var form = $('[data-form]', sim), cel = $('[data-cel]', sim);
+    var st = {}, started = false, resultShown = false;
+    function syncH() { inner.style.height = (sim.classList.contains('flipped') ? back : front).offsetHeight + 'px'; }
+    if ('ResizeObserver' in window) { var ro = new ResizeObserver(syncH); ro.observe(front); ro.observe(back); }
+    window.addEventListener('resize', syncH);
+
+    function resetAnswers() {
+      st = { contato: 'WhatsApp', horario: '' }; PERGUNTAS.forEach(function (k) { st[k] = ''; });
+      $$('[data-v]', sim).forEach(function (b) { b.setAttribute('aria-checked', b.getAttribute('data-v') === 'WhatsApp' ? 'true' : 'false'); });
+      $$('.invalid', sim).forEach(function (x) { x.classList.remove('invalid'); });
+      $$('.err', sim).forEach(function (x) { x.textContent = ''; });
+    }
+    resetAnswers();
+
+    // escolhas de um toque
+    $$('[role="radiogroup"]', sim).forEach(function (g) {
+      var fs = g.closest('[data-q],[data-f]'), key = fs.getAttribute('data-q') || fs.getAttribute('data-f');
+      g.addEventListener('click', function (e) {
+        var b = e.target.closest('[data-v]'); if (!b) return;
+        st[key] = b.getAttribute('data-v');
+        $$('[data-v]', g).forEach(function (x) { x.setAttribute('aria-checked', x === b ? 'true' : 'false'); });
+        fs.classList.remove('invalid'); var p = $('.err', fs); if (p) p.textContent = '';
+        if (PERGUNTAS.indexOf(key) > -1 && PERGUNTAS.every(function (k) { return st[k]; })) $('[data-err1]', sim).textContent = '';
+        if (!started) { started = true; track('planejamento_iniciado', { origem: opts.origem() }); }
+      });
+    });
+
+    function flip(toBack) {
+      sim.classList.toggle('flipped', toBack);
+      syncH();
+      if (toBack) { front.setAttribute('inert', ''); back.removeAttribute('inert'); }
+      else { back.setAttribute('inert', ''); front.removeAttribute('inert'); }
+      if (!opts.popup && window.innerWidth < 980) {
+        var top = sim.getBoundingClientRect().top + window.scrollY - (hdr.offsetHeight + 12);
+        window.scrollTo({ top: top, behavior: reduceMotion ? 'auto' : 'smooth' });
+      }
+      if (opts.popup) opts.popup.scrollTop = 0;
+    }
+    $('[data-next]', sim).addEventListener('click', function () {
+      var falta = PERGUNTAS.filter(function (k) { return !st[k]; });
+      falta.forEach(function (k) { $('[data-q="' + k + '"]', sim).classList.add('invalid'); });
+      if (falta.length) {
+        $('[data-err1]', sim).textContent = falta.length === 4 ? 'Responda as 4 perguntas para continuar.' : 'Falta pouco: responda ' + (falta.length === 1 ? 'a pergunta destacada.' : 'as perguntas destacadas.');
+        var b = $('[data-q="' + falta[0] + '"] [data-v]', sim); if (b) b.focus();
+        return;
+      }
+      track('planejamento_etapa1', { origem: opts.origem(), objetivo: st.objetivo, prazo: st.prazo, renda: st.renda, guarda: st.guarda });
+      flip(true);
+      setTimeout(function () { $('[data-nome]', sim).focus({ preventScroll: true }); }, reduceMotion ? 0 : 650);
+    });
+    $('[data-backbtn]', sim).addEventListener('click', function () { flip(false); });
+
+    cel.addEventListener('input', function () { cel.value = maskPhone(cel.value); });
+    function setErr(name, msg) {
+      var box = form.querySelector('[data-f="' + name + '"]'); if (!box) return;
+      box.classList.toggle('invalid', !!msg);
+      var p = box.querySelector('.err'); if (p) p.textContent = msg || '';
+    }
+    $$('input', form).forEach(function (i) {
+      i.addEventListener('input', function () { var b = i.closest('[data-f]'); if (b) { b.classList.remove('invalid'); var p = b.querySelector('.err'); if (p) p.textContent = ''; } });
+      i.addEventListener('change', function () { if (i.type === 'checkbox') { var b = i.closest('[data-f]'); if (b) b.classList.remove('invalid'); $('[data-cbxerr]', sim).textContent = ''; } });
+    });
+    function validate() {
+      var ok = true, first = null, nome = $('[data-nome]', sim).value.trim(), email = $('[data-email]', sim).value.trim();
+      function bad(n, m, el) { setErr(n, m); ok = false; if (!first) first = el; }
+      if (nome.split(/\s+/).filter(Boolean).length < 2 || nome.length < 5) bad('nome', 'Nome incompleto: informe nome e sobrenome.', $('[data-nome]', sim)); else setErr('nome');
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) bad('email', 'E-mail inválido: confira o endereço digitado.', $('[data-email]', sim)); else setErr('email');
+      if (!validPhone(cel.value)) bad('celular', 'Celular inválido: informe DDD e número.', cel); else setErr('celular');
+      if (!st.horario) bad('horario', 'Escolha o melhor horário.', $('[data-f="horario"] [data-v]', sim)); else setErr('horario');
+      var faltam = [], priv = $('[data-priv]', sim), notif = $('[data-notif]', sim);
+      if (!priv.checked) { priv.closest('[data-f]').classList.add('invalid'); faltam.push('a Política de Privacidade'); ok = false; if (!first) first = priv; }
+      if (!notif.checked) { notif.closest('[data-f]').classList.add('invalid'); faltam.push('o contato'); ok = false; if (!first) first = notif; }
+      $('[data-cbxerr]', sim).textContent = faltam.length ? 'Para continuar, aceite ' + faltam.join(' e ') + '.' : '';
+      if (first) first.focus();
+      return ok;
+    }
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!validate()) return;
+      var lead = {
+        tipo: 'planejamento_financeiro',
+        nome: $('[data-nome]', sim).value.trim(),
+        email: $('[data-email]', sim).value.trim(),
+        celular: cel.value.replace(/\D/g, ''),
+        preferencia_contato: st.contato, melhor_horario: st.horario,
+        objetivo: st.objetivo, prazo: st.prazo, renda_familiar: st.renda, consegue_guardar: st.guarda,
+        aceite_privacidade: true, aceite_contato: true,
+        origem: 'LP Planejamento · ' + opts.origem(), pagina: location.href, data: new Date().toISOString(),
+        utm: utms()
+      };
+      var btn = $('[type="submit"]', form); btn.disabled = true;
+      // Conversão (sem dados pessoais) para GTM / Google Ads / Meta
+      track('lead_planejamento', { origem: opts.origem(), objetivo: lead.objetivo, prazo: lead.prazo, renda_familiar: lead.renda_familiar, consegue_guardar: lead.consegue_guardar });
+      if (window.gtag) window.gtag('event', 'generate_lead', { currency: 'BRL', value: 1 });
+      if (window.fbq) window.fbq('track', 'Lead');
+      postLead(lead, function () {
+        btn.disabled = false;
+        if (resultShown) return; resultShown = true;
+        $('[data-res-title]', sim).textContent = 'Recebemos seus dados, ' + lead.nome.split(' ')[0] + '!';
+        $('[data-res-txt]', sim).textContent = 'Um planejador vai entrar em contato ' + (lead.preferencia_contato === 'WhatsApp' ? 'pelo WhatsApp' : 'por ligação') +
+          ', ' + periodo(lead.melhor_horario) + ', para agendar o seu diagnóstico financeiro.';
+        $('[data-lead]', sim).hidden = true; $('[data-result]', sim).hidden = false;
+        $('[data-res-title]', sim).focus({ preventScroll: true });
+        if (opts.popup) opts.popup.scrollTop = 0;
+      });
+    });
+    function reset() {
+      resultShown = false; form.reset(); resetAnswers(); started = false;
+      $('[data-lead]', sim).hidden = false; $('[data-result]', sim).hidden = true;
+      flip(false);
+    }
+    $('[data-restart]', sim).addEventListener('click', reset);
+    return { syncH: syncH, reset: reset, done: function () { return resultShown; } };
+  }
+
+  /* Formulário do topo */
+  var heroSim = $('#simulador');
+  var heroFlow = LeadFlow(heroSim, { origem: function () { return 'topo'; } });
+
+  /* Pop-up: o mesmo formulário, aberto pelos botões "Solicitar atendimento" */
+  var pop = $('#atendimento'), popSim = $('#simPop'), popCta = 'site';
+  var popFlow = LeadFlow(popSim, { origem: function () { return 'popup_' + popCta; }, popup: pop });
+  function openAtendimento(cta) {
+    popCta = cta || 'site';
+    if (popFlow.done()) popFlow.reset();
+    if (pop.showModal) pop.showModal(); else pop.setAttribute('open', '');
+    requestAnimationFrame(popFlow.syncH);
+    track('atendimento_popup_aberto', { cta: popCta });
+    setTimeout(function () { var b = $('[data-q="objetivo"] [data-v]', popSim); if (b) b.focus({ preventScroll: true }); }, 80);
+  }
+  function closeAtendimento() { if (pop.close) pop.close(); else pop.removeAttribute('open'); }
+  $$('[data-atendimento]').forEach(function (b) {
+    b.addEventListener('click', function (e) { e.preventDefault(); openAtendimento(b.getAttribute('data-atendimento')); });
+  });
+  $('.pop-close', pop).addEventListener('click', closeAtendimento);
+  pop.addEventListener('click', function (e) { if (e.target === pop) closeAtendimento(); });
+  pop.addEventListener('close', function () { if (popFlow.done()) popFlow.reset(); });
+
+  /* ---------------- Brilho que acompanha o cursor (benefícios e planejadores) ---------------- */
+  $$('.ben, .person').forEach(function (c) {
+    c.addEventListener('pointermove', function (e) {
+      var r = c.getBoundingClientRect();
+      c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
+  });
+
+  /* ---------------- Passo a passo: esteira com trilha clicável ---------------- */
+  (function road() {
+    var box = $('[data-road]'); if (!box) return;
+    var list = $('.road-list', box), cards = $$('.road-card', box), nodes = $$('.road-node', box), fill = $('.road-fill', box);
+    var view = $('.road-view', box), prev = $('.road-arrows .prev', box), next = $('.road-arrows .next', box), count = $('.road-count b', box);
+    var idx = 0, timer = null, prog = false, progT = null, scrollT = null;
+    function paint(i) {
+      idx = i;
+      cards.forEach(function (c, k) { c.classList.toggle('cur', k === i); });
+      nodes.forEach(function (n, k) { n.classList.toggle('on', k <= i); n.classList.toggle('cur', k === i); n.setAttribute('aria-current', k === i ? 'step' : 'false'); });
+      fill.style.transform = 'scaleX(' + (i / (cards.length - 1)) + ')';
+      prev.disabled = i === 0; next.disabled = i === cards.length - 1;
+      count.textContent = i + 1;
+      view.classList.toggle('at-end', i === cards.length - 1);
+    }
+    function go(i, user) {
+      i = Math.max(0, Math.min(cards.length - 1, i));
+      if (user) stop();
+      paint(i);
+      prog = true; clearTimeout(progT); progT = setTimeout(function () { prog = false; }, 700);
+      list.scrollTo({ left: cards[i].offsetLeft - cards[0].offsetLeft, behavior: reduceMotion ? 'auto' : 'smooth' });
+    }
+    function stop() { clearInterval(timer); timer = null; }
+    nodes.forEach(function (n, k) { n.addEventListener('click', function () { go(k, true); }); });
+    prev.addEventListener('click', function () { go(idx - 1, true); });
+    next.addEventListener('click', function () { go(idx + 1, true); });
+    ['pointerdown', 'wheel', 'touchstart'].forEach(function (ev) { list.addEventListener(ev, stop, { passive: true }); });
+    // arrastar/deslizar a esteira atualiza a etapa ativa
+    list.addEventListener('scroll', function () {
+      if (prog) return;
+      clearTimeout(scrollT);
+      scrollT = setTimeout(function () {
+        var x = list.scrollLeft, best = 0, d = Infinity;
+        cards.forEach(function (c, k) { var dd = Math.abs(c.offsetLeft - cards[0].offsetLeft - x); if (dd < d) { d = dd; best = k; } });
+        if (list.scrollLeft + list.clientWidth >= list.scrollWidth - 4 && idx > best) best = idx;   // fim da esteira
+        paint(best);
+      }, 120);
+    }, { passive: true });
+    paint(0);
+    // avança sozinha enquanto o bloco está na tela, até a primeira interação
+    if (!reduceMotion && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) {
+        es.forEach(function (en) {
+          if (en.isIntersecting && !timer && !box.dataset.touched) timer = setInterval(function () { go((idx + 1) % cards.length); }, 3800);
+          if (!en.isIntersecting) stop();
+        });
+      }, { threshold: .45 }).observe(box);
+      box.addEventListener('pointerdown', function () { box.dataset.touched = '1'; });
+    }
+  })();
+
+  /* ---------------- FAQ: abas ---------------- */
+  var tabs = $$('[role="tab"]');
+  function playPanel(panel) {
+    if (reduceMotion) return;
+    $$('.qa', panel).forEach(function (q, i) { q.style.setProperty('--i', i); });
+    panel.classList.remove('anim'); void panel.offsetWidth; panel.classList.add('anim');
+  }
+  function selectTab(t) {
+    tabs.forEach(function (x) {
+      var on = x === t;
+      x.setAttribute('aria-selected', on ? 'true' : 'false');
+      x.tabIndex = on ? 0 : -1;
+      var panel = $('#' + x.getAttribute('aria-controls'));
+      panel.hidden = !on;
+      if (on) playPanel(panel);
+    });
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { selectTab(t); });
+    t.addEventListener('keydown', function (e) {
+      var n = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!n) return; e.preventDefault();
+      var nt = tabs[(i + n + tabs.length) % tabs.length]; selectTab(nt); nt.focus();
+    });
+  });
+  $$('.tabpanel').forEach(function (p) {
+    $$('details', p).forEach(function (d) {
+      d.addEventListener('toggle', function () { if (d.open) $$('details', p).forEach(function (o) { if (o !== d) o.open = false; }); });
+    });
+  });
+  // FAQ em dados estruturados (schema.org/FAQPage)
+  (function () {
+    var items = $$('.qa').map(function (d) {
+      return { '@type': 'Question', name: d.querySelector('summary').textContent.trim(), acceptedAnswer: { '@type': 'Answer', text: d.querySelector('.a').textContent.replace(/\s+/g, ' ').trim() } };
+    });
+    var s = document.createElement('script'); s.type = 'application/ld+json';
+    s.textContent = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: items });
+    document.head.appendChild(s);
+  })();
+
+  /* ---------------- Política de privacidade ---------------- */
+  var dlg = $('#privacy');
+  $$('[data-open-privacy]').forEach(function (b) { b.addEventListener('click', function (e) { e.preventDefault(); if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', ''); }); });
+  $('[data-close]', dlg).addEventListener('click', function () { dlg.close ? dlg.close() : dlg.removeAttribute('open'); });
+  dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+
+  /* ---------------- Entrada animada em sequência ---------------- */
+  function finish(el) {
+    el.classList.remove('reveal', 'in'); el.style.removeProperty('--d');
+    if (el.classList.contains('ben')) el.classList.add('seen');
+  }
+  function show(el) {
+    if (!el.classList.contains('reveal') || el.classList.contains('in')) return;
+    el.classList.add('in');
+    if (el.classList.contains('faq')) playPanel($('.tabpanel:not([hidden])', el));
+    var d = parseFloat(el.style.getPropertyValue('--d')) || 0;
+    setTimeout(function () { finish(el); }, reduceMotion ? 0 : d + 900);
+  }
+  var groups = $$('[data-stagger]'), grouped = [];
+  groups.forEach(function (g) {
+    var step = +g.getAttribute('data-stagger') || 100;
+    $$(':scope > .reveal', g).forEach(function (el, i) { el.style.setProperty('--d', (i * step) + 'ms'); grouped.push(el); });
+  });
+  function playGroup(g) {
+    $$(':scope > .reveal', g).forEach(show);
+    if (g.hasAttribute('data-sequence')) methodology(g);
+  }
+  /* Jornada: etapas 1 → 5 em sequência; depois o destaque percorre as etapas */
+  function methodology(g) {
+    var cards = $$('.step', g), nodes = $$('.node', g), fill = $('.rail-fill', g);
+    var step = +g.getAttribute('data-stagger') || 400, idx = -1, paused = false;
+    function activate(i) {
+      idx = i;
+      cards.forEach(function (c, k) { c.classList.toggle('active', k === i); });
+      nodes.forEach(function (n, k) { n.classList.toggle('on', k <= i); n.classList.toggle('cur', k === i); });
+      if (fill) fill.style.transform = 'scaleX(' + (i / (cards.length - 1)) + ')';
+    }
+    if (reduceMotion) { nodes.forEach(function (n) { n.classList.add('on'); }); if (fill) fill.style.transform = 'scaleX(1)'; return; }
+    cards.forEach(function (c, i) { setTimeout(function () { activate(i); }, i * step + 250); });
+    setTimeout(function () {
+      setInterval(function () { if (!paused) activate((idx + 1) % cards.length); }, 2600);
+    }, cards.length * step);
+    cards.forEach(function (c, k) {
+      c.addEventListener('mouseenter', function () { paused = true; activate(k); });
+      c.addEventListener('mouseleave', function () { paused = false; });
+    });
+  }
+  var reveals = $$('.reveal').filter(function (el) { return grouped.indexOf(el) === -1; });
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (ents) {
+      ents.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        var el = en.target;
+        if (el.hasAttribute('data-stagger')) playGroup(el); else show(el);
+        io.unobserve(el);
+      });
+    }, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(function (el) { io.observe(el); });
+    groups.forEach(function (g) { io.observe(g); });
+  } else { reveals.forEach(show); groups.forEach(playGroup); }
+
+  /* ---------------- Barra fixa mobile + WhatsApp ---------------- */
+  var mbar = $('#mbar'), waF = $('#waFloat'), ftr = $('.ftr');
+  function onScrollBar() {
+    var r = heroSim.getBoundingClientRect();
+    var showBar = r.bottom < 0 && ftr.getBoundingClientRect().top > window.innerHeight;
+    mbar.classList.toggle('show', showBar);
+    mbar.setAttribute('aria-hidden', showBar ? 'false' : 'true');
+    $('button', mbar).tabIndex = showBar ? 0 : -1;
+    waF.classList.toggle('lift', showBar);
+    waF.classList.toggle('away', r.top < window.innerHeight - 80 && r.bottom > 80);
+  }
+  window.addEventListener('scroll', onScrollBar, { passive: true }); onScrollBar();
+
+  $('#year').textContent = new Date().getFullYear();
+  heroFlow.syncH();
+})();
+</script>
+</body>
+</html>

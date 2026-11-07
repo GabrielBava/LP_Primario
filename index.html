@@ -190,6 +190,21 @@ html[data-theme="light"] .logo-pos{display:block}
 .menu{display:flex;align-items:center;gap:26px;margin-left:auto}
 .menu a:not(.btn){font-size:var(--fs-sm);font-weight:400;color:var(--text-muted);transition:color .2s;white-space:nowrap}
 .menu a:not(.btn):hover{color:var(--text)}
+/* Menu "Ecossistema": painel com o logo da Vero Planejamento (abre em nova guia) */
+.menu-eco{position:relative}
+.menu-eco-btn{display:inline-flex;align-items:center;gap:5px;border:0;background:none;padding:8px 0;cursor:pointer;font-size:var(--fs-sm);font-weight:400;color:var(--text-muted);transition:color .2s;white-space:nowrap}
+.menu-eco-btn .ic{width:14px;height:14px;transition:transform .25s}
+.menu-eco:hover .menu-eco-btn,.menu-eco:focus-within .menu-eco-btn,.menu-eco.open .menu-eco-btn{color:var(--text)}
+.menu-eco:hover .menu-eco-btn .ic,.menu-eco:focus-within .menu-eco-btn .ic,.menu-eco.open .menu-eco-btn .ic{transform:rotate(180deg)}
+.eco-panel{position:absolute;top:100%;left:50%;padding-top:14px;transform:translate(-50%,8px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .22s,transform .22s,visibility .22s;z-index:5}
+.menu-eco:hover .eco-panel,.menu-eco:focus-within .eco-panel,.menu-eco.open .eco-panel{opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,0)}
+.eco-card{display:flex;flex-direction:column;align-items:flex-start;gap:12px;width:260px;padding:18px 20px 16px;border-radius:var(--radius-lg);background:var(--card-grad);border:1px solid var(--border);box-shadow:var(--shadow-float);transition:border-color .2s,transform .2s}
+.eco-card:hover{border-color:rgba(169,184,203,.45);transform:translateY(-2px)}
+.eco-k{font-size:var(--fs-xs);font-weight:500;color:var(--text-muted)}
+.eco-logo{height:52px;width:auto}
+.eco-txt{display:inline-flex;align-items:center;gap:6px;font-size:var(--fs-sm);font-weight:500;color:var(--text)}
+.eco-txt .ic{width:15px;height:15px;transition:transform .2s}
+.eco-card:hover .eco-txt .ic{transform:translate(2px,-2px)}
 .hamb{display:none;margin-left:auto;width:44px;height:44px;border-radius:var(--radius-pill);border:1px solid var(--glass-btn-border);background:var(--pill-bg);color:var(--text);cursor:pointer;align-items:center;justify-content:center}
 .hamb .ic{width:20px;height:20px}
 /* WhatsApp comercial ao lado do botão "Simular agora" */
@@ -714,7 +729,7 @@ html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
   .hamb{display:inline-flex}
   .hdr-wa-m{display:inline-flex}
   .menu .hdr-wa{padding:14px 4px;border-bottom:1px solid var(--border-soft);font-size:.95rem}
-  .menu{display:none;position:absolute;top:var(--hdr);left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:rgba(8,18,29,.97);backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur));padding:8px 20px 20px;border-bottom:1px solid var(--glass-border);box-shadow:0 20px 40px -20px rgba(0,0,0,.8)}
+  .menu{display:none;position:absolute;top:var(--hdr);left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:#08121D;backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur));padding:8px 20px 20px;border-bottom:1px solid var(--glass-border);box-shadow:0 20px 40px -20px rgba(0,0,0,.8)}
   .menu.open{display:flex}
   html[data-theme="light"] .menu{background:#F7F8F6;box-shadow:0 20px 40px -20px rgba(13,27,42,.35)}
   .nav{gap:10px}
@@ -724,6 +739,14 @@ html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
   .hamb{margin-left:0}
   .menu a:not(.btn){padding:14px 4px;border-bottom:1px solid var(--border-soft);font-size:.95rem}
   .menu .btn{margin-top:14px}
+  .menu-eco{border-bottom:1px solid var(--border-soft);padding:6px 4px 14px}
+  .menu-eco-btn{padding:8px 0;font-size:.95rem;pointer-events:none}
+  .menu-eco-btn .ic{display:none}
+  .eco-panel{position:static;padding-top:6px;transform:none;opacity:1;visibility:visible;pointer-events:auto}
+  .menu-eco:hover .eco-panel,.menu-eco:focus-within .eco-panel,.menu-eco.open .eco-panel{transform:none}
+  .menu a.eco-card{width:100%;flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:space-between;box-shadow:none;padding:14px 16px;border:1px solid var(--border)}
+  .eco-k{display:none}
+  .eco-logo{height:44px}
 }
 @media (max-width:1080px){
   .sols,.opts,.steps,.kpis{grid-template-columns:repeat(2,1fr)}
@@ -861,6 +884,8 @@ html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
   <symbol id="i-wa" viewBox="0 0 32 32"><path d="M16.04 3C9.0 3 3.3 8.7 3.3 15.7c0 2.25.6 4.45 1.72 6.38L3.2 28.8l6.9-1.8a12.7 12.7 0 0 0 5.94 1.5h.01c7.03 0 12.74-5.7 12.74-12.73 0-3.4-1.32-6.6-3.73-9A12.66 12.66 0 0 0 16.04 3zm0 23.3h-.01a10.6 10.6 0 0 1-5.39-1.48l-.39-.23-4.1 1.07 1.1-4-.25-.41a10.55 10.55 0 0 1-1.62-5.6c0-5.84 4.75-10.6 10.6-10.6 2.83 0 5.49 1.1 7.49 3.11a10.52 10.52 0 0 1 3.1 7.5c0 5.85-4.75 10.6-10.53 10.6zm5.8-7.94c-.32-.16-1.88-.93-2.17-1.03-.29-.11-.5-.16-.71.16-.21.32-.82 1.03-1 1.24-.19.21-.37.24-.69.08-.32-.16-1.34-.5-2.56-1.58a9.58 9.58 0 0 1-1.77-2.2c-.19-.32-.02-.49.14-.65.14-.14.32-.37.48-.56.16-.19.21-.32.32-.53.1-.21.05-.4-.03-.56-.08-.16-.71-1.71-.98-2.34-.26-.62-.52-.53-.71-.54h-.61c-.21 0-.56.08-.85.4-.29.32-1.11 1.08-1.11 2.64 0 1.56 1.14 3.07 1.3 3.28.16.21 2.24 3.42 5.43 4.8.76.33 1.35.52 1.81.67.76.24 1.45.2 2 .12.61-.09 1.88-.77 2.14-1.51.27-.74.27-1.38.19-1.51-.08-.13-.29-.21-.61-.37z"/></symbol>
   <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6 6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></symbol>
   <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.5 14.3A8.5 8.5 0 1 1 9.7 3.5a6.6 6.6 0 0 0 10.8 10.8z"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-ext" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></symbol>
   <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2.5 2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"/></symbol>
 </svg>
 
@@ -880,7 +905,18 @@ html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
       <a href="#como-funciona">Como Funciona</a>
       <a href="#solucoes">Soluções</a>
       <a href="#beneficios">Benefícios</a>
-      <a href="#utilizacoes">Utilizações</a>
+      <!-- ECOSSISTEMA: ao passar o mouse, mostra o logo da Vero Planejamento; o clique abre a LP em nova guia.
+           Quando a LP de planejamento tiver domínio próprio, troque o href (ex.: https://veroplanejamento.com.br). -->
+      <div class="menu-eco">
+        <button type="button" class="menu-eco-btn" aria-expanded="false" aria-controls="ecoPanel">Ecossistema <svg class="ic" aria-hidden="true"><use href="#i-chev"/></svg></button>
+        <div class="eco-panel" id="ecoPanel">
+          <a class="eco-card" href="planejamento/index.html" target="_blank" rel="noopener" data-eco-link aria-label="Vero Planejamento: planejamento financeiro (abre em nova guia)">
+            <span class="eco-k">Conheça também</span>
+            <img class="eco-logo logo-neg" src="assets/img/logo/vero-planejamento-negativo.webp" alt="Vero Planejamento" width="182" height="56" decoding="async"><img class="eco-logo logo-pos" src="assets/img/logo/vero-planejamento.webp" alt="Vero Planejamento" width="182" height="56" decoding="async">
+            <span class="eco-txt">Planejamento financeiro completo <svg class="ic" aria-hidden="true"><use href="#i-ext"/></svg></span>
+          </a>
+        </div>
+      </div>
       <a class="hdr-wa" href="#" data-wa="Olá! Encontrei o WhatsApp de vocês no site da Vero Consórcios e gostaria de mais informações." data-wa-origem="numero_topo" aria-label="WhatsApp comercial (51) 98912-1113"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#i-wa"/></svg>(51) 98912-1113</a>
       <a class="btn btn-primary btn-sm" href="#simulador" data-goto-sim>Simular agora</a>
     </nav>
@@ -1751,6 +1787,20 @@ var CONFIG = {
     try { localStorage.setItem('vero-tema', next); } catch (e) { /* navegação privada: vale só nesta visita */ }
     track('tema_alterado', { tema: next });
   });
+
+  /* ---------------- Menu Ecossistema (Vero Planejamento) ---------------- */
+  var eco = $('.menu-eco'), ecoBtn = $('.menu-eco-btn');
+  if (eco) {
+    ecoBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var o = eco.classList.toggle('open'); ecoBtn.setAttribute('aria-expanded', o ? 'true' : 'false');
+    });
+    eco.addEventListener('mouseenter', function () { ecoBtn.setAttribute('aria-expanded', 'true'); });
+    eco.addEventListener('mouseleave', function () { if (!eco.classList.contains('open')) ecoBtn.setAttribute('aria-expanded', 'false'); });
+    document.addEventListener('click', function (e) { if (!eco.contains(e.target)) { eco.classList.remove('open'); ecoBtn.setAttribute('aria-expanded', 'false'); } });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { eco.classList.remove('open'); ecoBtn.setAttribute('aria-expanded', 'false'); } });
+    $('[data-eco-link]').addEventListener('click', function () { track('ecossistema_clique', { destino: 'vero_planejamento' }); });
+  }
 
   /* ==================================================================
      SIMULADOR — Etapa 1 (objetivo · simular pelo · valor)

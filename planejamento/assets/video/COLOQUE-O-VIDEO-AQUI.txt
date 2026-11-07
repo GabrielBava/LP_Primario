@@ -1,0 +1,12 @@
+Vídeo de fundo do topo da LP Vero Planejamento
+
+Salve o vídeo da família nesta pasta com o nome:  familia.mp4
+
+Recomendações:
+- 1280 a 1920 px de largura, 10 a 20 segundos, sem áudio, até ~4 MB
+- O desfoque, o escurecimento e a opacidade já são aplicados pela página (CSS .hero-video)
+
+Para reduzir um vídeo grande (precisa do ffmpeg instalado):
+  ffmpeg -i original.mp4 -an -vf "scale=1600:-2" -c:v libx264 -crf 28 -preset slow -movflags +faststart familia.mp4
+
+Depois, rode  python3 tools/gerar-html-completo.py  para atualizar o arquivo único (dist/lp-planejamento.html).
