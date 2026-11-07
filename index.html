@@ -953,7 +953,6 @@ html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
   <symbol id="i-wa" viewBox="0 0 32 32"><path d="M16.04 3C9.0 3 3.3 8.7 3.3 15.7c0 2.25.6 4.45 1.72 6.38L3.2 28.8l6.9-1.8a12.7 12.7 0 0 0 5.94 1.5h.01c7.03 0 12.74-5.7 12.74-12.73 0-3.4-1.32-6.6-3.73-9A12.66 12.66 0 0 0 16.04 3zm0 23.3h-.01a10.6 10.6 0 0 1-5.39-1.48l-.39-.23-4.1 1.07 1.1-4-.25-.41a10.55 10.55 0 0 1-1.62-5.6c0-5.84 4.75-10.6 10.6-10.6 2.83 0 5.49 1.1 7.49 3.11a10.52 10.52 0 0 1 3.1 7.5c0 5.85-4.75 10.6-10.53 10.6zm5.8-7.94c-.32-.16-1.88-.93-2.17-1.03-.29-.11-.5-.16-.71.16-.21.32-.82 1.03-1 1.24-.19.21-.37.24-.69.08-.32-.16-1.34-.5-2.56-1.58a9.58 9.58 0 0 1-1.77-2.2c-.19-.32-.02-.49.14-.65.14-.14.32-.37.48-.56.16-.19.21-.32.32-.53.1-.21.05-.4-.03-.56-.08-.16-.71-1.71-.98-2.34-.26-.62-.52-.53-.71-.54h-.61c-.21 0-.56.08-.85.4-.29.32-1.11 1.08-1.11 2.64 0 1.56 1.14 3.07 1.3 3.28.16.21 2.24 3.42 5.43 4.8.76.33 1.35.52 1.81.67.76.24 1.45.2 2 .12.61-.09 1.88-.77 2.14-1.51.27-.74.27-1.38.19-1.51-.08-.13-.29-.21-.61-.37z"/></symbol>
   <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6 6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></symbol>
   <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.5 14.3A8.5 8.5 0 1 1 9.7 3.5a6.6 6.6 0 0 0 10.8 10.8z"/></symbol>
-  <symbol id="i-truck" viewBox="0 0 24 24"><path d="M2.5 6.5h11v10h-11z"/><path d="M13.5 10h4l3.5 3.5v3h-7.5"/><circle cx="6.5" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></symbol>
   <symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
   <symbol id="i-ext" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></symbol>
   <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2.5 2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"/></symbol>
@@ -1197,8 +1196,8 @@ html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
     </div>
 
     <!-- ============================================================
-         CARTAS CONTEMPLADAS — o visitante escolhe o segmento pelo ícone e vê 8 cartas,
-         em rodízio diário pelo estoque (CONFIG.contempladas). Sem filtros nem ordenação.
+         CARTAS CONTEMPLADAS — o visitante escolhe o segmento (Imóvel ou Veículo) pelo ícone e vê
+         8 cotas em escala crescente de crédito, renovadas a cada dia (CONFIG.contempladas). Sem filtros.
          ============================================================ -->
     <div class="contemp theme-dark" id="contempladas" data-stagger="110">
       <div class="contemp-head reveal">
@@ -1788,54 +1787,354 @@ var CONFIG = {
   // Vazio = apenas dispara os eventos do dataLayer.
   leadEndpoint: '',
 
-  // Cartas contempladas (bloco abaixo do Quem Somos). Cada segmento mostra "porSegmento" cartas por dia,
-  // em rodízio diário pelo estoque. Para atualizar a partir da planilha do parceiro:
-  //   python3 tools/importar-contempladas.py estoque.xlsx      (ou .csv)
-  // O importador reescreve o trecho entre CONTEMPLADAS:INICIO e CONTEMPLADAS:FIM.
-  /* CONTEMPLADAS:INICIO */
+  // Cartas contempladas (bloco abaixo do Quem Somos): Imóvel e Veículo, 8 cotas por segmento.
+  // A grade segue a escala de crédito abaixo (do menor para o maior). Para cada degrau, é
+  // escolhida uma cota próxima do valor, diferente a cada dia (muda à meia-noite, horário de
+  // Brasília), a no máximo 12% do valor. O último degrau vale "daquele valor para cima"; um
+  // degrau sem cotas no estoque é trocado pelo próximo valor de "reservas" que tenha cotas.
+  // Entre duas cotas vizinhas da grade há sempre um salto de pelo menos 12% no crédito.
+  // Para atualizar o estoque com a planilha do parceiro (só entram as cotas "Disponível"):
+  //   python3 tools/importar-contempladas.py estoque.xlsx
   contempladas: {
-    exemplo: true,   // true = estoque de exemplo (mostra o aviso "Dados de exemplo" na tabela)
     porSegmento: 8,
+    escala: {
+      imovel:  { alvos: [100000, 200000, 300000, 400000, 500000, 800000, 1000000, 2000000], reservas: [600000, 700000, 900000, 150000, 250000] },
+      veiculo: { alvos: [40000, 60000, 80000, 100000, 130000, 160000, 200000, 300000], reservas: [50000, 70000, 120000, 250000] }
+    },
+    /* CONTEMPLADAS:INICIO */
+    exemplo: false,   // estoque importado de estoque-cotas-2026-11-07.xlsx
     estoque: [
-    { segmento: "imovel", adm: "Embracon", credito: 180000, entrada: 58000, parcela: 1080, prazo: 168 },
-    { segmento: "imovel", adm: "Itaú", credito: 220000, entrada: 74000, parcela: 1310, prazo: 172 },
-    { segmento: "imovel", adm: "Santander", credito: 250000, entrada: 86000, parcela: 1460, prazo: 160 },
-    { segmento: "imovel", adm: "Porto", credito: 280000, entrada: 92000, parcela: 1690, prazo: 150 },
-    { segmento: "imovel", adm: "Bradesco", credito: 300000, entrada: 104000, parcela: 1720, prazo: 165 },
-    { segmento: "imovel", adm: "HS", credito: 320000, entrada: 108000, parcela: 1950, prazo: 148 },
-    { segmento: "imovel", adm: "Racon", credito: 350000, entrada: 123000, parcela: 2020, prazo: 158 },
-    { segmento: "imovel", adm: "Servopa", credito: 400000, entrada: 138000, parcela: 2360, prazo: 154 },
-    { segmento: "imovel", adm: "CNP", credito: 450000, entrada: 151000, parcela: 2780, prazo: 146 },
-    { segmento: "imovel", adm: "Mapfre", credito: 500000, entrada: 176000, parcela: 2940, prazo: 152 },
-    { segmento: "imovel", adm: "Embracon", credito: 600000, entrada: 207000, parcela: 3580, prazo: 144 },
-    { segmento: "imovel", adm: "Itaú", credito: 750000, entrada: 262000, parcela: 4370, prazo: 140 },
-    { segmento: "veiculo", adm: "Embracon", credito: 50000, entrada: 16500, parcela: 1190, prazo: 52 },
-    { segmento: "veiculo", adm: "Porto", credito: 60000, entrada: 19800, parcela: 1380, prazo: 54 },
-    { segmento: "veiculo", adm: "Santander", credito: 70000, entrada: 23100, parcela: 1560, prazo: 56 },
-    { segmento: "veiculo", adm: "Bradesco", credito: 80000, entrada: 27500, parcela: 1690, prazo: 60 },
-    { segmento: "veiculo", adm: "Servopa", credito: 90000, entrada: 30600, parcela: 1880, prazo: 58 },
-    { segmento: "veiculo", adm: "Racon", credito: 100000, entrada: 34000, parcela: 2040, prazo: 60 },
-    { segmento: "veiculo", adm: "Itaú", credito: 110000, entrada: 37900, parcela: 2190, prazo: 62 },
-    { segmento: "veiculo", adm: "HS", credito: 120000, entrada: 41200, parcela: 2370, prazo: 62 },
-    { segmento: "veiculo", adm: "Klubi", credito: 140000, entrada: 47800, parcela: 2690, prazo: 64 },
-    { segmento: "veiculo", adm: "Embracon", credito: 160000, entrada: 55300, parcela: 3010, prazo: 64 },
-    { segmento: "veiculo", adm: "Porto", credito: 180000, entrada: 62600, parcela: 3350, prazo: 66 },
-    { segmento: "veiculo", adm: "Mapfre", credito: 200000, entrada: 69500, parcela: 3650, prazo: 68 },
-    { segmento: "pesados", adm: "Bradesco", credito: 200000, entrada: 68000, parcela: 3290, prazo: 76 },
-    { segmento: "pesados", adm: "Servopa", credito: 240000, entrada: 81500, parcela: 3880, prazo: 78 },
-    { segmento: "pesados", adm: "Porto", credito: 260000, entrada: 89000, parcela: 4130, prazo: 78 },
-    { segmento: "pesados", adm: "Embracon", credito: 280000, entrada: 95800, parcela: 4400, prazo: 80 },
-    { segmento: "pesados", adm: "Santander", credito: 300000, entrada: 102000, parcela: 4690, prazo: 80 },
-    { segmento: "pesados", adm: "Racon", credito: 320000, entrada: 110000, parcela: 4930, prazo: 82 },
-    { segmento: "pesados", adm: "Itaú", credito: 350000, entrada: 120500, parcela: 5300, prazo: 84 },
-    { segmento: "pesados", adm: "Mapfre", credito: 380000, entrada: 131000, parcela: 5690, prazo: 84 },
-    { segmento: "pesados", adm: "HS", credito: 400000, entrada: 138500, parcela: 5910, prazo: 86 },
-    { segmento: "pesados", adm: "Bradesco", credito: 450000, entrada: 155000, parcela: 6560, prazo: 88 },
-    { segmento: "pesados", adm: "Servopa", credito: 500000, entrada: 173000, parcela: 7180, prazo: 90 },
-    { segmento: "pesados", adm: "Porto", credito: 550000, entrada: 190000, parcela: 7820, prazo: 90 }
+      { codigo: "15356", segmento: "imovel", adm: "HS Consórcios", credito: 62327, entrada: 24081, parcela: 712, prazo: 118 },
+      { codigo: "15291", segmento: "imovel", adm: "HS Consórcios", credito: 65434, entrada: 26590, parcela: 561, prazo: 134 },
+      { codigo: "15198", segmento: "imovel", adm: "HS Consórcios", credito: 66495, entrada: 26327, parcela: 551, prazo: 132 },
+      { codigo: "15322", segmento: "imovel", adm: "HS Consórcios", credito: 68939, entrada: 27313, parcela: 619, prazo: 122 },
+      { codigo: "15142", segmento: "imovel", adm: "HS Consórcios", credito: 69942, entrada: 29148, parcela: 553, prazo: 136 },
+      { codigo: "1073", segmento: "imovel", adm: "Porto Seguro", credito: 70035, entrada: 29415, parcela: 450, prazo: 193 },
+      { codigo: "15182", segmento: "imovel", adm: "HS Consórcios", credito: 70614, entrada: 27271, parcela: 528, prazo: 176 },
+      { codigo: "15213", segmento: "imovel", adm: "HS Consórcios", credito: 70614, entrada: 27271, parcela: 527, prazo: 177 },
+      { codigo: "948", segmento: "imovel", adm: "Porto Seguro", credito: 70908, entrada: 29782, parcela: 440, prazo: 194 },
+      { codigo: "15353", segmento: "imovel", adm: "HS Consórcios", credito: 71300, entrada: 28196, parcela: 574, prazo: 140 },
+      { codigo: "1055", segmento: "imovel", adm: "Santander", credito: 73248, entrada: 30032, parcela: 428, prazo: 225 },
+      { codigo: "984", segmento: "imovel", adm: "Serello", credito: 73937, entrada: 29575, parcela: 471, prazo: 199 },
+      { codigo: "15241", segmento: "imovel", adm: "HS Consórcios", credito: 74737, entrada: 28816, parcela: 585, prazo: 159 },
+      { codigo: "15218", segmento: "imovel", adm: "HS Consórcios", credito: 75249, entrada: 29134, parcela: 609, prazo: 154 },
+      { codigo: "15348", segmento: "imovel", adm: "HS Consórcios", credito: 75529, entrada: 31444, parcela: 581, prazo: 162 },
+      { codigo: "15228", segmento: "imovel", adm: "HS Consórcios", credito: 76231, entrada: 29368, parcela: 852, prazo: 115 },
+      { codigo: "15257", segmento: "imovel", adm: "HS Consórcios", credito: 76367, entrada: 29473, parcela: 862, prazo: 113 },
+      { codigo: "15275", segmento: "imovel", adm: "HS Consórcios", credito: 76513, entrada: 31878, parcela: 688, prazo: 111 },
+      { codigo: "15197", segmento: "imovel", adm: "HS Consórcios", credito: 76782, entrada: 31187, parcela: 684, prazo: 114 },
+      { codigo: "15271", segmento: "imovel", adm: "HS Consórcios", credito: 77048, entrada: 32097, parcela: 594, prazo: 159 },
+      { codigo: "15344", segmento: "imovel", adm: "HS Consórcios", credito: 77048, entrada: 32097, parcela: 594, prazo: 159 },
+      { codigo: "15281", segmento: "imovel", adm: "HS Consórcios", credito: 77106, entrada: 32099, parcela: 608, prazo: 156 },
+      { codigo: "1021", segmento: "imovel", adm: "Porto Seguro", credito: 77159, entrada: 31636, parcela: 542, prazo: 174 },
+      { codigo: "1013", segmento: "imovel", adm: "Sicredi", credito: 77286, entrada: 30915, parcela: 503, prazo: 168 },
+      { codigo: "705662", segmento: "imovel", adm: "BB Consórcios", credito: 80400, entrada: 36312, parcela: 371, prazo: 199 },
+      { codigo: "15196", segmento: "imovel", adm: "HS Consórcios", credito: 81425, entrada: 32250, parcela: 653, prazo: 145 },
+      { codigo: "842923", segmento: "imovel", adm: "Caixa XS5", credito: 82000, entrada: 35460, parcela: 520, prazo: 179 },
+      { codigo: "1067", segmento: "imovel", adm: "Porto Seguro", credito: 82091, entrada: 35300, parcela: 416, prazo: 174 },
+      { codigo: "15349", segmento: "imovel", adm: "HS Consórcios", credito: 82152, entrada: 34175, parcela: 659, prazo: 144 },
+      { codigo: "15272", segmento: "imovel", adm: "HS Consórcios", credito: 82764, entrada: 34497, parcela: 681, prazo: 142 },
+      { codigo: "15202", segmento: "imovel", adm: "HS Consórcios", credito: 83278, entrada: 32115, parcela: 711, prazo: 133 },
+      { codigo: "15365", segmento: "imovel", adm: "HS Consórcios", credito: 83321, entrada: 32916, parcela: 655, prazo: 151 },
+      { codigo: "15092", segmento: "imovel", adm: "HS Consórcios", credito: 83526, entrada: 34023, parcela: 864, prazo: 98 },
+      { codigo: "15190", segmento: "imovel", adm: "HS Consórcios", credito: 83933, entrada: 32338, parcela: 769, prazo: 122 },
+      { codigo: "848", segmento: "imovel", adm: "Bradesco", credito: 83988, entrada: 27717, parcela: 1009, prazo: 150 },
+      { codigo: "15183", segmento: "imovel", adm: "HS Consórcios", credito: 84208, entrada: 33347, parcela: 731, prazo: 121 },
+      { codigo: "951", segmento: "imovel", adm: "Sicredi", credito: 84235, entrada: 33694, parcela: 669, prazo: 126 },
+      { codigo: "15366", segmento: "imovel", adm: "HS Consórcios", credito: 84325, entrada: 33351, parcela: 690, prazo: 138 },
+      { codigo: "15231", segmento: "imovel", adm: "HS Consórcios", credito: 84619, entrada: 32662, parcela: 972, prazo: 110 },
+      { codigo: "15345", segmento: "imovel", adm: "HS Consórcios", credito: 86434, entrada: 36025, parcela: 835, prazo: 122 },
+      { codigo: "954140", segmento: "imovel", adm: "Yamaha", credito: 86700, entrada: 31901, parcela: 605, prazo: 126 },
+      { codigo: "1066", segmento: "imovel", adm: "Porto Seguro", credito: 87648, entrada: 37689, parcela: 627, prazo: 139 },
+      { codigo: "951515", segmento: "imovel", adm: "Gazin", credito: 90500, entrada: 33665, parcela: 1023, prazo: 99 },
+      { codigo: "846", segmento: "imovel", adm: "Bradesco", credito: 90690, entrada: 29929, parcela: 974, prazo: 153 },
+      { codigo: "986", segmento: "imovel", adm: "Serello", credito: 93240, entrada: 37296, parcela: 588, prazo: 200 },
+      { codigo: "15226", segmento: "imovel", adm: "HS Consórcios", credito: 95651, entrada: 36848, parcela: 944, prazo: 123 },
+      { codigo: "15098", segmento: "imovel", adm: "HS Consórcios", credito: 96329, entrada: 40672, parcela: 873, prazo: 112 },
+      { codigo: "15286", segmento: "imovel", adm: "HS Consórcios", credito: 98055, entrada: 40732, parcela: 876, prazo: 113 },
+      { codigo: "15242", segmento: "imovel", adm: "HS Consórcios", credito: 98089, entrada: 37833, parcela: 927, prazo: 111 },
+      { codigo: "842882", segmento: "imovel", adm: "Bradesco", credito: 100000, entrada: 43000, parcela: 717, prazo: 168 },
+      { codigo: "1036", segmento: "imovel", adm: "Rodobens", credito: 100000, entrada: 40000, parcela: 602, prazo: 207 },
+      { codigo: "15181", segmento: "imovel", adm: "HS Consórcios", credito: 100153, entrada: 42605, parcela: 700, prazo: 172 },
+      { codigo: "1070", segmento: "imovel", adm: "Porto Seguro", credito: 100348, entrada: 43150, parcela: 752, prazo: 135 },
+      { codigo: "15255", segmento: "imovel", adm: "HS Consórcios", credito: 100794, entrada: 38928, parcela: 894, prazo: 122 },
+      { codigo: "1048", segmento: "imovel", adm: "Porto Seguro", credito: 101299, entrada: 41533, parcela: 662, prazo: 186 },
+      { codigo: "15367", segmento: "imovel", adm: "HS Consórcios", credito: 101703, entrada: 40260, parcela: 834, prazo: 139 },
+      { codigo: "842349", segmento: "imovel", adm: "CNP - Embracon", credito: 103000, entrada: 31750, parcela: 1294, prazo: 106 },
+      { codigo: "15224", segmento: "imovel", adm: "HS Consórcios", credito: 103531, entrada: 40924, parcela: 894, prazo: 122 },
+      { codigo: "1012", segmento: "imovel", adm: "Bradesco", credito: 104330, entrada: 40689, parcela: 797, prazo: 166 },
+      { codigo: "908", segmento: "imovel", adm: "Bradesco", credito: 106612, entrada: 35183, parcela: 1183, prazo: 172 },
+      { codigo: "989", segmento: "imovel", adm: "Santander", credito: 106694, entrada: 44813, parcela: 656, prazo: 180 },
+      { codigo: "842881", segmento: "imovel", adm: "Embracon", credito: 107000, entrada: 43210, parcela: 836, prazo: 165 },
+      { codigo: "926", segmento: "imovel", adm: "Porto Seguro", credito: 107620, entrada: 45201, parcela: 704, prazo: 174 },
+      { codigo: "842702", segmento: "imovel", adm: "CNP - Embracon", credito: 110000, entrada: 37550, parcela: 1372, prazo: 110 },
+      { codigo: "1044", segmento: "imovel", adm: "Porto Seguro", credito: 110219, entrada: 45190, parcela: 767, prazo: 163 },
+      { codigo: "905", segmento: "imovel", adm: "Bradesco", credito: 110272, entrada: 36391, parcela: 1038, prazo: 185 },
+      { codigo: "15206", segmento: "imovel", adm: "HS Consórcios", credito: 111465, entrada: 45201, parcela: 1046, prazo: 103 },
+      { codigo: "15238", segmento: "imovel", adm: "HS Consórcios", credito: 112677, entrada: 43444, parcela: 1266, prazo: 117 },
+      { codigo: "15173", segmento: "imovel", adm: "HS Consórcios", credito: 112743, entrada: 43446, parcela: 842, prazo: 177 },
+      { codigo: "15302", segmento: "imovel", adm: "HS Consórcios", credito: 113117, entrada: 47059, parcela: 1370, prazo: 68 },
+      { codigo: "15249", segmento: "imovel", adm: "HS Consórcios", credito: 114047, entrada: 43992, parcela: 1276, prazo: 91 },
+      { codigo: "15268", segmento: "imovel", adm: "HS Consórcios", credito: 114467, entrada: 47506, parcela: 851, prazo: 153 },
+      { codigo: "871", segmento: "imovel", adm: "Yamaha", credito: 115400, entrada: 45010, parcela: 846, prazo: 126 },
+      { codigo: "15191", segmento: "imovel", adm: "HS Consórcios", credito: 115424, entrada: 46840, parcela: 1028, prazo: 112 },
+      { codigo: "1001", segmento: "imovel", adm: "Porto Seguro", credito: 115964, entrada: 47546, parcela: 772, prazo: 162 },
+      { codigo: "842355", segmento: "imovel", adm: "Bradesco", credito: 117200, entrada: 55816, parcela: 913, prazo: 113 },
+      { codigo: "15186", segmento: "imovel", adm: "HS Consórcios", credito: 117530, entrada: 48814, parcela: 976, prazo: 126 },
+      { codigo: "1024", segmento: "imovel", adm: "Porto Seguro", credito: 119106, entrada: 51216, parcela: 801, prazo: 148 },
+      { codigo: "963", segmento: "imovel", adm: "Gazin", credito: 122763, entrada: 47879, parcela: 675, prazo: 234 },
+      { codigo: "843052", segmento: "imovel", adm: "Bradesco", credito: 123000, entrada: 51690, parcela: 851, prazo: 159 },
+      { codigo: "15083", segmento: "imovel", adm: "Serello", credito: 123565, entrada: 51425, parcela: 891, prazo: 167 },
+      { codigo: "14530", segmento: "imovel", adm: "Serello", credito: 123715, entrada: 51630, parcela: 889, prazo: 167 },
+      { codigo: "1030", segmento: "imovel", adm: "Santander", credito: 126109, entrada: 51705, parcela: 717, prazo: 197 },
+      { codigo: "14359", segmento: "imovel", adm: "HS Consórcios", credito: 128070, entrada: 48182, parcela: 1969, prazo: 60 },
+      { codigo: "704380", segmento: "imovel", adm: "Magalu", credito: 128457, entrada: 50354, parcela: 1936, prazo: 71 },
+      { codigo: "842920", segmento: "imovel", adm: "BB Consórcios", credito: 128500, entrada: 55855, parcela: 718, prazo: 170 },
+      { codigo: "15357", segmento: "imovel", adm: "HS Consórcios", credito: 129920, entrada: 52647, parcela: 1093, prazo: 126 },
+      { codigo: "842823", segmento: "imovel", adm: "Bradesco", credito: 133600, entrada: 61508, parcela: 944, prazo: 149 },
+      { codigo: "701984", segmento: "imovel", adm: "União Catarinense", credito: 134000, entrada: 52433, parcela: 1513, prazo: 108 },
+      { codigo: "15376", segmento: "imovel", adm: "HS Consórcios", credito: 134322, entrada: 53101, parcela: 1059, prazo: 145 },
+      { codigo: "843113", segmento: "imovel", adm: "Embracon", credito: 134500, entrada: 53535, parcela: 783, prazo: 204 },
+      { codigo: "13469", segmento: "imovel", adm: "Embracon", credito: 136077, entrada: 53763, parcela: 1101, prazo: 133 },
+      { codigo: "842571", segmento: "imovel", adm: "Porto Seguro", credito: 136500, entrada: 55895, parcela: 1646, prazo: 78 },
+      { codigo: "15237", segmento: "imovel", adm: "HS Consórcios", credito: 140960, entrada: 58534, parcela: 959, prazo: 190 },
+      { codigo: "15360", segmento: "imovel", adm: "HS Consórcios", credito: 141372, entrada: 58748, parcela: 951, prazo: 196 },
+      { codigo: "15390", segmento: "imovel", adm: "HS Consórcios", credito: 141430, entrada: 55950, parcela: 1004, prazo: 187 },
+      { codigo: "15250", segmento: "imovel", adm: "HS Consórcios", credito: 144117, entrada: 58444, parcela: 1562, prazo: 109 },
+      { codigo: "15239", segmento: "imovel", adm: "HS Consórcios", credito: 144707, entrada: 61565, parcela: 978, prazo: 190 },
+      { codigo: "13446", segmento: "imovel", adm: "HS Consórcios", credito: 145445, entrada: 60391, parcela: 1348, prazo: 99 },
+      { codigo: "843018", segmento: "imovel", adm: "Bradesco", credito: 146150, entrada: 69384, parcela: 1100, prazo: 140 },
+      { codigo: "1079", segmento: "imovel", adm: "Embracon", credito: 148567, entrada: 57942, parcela: 780, prazo: 228 },
+      { codigo: "963471", segmento: "imovel", adm: "Racon Consórcios", credito: 150250, entrada: 60908, parcela: 947, prazo: 196 },
+      { codigo: "1046", segmento: "imovel", adm: "Porto Seguro", credito: 150722, entrada: 61796, parcela: 1001, prazo: 186 },
+      { codigo: "1040", segmento: "imovel", adm: "Sicredi", credito: 152417, entrada: 60967, parcela: 1342, prazo: 110 },
+      { codigo: "15187", segmento: "imovel", adm: "HS Consórcios", credito: 153666, entrada: 65378, parcela: 1072, prazo: 175 },
+      { codigo: "15230", segmento: "imovel", adm: "HS Consórcios", credito: 153666, entrada: 65378, parcela: 1072, prazo: 175 },
+      { codigo: "842989", segmento: "imovel", adm: "Sicredi", credito: 154300, entrada: 60172, parcela: 1029, prazo: 178 },
+      { codigo: "15248", segmento: "imovel", adm: "HS Consórcios", credito: 154312, entrada: 59501, parcela: 1333, prazo: 125 },
+      { codigo: "15396", segmento: "imovel", adm: "HS Consórcios", credito: 154350, entrada: 59502, parcela: 1586, prazo: 108 },
+      { codigo: "15362", segmento: "imovel", adm: "HS Consórcios", credito: 154416, entrada: 65705, parcela: 1056, prazo: 183 },
+      { codigo: "15384", segmento: "imovel", adm: "HS Consórcios", credito: 154936, entrada: 65923, parcela: 1060, prazo: 180 },
+      { codigo: "14230", segmento: "imovel", adm: "HS Consórcios", credito: 157816, entrada: 60824, parcela: 1991, prazo: 70 },
+      { codigo: "15262", segmento: "imovel", adm: "HS Consórcios", credito: 158703, entrada: 61155, parcela: 2165, prazo: 68 },
+      { codigo: "1045", segmento: "imovel", adm: "Porto Seguro", credito: 158892, entrada: 65146, parcela: 1078, prazo: 173 },
+      { codigo: "15215", segmento: "imovel", adm: "HS Consórcios", credito: 159630, entrada: 64687, parcela: 1396, prazo: 107 },
+      { codigo: "767", segmento: "imovel", adm: "Santander", credito: 161039, entrada: 66028, parcela: 986, prazo: 179 },
+      { codigo: "15211", segmento: "imovel", adm: "HS Consórcios", credito: 162346, entrada: 62582, parcela: 1743, prazo: 113 },
+      { codigo: "15259", segmento: "imovel", adm: "HS Consórcios", credito: 162749, entrada: 62696, parcela: 1797, prazo: 119 },
+      { codigo: "842926", segmento: "imovel", adm: "Bradesco", credito: 163500, entrada: 75355, parcela: 1605, prazo: 94 },
+      { codigo: "1041", segmento: "imovel", adm: "Caixa XS5", credito: 164974, entrada: 64340, parcela: 1106, prazo: 199 },
+      { codigo: "15312", segmento: "imovel", adm: "HS Consórcios", credito: 165751, entrada: 70501, parcela: 1168, prazo: 170 },
+      { codigo: "15325", segmento: "imovel", adm: "HS Consórcios", credito: 166064, entrada: 69012, parcela: 1533, prazo: 134 },
+      { codigo: "1068", segmento: "imovel", adm: "Porto Seguro", credito: 167160, entrada: 70208, parcela: 1092, prazo: 170 },
+      { codigo: "1042", segmento: "imovel", adm: "Porto Seguro", credito: 168076, entrada: 72274, parcela: 960, prazo: 175 },
+      { codigo: "842579", segmento: "imovel", adm: "Caixa XS5", credito: 168100, entrada: 67246, parcela: 1109, prazo: 177 },
+      { codigo: "993", segmento: "imovel", adm: "Porto Seguro", credito: 168117, entrada: 70610, parcela: 1353, prazo: 127 },
+      { codigo: "842727", segmento: "imovel", adm: "Caixa XS5", credito: 169500, entrada: 73355, parcela: 1010, prazo: 178 },
+      { codigo: "1039", segmento: "imovel", adm: "Rodobens", credito: 171120, entrada: 67611, parcela: 1211, prazo: 165 },
+      { codigo: "705561", segmento: "imovel", adm: "Magalu", credito: 171215, entrada: 67036, parcela: 1134, prazo: 168 },
+      { codigo: "15395", segmento: "imovel", adm: "Magalu", credito: 175874, entrada: 65956, parcela: 2453, prazo: 82 },
+      { codigo: "1043", segmento: "imovel", adm: "Kasinski", credito: 176222, entrada: 63440, parcela: 1140, prazo: 191 },
+      { codigo: "1003", segmento: "imovel", adm: "Santander", credito: 178957, entrada: 73374, parcela: 1315, prazo: 124 },
+      { codigo: "15247", segmento: "imovel", adm: "HS Consórcios", credito: 180295, entrada: 69510, parcela: 1687, prazo: 142 },
+      { codigo: "14712", segmento: "imovel", adm: "Serello", credito: 180507, entrada: 76918, parcela: 1157, prazo: 208 },
+      { codigo: "15139", segmento: "imovel", adm: "HS Consórcios", credito: 189364, entrada: 80528, parcela: 1701, prazo: 116 },
+      { codigo: "15292", segmento: "imovel", adm: "HS Consórcios", credito: 191460, entrada: 81401, parcela: 1329, prazo: 177 },
+      { codigo: "15160", segmento: "imovel", adm: "HS Consórcios", credito: 192996, entrada: 81155, parcela: 1735, prazo: 114 },
+      { codigo: "1022", segmento: "imovel", adm: "CNP Consórcio", credito: 200000, entrada: 78000, parcela: 1028, prazo: 234 },
+      { codigo: "776", segmento: "imovel", adm: "Zema", credito: 203838, entrada: 73382, parcela: 1943, prazo: 139 },
+      { codigo: "763", segmento: "imovel", adm: "Zema", credito: 205617, entrada: 74022, parcela: 1960, prazo: 139 },
+      { codigo: "1019", segmento: "imovel", adm: "CNP Consórcio", credito: 210000, entrada: 81900, parcela: 1113, prazo: 234 },
+      { codigo: "14300", segmento: "imovel", adm: "HS Consórcios", credito: 211525, entrada: 79503, parcela: 3099, prazo: 63 },
+      { codigo: "842879", segmento: "imovel", adm: "CNP - Embracon", credito: 213000, entrada: 79390, parcela: 2094, prazo: 123 },
+      { codigo: "841923", segmento: "imovel", adm: "Caixa XS5", credito: 216100, entrada: 90483, parcela: 1417, prazo: 154 },
+      { codigo: "15201", segmento: "imovel", adm: "HS Consórcios", credito: 216975, entrada: 92294, parcela: 1464, prazo: 191 },
+      { codigo: "954019", segmento: "imovel", adm: "Sicoob Consórcios", credito: 219150, entrada: 88224, parcela: 1230, prazo: 213 },
+      { codigo: "15346", segmento: "imovel", adm: "HS Consórcios", credito: 219507, entrada: 95583, parcela: 1727, prazo: 138 },
+      { codigo: "842749", segmento: "imovel", adm: "CNP - Embracon", credito: 220000, entrada: 76100, parcela: 2485, prazo: 110 },
+      { codigo: "842279", segmento: "imovel", adm: "Yamaha", credito: 223000, entrada: 86690, parcela: 1912, prazo: 122 },
+      { codigo: "842278", segmento: "imovel", adm: "Yamaha", credito: 225300, entrada: 86759, parcela: 1690, prazo: 149 },
+      { codigo: "1010", segmento: "imovel", adm: "Magalu", credito: 226000, entrada: 94920, parcela: 1255, prazo: 191 },
+      { codigo: "842562", segmento: "imovel", adm: "Sicoob Consórcios", credito: 228800, entrada: 96864, parcela: 1169, prazo: 202 },
+      { codigo: "15244", segmento: "imovel", adm: "HS Consórcios", credito: 233319, entrada: 96966, parcela: 2035, prazo: 135 },
+      { codigo: "998", segmento: "imovel", adm: "Magalu", credito: 241541, entrada: 99032, parcela: 1582, prazo: 198 },
+      { codigo: "15189", segmento: "imovel", adm: "HS Consórcios", credito: 248505, entrada: 105698, parcela: 1883, prazo: 144 },
+      { codigo: "15208", segmento: "imovel", adm: "HS Consórcios", credito: 272446, entrada: 107636, parcela: 2445, prazo: 114 },
+      { codigo: "15221", segmento: "imovel", adm: "HS Consórcios", credito: 272810, entrada: 110548, parcela: 2415, prazo: 114 },
+      { codigo: "15223", segmento: "imovel", adm: "HS Consórcios", credito: 284170, entrada: 120846, parcela: 2269, prazo: 129 },
+      { codigo: "964567", segmento: "imovel", adm: "CNP Consórcio", credito: 289400, entrada: 95232, parcela: 3229, prazo: 112 },
+      { codigo: "777", segmento: "imovel", adm: "Zema", credito: 289930, entrada: 104375, parcela: 2572, prazo: 139 },
+      { codigo: "842705", segmento: "imovel", adm: "CNP - Embracon", credito: 295000, entrada: 97750, parcela: 3569, prazo: 112 },
+      { codigo: "1077", segmento: "imovel", adm: "Itaú", credito: 295560, entrada: 130056, parcela: 2321, prazo: 144 },
+      { codigo: "987", segmento: "imovel", adm: "Santander", credito: 295566, entrada: 127094, parcela: 1855, prazo: 124 },
+      { codigo: "842220", segmento: "imovel", adm: "CNP - Embracon", credito: 307000, entrada: 107210, parcela: 3071, prazo: 112 },
+      { codigo: "965512", segmento: "imovel", adm: "Santander", credito: 325550, entrada: 125828, parcela: 3108, prazo: 120 },
+      { codigo: "649", segmento: "imovel", adm: "Porto Seguro", credito: 329912, entrada: 138565, parcela: 2420, prazo: 158 },
+      { codigo: "969", segmento: "imovel", adm: "Porto Seguro", credito: 332089, entrada: 142799, parcela: 2297, prazo: 162 },
+      { codigo: "15200", segmento: "imovel", adm: "HS Consórcios", credito: 338614, entrada: 130451, parcela: 2625, prazo: 161 },
+      { codigo: "964", segmento: "imovel", adm: "Magalu", credito: 338849, entrada: 138929, parcela: 2215, prazo: 169 },
+      { codigo: "842219", segmento: "imovel", adm: "CNP - Embracon", credito: 339000, entrada: 115560, parcela: 3511, prazo: 112 },
+      { codigo: "781", segmento: "imovel", adm: "Zema", credito: 340233, entrada: 122484, parcela: 3100, prazo: 133 },
+      { codigo: "15209", segmento: "imovel", adm: "HS Consórcios", credito: 340966, entrada: 144934, parcela: 2682, prazo: 133 },
+      { codigo: "14823", segmento: "imovel", adm: "HS Consórcios", credito: 346553, entrada: 150829, parcela: 2674, prazo: 135 },
+      { codigo: "955", segmento: "imovel", adm: "Porto Seguro", credito: 353838, entrada: 148612, parcela: 2362, prazo: 180 },
+      { codigo: "1011", segmento: "imovel", adm: "Porto Seguro", credito: 370155, entrada: 155466, parcela: 3069, prazo: 133 },
+      { codigo: "945", segmento: "imovel", adm: "Serello", credito: 373670, entrada: 149469, parcela: 2403, prazo: 195 },
+      { codigo: "1076", segmento: "imovel", adm: "Serello", credito: 389459, entrada: 155784, parcela: 2499, prazo: 195 },
+      { codigo: "621", segmento: "imovel", adm: "Santander", credito: 402365, entrada: 166984, parcela: 2710, prazo: 148 },
+      { codigo: "15212", segmento: "imovel", adm: "HS Consórcios", credito: 404246, entrada: 155649, parcela: 3567, prazo: 131 },
+      { codigo: "14987", segmento: "imovel", adm: "HS Consórcios", credito: 425343, entrada: 185087, parcela: 2841, prazo: 177 },
+      { codigo: "843093", segmento: "imovel", adm: "Ademicon", credito: 470000, entrada: 187100, parcela: 2891, prazo: 202 },
+      { codigo: "1016", segmento: "imovel", adm: "Serello", credito: 508854, entrada: 208631, parcela: 3035, prazo: 206 },
+      { codigo: "872", segmento: "imovel", adm: "Serello", credito: 543900, entrada: 222999, parcela: 3439, prazo: 196 },
+      { codigo: "842809", segmento: "imovel", adm: "CNP - Embracon", credito: 547000, entrada: 167405, parcela: 8295, prazo: 95 },
+      { codigo: "843115", segmento: "imovel", adm: "Magalu", credito: 560000, entrada: 228800, parcela: 3069, prazo: 220 },
+      { codigo: "762", segmento: "imovel", adm: "Zema", credito: 574744, entrada: 206908, parcela: 5899, prazo: 126 },
+      { codigo: "15229", segmento: "imovel", adm: "HS Consórcios", credito: 590502, entrada: 274668, parcela: 3950, prazo: 165 },
+      { codigo: "973", segmento: "imovel", adm: "Porto Seguro", credito: 601328, entrada: 258571, parcela: 3679, prazo: 195 },
+      { codigo: "1005", segmento: "imovel", adm: "Porto Seguro", credito: 602672, entrada: 253123, parcela: 3684, prazo: 186 },
+      { codigo: "842787", segmento: "imovel", adm: "CNP - Embracon", credito: 613000, entrada: 203390, parcela: 9358, prazo: 87 },
+      { codigo: "877", segmento: "imovel", adm: "Porto Seguro", credito: 624165, entrada: 277754, parcela: 3899, prazo: 164 },
+      { codigo: "843041", segmento: "imovel", adm: "Caixa XS5", credito: 648300, entrada: 282199, parcela: 3969, prazo: 179 },
+      { codigo: "15246", segmento: "imovel", adm: "HS Consórcios", credito: 656066, entrada: 291962, parcela: 4289, prazo: 187 },
+      { codigo: "956", segmento: "imovel", adm: "Porto Seguro", credito: 711460, entrada: 298815, parcela: 7124, prazo: 116 },
+      { codigo: "807", segmento: "imovel", adm: "Serello", credito: 734813, entrada: 301274, parcela: 4364, prazo: 196 },
+      { codigo: "1056", segmento: "imovel", adm: "CNP Consórcio", credito: 750000, entrada: 292500, parcela: 3836, prazo: 237 },
+      { codigo: "15342", segmento: "imovel", adm: "HS Consórcios", credito: 836210, entrada: 388867, parcela: 5277, prazo: 189 },
+      { codigo: "946", segmento: "imovel", adm: "Porto Seguro", credito: 1004453, entrada: 441960, parcela: 6076, prazo: 188 },
+      { codigo: "842811", segmento: "imovel", adm: "Caixa XS5", credito: 1080000, entrada: 452400, parcela: 8004, prazo: 144 },
+      { codigo: "940", segmento: "imovel", adm: "Rodobens", credito: 1139996, entrada: 490199, parcela: 7319, prazo: 157 },
+      { codigo: "15236", segmento: "imovel", adm: "HS Consórcios", credito: 1230123, entrada: 547454, parcela: 8015, prazo: 187 },
+      { codigo: "841053", segmento: "veiculo", adm: "Itaú", credito: 20300, entrada: 8809, parcela: 424, prazo: 37 },
+      { codigo: "841589", segmento: "veiculo", adm: "Itaú", credito: 24300, entrada: 8929, parcela: 605, prazo: 35 },
+      { codigo: "843136", segmento: "veiculo", adm: "Magalu", credito: 25200, entrada: 10556, parcela: 410, prazo: 57 },
+      { codigo: "15296", segmento: "veiculo", adm: "HS Consórcios", credito: 25221, entrada: 10483, parcela: 362, prazo: 82 },
+      { codigo: "843096", segmento: "veiculo", adm: "Itaú", credito: 25600, entrada: 9268, parcela: 528, prazo: 46 },
+      { codigo: "843095", segmento: "veiculo", adm: "Itaú", credito: 25600, entrada: 10268, parcela: 505, prazo: 46 },
+      { codigo: "15361", segmento: "veiculo", adm: "HS Consórcios", credito: 25644, entrada: 9898, parcela: 344, prazo: 82 },
+      { codigo: "15266", segmento: "veiculo", adm: "HS Consórcios", credito: 25662, entrada: 10398, parcela: 357, prazo: 82 },
+      { codigo: "14354", segmento: "veiculo", adm: "HS Consórcios", credito: 25776, entrada: 10602, parcela: 554, prazo: 49 },
+      { codigo: "14834", segmento: "veiculo", adm: "HS Consórcios", credito: 26510, entrada: 10928, parcela: 570, prazo: 55 },
+      { codigo: "15329", segmento: "veiculo", adm: "HS Consórcios", credito: 26708, entrada: 11135, parcela: 429, prazo: 65 },
+      { codigo: "14815", segmento: "veiculo", adm: "HS Consórcios", credito: 26709, entrada: 10835, parcela: 554, prazo: 53 },
+      { codigo: "14062", segmento: "veiculo", adm: "HS Consórcios", credito: 26912, entrada: 11042, parcela: 666, prazo: 41 },
+      { codigo: "14561", segmento: "veiculo", adm: "HS Consórcios", credito: 27099, entrada: 10748, parcela: 631, prazo: 48 },
+      { codigo: "14113", segmento: "veiculo", adm: "HS Consórcios", credito: 27466, entrada: 10661, parcela: 835, prazo: 38 },
+      { codigo: "14805", segmento: "veiculo", adm: "HS Consórcios", credito: 27483, entrada: 11362, parcela: 629, prazo: 48 },
+      { codigo: "14546", segmento: "veiculo", adm: "HS Consórcios", credito: 27573, entrada: 10965, parcela: 658, prazo: 46 },
+      { codigo: "14810", segmento: "veiculo", adm: "HS Consórcios", credito: 27869, entrada: 11375, parcela: 671, prazo: 48 },
+      { codigo: "14806", segmento: "veiculo", adm: "HS Consórcios", credito: 27969, entrada: 11079, parcela: 662, prazo: 46 },
+      { codigo: "14807", segmento: "veiculo", adm: "HS Consórcios", credito: 27971, entrada: 11479, parcela: 620, prazo: 48 },
+      { codigo: "14567", segmento: "veiculo", adm: "HS Consórcios", credito: 28094, entrada: 10883, parcela: 739, prazo: 41 },
+      { codigo: "14122", segmento: "veiculo", adm: "HS Consórcios", credito: 28223, entrada: 10988, parcela: 764, prazo: 40 },
+      { codigo: "14562", segmento: "veiculo", adm: "HS Consórcios", credito: 28500, entrada: 11098, parcela: 889, prazo: 37 },
+      { codigo: "14565", segmento: "veiculo", adm: "HS Consórcios", credito: 28616, entrada: 11102, parcela: 852, prazo: 38 },
+      { codigo: "14069", segmento: "veiculo", adm: "HS Consórcios", credito: 28729, entrada: 11606, parcela: 764, prazo: 40 },
+      { codigo: "14073", segmento: "veiculo", adm: "HS Consórcios", credito: 28997, entrada: 11315, parcela: 913, prazo: 34 },
+      { codigo: "14548", segmento: "veiculo", adm: "HS Consórcios", credito: 29009, entrada: 11315, parcela: 889, prazo: 37 },
+      { codigo: "15053", segmento: "veiculo", adm: "HS Consórcios", credito: 29146, entrada: 11320, parcela: 827, prazo: 40 },
+      { codigo: "15358", segmento: "veiculo", adm: "HS Consórcios", credito: 29684, entrada: 12039, parcela: 417, prazo: 82 },
+      { codigo: "14573", segmento: "veiculo", adm: "HS Consórcios", credito: 29887, entrada: 11646, parcela: 726, prazo: 46 },
+      { codigo: "14851", segmento: "veiculo", adm: "HS Consórcios", credito: 30759, entrada: 12277, parcela: 876, prazo: 41 },
+      { codigo: "15150", segmento: "veiculo", adm: "HS Consórcios", credito: 30875, entrada: 12281, parcela: 881, prazo: 40 },
+      { codigo: "14804", segmento: "veiculo", adm: "HS Consórcios", credito: 31306, entrada: 12496, parcela: 736, prazo: 44 },
+      { codigo: "14059", segmento: "veiculo", adm: "HS Consórcios", credito: 31471, entrada: 12601, parcela: 737, prazo: 44 },
+      { codigo: "15030", segmento: "veiculo", adm: "HS Consórcios", credito: 31540, entrada: 12304, parcela: 922, prazo: 37 },
+      { codigo: "15378", segmento: "veiculo", adm: "HS Consórcios", credito: 31551, entrada: 12804, parcela: 851, prazo: 40 },
+      { codigo: "15031", segmento: "veiculo", adm: "HS Consórcios", credito: 32191, entrada: 13127, parcela: 865, prazo: 40 },
+      { codigo: "14857", segmento: "veiculo", adm: "HS Consórcios", credito: 32876, entrada: 13151, parcela: 849, prazo: 37 },
+      { codigo: "14816", segmento: "veiculo", adm: "HS Consórcios", credito: 33698, entrada: 12979, parcela: 811, prazo: 50 },
+      { codigo: "14799", segmento: "veiculo", adm: "HS Consórcios", credito: 34642, entrada: 14212, parcela: 786, prazo: 49 },
+      { codigo: "14660", segmento: "veiculo", adm: "HS Consórcios", credito: 34658, entrada: 13713, parcela: 1049, prazo: 39 },
+      { codigo: "15307", segmento: "veiculo", adm: "HS Consórcios", credito: 34761, entrada: 14117, parcela: 737, prazo: 39 },
+      { codigo: "14509", segmento: "veiculo", adm: "HS Consórcios", credito: 36262, entrada: 13969, parcela: 874, prazo: 50 },
+      { codigo: "15055", segmento: "veiculo", adm: "HS Consórcios", credito: 37654, entrada: 15018, parcela: 1001, prazo: 41 },
+      { codigo: "15149", segmento: "veiculo", adm: "HS Consórcios", credito: 37700, entrada: 15020, parcela: 1133, prazo: 33 },
+      { codigo: "841248", segmento: "veiculo", adm: "Itaú", credito: 37800, entrada: 13834, parcela: 1240, prazo: 25 },
+      { codigo: "841247", segmento: "veiculo", adm: "Itaú", credito: 37800, entrada: 14134, parcela: 1215, prazo: 25 },
+      { codigo: "705660", segmento: "veiculo", adm: "Âncora", credito: 37800, entrada: 15634, parcela: 809, prazo: 49 },
+      { codigo: "705183", segmento: "veiculo", adm: "Âncora", credito: 38000, entrada: 15459, parcela: 819, prazo: 49 },
+      { codigo: "15288", segmento: "veiculo", adm: "HS Consórcios", credito: 38602, entrada: 15751, parcela: 757, prazo: 57 },
+      { codigo: "841243", segmento: "veiculo", adm: "Itaú", credito: 38900, entrada: 15167, parcela: 1276, prazo: 24 },
+      { codigo: "841249", segmento: "veiculo", adm: "Itaú", credito: 38900, entrada: 16167, parcela: 1233, prazo: 24 },
+      { codigo: "841232", segmento: "veiculo", adm: "Itaú", credito: 38900, entrada: 16667, parcela: 1221, prazo: 24 },
+      { codigo: "841234", segmento: "veiculo", adm: "Itaú", credito: 38900, entrada: 16967, parcela: 1198, prazo: 24 },
+      { codigo: "841233", segmento: "veiculo", adm: "Itaú", credito: 38900, entrada: 16667, parcela: 1172, prazo: 25 },
+      { codigo: "14765", segmento: "veiculo", adm: "HS Consórcios", credito: 40049, entrada: 15902, parcela: 1126, prazo: 38 },
+      { codigo: "14621", segmento: "veiculo", adm: "HS Consórcios", credito: 40735, entrada: 15726, parcela: 1587, prazo: 23 },
+      { codigo: "15377", segmento: "veiculo", adm: "HS Consórcios", credito: 42086, entrada: 17073, parcela: 708, prazo: 72 },
+      { codigo: "15235", segmento: "veiculo", adm: "HS Consórcios", credito: 42680, entrada: 17294, parcela: 554, prazo: 93 },
+      { codigo: "843119", segmento: "veiculo", adm: "Itaú", credito: 42800, entrada: 15140, parcela: 1512, prazo: 28 },
+      { codigo: "14037", segmento: "veiculo", adm: "HS Consórcios", credito: 43881, entrada: 17936, parcela: 1155, prazo: 40 },
+      { codigo: "14681", segmento: "veiculo", adm: "HS Consórcios", credito: 43915, entrada: 17537, parcela: 1056, prazo: 47 },
+      { codigo: "14065", segmento: "veiculo", adm: "HS Consórcios", credito: 44058, entrada: 17942, parcela: 1014, prazo: 44 },
+      { codigo: "14039", segmento: "veiculo", adm: "HS Consórcios", credito: 44315, entrada: 18051, parcela: 1085, prazo: 41 },
+      { codigo: "14067", segmento: "veiculo", adm: "HS Consórcios", credito: 44317, entrada: 18051, parcela: 1085, prazo: 41 },
+      { codigo: "14861", segmento: "veiculo", adm: "HS Consórcios", credito: 44599, entrada: 17761, parcela: 1359, prazo: 30 },
+      { codigo: "14036", segmento: "veiculo", adm: "HS Consórcios", credito: 44847, entrada: 17870, parcela: 1301, prazo: 37 },
+      { codigo: "14038", segmento: "veiculo", adm: "HS Consórcios", credito: 44913, entrada: 17572, parcela: 1278, prazo: 37 },
+      { codigo: "14789", segmento: "veiculo", adm: "HS Consórcios", credito: 45930, entrada: 18708, parcela: 1074, prazo: 43 },
+      { codigo: "13916", segmento: "veiculo", adm: "HS Consórcios", credito: 46552, entrada: 18929, parcela: 1081, prazo: 45 },
+      { codigo: "15141", segmento: "veiculo", adm: "HS Consórcios", credito: 47491, entrada: 18862, parcela: 1579, prazo: 29 },
+      { codigo: "15143", segmento: "veiculo", adm: "HS Consórcios", credito: 47491, entrada: 18862, parcela: 1579, prazo: 29 },
+      { codigo: "15192", segmento: "veiculo", adm: "HS Consórcios", credito: 48170, entrada: 19086, parcela: 1350, prazo: 39 },
+      { codigo: "15137", segmento: "veiculo", adm: "HS Consórcios", credito: 48239, entrada: 19088, parcela: 1603, prazo: 29 },
+      { codigo: "14854", segmento: "veiculo", adm: "HS Consórcios", credito: 48508, entrada: 19198, parcela: 1628, prazo: 29 },
+      { codigo: "15379", segmento: "veiculo", adm: "HS Consórcios", credito: 49411, entrada: 20529, parcela: 875, prazo: 58 },
+      { codigo: "14646", segmento: "veiculo", adm: "HS Consórcios", credito: 50748, entrada: 20076, parcela: 1699, prazo: 30 },
+      { codigo: "14648", segmento: "veiculo", adm: "HS Consórcios", credito: 51381, entrada: 19798, parcela: 1445, prazo: 39 },
+      { codigo: "15138", segmento: "veiculo", adm: "HS Consórcios", credito: 51723, entrada: 20010, parcela: 1454, prazo: 33 },
+      { codigo: "14853", segmento: "veiculo", adm: "HS Consórcios", credito: 52209, entrada: 20827, parcela: 1470, prazo: 39 },
+      { codigo: "14391", segmento: "veiculo", adm: "HS Consórcios", credito: 53492, entrada: 20072, parcela: 2145, prazo: 27 },
+      { codigo: "14619", segmento: "veiculo", adm: "HS Consórcios", credito: 53923, entrada: 22387, parcela: 1637, prazo: 31 },
+      { codigo: "15051", segmento: "veiculo", adm: "HS Consórcios", credito: 53989, entrada: 22190, parcela: 2009, prazo: 24 },
+      { codigo: "15152", segmento: "veiculo", adm: "HS Consórcios", credito: 54100, entrada: 21994, parcela: 1330, prazo: 39 },
+      { codigo: "843135", segmento: "veiculo", adm: "Porto Seguro", credito: 55500, entrada: 22165, parcela: 1456, prazo: 34 },
+      { codigo: "13918", segmento: "veiculo", adm: "HS Consórcios", credito: 55774, entrada: 22152, parcela: 1377, prazo: 45 },
+      { codigo: "702558", segmento: "veiculo", adm: "Volkswagen", credito: 55890, entrada: 20577, parcela: 923, prazo: 72 },
+      { codigo: "15240", segmento: "veiculo", adm: "HS Consórcios", credito: 56638, entrada: 22382, parcela: 1507, prazo: 45 },
+      { codigo: "14645", segmento: "veiculo", adm: "HS Consórcios", credito: 56982, entrada: 22094, parcela: 1866, prazo: 28 },
+      { codigo: "14879", segmento: "veiculo", adm: "HS Consórcios", credito: 57242, entrada: 22803, parcela: 1816, prazo: 31 },
+      { codigo: "843124", segmento: "veiculo", adm: "Porto Seguro", credito: 58550, entrada: 17256, parcela: 2581, prazo: 26 },
+      { codigo: "15195", segmento: "veiculo", adm: "HS Consórcios", credito: 59525, entrada: 24183, parcela: 1250, prazo: 48 },
+      { codigo: "15338", segmento: "veiculo", adm: "HS Consórcios", credito: 59928, entrada: 21897, parcela: 2495, prazo: 26 },
+      { codigo: "1008", segmento: "veiculo", adm: "Caixa XS5", credito: 66492, entrada: 26597, parcela: 1047, prazo: 67 },
+      { codigo: "14852", segmento: "veiculo", adm: "HS Consórcios", credito: 66864, entrada: 26540, parcela: 2040, prazo: 39 },
+      { codigo: "15019", segmento: "veiculo", adm: "HS Consórcios", credito: 67864, entrada: 28175, parcela: 1156, prazo: 60 },
+      { codigo: "843060", segmento: "veiculo", adm: "Embracon", credito: 69000, entrada: 27070, parcela: 958, prazo: 75 },
+      { codigo: "15101", segmento: "veiculo", adm: "HS Consórcios", credito: 70293, entrada: 27160, parcela: 2242, prazo: 33 },
+      { codigo: "15100", segmento: "veiculo", adm: "HS Consórcios", credito: 70551, entrada: 27169, parcela: 2247, prazo: 33 },
+      { codigo: "843120", segmento: "veiculo", adm: "Itaú", credito: 72600, entrada: 25706, parcela: 2245, prazo: 31 },
+      { codigo: "15310", segmento: "veiculo", adm: "HS Consórcios", credito: 73029, entrada: 28856, parcela: 1700, prazo: 49 },
+      { codigo: "15340", segmento: "veiculo", adm: "HS Consórcios", credito: 73404, entrada: 29069, parcela: 2330, prazo: 33 },
+      { codigo: "15339", segmento: "veiculo", adm: "HS Consórcios", credito: 73405, entrada: 29069, parcela: 2330, prazo: 33 },
+      { codigo: "15004", segmento: "veiculo", adm: "HS Consórcios", credito: 74200, entrada: 30897, parcela: 1618, prazo: 50 },
+      { codigo: "1072", segmento: "veiculo", adm: "Magalu", credito: 75167, entrada: 30068, parcela: 1096, prazo: 84 },
+      { codigo: "14128", segmento: "veiculo", adm: "HS Consórcios", credito: 75244, entrada: 30634, parcela: 1612, prazo: 45 },
+      { codigo: "14753", segmento: "veiculo", adm: "HS Consórcios", credito: 77726, entrada: 31620, parcela: 1800, prazo: 45 },
+      { codigo: "15351", segmento: "veiculo", adm: "HS Consórcios", credito: 77937, entrada: 33228, parcela: 947, prazo: 93 },
+      { codigo: "15009", segmento: "veiculo", adm: "HS Consórcios", credito: 77993, entrada: 31630, parcela: 2135, prazo: 39 },
+      { codigo: "13461", segmento: "veiculo", adm: "HS Consórcios", credito: 78773, entrada: 30357, parcela: 2081, prazo: 47 },
+      { codigo: "15232", segmento: "veiculo", adm: "HS Consórcios", credito: 80974, entrada: 32834, parcela: 1129, prazo: 79 },
+      { codigo: "843076", segmento: "veiculo", adm: "Embracon", credito: 100000, entrada: 37000, parcela: 1261, prazo: 98 },
+      { codigo: "942", segmento: "veiculo", adm: "Racon Consórcios", credito: 100034, entrada: 38013, parcela: 1213, prazo: 104 },
+      { codigo: "893", segmento: "veiculo", adm: "Itaú", credito: 102439, entrada: 42001, parcela: 1239, prazo: 94 },
+      { codigo: "15194", segmento: "veiculo", adm: "HS Consórcios", credito: 105570, entrada: 42795, parcela: 1319, prazo: 94 },
+      { codigo: "14718", segmento: "veiculo", adm: "Porto Seguro", credito: 127459, entrada: 50461, parcela: 1976, prazo: 68 },
+      { codigo: "843121", segmento: "veiculo", adm: "Itaú", credito: 139000, entrada: 51560, parcela: 3767, prazo: 40 },
+      { codigo: "843122", segmento: "veiculo", adm: "Bradesco", credito: 156050, entrada: 60182, parcela: 4643, prazo: 33 },
+      { codigo: "14766", segmento: "veiculo", adm: "HS Consórcios", credito: 169231, entrada: 67023, parcela: 4162, prazo: 47 },
+      { codigo: "842805", segmento: "veiculo", adm: "Volkswagen", credito: 206000, entrada: 76180, parcela: 3034, prazo: 70 },
+      { codigo: "843123", segmento: "veiculo", adm: "Itaú", credito: 218600, entrada: 65732, parcela: 5698, prazo: 42 },
+      { codigo: "963515", segmento: "veiculo", adm: "Volkswagen", credito: 229250, entrada: 81824, parcela: 2659, prazo: 97 },
+      { codigo: "842778", segmento: "veiculo", adm: "Porto Seguro", credito: 232200, entrada: 98966, parcela: 4619, prazo: 40 },
+      { codigo: "15132", segmento: "veiculo", adm: "HS Consórcios", credito: 295405, entrada: 128639, parcela: 2791, prazo: 120 },
+      { codigo: "842527", segmento: "veiculo", adm: "Caixa XS5", credito: 316900, entrada: 129598, parcela: 3792, prazo: 92 },
+      { codigo: "949911", segmento: "veiculo", adm: "Volkswagen", credito: 361450, entrada: 137294, parcela: 4296, prazo: 92 },
+      { codigo: "964961", segmento: "veiculo", adm: "Embracon", credito: 412500, entrada: 142062, parcela: 5142, prazo: 98 }
     ]
+    /* CONTEMPLADAS:FIM */
   },
-  /* CONTEMPLADAS:FIM */
 
   // Faixas dos sliders
   credito: { min: 0,   max: 4000000 },
@@ -2397,12 +2696,12 @@ var CONFIG = {
 
   /* ==================================================================
      CARTAS CONTEMPLADAS
-     O visitante escolhe o segmento pelo ícone; a tabela mostra 8 cartas por segmento,
-     em rodízio diário pelo estoque (muda à meia-noite, horário de Brasília). Sem filtros.
+     O visitante escolhe o segmento pelo ícone; a tabela mostra 8 cotas em escala crescente de
+     crédito (CONFIG.contempladas.escala), com uma cota sorteada por degrau a cada dia. Sem filtros.
      ================================================================== */
   (function contempladas() {
     var C = CONFIG.contempladas, box = $('#contempladas'); if (!C || !box) return;
-    var SEGS = { imovel: { label: 'Imóvel', icon: 'i-home' }, veiculo: { label: 'Veículo', icon: 'i-car' }, pesados: { label: 'Pesados', icon: 'i-truck' } };
+    var SEGS = { imovel: { label: 'Imóvel', icon: 'i-home' }, veiculo: { label: 'Veículo', icon: 'i-car' } };
     var porSeg = C.porSegmento || 8, body = $('#ctBody'), atual = [];
     var DIA = Math.floor((Date.now() - 3 * 3600e3) / 864e5);   // dia corrente em Brasília (UTC-3)
     var hoje = new Date(DIA * 864e5 + 12 * 3600e3);
@@ -2410,19 +2709,44 @@ var CONFIG = {
     if (C.exemplo) $('#ctDemo').hidden = false;
     var segs = Object.keys(SEGS).filter(function (k) { return C.estoque.some(function (c) { return c.segmento === k; }); });
     if (!segs.length) { box.hidden = true; return; }
-    // seleção do dia: janela de 8 cartas que avança a cada dia pelo estoque do segmento
+    // sorteio estável do dia: o mesmo resultado o dia todo, outro no dia seguinte
+    function sorteio(i, n) { var x = Math.imul(DIA + 1, 2654435761) ^ Math.imul(i + 1, 40503); x ^= x >>> 15; x = Math.imul(x, 2246822519); x ^= x >>> 13; return (x >>> 0) % n; }
+    // grade do dia: uma cota por degrau da escala de crédito, em ordem crescente
     function doDia(seg) {
-      var lista = C.estoque.filter(function (c) { return c.segmento === seg; });
-      if (lista.length > porSeg) {
-        var ini = (DIA * porSeg) % lista.length, out = [];
-        for (var i = 0; i < porSeg; i++) out.push(lista[(ini + i) % lista.length]);
-        lista = out;
+      var lista = C.estoque.filter(function (c) { return c.segmento === seg; }).sort(function (a, b) { return a.credito - b.credito; });
+      var esc = (C.escala && C.escala[seg]) || { alvos: [], reservas: [] }, alvos = esc.alvos || [];
+      function perto(t, ultimo, primeiro) {   // até 12% do valor do degrau (o último vale dele para cima)
+        return lista.filter(function (c) { return ultimo ? c.credito >= t * 0.9 : c.credito >= t * (primeiro ? 0.95 : 0.88) && c.credito <= t * 1.12; });
       }
-      return lista.slice().sort(function (a, b) { return a.credito - b.credito; });
+      var degraus = alvos.filter(function (t, i) { return perto(t, i === alvos.length - 1).length; });
+      (esc.reservas || []).forEach(function (t) { if (degraus.length < porSeg && degraus.indexOf(t) < 0 && perto(t).length) degraus.push(t); });
+      degraus = degraus.sort(function (a, b) { return a - b; }).slice(0, porSeg);
+      var usadas = [], out = [];
+      function livre(c) { return usadas.indexOf(c) < 0; }
+      function dist(c, t) { return Math.abs(Math.log(c.credito / t)); }
+      degraus.forEach(function (t, i) {
+        var ultimo = i === degraus.length - 1, ant = degraus[i - 1], prox = degraus[i + 1];
+        // só cotas mais próximas deste degrau do que dos vizinhos, para não repetir faixas
+        var cand = perto(t, ultimo, i === 0).filter(function (c) {
+          return livre(c) && (!ant || dist(c, t) <= dist(c, ant)) && (ultimo || dist(c, t) <= dist(c, prox));
+        });
+        if (!cand.length) {   // faixa entre os degraus vizinhos
+          var lo = ant ? Math.sqrt(ant * t) : t * 0.8, hi = ultimo ? Infinity : Math.sqrt(t * prox);
+          cand = lista.filter(function (c) { return livre(c) && c.credito >= lo && c.credito < hi; });
+        }
+        if (!cand.length) cand = lista.filter(livre).sort(function (a, b) { return dist(a, t) - dist(b, t); }).slice(0, 1);
+        var anterior = out[out.length - 1];
+        var afastadas = anterior ? cand.filter(function (c) { return c.credito >= anterior.credito * 1.12; }) : cand;   // salto mínimo de 12%
+        if (afastadas.length) cand = afastadas;
+        if (cand.length) { var c = cand[sorteio(i, cand.length)]; usadas.push(c); out.push(c); }
+      });
+      // estoque pequeno: completa com as cotas que sobraram
+      lista.filter(livre).forEach(function (c) { if (out.length < porSeg) out.push(c); });
+      return out.sort(function (a, b) { return a.credito - b.credito; });
     }
     function msg(seg, c, pct) {
       return 'Olá, vim por meio do seu site e estou interessado na carta contemplada com a configuração abaixo:\n\n' +
-        'Segmento: ' + SEGS[seg].label + '\nAdministradora: ' + c.adm + '\nCrédito: ' + BRL0.format(c.credito) +
+        'Segmento: ' + SEGS[seg].label + (c.codigo ? '\nCódigo da cota: ' + c.codigo : '') + '\nAdministradora: ' + c.adm + '\nCrédito: ' + BRL0.format(c.credito) +
         '\nEntrada: ' + BRL0.format(c.entrada) + ' (' + pct + ')\nParcela: ' + BRL0.format(c.parcela) + '\nPrazo: ' + c.prazo + ' meses';
     }
     function esc(t) { return String(t).replace(/[&<>"]/g, function (ch) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]; }); }

@@ -135,21 +135,31 @@ O `dist/lp-completa.html` (consórcios) e o `dist/lp-planejamento.html` (planeja
 
 Painel logo abaixo do Quem Somos (dentro do mesmo bloco, para manter a alternância de cores entre as seções).
 
-- **Segmento:** o visitante escolhe pelo ícone (Imóvel, Veículo ou Pesados). Só aparecem os segmentos que têm cartas no estoque.
-- **Tabela:** 8 cartas por segmento, com ADM, Crédito, Entrada, % Entrada (calculada), Parcela e Prazo. Sem filtros, busca ou ordenação. As cartas aparecem do menor para o maior crédito.
-- **Rodízio diário:** quando o segmento tem mais de 8 cartas, a seleção muda todo dia à meia-noite (horário de Brasília), avançando pelo estoque. A tabela mostra "Seleção do dia dd/mm".
-- **Tenho interesse:** abre o WhatsApp com a mensagem "Olá, vim por meio do seu site e estou interessado na carta contemplada com a configuração abaixo:", seguida do segmento, administradora, crédito, entrada (e %), parcela e prazo. Dispara o evento `contemplada_interesse`.
-- **No celular:** cada carta vira um cartão, com o botão em largura total.
+- **Segmento:** o visitante escolhe pelo ícone: Imóvel ou Veículo.
+- **Tabela:** 8 cotas por segmento, com ADM, Crédito, Entrada, % Entrada (calculada), Parcela e Prazo. Sem filtros, busca ou ordenação.
+- **Grade em escala crescente de crédito:** cada linha corresponde a um degrau da escala (`CONFIG.contempladas.escala`):
+
+  | Segmento | Escala |
+  |---|---|
+  | Imóvel | R$ 100 mil · 200 mil · 300 mil · 400 mil · 500 mil · 800 mil · 1 milhão · 2 milhões ou mais |
+  | Veículo | R$ 40 mil · 60 mil · 80 mil · 100 mil · 130 mil · 160 mil · 200 mil · 300 mil ou mais |
+
+  - Para cada degrau entra uma cota de até 12% do valor (o último degrau vale "daquele valor para cima").
+  - Se não houver cota para um degrau, ele é trocado pelo próximo valor de `reservas`. No estoque atual não há imóveis de R$ 2 milhões ou mais, então a grade de imóvel usa R$ 600 mil no lugar e termina na faixa de R$ 1 milhão ou mais.
+  - Entre duas cotas vizinhas há sempre pelo menos 12% de diferença no crédito, e a grade sai do menor para o maior.
+- **Renovação diária:** a cada dia (meia-noite, horário de Brasília) é sorteada outra cota dentro de cada degrau, mantendo a escala. A tabela mostra "Seleção do dia dd/mm".
+- **Tenho interesse:** abre o WhatsApp com a mensagem "Olá, vim por meio do seu site e estou interessado na carta contemplada com a configuração abaixo:", seguida do segmento, **código da cota**, administradora, crédito, entrada (e %), parcela e prazo. Dispara o evento `contemplada_interesse`.
+- **No celular:** cada cota vira um cartão, com o botão em largura total.
 - **Aviso:** abaixo da tabela, "Cartas sujeitas à disponibilidade e à confirmação da administradora no momento da negociação".
 
-**Estoque.** Fica em `CONFIG.contempladas` (no fim do `index.html`), entre os marcadores `CONTEMPLADAS:INICIO` e `CONTEMPLADAS:FIM`. Hoje tem um **estoque de exemplo** (`exemplo: true`), que mostra a etiqueta "Dados de exemplo" na tabela. Para usar o estoque do parceiro:
+**Estoque.** Fica em `CONFIG.contempladas.estoque` (no fim do `index.html`), entre os marcadores `CONTEMPLADAS:INICIO` e `CONTEMPLADAS:FIM`. O estoque atual veio da planilha `estoque-cotas-2026-11-07.xlsx`: 328 cotas com status "Disponível" (201 de imóvel, de R$ 62 mil a R$ 1,23 milhão, e 127 de veículo, de R$ 20 mil a R$ 412 mil). As 73 cotas reservadas ficaram de fora. Para atualizar com uma planilha nova:
 
 ```
 python3 tools/importar-contempladas.py estoque.xlsx    # ou .csv (para .xlsx: pip install openpyxl)
 python3 tools/gerar-html-completo.py
 ```
 
-A planilha precisa das colunas **Segmento, ADM, Crédito, Entrada, Parcela e Prazo** (aceita variações como "Administradora", "Valor do crédito", "Parcelas restantes"; valores com ou sem "R$"). O importador reescreve o estoque, desliga a etiqueta de exemplo e mostra quantas cartas entraram em cada segmento. Para atualizar o estoque, rode os dois comandos de novo com a planilha nova.
+O importador lê as colunas **Código, Administradora, Segmento, Crédito, Entrada, Prazo restante e Parcela** (aceita variações nos nomes e valores com ou sem "R$"), usa só as cotas com **Status "Disponível"**, junta "Veículo" e "Veículo AF" em Veículo e ignora outros segmentos. A escala de créditos não é alterada pela importação.
 
 ## Proteção de conteúdo (as duas LPs)
 
@@ -254,7 +264,8 @@ Se `gtag` ou `fbq` estiverem na página, os dois leads também disparam `generat
 ## O que falta preencher
 - [x] WhatsApp comercial: (51) 98912-1113 (cabeçalho, botão flutuante e rodapé)
 - [ ] Endereço do CRM (`CONFIG.leadEndpoint`)
-- [ ] Planilha de cartas contempladas do parceiro (substituir o estoque de exemplo com `tools/importar-contempladas.py`)
+- [x] Estoque de cartas contempladas do parceiro (planilha de 07/11/2026)
+- [ ] Atualizar o estoque de contempladas sempre que o parceiro enviar a planilha nova (`tools/importar-contempladas.py`)
 - [x] Logos das 11 administradoras parceiras
 - [ ] Confirmar com cada administradora o uso do logo na versão monocromática
 - [x] Logotipo Vero Consórcios (versões para modo escuro e claro)

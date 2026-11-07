@@ -7,16 +7,20 @@ Uso:
 
 A planilha precisa ter uma linha de cabeçalho com estas colunas (a ordem não importa e os nomes
 aceitam variações comuns, com ou sem acento):
-    Segmento   Imóvel / Veículo / Pesados (também aceita Imovel, Auto, Carro, Moto, Caminhão...)
+    Segmento   Imóvel / Veículo (também aceita "Veículo AF", Imovel, Auto, Carro, Moto...)
     ADM        nome da administradora (também aceita "Administradora")
     Crédito    valor da carta (também aceita "Valor do crédito", "Carta")
     Entrada    valor de entrada
     Parcela    valor da parcela
-    Prazo      parcelas restantes (também aceita "Parcelas", "Meses", "Prazo restante")
+    Prazo      parcelas restantes (também aceita "Parcelas", "Meses", "Prazo restante (meses)")
+Opcionais: Código (vai na mensagem do WhatsApp, para identificar a cota) e Status (só entram as
+cotas "Disponível"; Reservada, Vendida etc. ficam de fora).
 Valores podem vir como número ou texto ("R$ 300.000,00"). Linhas incompletas são ignoradas.
+Só entram os segmentos Imóvel e Veículo (outros, como Pesados, são ignorados).
 
-O script reescreve o trecho entre CONTEMPLADAS:INICIO e CONTEMPLADAS:FIM no index.html,
-marca o estoque como real (exemplo: false) e mostra um resumo. Depois, gere os arquivos
+O script reescreve o estoque entre CONTEMPLADAS:INICIO e CONTEMPLADAS:FIM no index.html,
+marca o estoque como real (exemplo: false) e mostra um resumo. A escala de créditos da grade
+(CONFIG.contempladas.escala) não é alterada. Depois, gere os arquivos
 únicos com:  python3 tools/gerar-html-completo.py
 """
 import csv
@@ -36,6 +40,8 @@ def norm(t):
 
 
 COLUNAS = {
+    'codigo': ['codigo', 'cod', 'cota', 'codigo da cota', 'id'],
+    'status': ['status', 'situacao', 'disponibilidade'],
     'segmento': ['segmento', 'tipo', 'categoria', 'bem', 'tipo de bem'],
     'adm': ['adm', 'administradora', 'admin', 'administradora do grupo'],
     'credito': ['credito', 'valor do credito', 'valor credito', 'carta', 'valor da carta', 'credito r'],
@@ -46,7 +52,6 @@ COLUNAS = {
 SEGMENTOS = {
     'imovel': ['imovel', 'imoveis', 'imobiliario', 'casa', 'apartamento'],
     'veiculo': ['veiculo', 'veiculos', 'auto', 'automovel', 'automoveis', 'carro', 'carros', 'moto', 'motos', 'leves'],
-    'pesados': ['pesado', 'pesados', 'caminhao', 'caminhoes', 'maquina', 'maquinas', 'agricola', 'onibus'],
 }
 
 
@@ -93,12 +98,20 @@ def ler(caminho):
 
 
 def mapear(cab):
+    """Associa cada coluna da planilha a um campo. Aceita o nome exato ou com complemento
+    (ex.: "Prazo restante (meses)"), sem confundir "% Entrada" com "Entrada"."""
     idx = {}
-    for i, c in enumerate(cab):
-        n = norm(c)
-        for chave, nomes in COLUNAS.items():
-            if chave not in idx and n in nomes:
-                idx[chave] = i
+    for exato in (True, False):
+        for i, c in enumerate(cab):
+            n = norm(c)
+            if not n or n.startswith('%') or i in idx.values():
+                continue
+            for chave, nomes in COLUNAS.items():
+                if chave in idx:
+                    continue
+                if (n in nomes) if exato else any(n.startswith(x + ' ') for x in nomes):
+                    idx[chave] = i
+                    break
     return idx
 
 
@@ -106,7 +119,7 @@ def main():
     if len(sys.argv) != 2:
         sys.exit(__doc__)
     linhas = ler(pathlib.Path(sys.argv[1]))
-    estoque, idx, ignoradas, seg_atual = [], None, 0, None
+    estoque, idx, ignoradas, fora_status, seg_atual = [], None, 0, 0, None
     for r in linhas:
         if not r or all(v in (None, '') for v in r):
             continue
@@ -124,7 +137,10 @@ def main():
         if seg is None and len([v for v in r if v not in (None, '')]) == 1:
             seg_atual = segmento(next(v for v in r if v not in (None, ''))) or seg_atual
             continue
-        item = {'segmento': seg, 'adm': str(g('adm') or '').strip(), 'credito': numero(g('credito')),
+        if 'status' in idx and norm(g('status')) not in ('disponivel', 'disponiveis', 'livre', ''):
+            fora_status += 1
+            continue
+        item = {'segmento': seg, 'codigo': str(g('codigo') or '').strip(), 'adm': str(g('adm') or '').strip(), 'credito': numero(g('credito')),
                 'entrada': numero(g('entrada')), 'parcela': numero(g('parcela')), 'prazo': numero(g('prazo'))}
         if not item['segmento'] or not item['adm'] or not all(item[k] for k in ('credito', 'entrada', 'parcela', 'prazo')):
             ignoradas += 1
@@ -136,29 +152,28 @@ def main():
     if not estoque:
         sys.exit('Nenhuma carta encontrada. Confira se a planilha tem as colunas Segmento, ADM, Crédito, Entrada, Parcela e Prazo.')
 
-    corpo = ',\n'.join('    { segmento: %s, adm: %s, credito: %d, entrada: %d, parcela: %d, prazo: %d }' % (
-        json.dumps(c['segmento']), json.dumps(c['adm'], ensure_ascii=False), c['credito'], c['entrada'], c['parcela'], c['prazo'])
+    estoque.sort(key=lambda c: (c['segmento'], c['credito']))
+    corpo = ',\n'.join('      { codigo: %s, segmento: %s, adm: %s, credito: %d, entrada: %d, parcela: %d, prazo: %d }' % (
+        json.dumps(c['codigo']), json.dumps(c['segmento']), json.dumps(c['adm'], ensure_ascii=False), c['credito'], c['entrada'], c['parcela'], c['prazo'])
         for c in estoque)
     html = INDEX.read_text(encoding='utf-8')
     ini, fim = '/* CONTEMPLADAS:INICIO */', '/* CONTEMPLADAS:FIM */'
     a, b = html.index(ini) + len(ini), html.index(fim)
-    por_seg = re.search(r'porSegmento:\s*(\d+)', html[a:b])
     bloco = '''
-  contempladas: {
-    exemplo: false,  // estoque importado de %s
-    porSegmento: %s,
+    exemplo: false,   // estoque importado de %s
     estoque: [
 %s
     ]
-  },
-  ''' % (pathlib.Path(sys.argv[1]).name, por_seg.group(1) if por_seg else '8', corpo)
+    ''' % (pathlib.Path(sys.argv[1]).name, corpo)
     INDEX.write_text(html[:a] + bloco + html[b:], encoding='utf-8')
 
-    print(f'{len(estoque)} cartas importadas para o index.html ({ignoradas} linhas ignoradas).')
+    print(f'{len(estoque)} cartas importadas para o index.html ({fora_status} fora do status "Disponível", {ignoradas} linhas ignoradas).')
     for s in SEGMENTOS:
         n = sum(1 for c in estoque if c['segmento'] == s)
         if n:
-            print(f'  {s}: {n} cartas' + (' (rodízio diário de 8 em 8)' if n > 8 else ''))
+            cr = [c['credito'] for c in estoque if c['segmento'] == s]
+            brl = lambda v: f'R$ {v:,.0f}'.replace(',', '.')
+            print(f'  {s}: {n} cartas, crédito de {brl(min(cr))} a {brl(max(cr))}')
     print('Agora rode:  python3 tools/gerar-html-completo.py')
 
 
