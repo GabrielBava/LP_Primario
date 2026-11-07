@@ -111,13 +111,13 @@ O `dist/lp-completa.html` (consórcios) e o `dist/lp-planejamento.html` (planeja
 
 - **Precisa de internet:** só as fontes Poppins e Manrope, que vêm do Google Fonts.
 - **Atualização:** sempre que uma das páginas mudar, rode `python3 tools/gerar-html-completo.py` para gerar os dois arquivos de novo.
-- **Vídeo da LP de planejamento:** é embutido no arquivo único quando tem até 8 MB. Acima disso, publique `assets/video/familia.mp4` junto com o arquivo.
+- **Vídeo da LP de planejamento:** é embutido no arquivo único (o atual tem ~0,9 MB). Um vídeo novo acima de 8 MB não é embutido: publique `assets/video/familia.mp4` junto com o arquivo. Para reduzir um vídeo: `ffmpeg -i original.mp4 -an -vf "scale=1280:-2" -c:v libx264 -crf 30 -preset slow -movflags +faststart familia.mp4`.
 
 ## Estrutura da página
 
 | # | Seção | Conteúdo |
 |---|-------|----------|
-| 0 | **Cabeçalho** | Menu (Quem Somos, Como Funciona, Soluções, Benefícios, Ecossistema), WhatsApp comercial, botão "Simular agora" e o ícone de modo claro/escuro. O "Simular agora" é claro no modo escuro e escuro no modo claro. **Ecossistema:** ao passar o mouse (ou tocar), abre um painel com o logo da Vero Planejamento, na versão do modo atual; o clique abre a LP de planejamento em nova guia e dispara o evento `ecossistema_clique`. No celular, o logo aparece direto no menu. O link fica em `href="planejamento/index.html"`: quando a LP tiver domínio próprio, troque pelo endereço final. |
+| 0 | **Cabeçalho** | Menu (Quem Somos, Como Funciona, Soluções, Benefícios, Ecossistema), WhatsApp comercial, botão "Simular agora" e o ícone de modo claro/escuro. O "Simular agora" é claro no modo escuro e escuro no modo claro. **Ecossistema:** ao passar o mouse (ou tocar), abre um painel compacto com "Conheça também" e o logo da Vero Planejamento, na versão do modo atual; o clique abre a LP de planejamento em nova guia e dispara o evento `ecossistema_clique`. No celular, o logo aparece direto no menu. O link fica em `href="planejamento/index.html"`: quando a LP tiver domínio próprio, troque pelo endereço final. |
 | 1 | **Banner + Simulador** | Frase de impacto: "Conquiste seu patrimônio com estratégia e sem pagar juros." Acima, o slogan "ESTRATÉGIAS PARA CONSTRUIR PATRIMÔNIO" em caixa alta (também no título da página). Simulador no lado direito, em 2 etapas, com o cartão ajustando a altura a cada etapa. **Etapa 1:** para que é o crédito (Imóvel / Veículo / Investimento), simular pelo valor do crédito (R$ 0 a R$ 4 mi) ou da parcela (R$ 300 a R$ 20.000), com slider e valores sugeridos. Não mostra estimativa. **Etapa 2:** exclusiva para os dados do lead (nome, e-mail, celular, preferência de contato e melhor horário), com aceite da Política de Privacidade e das notificações. **Retorno:** apenas uma mensagem de que um especialista vai entrar em contato pelo canal e no período escolhidos. Nenhum valor aparece na tela; o CRM recebe a escolha do cliente e a estimativa. Os indicadores (R$ 20 mi+, 83 clientes, 5 anos) saíram do banner para não repetir o Quem Somos. |
 | 2 | **Quem somos** | Texto institucional, foto do escritório da Vero em Porto Alegre (`assets/img/escritorio.webp`) e indicadores: R$ 20 mi+, 83 clientes, 5 anos e Regulamentação, com os logos do BACEN e da ABAC. |
 | 3 | **Como funciona** | Metodologia em 4 passos: mapear o objetivo, estruturar o crédito, estratégia e acompanhamento. Abaixo, o botão "Montar meu plano" com a frase "Simulação gratuita e sem compromisso." logo embaixo. |
@@ -244,24 +244,29 @@ planejamento/index.html                         página
 planejamento/assets/img/logo/                   logotipo (positivo e negativo) e favicon
 planejamento/assets/img/dashplan.webp           tela do Dashplan (com o logotipo corrigido)
 planejamento/assets/img/planejadores/           fotos dos planejadores
-planejamento/assets/video/familia.mp4           vídeo de fundo do topo (enviar)
+planejamento/assets/video/familia.mp4           vídeo de fundo do topo (1280 px, sem áudio, ~0,9 MB)
+planejamento/assets/video/familia-poster.webp   quadro de capa, mostrado enquanto o vídeo carrega
 ```
 
 | # | Seção | Conteúdo |
 |---|-------|----------|
-| 0 | **Cabeçalho** | Benefícios, Como Começar, Jornada, Soluções, Planejadores, WhatsApp, botão "Solicitar atendimento" (abre o pop-up) e ícone de modo claro/escuro. |
-| 1 | **Topo** | Vídeo de fundo com desfoque, escurecimento e opacidade (`.hero-video`), frase de efeito à esquerda e formulário em 2 etapas à direita. |
-| 2 | **Benefícios do Planejamento** | Seis cartões com o título e o principal benefício: Organização da Vida Financeira e Patrimonial, Proteção e Sucessão Familiar, Otimização de Investimentos, Concretização de Objetivos e Desejos, Expansão Patrimonial e Eficiência Fiscal e Tributária. Entram em cascata, com um brilho que segue o cursor. |
+| 0 | **Cabeçalho** | Benefícios, Como Começar, Jornada, Soluções, Planejadores, WhatsApp, botão "Solicitar Atendimento" (abre o pop-up) e ícone de modo claro/escuro. |
+| 1 | **Topo** | Vídeo da família do lado esquerdo, atrás do texto, com leve desfoque e uma máscara de opacidade azul-noite que some em direção ao formulário (`.hero-video`). Frase de efeito à esquerda e formulário em 2 etapas à direita. No celular, o vídeo fica atrás do texto e some antes do formulário. |
+| 2 | **Benefícios do Planejamento** | Seis cartões com o título e o "Benefício com Planejamento": Organização da Vida Financeira e Patrimonial, Proteção e Sucessão Familiar, Otimização de Investimentos, Concretização de Objetivos e Desejos, Expansão Patrimonial e Eficiência Fiscal e Tributária. Entram em cascata, com um brilho que segue o cursor. |
 | 3 | **Passo a passo** | Esteira com trilha clicável (1 a 5) e setas: Agendamento, Reunião de Diagnóstico, Plano de Planejamento Financeiro, Reunião de Consultoria e Acompanhamento. Avança sozinha até o visitante interagir; no celular, dá para deslizar. |
-| 4 | **Jornada** | As cinco etapas do processo (Mapear e Organizar, Proteger, Expansão de Patrimônio, Investimento e Conscientização), com a mesma trilha animada da metodologia da LP de consórcios. |
-| 5 | **Ferramentas e Soluções** | Tela do Dashplan em um notebook (dois terços do bloco) e, ao lado, as seis soluções: Planejamento Financeiro 360º, Revisão Tributária e Fiscal, Aposentadoria, Expansão de Patrimônio, Planejamento Sucessório e Sucessão Familiar e Patrimonial. |
-| 6 | **Planejadores da Vero** | Cartão com foto, nome em destaque e cargo (Gabriel Bavaresco, Planejador Financeiro). A foto fica em tons de cinza e ganha cor ao passar o mouse. Para incluir outro planejador, copie o `<article class="person">`. |
+| 4 | **Jornada** | As cinco etapas do processo (Mapear e Organizar, Proteger, Expansão de Patrimônio, Investimento e Conscientização), com a mesma trilha animada da metodologia da LP de consórcios. Expansão de Patrimônio tem só a etiqueta "Alavancagem Patrimonial", e Conscientização usa um ícone de educação com passagem de bastão. |
+| 5 | **Ferramentas e Soluções** | Tela do Dashplan em um notebook (dois terços do bloco) e, ao lado, as seis soluções: Planejamento Financeiro 360º, Revisão Tributária e Fiscal, Aposentadoria, Expansão de Patrimônio, Planejamento Sucessório e Sucessão Familiar e Patrimonial. O botão "Solicitar Atendimento" fica centralizado no fim do bloco. |
+| 6 | **Planejadores da Vero** | Cartão com foto, nome em destaque e, logo abaixo, o cargo (Gabriel Bavaresco, Planejador Financeiro). A foto fica em tons de cinza e ganha cor ao passar o mouse. Para incluir outro planejador, copie o `<article class="person">`. |
 | 7 | **Dúvidas** | FAQ em abas: Planejamento, Como Funciona e Segurança e Privacidade. |
 | 8 | **Depoimentos** | Três depoimentos **de exemplo** no formato da LP de consórcios (ver Observações). |
-| 9 | **Encerramento** | Painel final com "Solicitar atendimento" e "Falar com um planejador" (WhatsApp), e o rodapé. |
+| 9 | **Encerramento** | Painel final com "Solicitar Atendimento" e "Falar com um planejador" (WhatsApp), e o rodapé. |
 
-**Formulário em 2 etapas (topo e pop-up).** O mesmo formulário aparece no topo e no pop-up "Solicitar atendimento", aberto pelos botões do cabeçalho, do passo a passo, da jornada, das soluções, dos planejadores, das dúvidas, do encerramento, do rodapé e da barra fixa do celular.
-- **Etapa 1 (objetivo):** principal objetivo (Sair das dívidas, Controlar gastos, Casa própria, Fazer uma viagem, Começar a investir), prazo (menos de 6 meses, 1 a 3 anos, mais de 3 anos), renda familiar mensal (até R$ 7 mil, R$ 7 a 10 mil, R$ 10 a 15 mil, acima de R$ 15 mil) e se consegue guardar (Sim, invisto o que sobra · Consigo, mas gasto depois · Não consigo guardar).
+**Formulário em 2 etapas (topo e pop-up).** O mesmo formulário aparece no topo e no pop-up "Solicitar Atendimento", aberto pelos botões do cabeçalho, do passo a passo, da jornada, das soluções, dos planejadores, das dúvidas, do encerramento, do rodapé e da barra fixa do celular.
+- **Etapa 1 (objetivo):** escolhas de um toque, em linhas curtas.
+  - Objetivo, com 6 ícones: Sair das dívidas, Controle de gastos, Proteção familiar, Adquirir um imóvel, Fazer uma viagem e Começar a investir.
+  - Prazo: Até 6 meses · 1 a 3 anos · Mais de 3 anos.
+  - Renda familiar mensal: Até R$ 7 mil · R$ 7 a 10 mil · R$ 10 a 15 mil · + R$ 15 mil.
+  - Consegue guardar ou investir todo mês: Sim · Não.
 - **Etapa 2 (dados):** os mesmos campos da LP de consórcios: nome, e-mail, celular, preferência de contato, melhor horário e os dois aceites.
 
 **Envio para o CRM.** POST JSON para `CONFIG.leadEndpoint` (no fim do `planejamento/index.html`), com `tipo` "planejamento_financeiro", `nome`, `email`, `celular`, `preferencia_contato`, `melhor_horario`, `objetivo`, `prazo`, `renda_familiar`, `consegue_guardar`, aceites, `origem` (ex.: "LP Planejamento · topo" ou "LP Planejamento · popup_jornada"), `pagina`, `data` e `utm`.
@@ -269,7 +274,7 @@ planejamento/assets/video/familia.mp4           vídeo de fundo do topo (enviar)
 **Eventos (dataLayer).** `planejamento_iniciado`, `planejamento_etapa1`, `lead_planejamento` (conversão), `atendimento_popup_aberto` (com o botão de origem), `whatsapp_clique` e `tema_alterado`.
 
 **O que falta na LP de planejamento**
-- [ ] Vídeo de fundo: salvar em `planejamento/assets/video/familia.mp4` (instruções na mesma pasta). Sem ele, o topo mostra o fundo azul da marca.
+- [x] Vídeo de fundo da família
 - [ ] E-mail de contato (`contato@veroplanejamento.com.br` está provisório) e redes sociais
 - [ ] Endereço do CRM (`CONFIG.leadEndpoint`)
 - [ ] Domínio da LP, para atualizar o link do menu Ecossistema na LP de consórcios

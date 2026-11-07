@@ -198,13 +198,12 @@ html[data-theme="light"] .logo-pos{display:block}
 .menu-eco:hover .menu-eco-btn .ic,.menu-eco:focus-within .menu-eco-btn .ic,.menu-eco.open .menu-eco-btn .ic{transform:rotate(180deg)}
 .eco-panel{position:absolute;top:100%;left:50%;padding-top:14px;transform:translate(-50%,8px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .22s,transform .22s,visibility .22s;z-index:5}
 .menu-eco:hover .eco-panel,.menu-eco:focus-within .eco-panel,.menu-eco.open .eco-panel{opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,0)}
-.eco-card{display:flex;flex-direction:column;align-items:flex-start;gap:12px;width:260px;padding:18px 20px 16px;border-radius:var(--radius-lg);background:var(--card-grad);border:1px solid var(--border);box-shadow:var(--shadow-float);transition:border-color .2s,transform .2s}
+.eco-card{display:flex;flex-direction:column;align-items:flex-start;gap:12px;width:210px;padding:16px 18px 18px;border-radius:var(--radius-lg);background:var(--card-grad);border:1px solid var(--border);box-shadow:var(--shadow-float);transition:border-color .2s,transform .2s}
 .eco-card:hover{border-color:rgba(169,184,203,.45);transform:translateY(-2px)}
-.eco-k{font-size:var(--fs-xs);font-weight:500;color:var(--text-muted)}
-.eco-logo{height:52px;width:auto}
-.eco-txt{display:inline-flex;align-items:center;gap:6px;font-size:var(--fs-sm);font-weight:500;color:var(--text)}
-.eco-txt .ic{width:15px;height:15px;transition:transform .2s}
-.eco-card:hover .eco-txt .ic{transform:translate(2px,-2px)}
+.eco-k{display:flex;align-items:center;justify-content:space-between;align-self:stretch;font-size:var(--fs-xs);font-weight:500;color:var(--text-muted)}
+.eco-k .ic{width:14px;height:14px;transition:transform .2s,color .2s}
+.eco-card:hover .eco-k .ic{transform:translate(2px,-2px);color:var(--text)}
+.eco-logo{height:40px;width:auto}
 .hamb{display:none;margin-left:auto;width:44px;height:44px;border-radius:var(--radius-pill);border:1px solid var(--glass-btn-border);background:var(--pill-bg);color:var(--text);cursor:pointer;align-items:center;justify-content:center}
 .hamb .ic{width:20px;height:20px}
 /* WhatsApp comercial ao lado do botão "Simular agora" */
@@ -746,7 +745,7 @@ html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
   .menu-eco:hover .eco-panel,.menu-eco:focus-within .eco-panel,.menu-eco.open .eco-panel{transform:none}
   .menu a.eco-card{width:100%;flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:space-between;box-shadow:none;padding:14px 16px;border:1px solid var(--border)}
   .eco-k{display:none}
-  .eco-logo{height:44px}
+  .eco-logo{height:36px}
 }
 @media (max-width:1080px){
   .sols,.opts,.steps,.kpis{grid-template-columns:repeat(2,1fr)}
@@ -910,10 +909,9 @@ html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
       <div class="menu-eco">
         <button type="button" class="menu-eco-btn" aria-expanded="false" aria-controls="ecoPanel">Ecossistema <svg class="ic" aria-hidden="true"><use href="#i-chev"/></svg></button>
         <div class="eco-panel" id="ecoPanel">
-          <a class="eco-card" href="planejamento/index.html" target="_blank" rel="noopener" data-eco-link aria-label="Vero Planejamento: planejamento financeiro (abre em nova guia)">
-            <span class="eco-k">Conheça também</span>
-            <img class="eco-logo logo-neg" src="assets/img/logo/vero-planejamento-negativo.webp" alt="Vero Planejamento" width="182" height="56" decoding="async"><img class="eco-logo logo-pos" src="assets/img/logo/vero-planejamento.webp" alt="Vero Planejamento" width="182" height="56" decoding="async">
-            <span class="eco-txt">Planejamento financeiro completo <svg class="ic" aria-hidden="true"><use href="#i-ext"/></svg></span>
+          <a class="eco-card" href="planejamento/index.html" target="_blank" rel="noopener" data-eco-link aria-label="Conheça também a Vero Planejamento (abre em nova guia)">
+            <span class="eco-k">Conheça também <svg class="ic" aria-hidden="true"><use href="#i-ext"/></svg></span>
+            <img class="eco-logo logo-neg" src="assets/img/logo/vero-planejamento-negativo.webp" alt="Vero Planejamento" width="130" height="40" decoding="async"><img class="eco-logo logo-pos" src="assets/img/logo/vero-planejamento.webp" alt="Vero Planejamento" width="130" height="40" decoding="async">
           </a>
         </div>
       </div>

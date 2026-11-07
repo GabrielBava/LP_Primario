@@ -38,7 +38,7 @@ def gerar(origem, destino, trocas=()):
         dados = base64.b64encode(caminho.read_bytes()).decode('ascii')
         return f'{m.group(1)}="data:{TIPOS[caminho.suffix]};base64,{dados}"'
 
-    html, n = re.subn(r'(src|href)="(assets/(?:img|video)/(?:[a-z0-9-]+/)?[a-z0-9-]+\.(?:png|webp|jpg|mp4))"', embutir, html)
+    html, n = re.subn(r'(src|href|poster)="(assets/(?:img|video)/(?:[a-z0-9-]+/)?[a-z0-9-]+\.(?:png|webp|jpg|mp4))"', embutir, html)
     # a fonte Famels só é usada se estiver instalada no computador
     html = html.replace(',url("assets/fonts/Famels-Regular.woff2") format("woff2")', '')
     html = html.replace(',url("assets/fonts/Famels-Italic.woff2") format("woff2")', '')

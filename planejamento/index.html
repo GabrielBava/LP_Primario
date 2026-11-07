@@ -190,20 +190,6 @@ html[data-theme="light"] .logo-pos{display:block}
 .menu a:not(.btn){font-size:var(--fs-sm);font-weight:400;color:var(--text-muted);transition:color .2s;white-space:nowrap}
 .menu a:not(.btn):hover{color:var(--text)}
 /* Menu "Ecossistema": painel com o logo da Vero Planejamento (abre em nova guia) */
-.menu-eco{position:relative}
-.menu-eco-btn{display:inline-flex;align-items:center;gap:5px;border:0;background:none;padding:8px 0;cursor:pointer;font-size:var(--fs-sm);font-weight:400;color:var(--text-muted);transition:color .2s;white-space:nowrap}
-.menu-eco-btn .ic{width:14px;height:14px;transition:transform .25s}
-.menu-eco:hover .menu-eco-btn,.menu-eco:focus-within .menu-eco-btn,.menu-eco.open .menu-eco-btn{color:var(--text)}
-.menu-eco:hover .menu-eco-btn .ic,.menu-eco:focus-within .menu-eco-btn .ic,.menu-eco.open .menu-eco-btn .ic{transform:rotate(180deg)}
-.eco-panel{position:absolute;top:100%;left:50%;padding-top:14px;transform:translate(-50%,8px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .22s,transform .22s,visibility .22s;z-index:5}
-.menu-eco:hover .eco-panel,.menu-eco:focus-within .eco-panel,.menu-eco.open .eco-panel{opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,0)}
-.eco-card{display:flex;flex-direction:column;align-items:flex-start;gap:12px;width:260px;padding:18px 20px 16px;border-radius:var(--radius-lg);background:var(--card-grad);border:1px solid var(--border);box-shadow:var(--shadow-float);transition:border-color .2s,transform .2s}
-.eco-card:hover{border-color:rgba(169,184,203,.45);transform:translateY(-2px)}
-.eco-k{font-size:var(--fs-xs);font-weight:500;color:var(--text-muted)}
-.eco-logo{height:52px;width:auto}
-.eco-txt{display:inline-flex;align-items:center;gap:6px;font-size:var(--fs-sm);font-weight:500;color:var(--text)}
-.eco-txt .ic{width:15px;height:15px;transition:transform .2s}
-.eco-card:hover .eco-txt .ic{transform:translate(2px,-2px)}
 .hamb{display:none;margin-left:auto;width:44px;height:44px;border-radius:var(--radius-pill);border:1px solid var(--glass-btn-border);background:var(--pill-bg);color:var(--text);cursor:pointer;align-items:center;justify-content:center}
 .hamb .ic{width:20px;height:20px}
 /* WhatsApp ao lado do botão "Solicitar atendimento" */
@@ -517,14 +503,6 @@ html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
   .hamb{margin-left:0}
   .menu a:not(.btn){padding:14px 4px;border-bottom:1px solid var(--border-soft);font-size:.95rem}
   .menu .btn{margin-top:14px}
-  .menu-eco{border-bottom:1px solid var(--border-soft);padding:6px 4px 14px}
-  .menu-eco-btn{padding:8px 0;font-size:.95rem;pointer-events:none}
-  .menu-eco-btn .ic{display:none}
-  .eco-panel{position:static;padding-top:6px;transform:none;opacity:1;visibility:visible;pointer-events:auto}
-  .menu-eco:hover .eco-panel,.menu-eco:focus-within .eco-panel,.menu-eco.open .eco-panel{transform:none}
-  .menu a.eco-card{width:100%;flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:space-between;box-shadow:none;padding:14px 16px;border:1px solid var(--border)}
-  .eco-k{display:none}
-  .eco-logo{height:44px}
 }
 @media (max-width:1080px){
 .steps{grid-template-columns:repeat(2,1fr)}
@@ -588,12 +566,16 @@ html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
    ============================================================ */
 
 /* ---------- 1 · Topo com vídeo de fundo ---------- */
+/* vídeo do lado esquerdo, atrás do texto, sumindo em direção ao formulário */
 .hero-video{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:#08121D}
-.hero-video video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.08);
-  filter:blur(4px) saturate(.8) brightness(.8);opacity:.5}
+.hero-video video{position:absolute;top:0;bottom:0;left:0;width:68%;height:100%;object-fit:cover;object-position:42% 40%;transform:scale(1.06);transform-origin:left center;
+  filter:blur(2.5px) saturate(.85) brightness(.85);opacity:.6;
+  -webkit-mask-image:linear-gradient(90deg,#000 0%,#000 48%,transparent 96%),linear-gradient(180deg,#000 70%,transparent 100%);-webkit-mask-composite:source-in;
+  mask-image:linear-gradient(90deg,#000 0%,#000 48%,transparent 96%),linear-gradient(180deg,#000 70%,transparent 100%);mask-composite:intersect}
 /* véu azul-noite: mais forte à direita (formulário) e no rodapé do banner */
+/* máscara de opacidade azul-noite: o vídeo fica de fundo, sem disputar com o texto */
 .hero-video::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(100deg,rgba(8,18,29,.86) 0%,rgba(8,18,29,.55) 38%,rgba(8,18,29,.78) 72%,rgba(8,18,29,.92) 100%),linear-gradient(180deg,transparent 60%,rgba(8,18,29,.9) 100%)}
+  background:linear-gradient(90deg,rgba(8,18,29,.62) 0%,rgba(8,18,29,.5) 40%,rgba(8,18,29,.72) 66%,rgba(8,18,29,.9) 100%),linear-gradient(180deg,rgba(8,18,29,.35) 0%,transparent 30%,transparent 65%,rgba(8,18,29,.9) 100%)}
 .hero-plan::before{z-index:1;opacity:.75}
 .hero-plan::after{display:none}
 .hero-plan>.wrap{z-index:2}
@@ -602,16 +584,19 @@ html[data-theme="light"] dialog::backdrop{background:rgba(13,27,42,.45)}
 .hero-plan .hero-extra{align-self:start}
 .hero-plan .sub{max-width:540px}
 .hero-plan{padding-bottom:calc(var(--sheet) + 72px)}
-/* objetivos do formulário: 3 + 2 cartões */
-.cat5{grid-template-columns:repeat(6,minmax(0,1fr))}
-.cat5 button{grid-column:span 2}
-.cat5 button:nth-child(n+4){grid-column:span 3}
+/* objetivos do formulário: 6 cartões compactos (3 x 2) */
+.cat6{grid-template-columns:repeat(3,minmax(0,1fr))}
+.cat6 button{padding:9px 4px 8px;gap:5px;font-size:.74rem;line-height:1.2}
+.cat6 button .ic{width:19px;height:19px}
 .sim-plan .sim-face{padding:24px 24px 20px}
 .sim-plan fieldset{margin-bottom:16px}
 .sim-plan .sim-label{margin-bottom:8px}
 .sim-plan .sim-desc{margin-bottom:16px}
 .pick{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.pick2{grid-template-columns:repeat(2,minmax(0,1fr))}
 .pick3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.pick4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.pick4 button{padding:9px 4px;font-size:.74rem}
 .pick button{border:1px solid var(--border);background:var(--pill-bg);color:var(--text-muted);font-size:var(--fs-sm);font-weight:400;padding:9px 8px;border-radius:var(--radius);cursor:pointer;transition:.2s;line-height:1.25;text-align:center}
 .pick button small{display:block;font-size:.66rem;font-weight:300;opacity:.85;margin-top:2px}
 .pick button:hover{color:var(--text);border-color:rgba(169,184,203,.35)}
@@ -720,7 +705,7 @@ fieldset.invalid .pick button,fieldset.invalid .cat button{border-color:var(--da
 .sol-list .gi{width:38px;height:38px}
 .sol-list .gi .ic{width:20px;height:20px}
 .sol-list b{display:block;font-family:var(--font-display);font-weight:600;font-size:.98rem;letter-spacing:-.005em}
-.sol-list span{display:block;font-size:var(--fs-xs);font-weight:300;line-height:1.5;color:var(--text-muted-card);margin-top:1px}
+.sol-list li div span{display:block;font-size:var(--fs-xs);font-weight:300;line-height:1.5;color:var(--text-muted-card);margin-top:1px}
 .tools-k{font-size:var(--fs-sm);font-weight:500;color:var(--icon-soft);margin-bottom:14px}
 
 /* ---------- 6 · Planejadores ---------- */
@@ -733,8 +718,7 @@ fieldset.invalid .pick button,fieldset.invalid .cat button{border-color:var(--da
 .person-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(8,18,29,.88) 100%)}
 .person-info{position:absolute;left:0;right:0;bottom:0;padding:22px 24px 22px;z-index:1;color:#E0E1DD}
 .person-info b{display:block;font-family:var(--font-display);font-weight:600;font-size:1.45rem;letter-spacing:-.015em;line-height:1.15}
-.person-info span{display:inline-flex;align-items:center;gap:8px;font-size:var(--fs-sm);font-weight:400;color:#A9B8CB;margin-top:6px}
-.person-info span::before{content:"";width:18px;height:1px;background:currentColor}
+.person-info span{display:block;font-size:var(--fs-sm);font-weight:400;color:#A9B8CB;margin-top:4px}
 .person::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:2;opacity:0;transition:opacity .4s;
   background:radial-gradient(260px circle at var(--mx,50%) var(--my,30%),rgba(224,225,221,.16),transparent 60%)}
 .person:hover::after{opacity:1}
@@ -742,8 +726,8 @@ fieldset.invalid .pick button,fieldset.invalid .cat button{border-color:var(--da
 
 /* ---------- Modo claro: topo com vídeo e componentes novos ---------- */
 html[data-theme="light"] .hero-video{background:#F7F8F6}
-html[data-theme="light"] .hero-video video{filter:blur(4px) saturate(.75);opacity:.45}
-html[data-theme="light"] .hero-video::after{background:linear-gradient(100deg,rgba(247,248,246,.9) 0%,rgba(247,248,246,.6) 38%,rgba(247,248,246,.8) 72%,rgba(247,248,246,.94) 100%),linear-gradient(180deg,transparent 60%,rgba(247,248,246,.92) 100%)}
+html[data-theme="light"] .hero-video video{filter:blur(2.5px) saturate(.8);opacity:.5}
+html[data-theme="light"] .hero-video::after{background:linear-gradient(90deg,rgba(247,248,246,.7) 0%,rgba(247,248,246,.55) 40%,rgba(247,248,246,.8) 66%,rgba(247,248,246,.94) 100%),linear-gradient(180deg,rgba(247,248,246,.4) 0%,transparent 30%,transparent 65%,rgba(247,248,246,.92) 100%)}
 html[data-theme="light"] .road-track{background:rgba(65,90,119,.15)}
 html[data-theme="light"] .road-node i{background:#FFFFFF;border-color:rgba(65,90,119,.25)}
 html[data-theme="light"] .road-node.on i{background:#E0E1DD;color:#0D1B2A;border-color:rgba(65,90,119,.4)}
@@ -770,7 +754,9 @@ html[data-theme="light"] .pop-k::before{background:#415A77;box-shadow:0 0 0 3px 
 }
 @media (max-width:980px){
   .hero-plan .hero-grid{grid-template-areas:"copy" "sim" "extra"}
-  .hero-video video{filter:blur(5px) saturate(.8) brightness(.75)}
+  /* no celular o vídeo ocupa a largura toda, atrás do texto, e some antes do formulário */
+  .hero-video video{width:100%;height:62%;object-position:50% 35%;filter:blur(3px) saturate(.8) brightness(.8);
+    -webkit-mask-image:linear-gradient(180deg,#000 55%,transparent 100%);mask-image:linear-gradient(180deg,#000 55%,transparent 100%)}
 }
 @media (max-width:640px){
   .bens{grid-template-columns:minmax(0,1fr)}
@@ -780,7 +766,8 @@ html[data-theme="light"] .pop-k::before{background:#415A77;box-shadow:0 0 0 3px 
   .road-rail{margin-bottom:18px}
   .road-node span{display:none}
   .road-card{flex-basis:86%;padding:24px 20px 22px}
-  .cat5 button{font-size:.72rem;padding:10px 4px 8px}
+  .cat6 button{font-size:.7rem;padding:9px 3px 8px}
+  .pick4{grid-template-columns:repeat(2,minmax(0,1fr))}
   .pick button{padding:9px 6px}
   .f2-pick{grid-template-columns:minmax(0,1fr)}
   .chip-a{left:-4px;top:auto;bottom:-14px}
@@ -801,6 +788,9 @@ html[data-theme="light"] .pop-k::before{background:#415A77;box-shadow:0 0 0 3px 
   .help-acts .btn{width:100%}
 }
 @media (max-width:640px){.float-chip{display:none}}
+@media (max-width:640px){
+  .pick button{font-size:.74rem;padding:9px 4px}
+}
 </style>
 </head>
 <body>
@@ -849,6 +839,7 @@ html[data-theme="light"] .pop-k::before{background:#415A77;box-shadow:0 0 0 3px 
   <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></symbol>
   <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M5 21V3l2 1.5L9 3l2 1.5L13 3l2 1.5L17 3l2 1.5V21l-2-1.5-2 1.5-2-1.5-2 1.5-2-1.5L7 21z"/><path d="M9 8h6M9 12h6M9 16h3"/></symbol>
   <symbol id="i-sunrise" viewBox="0 0 24 24"><path d="M12 2v6"/><path d="m4.9 10.1 1.4 1.4"/><path d="M2 18h2M20 18h2"/><path d="m19.1 10.1-1.4 1.4"/><path d="M22 22H2"/><path d="m8 6 4-4 4 4"/><path d="M16 18a4 4 0 0 0-8 0"/></symbol>
+  <symbol id="i-baton" viewBox="0 0 24 24"><path d="M12 3 2.5 7.5 12 12l9.5-4.5z"/><path d="M6.5 9.5v3.2c0 1.2 2.5 2.3 5.5 2.3s5.5-1.1 5.5-2.3V9.5"/><path d="M21.5 7.5V11"/><rect x="5.5" y="18.2" width="9" height="3.1" rx="1.55"/><path d="M2.5 19.75h1.5"/><path d="M17 19.75h4.5"/><path d="m19.5 17.75 2 2-2 2"/></symbol>
   <symbol id="i-tree" viewBox="0 0 24 24"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M18 9v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9"/><path d="M12 12v3"/></symbol>
 </svg>
 
@@ -870,7 +861,7 @@ html[data-theme="light"] .pop-k::before{background:#415A77;box-shadow:0 0 0 3px 
       <a href="#solucoes">Soluções</a>
       <a href="#planejadores">Planejadores</a>
       <a class="hdr-wa" href="#" data-wa="Olá! Encontrei o WhatsApp de vocês no site da Vero Planejamento e gostaria de mais informações." data-wa-origem="numero_topo" aria-label="WhatsApp (51) 98912-1113"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#i-wa"/></svg>(51) 98912-1113</a>
-      <button type="button" class="btn btn-primary btn-sm" data-atendimento="menu">Solicitar atendimento</button>
+      <button type="button" class="btn btn-primary btn-sm" data-atendimento="menu">Solicitar Atendimento</button>
     </nav>
     <button type="button" class="theme-tg" id="themeTg" aria-label="Ativar modo claro" title="Modo claro"><svg class="ic i-sun" aria-hidden="true"><use href="#i-sun"/></svg><svg class="ic i-moon" aria-hidden="true"><use href="#i-moon"/></svg></button>
   </div>
@@ -882,11 +873,11 @@ html[data-theme="light"] .pop-k::before{background:#415A77;box-shadow:0 0 0 3px 
      1 · TOPO: vídeo de fundo + frase de efeito + formulário em 2 etapas
      ============================================================ -->
 <section class="hero hero-plan theme-dark" aria-label="Comece seu planejamento financeiro">
-  <!-- VÍDEO DE FUNDO: coloque o arquivo em assets/video/familia.mp4 (de preferência 1280 a 1920 px de largura,
-       10 a 20 segundos, sem áudio, até ~4 MB). O escurecimento, o desfoque e a opacidade são aplicados pelo CSS
-       (.hero-video). Sem o arquivo, o topo mostra só o fundo azul da marca. -->
+  <!-- VÍDEO DE FUNDO (assets/video/familia.mp4, 1280 px, sem áudio): fica do lado esquerdo, atrás do texto,
+       com desfoque, escurecimento e uma máscara que some em direção ao formulário (CSS .hero-video).
+       Para trocar, substitua o arquivo mantendo o nome (e o quadro de capa familia-poster.webp). -->
   <div class="hero-video" aria-hidden="true">
-    <video autoplay muted loop playsinline preload="metadata" disablepictureinpicture>
+    <video autoplay muted loop playsinline preload="auto" poster="assets/video/familia-poster.webp" disablepictureinpicture>
       <source src="assets/video/familia.mp4" type="video/mp4">
     </video>
   </div>
@@ -915,19 +906,19 @@ html[data-theme="light"] .pop-k::before{background:#415A77;box-shadow:0 0 0 3px 
               <p class="sim-desc">Responda 4 perguntas rápidas sobre o seu momento.</p>
               <fieldset data-q="objetivo">
                 <legend class="sim-label">Qual é o seu principal objetivo financeiro hoje?</legend>
-                <div class="cat cat5" role="radiogroup" aria-label="Principal objetivo financeiro"><button type="button" role="radio" aria-checked="false" data-v="Sair das dívidas"><svg class="ic"><use href="#i-trend-down"/></svg>Sair das dívidas</button><button type="button" role="radio" aria-checked="false" data-v="Controlar gastos"><svg class="ic"><use href="#i-wallet"/></svg>Controlar gastos</button><button type="button" role="radio" aria-checked="false" data-v="Casa própria"><svg class="ic"><use href="#i-home"/></svg>Casa própria</button><button type="button" role="radio" aria-checked="false" data-v="Fazer uma viagem"><svg class="ic"><use href="#i-plane"/></svg>Fazer uma viagem</button><button type="button" role="radio" aria-checked="false" data-v="Começar a investir"><svg class="ic"><use href="#i-chart"/></svg>Começar a investir</button></div>
+                <div class="cat cat6" role="radiogroup" aria-label="Principal objetivo financeiro"><button type="button" role="radio" aria-checked="false" data-v="Sair das dívidas"><svg class="ic"><use href="#i-trend-down"/></svg>Sair das dívidas</button><button type="button" role="radio" aria-checked="false" data-v="Controle de gastos"><svg class="ic"><use href="#i-wallet"/></svg>Controle de gastos</button><button type="button" role="radio" aria-checked="false" data-v="Proteção familiar"><svg class="ic"><use href="#i-umbrella"/></svg>Proteção familiar</button><button type="button" role="radio" aria-checked="false" data-v="Adquirir um imóvel"><svg class="ic"><use href="#i-home"/></svg>Adquirir um imóvel</button><button type="button" role="radio" aria-checked="false" data-v="Fazer uma viagem"><svg class="ic"><use href="#i-plane"/></svg>Fazer uma viagem</button><button type="button" role="radio" aria-checked="false" data-v="Começar a investir"><svg class="ic"><use href="#i-chart"/></svg>Começar a investir</button></div>
               </fieldset>
               <fieldset data-q="prazo">
-                <legend class="sim-label">Em quanto tempo você quer alcançar esse objetivo?</legend>
-                <div class="pick pick3" role="radiogroup" aria-label="Prazo do objetivo"><button type="button" role="radio" aria-checked="false" data-v="O quanto antes (menos de 6 meses)">O quanto antes<small>menos de 6 meses</small></button><button type="button" role="radio" aria-checked="false" data-v="Médio prazo (1 a 3 anos)">Médio prazo<small>1 a 3 anos</small></button><button type="button" role="radio" aria-checked="false" data-v="Longo prazo (mais de 3 anos)">Longo prazo<small>mais de 3 anos</small></button></div>
+                <legend class="sim-label">Em quanto tempo quer alcançar esse objetivo?</legend>
+                <div class="pick pick3" role="radiogroup" aria-label="Prazo do objetivo"><button type="button" role="radio" aria-checked="false" data-v="Até 6 meses">Até 6 meses</button><button type="button" role="radio" aria-checked="false" data-v="1 a 3 anos">1 a 3 anos</button><button type="button" role="radio" aria-checked="false" data-v="Mais de 3 anos">Mais de 3 anos</button></div>
               </fieldset>
               <fieldset data-q="renda">
                 <legend class="sim-label">Qual é a sua renda familiar mensal média?</legend>
-                <div class="pick" role="radiogroup" aria-label="Renda familiar mensal"><button type="button" role="radio" aria-checked="false" data-v="Até R$ 7.000">Até R$ 7 mil</button><button type="button" role="radio" aria-checked="false" data-v="De R$ 7.000 a R$ 10.000">R$ 7 mil a R$ 10 mil</button><button type="button" role="radio" aria-checked="false" data-v="De R$ 10.000 a R$ 15.000">R$ 10 mil a R$ 15 mil</button><button type="button" role="radio" aria-checked="false" data-v="Acima de R$ 15.000">Acima de R$ 15 mil</button></div>
+                <div class="pick pick4" role="radiogroup" aria-label="Renda familiar mensal"><button type="button" role="radio" aria-checked="false" data-v="Até R$ 7.000">Até R$ 7 mil</button><button type="button" role="radio" aria-checked="false" data-v="De R$ 7.000 a R$ 10.000">R$ 7 a 10 mil</button><button type="button" role="radio" aria-checked="false" data-v="De R$ 10.000 a R$ 15.000">R$ 10 a 15 mil</button><button type="button" role="radio" aria-checked="false" data-v="Acima de R$ 15.000">+ R$ 15 mil</button></div>
               </fieldset>
               <fieldset data-q="guarda">
-                <legend class="sim-label">Hoje, você consegue guardar ou investir parte da renda todo mês?</legend>
-                <div class="pick pick3" role="radiogroup" aria-label="Consegue guardar ou investir"><button type="button" role="radio" aria-checked="false" data-v="Sim, invisto o que sobra">Sim<small>invisto o que sobra</small></button><button type="button" role="radio" aria-checked="false" data-v="Consigo, mas gasto depois">Consigo<small>mas gasto depois</small></button><button type="button" role="radio" aria-checked="false" data-v="Não consigo guardar">Não<small>não consigo guardar</small></button></div>
+                <legend class="sim-label">Hoje, você consegue guardar ou investir todo mês?</legend>
+                <div class="pick pick2" role="radiogroup" aria-label="Consegue guardar ou investir"><button type="button" role="radio" aria-checked="false" data-v="Sim">Sim</button><button type="button" role="radio" aria-checked="false" data-v="Não">Não</button></div>
               </fieldset>
               <p class="err" data-err1 role="alert"></p>
               <button type="button" class="btn btn-primary btn-block" data-next style="margin-top:6px">Continuar <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></button>
@@ -991,7 +982,7 @@ html[data-theme="light"] .pop-k::before{background:#415A77;box-shadow:0 0 0 3px 
                     <span>Concordo em receber contato sobre o meu diagnóstico financeiro por WhatsApp, e-mail, ligação e SMS.</span>
                   </label>
                   <p class="err" data-cbxerr role="alert"></p>
-                  <button type="submit" class="btn btn-primary btn-block" style="margin-top:10px">Solicitar atendimento <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></button>
+                  <button type="submit" class="btn btn-primary btn-block" style="margin-top:10px">Solicitar Atendimento <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></button>
                 </form>
                 <button type="button" class="backlink" data-backbtn>← Voltar e ajustar as respostas</button>
               </div>
@@ -1021,7 +1012,7 @@ html[data-theme="light"] .pop-k::before{background:#415A77;box-shadow:0 0 0 3px 
       <ul class="checks">
         <li><span class="gi"><svg class="ic"><use href="#i-check"/></svg></span>Diagnóstico completo da sua vida financeira</li>
         <li><span class="gi"><svg class="ic"><use href="#i-check"/></svg></span>Plano personalizado para cada objetivo</li>
-        <li><span class="gi"><svg class="ic"><use href="#i-check"/></svg></span>Acompanhamento contínuo com o Dashplan</li>
+        <li><span class="gi"><svg class="ic"><use href="#i-check"/></svg></span>Acompanhamento próximo em cada etapa</li>
       </ul>
       <a class="btn btn-glass" href="#como-comecar">Como funciona <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></a>
     </div>
@@ -1043,32 +1034,32 @@ html[data-theme="light"] .pop-k::before{background:#415A77;box-shadow:0 0 0 3px 
       <article class="ben card reveal" data-rv="zoom">
         <div class="ben-top"><span class="gi"><svg class="ic"><use href="#i-layers"/></svg></span><span class="ben-n">01</span></div>
         <h3>Organização da Vida Financeira e Patrimonial</h3>
-        <div class="ben-b"><span>Seu benefício</span><p>Clareza total sobre renda, gastos, dívidas e patrimônio, reunidos em uma visão única.</p></div>
+        <div class="ben-b"><span>Benefício com Planejamento</span><p>Clareza total sobre renda, gastos, dívidas e patrimônio, reunidos em uma visão única.</p></div>
       </article>
       <article class="ben card reveal" data-rv="zoom">
         <div class="ben-top"><span class="gi"><svg class="ic"><use href="#i-shield"/></svg></span><span class="ben-n">02</span></div>
         <h3>Proteção e Sucessão Familiar</h3>
-        <div class="ben-b"><span>Seu benefício</span><p>Sua família protegida contra imprevistos e o patrimônio transmitido com segurança e menos conflitos.</p></div>
+        <div class="ben-b"><span>Benefício com Planejamento</span><p>Sua família protegida contra imprevistos e o patrimônio transmitido com segurança e menos conflitos.</p></div>
       </article>
       <article class="ben card reveal" data-rv="zoom">
         <div class="ben-top"><span class="gi"><svg class="ic"><use href="#i-chart"/></svg></span><span class="ben-n">03</span></div>
         <h3>Otimização de Investimentos</h3>
-        <div class="ben-b"><span>Seu benefício</span><p>Uma carteira alinhada aos seus objetivos, prazos e perfil, sem produtos que não servem para você.</p></div>
+        <div class="ben-b"><span>Benefício com Planejamento</span><p>Uma carteira alinhada aos seus objetivos, prazos e perfil, sem produtos que não servem para você.</p></div>
       </article>
       <article class="ben card reveal" data-rv="zoom">
         <div class="ben-top"><span class="gi"><svg class="ic"><use href="#i-target"/></svg></span><span class="ben-n">04</span></div>
         <h3>Concretização de Objetivos e Desejos</h3>
-        <div class="ben-b"><span>Seu benefício</span><p>Cada objetivo com valor, prazo e estratégia definidos, da viagem dos sonhos à casa própria.</p></div>
+        <div class="ben-b"><span>Benefício com Planejamento</span><p>Cada objetivo com valor, prazo e estratégia definidos, da viagem dos sonhos à casa própria.</p></div>
       </article>
       <article class="ben card reveal" data-rv="zoom">
         <div class="ben-top"><span class="gi"><svg class="ic"><use href="#i-building"/></svg></span><span class="ben-n">05</span></div>
         <h3>Expansão Patrimonial</h3>
-        <div class="ben-b"><span>Seu benefício</span><p>Estratégias para multiplicar o patrimônio com disciplina e visão de longo prazo.</p></div>
+        <div class="ben-b"><span>Benefício com Planejamento</span><p>Estratégias para multiplicar o patrimônio com disciplina e visão de longo prazo.</p></div>
       </article>
       <article class="ben card reveal" data-rv="zoom">
         <div class="ben-top"><span class="gi"><svg class="ic"><use href="#i-receipt"/></svg></span><span class="ben-n">06</span></div>
         <h3>Eficiência Fiscal e Tributária</h3>
-        <div class="ben-b"><span>Seu benefício</span><p>Menos impostos pagos de forma legal, com uma estrutura fiscal pensada para o seu caso.</p></div>
+        <div class="ben-b"><span>Benefício com Planejamento</span><p>Menos impostos pagos de forma legal, com uma estrutura fiscal pensada para o seu caso.</p></div>
       </article>
     </div>
   </div>
@@ -1136,7 +1127,7 @@ html[data-theme="light"] .pop-k::before{background:#415A77;box-shadow:0 0 0 3px 
       </div>
     </div>
     <div class="sec-cta stack reveal">
-      <button type="button" class="btn btn-primary" data-atendimento="passo_a_passo">Solicitar atendimento <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></button>
+      <button type="button" class="btn btn-primary" data-atendimento="passo_a_passo">Solicitar Atendimento <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></button>
       <p>Responda 4 perguntas e um planejador entra em contato.</p>
     </div>
   </div>
@@ -1173,7 +1164,7 @@ html[data-theme="light"] .pop-k::before{background:#415A77;box-shadow:0 0 0 3px 
         <div class="step-h"><span class="step-n">03</span><span class="gi"><svg class="ic"><use href="#i-building"/></svg></span></div>
         <h3>Expansão de Patrimônio</h3>
         <p>Estratégias para fazer o patrimônio crescer, como imóveis, participações e crédito estruturado, sempre de acordo com o seu perfil.</p>
-        <ul><li class="tag">Imóveis</li><li class="tag">Longo prazo</li></ul>
+        <ul><li class="tag">Alavancagem Patrimonial</li></ul>
       </article>
       <article class="step card lift reveal">
         <div class="step-h"><span class="step-n">04</span><span class="gi"><svg class="ic"><use href="#i-chart"/></svg></span></div>
@@ -1182,14 +1173,14 @@ html[data-theme="light"] .pop-k::before{background:#415A77;box-shadow:0 0 0 3px 
         <ul><li class="tag">Carteira</li><li class="tag">Diversificação</li></ul>
       </article>
       <article class="step card lift reveal">
-        <div class="step-h"><span class="step-n">05</span><span class="gi"><svg class="ic"><use href="#i-sprout"/></svg></span></div>
+        <div class="step-h"><span class="step-n">05</span><span class="gi"><svg class="ic"><use href="#i-baton"/></svg></span></div>
         <h3>Conscientização</h3>
         <p>Educação financeira e hábitos que sustentam as boas decisões no longo prazo, para você e para a família.</p>
         <ul><li class="tag">Hábitos</li><li class="tag">Educação financeira</li></ul>
       </article>
     </div>
     <div class="sec-cta stack reveal">
-      <button type="button" class="btn btn-primary" data-atendimento="jornada">Solicitar atendimento <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></button>
+      <button type="button" class="btn btn-primary" data-atendimento="jornada">Solicitar Atendimento <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></button>
       <p>Na reunião de diagnóstico, você entende como cada etapa se aplica ao seu caso.</p>
     </div>
   </div>
@@ -1225,8 +1216,10 @@ html[data-theme="light"] .pop-k::before{background:#415A77;box-shadow:0 0 0 3px 
           <li><span class="gi"><svg class="ic"><use href="#i-doc"/></svg></span><div><b>Planejamento Sucessório</b><span>Testamento, previdência e seguros para reduzir custos e prazos de inventário.</span></div></li>
           <li><span class="gi"><svg class="ic"><use href="#i-tree"/></svg></span><div><b>Sucessão Familiar e Patrimonial</b><span>Holding e governança para proteger o patrimônio e a empresa da família.</span></div></li>
         </ul>
-        <button type="button" class="btn btn-glass" data-atendimento="solucoes" style="margin-top:22px">Solicitar atendimento <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></button>
       </div>
+    </div>
+    <div class="sec-cta reveal">
+      <button type="button" class="btn btn-primary" data-atendimento="solucoes">Solicitar Atendimento <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></button>
     </div>
   </div>
 </section>
@@ -1286,7 +1279,7 @@ html[data-theme="light"] .pop-k::before{background:#415A77;box-shadow:0 0 0 3px 
       </div>
       <div class="tabpanel" role="tabpanel" id="p-func" aria-labelledby="t-func" hidden>
         <details class="qa" open><summary>Como faço para começar?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
-          <div class="a"><p>Clique em <b>Solicitar atendimento</b>, responda as 4 perguntas rápidas e deixe seu contato. Um planejador fala com você para agendar a reunião de diagnóstico.</p></div></details>
+          <div class="a"><p>Clique em <b>Solicitar Atendimento</b>, responda as 4 perguntas rápidas e deixe seu contato. Um planejador fala com você para agendar a reunião de diagnóstico.</p></div></details>
         <details class="qa"><summary>Como é a reunião de diagnóstico?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
           <div class="a"><p>É uma conversa para entender o seu momento: renda, gastos, dívidas, patrimônio, proteção e objetivos. Pode ser online ou no nosso escritório, em Porto Alegre/RS.</p></div></details>
         <details class="qa"><summary>Quanto tempo leva para receber o plano?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
@@ -1311,7 +1304,7 @@ html[data-theme="light"] .pop-k::before{background:#415A77;box-shadow:0 0 0 3px 
         <div><b>Ainda tem dúvidas?</b><p>Fale com um planejador pelo WhatsApp ou solicite seu atendimento.</p></div>
         <div class="help-acts">
           <a class="btn btn-glass" href="#" data-wa="Olá! Vim pelo site da Vero Planejamento e tenho uma dúvida sobre planejamento financeiro." data-wa-origem="duvidas"><svg class="ic" style="fill:currentColor;stroke:none;width:18px;height:18px"><use href="#i-wa"/></svg>WhatsApp</a>
-          <button type="button" class="btn btn-primary" data-atendimento="duvidas">Solicitar atendimento</button>
+          <button type="button" class="btn btn-primary" data-atendimento="duvidas">Solicitar Atendimento</button>
         </div>
       </div>
     </div>
@@ -1372,7 +1365,7 @@ html[data-theme="light"] .pop-k::before{background:#415A77;box-shadow:0 0 0 3px 
         <p>Conte o seu objetivo e um planejador monta com você o caminho até ele.</p>
       </div>
       <div class="acts">
-        <button type="button" class="btn btn-primary" data-atendimento="cta_final">Solicitar atendimento <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></button>
+        <button type="button" class="btn btn-primary" data-atendimento="cta_final">Solicitar Atendimento <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></button>
         <a class="btn btn-glass" href="#" data-wa="Olá! Vim pelo site da Vero Planejamento e quero falar com um planejador financeiro." data-wa-origem="cta_final"><svg class="ic" style="fill:currentColor;stroke:none;width:18px;height:18px"><use href="#i-wa"/></svg>Falar com um planejador</a>
       </div>
     </div>
@@ -1410,7 +1403,7 @@ html[data-theme="light"] .pop-k::before{background:#415A77;box-shadow:0 0 0 3px 
           <li><a href="mailto:contato@veroplanejamento.com.br"><svg class="ic"><use href="#i-mail"/></svg>contato@veroplanejamento.com.br</a></li>
           <li><span><svg class="ic"><use href="#i-clock"/></svg>Seg. a sex., 8h às 18h</span></li>
           <li><span><svg class="ic"><use href="#i-pin"/></svg>Porto Alegre/RS</span></li>
-          <li><button type="button" data-atendimento="rodape"><svg class="ic"><use href="#i-calendar"/></svg>Solicitar atendimento</button></li>
+          <li><button type="button" data-atendimento="rodape"><svg class="ic"><use href="#i-calendar"/></svg>Solicitar Atendimento</button></li>
         </ul>
       </div>
     </div>
@@ -1430,10 +1423,10 @@ html[data-theme="light"] .pop-k::before{background:#415A77;box-shadow:0 0 0 3px 
 <!-- Barra fixa (mobile) -->
 <div class="mbar glass" id="mbar" aria-hidden="true">
   <p><b>Comece seu planejamento</b>Responda 4 perguntas rápidas</p>
-  <button type="button" class="btn btn-primary btn-sm" data-atendimento="barra_mobile" tabindex="-1">Solicitar atendimento</button>
+  <button type="button" class="btn btn-primary btn-sm" data-atendimento="barra_mobile" tabindex="-1">Solicitar Atendimento</button>
 </div>
 
-<!-- Pop-up "Solicitar atendimento": o mesmo formulário do topo -->
+<!-- Pop-up "Solicitar Atendimento": o mesmo formulário do topo -->
 <dialog id="atendimento" class="lead-pop" aria-label="Solicitar atendimento">
   <span class="pop-k">Vero Planejamento · Atendimento</span>
   <button type="button" class="pop-close" aria-label="Fechar"><svg class="ic"><use href="#i-x"/></svg></button>
@@ -1453,19 +1446,19 @@ html[data-theme="light"] .pop-k::before{background:#415A77;box-shadow:0 0 0 3px 
               <p class="sim-desc">Responda 4 perguntas rápidas e deixe seu contato.</p>
               <fieldset data-q="objetivo">
                 <legend class="sim-label">Qual é o seu principal objetivo financeiro hoje?</legend>
-                <div class="cat cat5" role="radiogroup" aria-label="Principal objetivo financeiro"><button type="button" role="radio" aria-checked="false" data-v="Sair das dívidas"><svg class="ic"><use href="#i-trend-down"/></svg>Sair das dívidas</button><button type="button" role="radio" aria-checked="false" data-v="Controlar gastos"><svg class="ic"><use href="#i-wallet"/></svg>Controlar gastos</button><button type="button" role="radio" aria-checked="false" data-v="Casa própria"><svg class="ic"><use href="#i-home"/></svg>Casa própria</button><button type="button" role="radio" aria-checked="false" data-v="Fazer uma viagem"><svg class="ic"><use href="#i-plane"/></svg>Fazer uma viagem</button><button type="button" role="radio" aria-checked="false" data-v="Começar a investir"><svg class="ic"><use href="#i-chart"/></svg>Começar a investir</button></div>
+                <div class="cat cat6" role="radiogroup" aria-label="Principal objetivo financeiro"><button type="button" role="radio" aria-checked="false" data-v="Sair das dívidas"><svg class="ic"><use href="#i-trend-down"/></svg>Sair das dívidas</button><button type="button" role="radio" aria-checked="false" data-v="Controle de gastos"><svg class="ic"><use href="#i-wallet"/></svg>Controle de gastos</button><button type="button" role="radio" aria-checked="false" data-v="Proteção familiar"><svg class="ic"><use href="#i-umbrella"/></svg>Proteção familiar</button><button type="button" role="radio" aria-checked="false" data-v="Adquirir um imóvel"><svg class="ic"><use href="#i-home"/></svg>Adquirir um imóvel</button><button type="button" role="radio" aria-checked="false" data-v="Fazer uma viagem"><svg class="ic"><use href="#i-plane"/></svg>Fazer uma viagem</button><button type="button" role="radio" aria-checked="false" data-v="Começar a investir"><svg class="ic"><use href="#i-chart"/></svg>Começar a investir</button></div>
               </fieldset>
               <fieldset data-q="prazo">
-                <legend class="sim-label">Em quanto tempo você quer alcançar esse objetivo?</legend>
-                <div class="pick pick3" role="radiogroup" aria-label="Prazo do objetivo"><button type="button" role="radio" aria-checked="false" data-v="O quanto antes (menos de 6 meses)">O quanto antes<small>menos de 6 meses</small></button><button type="button" role="radio" aria-checked="false" data-v="Médio prazo (1 a 3 anos)">Médio prazo<small>1 a 3 anos</small></button><button type="button" role="radio" aria-checked="false" data-v="Longo prazo (mais de 3 anos)">Longo prazo<small>mais de 3 anos</small></button></div>
+                <legend class="sim-label">Em quanto tempo quer alcançar esse objetivo?</legend>
+                <div class="pick pick3" role="radiogroup" aria-label="Prazo do objetivo"><button type="button" role="radio" aria-checked="false" data-v="Até 6 meses">Até 6 meses</button><button type="button" role="radio" aria-checked="false" data-v="1 a 3 anos">1 a 3 anos</button><button type="button" role="radio" aria-checked="false" data-v="Mais de 3 anos">Mais de 3 anos</button></div>
               </fieldset>
               <fieldset data-q="renda">
                 <legend class="sim-label">Qual é a sua renda familiar mensal média?</legend>
-                <div class="pick" role="radiogroup" aria-label="Renda familiar mensal"><button type="button" role="radio" aria-checked="false" data-v="Até R$ 7.000">Até R$ 7 mil</button><button type="button" role="radio" aria-checked="false" data-v="De R$ 7.000 a R$ 10.000">R$ 7 mil a R$ 10 mil</button><button type="button" role="radio" aria-checked="false" data-v="De R$ 10.000 a R$ 15.000">R$ 10 mil a R$ 15 mil</button><button type="button" role="radio" aria-checked="false" data-v="Acima de R$ 15.000">Acima de R$ 15 mil</button></div>
+                <div class="pick pick4" role="radiogroup" aria-label="Renda familiar mensal"><button type="button" role="radio" aria-checked="false" data-v="Até R$ 7.000">Até R$ 7 mil</button><button type="button" role="radio" aria-checked="false" data-v="De R$ 7.000 a R$ 10.000">R$ 7 a 10 mil</button><button type="button" role="radio" aria-checked="false" data-v="De R$ 10.000 a R$ 15.000">R$ 10 a 15 mil</button><button type="button" role="radio" aria-checked="false" data-v="Acima de R$ 15.000">+ R$ 15 mil</button></div>
               </fieldset>
               <fieldset data-q="guarda">
-                <legend class="sim-label">Hoje, você consegue guardar ou investir parte da renda todo mês?</legend>
-                <div class="pick pick3" role="radiogroup" aria-label="Consegue guardar ou investir"><button type="button" role="radio" aria-checked="false" data-v="Sim, invisto o que sobra">Sim<small>invisto o que sobra</small></button><button type="button" role="radio" aria-checked="false" data-v="Consigo, mas gasto depois">Consigo<small>mas gasto depois</small></button><button type="button" role="radio" aria-checked="false" data-v="Não consigo guardar">Não<small>não consigo guardar</small></button></div>
+                <legend class="sim-label">Hoje, você consegue guardar ou investir todo mês?</legend>
+                <div class="pick pick2" role="radiogroup" aria-label="Consegue guardar ou investir"><button type="button" role="radio" aria-checked="false" data-v="Sim">Sim</button><button type="button" role="radio" aria-checked="false" data-v="Não">Não</button></div>
               </fieldset>
               <p class="err" data-err1 role="alert"></p>
               <button type="button" class="btn btn-primary btn-block" data-next style="margin-top:6px">Continuar <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></button>
@@ -1529,7 +1522,7 @@ html[data-theme="light"] .pop-k::before{background:#415A77;box-shadow:0 0 0 3px 
                     <span>Concordo em receber contato sobre o meu diagnóstico financeiro por WhatsApp, e-mail, ligação e SMS.</span>
                   </label>
                   <p class="err" data-cbxerr role="alert"></p>
-                  <button type="submit" class="btn btn-primary btn-block" style="margin-top:10px">Solicitar atendimento <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></button>
+                  <button type="submit" class="btn btn-primary btn-block" style="margin-top:10px">Solicitar Atendimento <svg class="ic ic-arrow"><use href="#i-arrow"/></svg></button>
                 </form>
                 <button type="button" class="backlink" data-backbtn>← Voltar e ajustar as respostas</button>
               </div>
