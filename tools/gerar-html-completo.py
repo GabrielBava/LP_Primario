@@ -9,12 +9,19 @@ No arquivo único de consórcios, o menu Ecossistema passa a abrir dist/lp-plane
 O vídeo de fundo da LP de planejamento (planejamento/assets/video/familia.mp4) é embutido
 quando existe e tem até 8 MB; acima disso, publique o vídeo junto com o arquivo.
 
+Os arquivos da pasta dist/ saem minificados (HTML, CSS e JS compactados, sem comentários),
+o que dificulta ler e reaproveitar o código publicado. Para isso, instale uma vez:
+    cd tools && npm install
+Sem essa instalação, os arquivos são gerados normalmente, só que sem minificar.
+
 Uso:
     python3 tools/gerar-html-completo.py
 """
 import base64
 import pathlib
 import re
+import shutil
+import subprocess
 
 RAIZ = pathlib.Path(__file__).resolve().parent.parent
 TIPOS = {'.webp': 'image/webp', '.png': 'image/png', '.jpg': 'image/jpeg', '.mp4': 'video/mp4'}
@@ -52,6 +59,15 @@ def gerar(origem, destino, trocas=()):
         print('  aviso:', a)
 
 
+def minificar(*arquivos):
+    node = shutil.which('node')
+    if not node or not (RAIZ / 'tools' / 'node_modules' / 'html-minifier-terser').exists():
+        print('  aviso: minificação desativada (rode "cd tools && npm install" para ativar)')
+        return
+    subprocess.run([node, str(RAIZ / 'tools' / 'minificar.mjs'), *map(str, arquivos)], check=True)
+
+
 gerar(RAIZ / 'index.html', RAIZ / 'dist' / 'lp-completa.html',
       trocas=[('href="planejamento/index.html"', 'href="lp-planejamento.html"')])
 gerar(RAIZ / 'planejamento' / 'index.html', RAIZ / 'dist' / 'lp-planejamento.html')
+minificar(RAIZ / 'dist' / 'lp-completa.html', RAIZ / 'dist' / 'lp-planejamento.html')

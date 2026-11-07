@@ -1,0 +1,8 @@
+{
+  "name": "vero-lp-tools",
+  "private": true,
+  "description": "Ferramentas de build das LPs (minificação dos arquivos únicos da pasta dist/)",
+  "devDependencies": {
+    "html-minifier-terser": "^7.2.0"
+  }
+}

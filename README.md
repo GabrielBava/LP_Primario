@@ -19,7 +19,9 @@ assets/fonts/                 arquivos licenciados da Famels
 assets/img/                   logo, foto do escritório e fotos de clientes
 assets/img/adm/               logos das administradoras (Névoa, fundo transparente)
 tools/converter-logo.py       converte novos logos para o padrão da faixa
-tools/gerar-html-completo.py  gera os dois arquivos únicos da pasta dist/
+tools/gerar-html-completo.py  gera os dois arquivos únicos da pasta dist/ (minificados)
+tools/minificar.mjs           minificação usada pelo gerador (instale com: cd tools && npm install)
+tools/importar-contempladas.py importa a planilha de cartas contempladas do parceiro
 ```
 
 ## Identidade visual aplicada
@@ -111,22 +113,49 @@ O `dist/lp-completa.html` (consórcios) e o `dist/lp-planejamento.html` (planeja
 
 - **Precisa de internet:** só as fontes Poppins e Manrope, que vêm do Google Fonts.
 - **Atualização:** sempre que uma das páginas mudar, rode `python3 tools/gerar-html-completo.py` para gerar os dois arquivos de novo.
+- **Minificados:** os arquivos da pasta `dist/` saem compactados, sem comentários e com o JavaScript embaralhado, o que dificulta ler e reaproveitar o código publicado. Na primeira vez, instale o minificador com `cd tools && npm install` (precisa do Node.js). Sem ele, os arquivos saem normais, sem minificar. Publique sempre os arquivos da pasta `dist/`, e não o `index.html` de trabalho.
 - **Vídeo da LP de planejamento:** é embutido no arquivo único (o atual tem ~0,9 MB). Um vídeo novo acima de 8 MB não é embutido: publique `assets/video/familia.mp4` junto com o arquivo. Para reduzir um vídeo: `ffmpeg -i original.mp4 -an -vf "scale=1280:-2" -c:v libx264 -crf 30 -preset slow -movflags +faststart familia.mp4`.
 
 ## Estrutura da página
 
 | # | Seção | Conteúdo |
 |---|-------|----------|
-| 0 | **Cabeçalho** | Menu (Quem Somos, Como Funciona, Soluções, Benefícios, Ecossistema), WhatsApp comercial, botão "Simular agora" e o ícone de modo claro/escuro. O "Simular agora" é claro no modo escuro e escuro no modo claro. **Ecossistema:** ao passar o mouse (ou tocar), abre um painel compacto com "Conheça também" e o logo da Vero Planejamento, na versão do modo atual; o clique abre a LP de planejamento em nova guia e dispara o evento `ecossistema_clique`. No celular, o logo aparece direto no menu. O link fica em `href="planejamento/index.html"`: quando a LP tiver domínio próprio, troque pelo endereço final. |
+| 0 | **Cabeçalho** | Menu (Quem Somos, Como Funciona, Soluções, Contempladas, Ecossistema). "Contempladas" leva à tabela de cartas contempladas, na mesma página, WhatsApp comercial, botão "Simular agora" e o ícone de modo claro/escuro. O "Simular agora" é claro no modo escuro e escuro no modo claro. **Ecossistema:** ao passar o mouse (ou tocar), abre um painel compacto com "Conheça também" e o logo da Vero Planejamento, na versão do modo atual; o clique abre a LP de planejamento em nova guia e dispara o evento `ecossistema_clique`. No celular, o logo aparece direto no menu. O link fica em `href="planejamento/index.html"`: quando a LP tiver domínio próprio, troque pelo endereço final. |
 | 1 | **Banner + Simulador** | Frase de impacto: "Conquiste seu patrimônio com estratégia e sem pagar juros." Acima, o slogan "ESTRATÉGIAS PARA CONSTRUIR PATRIMÔNIO" em caixa alta (também no título da página). Simulador no lado direito, em 2 etapas, com o cartão ajustando a altura a cada etapa. **Etapa 1:** para que é o crédito (Imóvel / Veículo / Investimento), simular pelo valor do crédito (R$ 0 a R$ 4 mi) ou da parcela (R$ 300 a R$ 20.000), com slider e valores sugeridos. Não mostra estimativa. **Etapa 2:** exclusiva para os dados do lead (nome, e-mail, celular, preferência de contato e melhor horário), com aceite da Política de Privacidade e das notificações. **Retorno:** apenas uma mensagem de que um especialista vai entrar em contato pelo canal e no período escolhidos. Nenhum valor aparece na tela; o CRM recebe a escolha do cliente e a estimativa. Os indicadores (R$ 20 mi+, 83 clientes, 5 anos) saíram do banner para não repetir o Quem Somos. |
-| 2 | **Quem somos** | Texto institucional, foto do escritório da Vero em Porto Alegre (`assets/img/escritorio.webp`) e indicadores: R$ 20 mi+, 83 clientes, 5 anos e Regulamentação, com os logos do BACEN e da ABAC. |
+| 2 | **Quem somos** | Texto institucional, foto do escritório da Vero em Porto Alegre (`assets/img/escritorio.webp`) e indicadores: R$ 20 mi+, 83 clientes, 5 anos e Regulamentação, com os logos do BACEN e da ABAC. Logo abaixo, o painel de **Cartas Contempladas** (ver seção própria). |
 | 3 | **Como funciona** | Metodologia em 4 passos: mapear o objetivo, estruturar o crédito, estratégia e acompanhamento. Abaixo, o botão "Montar meu plano" com a frase "Simulação gratuita e sem compromisso." logo embaixo. |
 | 4 | **Nossas soluções** | Subtítulo: "Do primeiro imóvel à multiplicação do patrimônio: o consórcio certo usado como estratégia, para os objetivos que você procura." Cards: Aquisição, Alavancagem Patrimonial, Alavancagem Financeira e Investimento. A Alavancagem Financeira tem um destaque leve: borda mais firme, halo azul, faixa no topo, ícone em Azul-noite e o selo "Mais procurada". Os links dos cards usam iniciais maiúsculas ("Simular Aquisição", "Simular Alavancagem", "Simular Investimento"). Abaixo dos cards fica o **Mecanismo de Alavancagem Financeira** (ver seção própria). |
-| 5 | **Benefícios** | Quatro cards visuais, cada um com uma frase ou taxa de impacto e três pontos curtos. **Compra à vista:** "Liquidez zero", com custo de oportunidade, dinheiro no tempo e poder de compra e negociação. **Financiamento:** 12% a 17% de juros ao ano, com juros altos, entrada de 20% a 30% e custos invisíveis. **Home Equity:** 18% a 23% de juros ao ano, com patrimônio em risco, juros todo mês e custos de contratação. **Consórcio** (por último, com a borda iluminada como melhor opção): 1% a 2% de taxa ao ano, sem juros, com quatro benefícios (sem juros e sem entrada, preserva o capital, alavancagem financeira, planejado e estruturado). |
+| 5 | **Benefícios** | Continua na página (saiu só do menu, que agora mostra "Contempladas"). Quatro cards visuais, cada um com uma frase ou taxa de impacto e três pontos curtos. **Compra à vista:** "Liquidez zero", com custo de oportunidade, dinheiro no tempo e poder de compra e negociação. **Financiamento:** 12% a 17% de juros ao ano, com juros altos, entrada de 20% a 30% e custos invisíveis. **Home Equity:** 18% a 23% de juros ao ano, com patrimônio em risco, juros todo mês e custos de contratação. **Consórcio** (por último, com a borda iluminada como melhor opção): 1% a 2% de taxa ao ano, sem juros, com quatro benefícios (sem juros e sem entrada, preserva o capital, alavancagem financeira, planejado e estruturado). |
 | 6 | **Utilizações** | Aquisição, Construção, Reforma, Quitação de Financiamento, Capital de Giro e Imóveis de Leilão. |
 | 7 | **Depoimentos de clientes** | Três depoimentos **de exemplo**, de clientes do RS (imóvel), de SC (veículo) e de SP (investimento), com avatar de iniciais. Substitua por relatos reais e autorizados antes de publicar (ver Observações). |
 | 8 | **Tire suas dúvidas** | Abas centralizadas e expandidas (Consórcio / Contemplação / Documentação / Formas de Utilização), com as perguntas abrindo e fechando. A aba Consórcio explica o que é o consórcio com base na Lei 11.795/2008 e nos materiais da ABAC. No celular, as abas ficam em 2 × 2. Termina com uma chamada para o WhatsApp. |
 | 9 | **Rodapé** | Soluções, atendimento e redes sociais, com o logotipo maior, os logos do BACEN e da ABAC e o aviso legal. Atendimento: WhatsApp, contato@veroconsorciosbr.com.br, seg. a sex. das 8h às 18h, Porto Alegre/RS. Redes: Instagram, Facebook e LinkedIn. |
+
+## Cartas Contempladas
+
+Painel logo abaixo do Quem Somos (dentro do mesmo bloco, para manter a alternância de cores entre as seções).
+
+- **Segmento:** o visitante escolhe pelo ícone (Imóvel, Veículo ou Pesados). Só aparecem os segmentos que têm cartas no estoque.
+- **Tabela:** 8 cartas por segmento, com ADM, Crédito, Entrada, % Entrada (calculada), Parcela e Prazo. Sem filtros, busca ou ordenação. As cartas aparecem do menor para o maior crédito.
+- **Rodízio diário:** quando o segmento tem mais de 8 cartas, a seleção muda todo dia à meia-noite (horário de Brasília), avançando pelo estoque. A tabela mostra "Seleção do dia dd/mm".
+- **Tenho interesse:** abre o WhatsApp com a mensagem "Olá, vim por meio do seu site e estou interessado na carta contemplada com a configuração abaixo:", seguida do segmento, administradora, crédito, entrada (e %), parcela e prazo. Dispara o evento `contemplada_interesse`.
+- **No celular:** cada carta vira um cartão, com o botão em largura total.
+- **Aviso:** abaixo da tabela, "Cartas sujeitas à disponibilidade e à confirmação da administradora no momento da negociação".
+
+**Estoque.** Fica em `CONFIG.contempladas` (no fim do `index.html`), entre os marcadores `CONTEMPLADAS:INICIO` e `CONTEMPLADAS:FIM`. Hoje tem um **estoque de exemplo** (`exemplo: true`), que mostra a etiqueta "Dados de exemplo" na tabela. Para usar o estoque do parceiro:
+
+```
+python3 tools/importar-contempladas.py estoque.xlsx    # ou .csv (para .xlsx: pip install openpyxl)
+python3 tools/gerar-html-completo.py
+```
+
+A planilha precisa das colunas **Segmento, ADM, Crédito, Entrada, Parcela e Prazo** (aceita variações como "Administradora", "Valor do crédito", "Parcelas restantes"; valores com ou sem "R$"). O importador reescreve o estoque, desliga a etiqueta de exemplo e mostra quantas cartas entraram em cada segmento. Para atualizar o estoque, rode os dois comandos de novo com a planilha nova.
+
+## Proteção de conteúdo (as duas LPs)
+
+- **Na página:** sem botão direito, sem selecionar ou copiar textos, sem arrastar imagens e sem os atalhos de ver código, salvar, imprimir e abrir as ferramentas do desenvolvedor (Ctrl/Cmd+U, S, P, F12, Ctrl+Shift+I/J/C). Os campos dos formulários continuam funcionando, inclusive copiar e colar.
+- **No código publicado:** os arquivos da pasta `dist/` saem minificados, sem comentários e com o JavaScript embaralhado.
+- **Limite:** nenhum site consegue impedir 100% a cópia. Quem souber usar as ferramentas do navegador por outros caminhos ainda consegue ver o código. A proteção afasta a cópia casual e dificulta muito o reaproveitamento.
 
 ## Mecanismo de Alavancagem Financeira
 
@@ -217,12 +246,15 @@ Campos do **pop-up de alavancagem**:
 | `lead_alavancagem` | lead do pop-up de alavancagem enviado (conversão) |
 | `tema_alterado` | troca entre modo claro e escuro |
 | `whatsapp_clique` | clique em qualquer botão de WhatsApp, com a `origem` (ver tabela acima) |
+| `contempladas_segmento` | troca de segmento na tabela de cartas contempladas |
+| `contemplada_interesse` | clique em "Tenho interesse" (segmento, administradora e crédito) |
 
 Se `gtag` ou `fbq` estiverem na página, os dois leads também disparam `generate_lead` e `Lead`.
 
 ## O que falta preencher
 - [x] WhatsApp comercial: (51) 98912-1113 (cabeçalho, botão flutuante e rodapé)
 - [ ] Endereço do CRM (`CONFIG.leadEndpoint`)
+- [ ] Planilha de cartas contempladas do parceiro (substituir o estoque de exemplo com `tools/importar-contempladas.py`)
 - [x] Logos das 11 administradoras parceiras
 - [ ] Confirmar com cada administradora o uso do logo na versão monocromática
 - [x] Logotipo Vero Consórcios (versões para modo escuro e claro)
