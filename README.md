@@ -11,7 +11,7 @@ Landing page de captação de leads para consultoria de consórcio, seguindo o *
 
 ```
 index.html                    página (usa os arquivos de assets/)
-dist/lp-completa.html         HTML completo em arquivo único, com os logos embutidos
+dist/lp-consorcios.html       LP Vero Consórcios em arquivo único
 dist/lp-planejamento.html     LP Vero Planejamento em arquivo único
 planejamento/                 LP Vero Planejamento (index.html + assets/ próprios)
 assets/css/design-tokens.css  tokens oficiais da marca (referência)
@@ -109,7 +109,7 @@ Coloque os arquivos licenciados em `assets/fonts/Famels-Regular.woff2` e `assets
 
 ## HTML completo (arquivo único)
 
-O `dist/lp-completa.html` (consórcios) e o `dist/lp-planejamento.html` (planejamento) têm tudo dentro deles: CSS, JavaScript, ícones e imagens. No arquivo único de consórcios, o menu Ecossistema abre o `lp-planejamento.html`, então publique os dois na mesma pasta. Funciona sozinho, sem a pasta `assets/`, e serve para enviar, publicar em qualquer hospedagem ou colar em construtores de página que aceitam HTML.
+O `dist/lp-consorcios.html` (consórcios) e o `dist/lp-planejamento.html` (planejamento) têm tudo dentro deles: CSS, JavaScript, ícones e imagens. No arquivo único de consórcios, o menu Ecossistema abre o `lp-planejamento.html`, então publique os dois na mesma pasta. Funciona sozinho, sem a pasta `assets/`, e serve para enviar, publicar em qualquer hospedagem ou colar em construtores de página que aceitam HTML.
 
 - **Precisa de internet:** só as fontes Poppins e Manrope, que vêm do Google Fonts.
 - **Atualização:** sempre que uma das páginas mudar, rode `python3 tools/gerar-html-completo.py` para gerar os dois arquivos de novo.

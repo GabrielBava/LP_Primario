@@ -1,5 +1,5 @@
 // Minifica os arquivos únicos da pasta dist/ (HTML, CSS e JS), para o código publicado
-// ficar compacto e difícil de ler. Uso: node tools/minificar.mjs dist/lp-completa.html [...]
+// ficar compacto e difícil de ler. Uso: node tools/minificar.mjs dist/lp-consorcios.html [...]
 // Requer: cd tools && npm install
 import { minify } from 'html-minifier-terser';
 import { readFileSync, writeFileSync } from 'node:fs';

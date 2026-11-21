@@ -2,7 +2,7 @@
 Gera as LPs em arquivo único, com as imagens embutidas no próprio arquivo. Útil para enviar,
 publicar ou abrir as páginas sem a pasta assets/.
 
-  index.html               -> dist/lp-completa.html     (Vero Consórcios)
+  index.html               -> dist/lp-consorcios.html   (Vero Consórcios)
   planejamento/index.html  -> dist/lp-planejamento.html (Vero Planejamento)
 
 No arquivo único de consórcios, o menu Ecossistema passa a abrir dist/lp-planejamento.html.
@@ -67,7 +67,7 @@ def minificar(*arquivos):
     subprocess.run([node, str(RAIZ / 'tools' / 'minificar.mjs'), *map(str, arquivos)], check=True)
 
 
-gerar(RAIZ / 'index.html', RAIZ / 'dist' / 'lp-completa.html',
+gerar(RAIZ / 'index.html', RAIZ / 'dist' / 'lp-consorcios.html',
       trocas=[('href="planejamento/index.html"', 'href="lp-planejamento.html"')])
 gerar(RAIZ / 'planejamento' / 'index.html', RAIZ / 'dist' / 'lp-planejamento.html')
-minificar(RAIZ / 'dist' / 'lp-completa.html', RAIZ / 'dist' / 'lp-planejamento.html')
+minificar(RAIZ / 'dist' / 'lp-consorcios.html', RAIZ / 'dist' / 'lp-planejamento.html')
